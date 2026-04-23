@@ -1,47 +1,37 @@
-# Example Template
+# DB-Schema-Standard
 
-The introduction summarizes the purpose and function of the project, and should be concise (a brief paragraph or two). This introduction may be the same as the first paragraph on the project page.
+Dieses Repository definiert die **einheitliche Verzeichnisstruktur**
+für Oracle-Datenbankobjekte in allen Kundenprojekten.
 
-For a full description of the module, visit the
-[project page](https://www.oracle.com).
+## Hintergrund
+Bisher werden SQL-Dateien flach in `db-src/` abgelegt.
+Dieses Modell ersetzt diese Struktur durch eine typenbasierte
+Hierarchie, generiert und gepflegt via SQLCL `project export`.
 
-Submit bug reports and feature suggestions, or track changes in the
-[issue queue](https://www.oracle.com).
+Damit das volle Potenzial der CI/CD-Fähigkeiten von SQLCL ausgeschöpft werden kann, sind einige grundlegende Struktur-Änderungen nötig:
 
+* kundenspezifische Entwicklungsdatenbanken mit einheitlicher Struktur:
+** einheitliche Schemanamen für das Produkt (z.B. ISIPlus)
+** optional: einheitliche Schemanamen für Module des Produkts (z.B. MES, PZM, LVS, ...) 
+** kundenspezifische Erweiterungen ausschließlich in einem CUST-Schema.
 
-## Table of contents (optional)
+In GitHub oder Azure Devops wird dann ein einheitliches Produkt-Repository verwaltet, sowie ein kundenspezifisches Repository.
 
-- Requirements
-- Installation
-- Configuration
-- Troubleshooting
-- FAQ
-- Maintainers
+## Zielstruktur
 
+standortIN-a/
+├── db-src/
+│   ├── tables/
+│   ├── views/
+│   ├── procedures/
+│   └── ...
+└── shared/
 
-## Requirements (required)
+## Migration
+Zum vereinbarten Stichtag wird die flache Struktur in allen
+betroffenen Kunden-Repositories durch diese Struktur ersetzt.
+Die README ist damit gleichzeitig deine Präsentationsgrundlage – wer das Repo öffnet, versteht sofort den Zweck.
 
-This project requires the following:
-
-- [Hard Work](https://www.noMorePlay.com)
-
-
-## Installation (required, unless a separate INSTALL.md is provided)
-
-Install as you would normally install.
-
-## Configuration (optional)
-
-## Troubleshooting (optional)
-
-## FAQ (optional)
-
-**Q: How do I write a README?**
-
-**A:** Follow this template. It's fun and easy!
-
-## Maintainers (optional)
+Erstellt mit Claude Sonnet 4.6
 
 
-## For more information about SQLcl Projects:
-Reach out to the SQLcl Project Extension documentation by visiting the [Database Application CI/CD Doc Link](https://docs.oracle.com/en/database/oracle/sql-developer-command-line/24.3/sqcug/database-application-ci-cd.html).

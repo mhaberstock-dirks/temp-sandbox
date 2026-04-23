@@ -575,6 +575,10 @@ begin
                 if v_gesamttagstdurlaub >= v_sastdprotag -- Ganzer Urlaubstag da weniger als 50% gearbeitet
                  then
                     v_dayflexstd := v_dayflexstd + v_dayarbstd; -- Dann Stunden ins Aufbaukonto
+          
+          -- Änderung M.Haberstock, W24120-554 21.04.2026 
+                    v_dayarbstd := 0;
+          -- Änderung Ende
                 else
                     if ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_schicht_datum,
                                     v_sonderfeiertag) != 1 then
@@ -950,4 +954,4 @@ end update_pers_ze_tag;
 /
 
 
--- sqlcl_snapshot {"hash":"e11abb736b569dd4895c8f53a5235bd6cdab595b","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6db0b52c777f033b7d3233d797704407322fa838","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
