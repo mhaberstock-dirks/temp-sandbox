@@ -1,0 +1,13 @@
+create table dirkspzm32.lvs_packschema_q_z (
+    quell_transport_einheit  varchar2(22 char) not null enable,
+    quell_packschema_kopf_id varchar2(20 char) not null enable,
+    ziel_packschema_kopf_id  varchar2(20 char) not null enable
+);
+
+alter table dirkspzm32.lvs_packschema_q_z
+    add constraint pk_packschema_q_z primary key ( quell_packschema_kopf_id,
+                                                   ziel_packschema_kopf_id )
+        using index enable;
+
+
+-- sqlcl_snapshot {"hash":"b1c1c94b0645ee59e53e2232115e488da4e4a8dc","type":"TABLE","name":"LVS_PACKSCHEMA_Q_Z","schemaName":"DIRKSPZM32","sxml":"\n  <TABLE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>LVS_PACKSCHEMA_Q_Z</NAME>\n   <RELATIONAL_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>QUELL_TRANSPORT_EINHEIT</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>22</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>QUELL_PACKSCHEMA_KOPF_ID</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>20</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>ZIEL_PACKSCHEMA_KOPF_ID</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>20</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n      <PRIMARY_KEY_CONSTRAINT_LIST>\n         <PRIMARY_KEY_CONSTRAINT_LIST_ITEM>\n            <NAME>PK_PACKSCHEMA_Q_Z</NAME>\n            <COL_LIST>\n               <COL_LIST_ITEM>\n                  <NAME>QUELL_PACKSCHEMA_KOPF_ID</NAME>\n               </COL_LIST_ITEM>\n               <COL_LIST_ITEM>\n                  <NAME>ZIEL_PACKSCHEMA_KOPF_ID</NAME>\n               </COL_LIST_ITEM>\n            </COL_LIST>\n            <USING_INDEX></USING_INDEX>\n         </PRIMARY_KEY_CONSTRAINT_LIST_ITEM>\n      </PRIMARY_KEY_CONSTRAINT_LIST>\n      <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>\n      <PHYSICAL_PROPERTIES>\n         <HEAP_TABLE></HEAP_TABLE>\n      </PHYSICAL_PROPERTIES>\n   </RELATIONAL_TABLE>\n</TABLE>"}
