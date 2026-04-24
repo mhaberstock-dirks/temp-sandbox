@@ -1,0 +1,14 @@
+create table dirkspzm32.pzm_vorgangsqualifikation (
+    vorgangsqualifikation              varchar2(50 char) not null enable,
+    vorgangsqualifikation_abt_id       number(*, 0),
+    vorgangsqualifikation_res_gruppe   number(*, 0),
+    vorgangsqualifikation_res_id       number(*, 0),
+    vorgangsqualifikation_aut_zuweisen varchar2(50 char) default 'T' not null enable
+);
+
+alter table dirkspzm32.pzm_vorgangsqualifikation
+    add constraint pk_pzm_vorgangsqualifikation primary key ( vorgangsqualifikation )
+        using index enable;
+
+
+-- sqlcl_snapshot {"hash":"ccbd912456e8dd0d012d50ac5f405e4797ec271b","type":"TABLE","name":"PZM_VORGANGSQUALIFIKATION","schemaName":"DIRKSPZM32","sxml":"\n  <TABLE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>PZM_VORGANGSQUALIFIKATION</NAME>\n   <RELATIONAL_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>VORGANGSQUALIFIKATION</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>50</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>VORGANGSQUALIFIKATION_ABT_ID</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>VORGANGSQUALIFIKATION_RES_GRUPPE</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>VORGANGSQUALIFIKATION_RES_ID</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>VORGANGSQUALIFIKATION_AUT_ZUWEISEN</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>50</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <DEFAULT>'T'</DEFAULT>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n      <PRIMARY_KEY_CONSTRAINT_LIST>\n         <PRIMARY_KEY_CONSTRAINT_LIST_ITEM>\n            <NAME>PK_PZM_VORGANGSQUALIFIKATION</NAME>\n            <COL_LIST>\n               <COL_LIST_ITEM>\n                  <NAME>VORGANGSQUALIFIKATION</NAME>\n               </COL_LIST_ITEM>\n            </COL_LIST>\n            <USING_INDEX></USING_INDEX>\n         </PRIMARY_KEY_CONSTRAINT_LIST_ITEM>\n      </PRIMARY_KEY_CONSTRAINT_LIST>\n      <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>\n      <PHYSICAL_PROPERTIES>\n         <HEAP_TABLE></HEAP_TABLE>\n      </PHYSICAL_PROPERTIES>\n   </RELATIONAL_TABLE>\n</TABLE>"}
