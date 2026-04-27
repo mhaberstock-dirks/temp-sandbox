@@ -360,6 +360,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+<<<<<<< HEAD
 
 
 # from "SQLCL: Project Export"
@@ -372,3 +373,5 @@ var/*
 *.tz
 *.zip
 **/.DS_Store
+=======
+>>>>>>> origin/main
