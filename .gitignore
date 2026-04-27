@@ -360,3 +360,18 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+<<<<<<< HEAD
+
+
+# from "SQLCL: Project Export"
+.sqlcl/
+connection.properties
+**/credentials*# Oracle SQLcl Projects
+artifact/*
+var/*
+*.tar.gz
+*.tz
+*.zip
+**/.DS_Store
+=======
+>>>>>>> origin/main

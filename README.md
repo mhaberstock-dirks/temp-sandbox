@@ -1,20 +1,37 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# DB-Schema-Standard
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Dieses Repository definiert die **einheitliche Verzeichnisstruktur**
+für Oracle-Datenbankobjekte in allen Kundenprojekten.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Hintergrund
+Bisher werden SQL-Dateien flach in `db-src/` abgelegt.
+Dieses Modell ersetzt diese Struktur durch eine typenbasierte
+Hierarchie, generiert und gepflegt via SQLCL `project export`.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Damit das volle Potenzial der CI/CD-Fähigkeiten von SQLCL ausgeschöpft werden kann, sind einige grundlegende Struktur-Änderungen nötig:
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+* kundenspezifische Entwicklungsdatenbanken mit einheitlicher Struktur:
+** einheitliche Schemanamen für das Produkt (z.B. ISIPlus)
+** optional: einheitliche Schemanamen für Module des Produkts (z.B. MES, PZM, LVS, ...) 
+** kundenspezifische Erweiterungen ausschließlich in einem CUST-Schema.
+
+In GitHub oder Azure Devops wird dann ein einheitliches Produkt-Repository verwaltet, sowie ein kundenspezifisches Repository.
+
+## Zielstruktur
+
+standortIN-a/
+├── db-src/
+│   ├── tables/
+│   ├── views/
+│   ├── procedures/
+│   └── ...
+└── shared/
+
+## Migration
+Zum vereinbarten Stichtag wird die flache Struktur in allen
+betroffenen Kunden-Repositories durch diese Struktur ersetzt.
+Die README ist damit gleichzeitig deine Präsentationsgrundlage – wer das Repo öffnet, versteht sofort den Zweck.
+
+Erstellt mit Claude Sonnet 4.6
+
+
