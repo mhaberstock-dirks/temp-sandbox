@@ -9,6 +9,7 @@ create or replace procedure dirkspzm32.update_pers_ze_tag (
     ---- HISTORIE ---
     12.06.2018 -MWe-  P70460-15 halbe Urlaubstage
     07.08.2019 -MWe-  W20310-395 Lohnart von nicht aktiven Mitarbeitern nicht berechnen
+    05.05.2026 -MHa-  W24120-554 Berechnung FlexiStd bei Arbeitszeit während Urlaub
 
 */
 
@@ -572,31 +573,45 @@ begin
                 v_kenz_urlaub           -- An dem Tag wurde Urlaub gefunden
                 and v_dayarbstd > 0        -- Und gearbeitet
             then
-                if v_gesamttagstdurlaub >= v_sastdprotag -- Ganzer Urlaubstag da weniger als 50% gearbeitet
-                 then
-                    v_dayflexstd := v_dayflexstd + v_dayarbstd; -- Dann Stunden ins Aufbaukonto
-          
-          -- Änderung M.Haberstock, W24120-554 21.04.2026 
-                    v_dayarbstd := 0;
-          -- Änderung Ende
-                else
-                    if ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_schicht_datum,
-                                    v_sonderfeiertag) != 1 then
-                        v_sonderfeiertag := 'N';
-                    end if;
+        
+        -- Aenderung M.Haberstock, W24120-554 05.05.2026
+        -- Einheitliche Berechnung unabhaengig von ganzen oder halben Urlaubstagen!
+        -- geleistete Arbeitsstunde werden dem Stundenaufbau-Konto gutgeschrieben; Die Arbeitsstunden im selben Mass reduziert 
+                v_dayflexstd := v_dayflexstd + v_dayarbstd + v_gesamttagstdurlaub - v_sastdprotag;
+                v_dayarbstd := v_dayarbstd - v_dayflexstd;
 
-                    if v_sonderfeiertag != 'H' then
-                        v_dayflexstd := v_dayarbstd + v_daypausestd + v_gesamttagstdurlaub - v_sastdprotag; -- Mehrstunden ins Aufbaukonto
-                        if v_dayflexstd >= 0 then
-                            v_dayarbstd := v_dayarbstd + v_daypausestd - v_dayflexstd;                          -- Berechnung der Arbeitszeit mit Urlaub ohne Pause
-                        else
-                            v_dayflexstd := 0;
-                        end if;
-
-                    end if;
-
-                end if;
-        --v_DayPauseStd := 0;                                                                   -- Pausezeit dann 0
+        /* Anmerkung M.Haberstock:
+         *  Eine Unterscheidung in ganze und halbe Arbeitstage ist nicht sinnvoll.
+         *  Eine Sonderbehandlung für "halbe Feiertage" ist an dieser Stelle nicht sinnvoll und sollte
+         *  - falls überhaupt nötig - in einem eigens für die Feiertagsbehandlung vorgesehenen Block 
+         *  berechnet werden
+         *--------------------------------------------------------------------------------------------- 
+         * if v_GesamtTagStdUrlaub >= v_SAStdProTag -- Ganzer Urlaubstag da weniger als 50% gearbeitet
+         * then
+         *   v_DayFlexStd := v_DayFlexStd + v_DayArbStd; -- Dann Stunden ins Aufbaukonto
+         *   
+         *   -- Änderung M.Haberstock, W24120-554 21.04.2026 
+         *   v_DayArbStd := 0;
+         *   -- Änderung Ende
+         * else
+         *   if ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_schicht_datum, v_SonderFeiertag) != 1
+         *   then
+         *     v_SonderFeiertag := 'N';
+         *   end if;
+         *   
+         *   if v_SonderFeiertag != 'H'
+         *   then
+         *     v_DayFlexStd := v_DayArbStd + v_DayPauseStd + v_GesamtTagStdUrlaub - v_SAStdProTag; -- Mehrstunden ins Aufbaukonto
+         *     if v_DayFlexStd >= 0
+         *     then
+         *       v_DayArbStd := v_DayArbStd + v_DayPauseStd - v_DayFlexStd;                          -- Berechnung der Arbeitszeit mit Urlaub ohne Pause
+         *     else
+         *       v_DayFlexStd := 0;
+         *     end if;
+         *   end if;
+         * end if;
+         * --v_DayPauseStd := 0;                                                                   -- Pausezeit dann 0
+         */
             end if;
 
             open c_schichtart_daten;
@@ -954,4 +969,4 @@ end update_pers_ze_tag;
 /
 
 
--- sqlcl_snapshot {"hash":"6db0b52c777f033b7d3233d797704407322fa838","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"385a7d9a6053625852d6dfab4f71a781cbf0bef2","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
