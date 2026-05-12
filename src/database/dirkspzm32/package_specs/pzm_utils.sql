@@ -88,6 +88,16 @@ create or replace package dirkspzm32.pzm_utils is
     ) return number;
   
   ---------------------------------------------------------------------------------------------
+  -- Diese Tage sind zur Ermittlung der Soll-Arbeitstage
+  ---------------------------------------------------------------------------------------------
+    function get_pers_arb_tage (
+        in_pers_nr    in pzm_personal.pers_nr%type,
+        in_kst_id     in pzm_personal.pers_kst_id%type,
+        in_datum_beg  in date,
+        in_datum_ende in date
+    ) return number;
+  
+  ---------------------------------------------------------------------------------------------
   -- Diese Tage sind zur Ermittlung für den 13 Tage Std-Schnitt
   ---------------------------------------------------------------------------------------------
     function get_pers_arb_std_tage (
@@ -215,4 +225,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"2f836fbca0f57f08c50807ba154309f1e790506f","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7376afa86f8cdea850cb8e2fb053174d327f3469","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

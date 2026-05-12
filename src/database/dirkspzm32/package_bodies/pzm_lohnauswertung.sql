@@ -9,6 +9,236 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
         table of t_kst_std_rec index by binary_integer;
     v_lz_korr_we_f boolean;
 
+  --------------------------------------------------------------------------
+  -- Die Funktion prüt, ob die LOA für diesen Mitarbeiter gültigt ist (Tarif, Sichtart und Kostenstelle)
+  -------------------------------------------------------------------------- 
+    function get_pers_loa_is_gueltig (
+        in_pers_nr     in pzm_personal.pers_nr%type,
+        in_lz_id       in pzm_lohnarten.lz_id%type,
+        in_sa_kurzname in pzm_schichtarten.sa_kurzname%type
+    ) return number is
+
+        v_gueltig        boolean;
+        v_gueltigx       boolean;
+        v_gueltig_ret    number;
+        v_tarif_name     pzm_tarifmodelle.tarif_name%type;
+        v_kst_id         pzm_personal.pers_kst_id%type;
+        v_pzm_lz_tarif   pzm_lz_tarifmodelle%rowtype;
+        v_isi_pzm_lz_kst pzm_lz_kst%rowtype;
+        v_isi_pzm_lz_sa  pzm_lz_sa%rowtype;
+
+    --------------------
+        cursor c_lztarif is
+        select
+            *
+        from
+            pzm_lz_tarifmodelle t
+        where
+            t.lz_id = in_lz_id;
+    --------------------
+        cursor c_lzsa is
+        select
+            *
+        from
+            pzm_lz_sa
+        where
+            lzsa_lz_id = in_lz_id;
+    --------------------
+        cursor c_lzkst is
+        select
+            *
+        from
+            pzm_lz_kst
+        where
+            lzkst_lz_id = in_lz_id;
+    --------------------
+        cursor c_pers is
+        select
+            t.tarif_name
+        from
+            pzm_personal t
+        where
+            t.pers_nr = in_pers_nr;
+
+    begin
+        open c_pers;
+        fetch c_pers into v_tarif_name;
+        close c_pers;
+        v_kst_id := get_pers_kst_id(in_pers_nr);
+        v_gueltig := true;
+        if v_gueltig = true then
+            open c_lztarif;
+            loop
+                fetch c_lztarif into v_pzm_lz_tarif;
+        -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
+                exit when c_lztarif%notfound;
+
+        -- Eintrag vorhanden, dann erst mal ungültig
+                if c_lztarif%rowcount = 1 then
+                    v_gueltig := false;
+                end if;
+
+        -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
+                if v_pzm_lz_tarif.lz_gueltig = 1 then
+                    v_gueltigx := false;
+                    v_gueltig := false;
+                end if;
+
+        -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
+        -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+                if
+                    v_tarif_name = v_pzm_lz_tarif.tarif_name
+                    and v_pzm_lz_tarif.lz_gueltig = 1
+                then
+                    v_gueltig := true;
+                    exit;
+                end if;
+
+        -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
+        -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
+                if
+                    v_tarif_name = v_pzm_lz_tarif.tarif_name
+                    and v_pzm_lz_tarif.lz_gueltig = 0
+                then
+                    v_gueltig := false;
+                    exit;
+                end if;
+
+        -- Ein Entrag mit UNGUELTIG fuer einen anderen Tarif gefunden,
+        -- dann erst mal wieder auf gueltig stellen
+                if
+                    v_tarif_name = v_pzm_lz_tarif.tarif_name
+                    and v_pzm_lz_tarif.lz_gueltig = 0
+                then
+                    v_gueltig := v_gueltigx;
+                end if;
+
+            end loop;
+
+            close c_lztarif;
+        end if;
+          
+    -- Jede gefundene Lohnart ist gueltig, wenn LoaZeit in der Schichtzeit !!!!
+        v_gueltigx := true;
+        if
+            v_gueltig = true
+            and in_sa_kurzname is not null
+        then
+            open c_lzsa;
+            loop
+                fetch c_lzsa into v_isi_pzm_lz_sa;
+        -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
+                exit when c_lzsa%notfound;
+
+        -- Eintrag vorhanden, dann erst mal ungültig
+                if c_lzsa%rowcount = 1 then
+                    v_gueltig := false;
+                end if;
+
+        -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
+                if v_isi_pzm_lz_sa.lzsa_gueltig = 1 then
+                    v_gueltigx := false;
+                    v_gueltig := false;
+                end if;
+
+        -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
+        -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+                if
+                    v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
+                    and v_isi_pzm_lz_sa.lzsa_gueltig = 1
+                then
+                    v_gueltig := true;
+                    exit;
+                end if;
+
+        -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
+        -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
+                if
+                    v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
+                    and v_isi_pzm_lz_sa.lzsa_gueltig = 0
+                then
+                    v_gueltig := false;
+                    exit;
+                end if;
+
+        -- Ein Entrag mit UNGUELTIG fuer eine andere Schicht gefunden,
+        -- dann erst mal wieder auf gueltig stellen
+                if
+                    v_isi_pzm_lz_sa.lzsa_sa_kurzname != in_sa_kurzname
+                    and v_isi_pzm_lz_sa.lzsa_gueltig = 0
+                then
+                    v_gueltig := v_gueltigx;
+                end if;
+
+            end loop;
+
+            close c_lzsa;
+
+      -- Lohnart ist gueltig fuer diese KST!!
+            v_gueltigx := true;
+            if v_gueltig = true then
+                open c_lzkst;
+                loop
+                    fetch c_lzkst into v_isi_pzm_lz_kst;
+
+          -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Abteilungen
+                    exit when c_lzkst%notfound;
+
+          -- Eintrag vorhanden, dann erst mal ungültig
+                    if c_lzkst%rowcount = 1 then
+                        v_gueltig := false;
+                    end if;
+
+          -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Abteilung
+                    if v_isi_pzm_lz_kst.lzkst_gueltig = 1 then
+                        v_gueltigx := false;
+                        v_gueltig := false;
+                    end if;
+
+          -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
+          -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+                    if
+                        v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
+                        and v_isi_pzm_lz_kst.lzkst_gueltig = 1
+                    then
+                        v_gueltig := true;
+                        exit;
+                    end if;
+
+          -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
+          -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
+                    if
+                        v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
+                        and v_isi_pzm_lz_kst.lzkst_gueltig = 0
+                    then
+                        v_gueltig := false;
+                        exit;
+                    end if;
+
+          -- Ein Entrag mit UNGUELTIG fuer eine andere Abteilung gefunden,
+          -- dann erst mal wieder auf gueltig? stellen
+                    if
+                        v_isi_pzm_lz_kst.lzkst_abt_kst != v_kst_id
+                        and v_isi_pzm_lz_kst.lzkst_gueltig = 0
+                    then
+                        v_gueltig := v_gueltigx;
+                    end if;
+
+                end loop;
+
+                close c_lzkst;
+            end if;
+
+        end if;
+
+        if v_gueltig then
+            v_gueltig_ret := 1;
+        else
+            v_gueltig_ret := 0;
+        end if;
+        return v_gueltig_ret;
+    end get_pers_loa_is_gueltig;
+
     function get_alternativ_loa (
         in_loa_id in pzm_lohnarten.lz_id%type
     ) return pzm_lohnarten.lz_lohnart%type is
@@ -1265,8 +1495,11 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                     then
              -- Aktueller Tag und der nächste Tag passt auch (Kann nur Feiertag sein)
                         v_bis := v_bis + 1;
-                    elsif ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, in_schicht_tag + 1,
-                                       v_sonderfeiertag) = 1
+                    elsif ( (
+                        ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, in_schicht_tag + 1,
+                                     v_sonderfeiertag) = 1
+                        and v_feiertag = 'F'
+                    or v_feiertag = 'SF' ) )
                     or v_wochentag = v_n_wochentag then
             -- Aktueller Tag passt nicht, aber der nächste
                         v_von := trunc(v_von) + 1;
@@ -1589,6 +1822,9 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                         if v_lz_von > v_lz_bis -- Nachtschicht am Samstag
                                          then
                                             v_loastd := v_loastd - v_so_std;
+                                            if v_so_std = 0 then
+                                                v_loastd := v_loastd - v_f_std;   -- -AG- 05.05.2026 Bei Feiertag muss auch abgezogen werden
+                                            end if;
                                         else
                       -- Aktueller Tag und der nächste Tag passt auch (Kann nur Feiertag sein) oder Sa/So uns Sa > andere Zulage
                                             v_loastd := 0;
@@ -2276,6 +2512,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
         v_zk_monat_saldo_old       number;      -- Zeitkonto hatt Überstunden + oder - 
         v_zk_monat_loa             number;      -- ZK Daten im LOA
         v_zk_monat_diff            number;      -- Überstunden + oder - geleistet
+        v_zk_monat_diff_ges        number;      -- Über alle Kostenstellen
         v_zk_monat_diff_kug        number;      -- Überstunden korrktur kug
         v_zk_monat_diff_kug_vmonat number;      -- Überstunden korrktur kug
         v_anz_arb_tage             number;
@@ -3301,6 +3538,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
 
     --v_zk_13_w_schnitt_ueb         := 0;
         v_zk_13_w_schnitt_feiertag := 0;
+        v_zk_monat_diff_ges := 0;
         v_zk_13_w_schnitt_krank := 0;
         v_zk_13_w_schnitt_kugk := 0;
     --v_zk_13_w_schnitt_urlaub      := 0;
@@ -3382,7 +3620,10 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                         and v_lohnart.lz_operator is null
                     ) )
                 then
-                    v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + v_loa_kumuliert.loa_value;
+                    if v_lohnart.lz_operator not in ( 'F', 'SF' ) then
+                        v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + v_loa_kumuliert.loa_value;
+                    end if;
+
                     if
                         in_schnittstelle != 'EXT_KW_MM'
                         and v_tarifmodell.tarif_13w_schnitt = 'T'
@@ -3397,7 +3638,10 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                 elsif v_lohnart.lz_operator in ( 'KUGK', 'K', 'U', 'F', 'SF',
                                                  'SU' )           -- Urlaub, Krank oder Feiertag 13 W Schnitt
                                                   then
-                    v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + v_loa_kumuliert.loa_value;
+                    if v_lohnart.lz_operator not in ( 'F', 'SF' ) then
+                        v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + v_loa_kumuliert.loa_value;
+                    end if;
+
                     if
                         in_schnittstelle != 'EXT_KW_MM'
                         and v_tarifmodell.tarif_13w_schnitt = 'T'
@@ -3984,6 +4228,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                 if v_zk_monat_saldo - v_loa_kumuliert.loa_value <= v_pers_max_frei_stunden then
                                                     v_ueb_std := v_ueb_std + v_zk_monat_saldo + v_ueb_stunden_13w - v_pers_max_frei_stunden
                                                     ; -- Wieviel zu viel ist auf dem Konto
+                          --v_ueb_std := v_ueb_std + v_zk_monat_saldo - v_pers_max_frei_stunden; -- Wieviel zu viel ist auf dem Konto
                                                 else
                                                     v_ueb_std := v_ueb_std + v_loa_kumuliert.loa_value + v_ueb_stunden_13w;
                                                 end if;
@@ -4004,8 +4249,14 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                             else
                                                 if v_korr_std = 0 then
                                                     v_korr_std_korrekt := true;
-                                                    v_ueb_std := v_loa_kumuliert.loa_value + v_ueb_stunden_13w;
-                                                    v_loa_kumuliert.loa_value := 0;
+                                                    if v_zk_monat_saldo = v_pers_max_frei_stunden -- Konto ist genau voll mit ZK-Buchungen
+                                                     then
+                                                        v_ueb_std := v_ueb_stunden_13w; -- 13W Schnitt ist Überstunde
+                                                    else
+                                                        v_ueb_std := v_loa_kumuliert.loa_value + v_ueb_stunden_13w;
+                                                        v_loa_kumuliert.loa_value := 0;
+                                                    end if;
+
                                                 else
                                                     if
                                                         ( v_korr_std ) + v_ueb_stunden_13w - ( v_kug_loa_value + v_kugk_loa_value ) < 0
@@ -4544,6 +4795,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                             v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - v_kug_loa_value +
                                                             v_loa_kumuliert.konto_val_korr;
                                                             v_kug_loa_value := v_kug_loa_value - v_loa_kumuliert.konto_val_korr;
+                                                            v_zk_monat_saldo_kug_done := true;
                                                         else
                                                             v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - v_kug_loa_value;
                                                         end if;
@@ -4718,7 +4970,8 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                         end if;
 
                                         if
-                                            nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'T'  -- Kein Gehalt? - Hier ist Abfrage korrekt
+                                            ( nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'T'  -- Kein Gehalt? - Hier ist Abfrage korrekt
+                                            or nvl(v_loa_kumuliert.ret_code, 'xx') != 'ZK' )            -- -AG- 05.05.2026 oder kein ZK-Wert
                                             and v_lohnart.lz_lohnart is not null
                                         or (
                                             v_lohnart.lz_uhrz_von is not null                        -- Bei diesen Lohnarten wird in der Stempelung entschieden
@@ -5081,14 +5334,19 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                 v_loa_kumuliert.datum := v_folgemonat_datum;
             end if;
 
+            v_zk_monat_diff_ges := v_zk_monat_diff_ges + v_zk_monat_diff;
+
     -- Hier die Überstunden (Zuschlag)
             if
                 nvl(v_tarifmodell.tarif_ueb_loa, 'T') = 'T'
                 and v_tarifmodell.tarif_fest_std != 'T'
-                and ( v_zk_monat_diff > 0
-                or v_ueb_stunden_loa > 0
-                or v_ueb_std_proz > 0
-                or in_schnittstelle = 'EXT_KW_MM' )
+                and ( v_zk_monat_diff_ges > 0
+                      and v_kst_idx_max = v_kst_idx_loa ) -- -AG- 06.04.2026 Wenn es mehrere Kostenstellen gibt
+                    or ( v_zk_monat_diff > 0
+                         or v_ueb_stunden_loa2 > 0
+                         or v_ueb_stunden_loa > 0
+                         or v_ueb_std_proz > 0
+                         or in_schnittstelle = 'EXT_KW_MM' )
                 and ( in_schnittstelle != 'EXT_KW_MM'
                 or v_bis_datum = v_ende_datum )
                 and ( v_kst_idx_max <= v_kst_idx_loa )
@@ -5107,7 +5365,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                     and t.ze_schicht_tag <= v_ende_datum;
 
                 v_ueb_stunden_loa2 := v_ueb_stunden_loa2 - nvl(v_arb_stunden, 0);  -- Stunden abziehen
-        
+
         /* -- Dies wird jetzt korrekt im Tagessatz gebucht (LOA 503 ARBSTD)
         select sum(t.ze_std)  into v_arb_stunden    -- Abwesenheiten mit LOA für Arbeitsstunden
          from pzm_zeiterfassung t,
@@ -5124,152 +5382,155 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
         */
                 v_arb_stunden := 0;
                 select
-                    min(loa.lz_lohnart),
-                    min(loa.lz_id)
+                    loa.lz_lohnart,
+                    loa.lz_id
                 into
                     v_loa_kumuliert.lohnart,
                     v_loa_kumuliert.lz_id
                 from
-                    pzm_lohnarten         loa,
-                    pzm_pers_lohn_zulagen p_lz
+                    pzm_lohnarten loa
                 where
-                        loa.lz_konto_name_kurz = 'ZK'             -- Zeitkonto
-                    and loa.lz_konto_bus is null                  -- Keine Kontobuchung
-                    and loa.lz_typ = 'UEB_STD'
-                    and loa.lz_operator = 'UESTDPROZ'
-                    and loa.lz_id = p_lz.lz_id (+)
-                    and in_pers_nr = p_lz.pers_nr (+)
-                    and v_von_datum - 1 <= nvl(
-                        p_lz.gueltig_datum_bis(+),
-                        v_von_datum - 1
-                    )
-                    and v_von_datum - 1 >= nvl(
-                        p_lz.gueltig_datum_von(+),
-                        v_von_datum - 1
+                    lz_id = (
+                        select
+                            min(lz_id)
+                        from
+                            pzm_lohnarten
+                        where
+                                lz_konto_name_kurz = 'ZK'
+                            and lz_konto_bus is null
+                            and lz_typ = 'UEB_STD'
+                            and lz_operator = 'UESTDPROZ'
+                            and pzm_lohnauswertung.get_pers_loa_is_gueltig(in_pers_nr, lz_id, null) = 1
                     );
 
-                if v_tarifmodell.tarif_ueb_proz_wie_ueb_auszahlung = 'T' then
-                    v_loa_kumuliert_loa_value := v_ueb_std_proz;
-                    v_ueb_std_proz := 0;
-                else
-                    if
-                        nvl(v_tarifmodell.tarif_ueb_basis, 'XX') not in ( 'MM', 'WW', 'DD' )  -- Alle gefundenen Überstunden buchen
-                        and get_pers_loa_is_gueltig(in_pers_nr, v_loa_kumuliert.lz_id, null)   -- Auf Gültigkeit prüfen
-                    then
-                        v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum, v_bis_datum,   -- Ermittlung der gearbeiteten Stunden
-                         false, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
-                                                                    false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
-                                                                    );  -- Krank und Urlaub kommen dazu?
-                        v_anz_arb_stunden := get_pers_monat_soll_std(in_pers_nr, v_kst_id, v_von_datum); -- Ermittlung der Sollstunden
-                        v_arb_stunden := v_arb_stunden + v_ueb_stunden_loa2;
-                        v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
-                        if v_loa_kumuliert.loa_value < 0 then
-                            v_loa_kumuliert.loa_value := 0;
-                        end if;
-                    elsif v_tarifmodell.tarif_ueb_basis in ( 'MM', 'WW', 'DD' ) then
-                        v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum, v_bis_datum,   -- Ermittlung der gearbeiteten Stunden
-                         false, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
-                                                                    false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
-                                                                    );  -- Krank und Urlaub kommen dazu?
-                        v_arb_stunden := v_arb_stunden + v_ueb_stunden_loa2;
-                        if nvl(v_tarifmodell.tarif_ueb_basis_ermittlung, 'MM') = 'MM' -- Monatsweise - Default
-                        or (
-                            v_tarifmodell.tarif_ueb_basis = 'MM'
-                            and v_tarifmodell.tarif_ueb_std > 0
-                        ) -- In der Kombination kann nur so gerechnete werden
-                         then
-                            if v_tarifmodell.tarif_ueb_std > 0 then
-                                if v_tarifmodell.tarif_ueb_basis = 'MM' then
-                                    if v_tarifmodell.tarif_ueb_std >= v_arb_stunden then
-                                        v_loa_kumuliert.loa_value := 0;
-                                    else
-                                        v_loa_kumuliert.loa_value := v_arb_stunden - v_tarifmodell.tarif_ueb_std;
-                                    end if;
-
-                                elsif v_tarifmodell.tarif_ueb_basis = 'WW' then
-                                    v_anz_arb_stunden := round(v_tarifmodell.tarif_ueb_std / pzm_p_schicht_tag.get_anz_schicht_tage(in_pers_nr
-                                    , v_start_datum, v_start_datum + 6) * v_anz_arb_tage,
-                                                               3); -- Ermittlung der Sollstunden
-                                    v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden - v_f_stunden_loa, 0);
-                                elsif v_tarifmodell.tarif_ueb_basis = 'DD' then
-                                    v_anz_arb_stunden := v_tarifmodell.tarif_ueb_std * v_anz_arb_tage; -- Ermittlung der Sollstunden
-                  -- Feiertag mit Ü-Tag-Stunden rechnen
-                                    if get_pers_schicht_d_std(in_pers_nr) > 0 then
-                                        v_f_stunden_loa := round(v_f_stunden_loa / get_pers_schicht_d_std(in_pers_nr) * v_tarifmodell.tarif_ueb_std
-                                        ,
-                                                                 3);
-
-                                    end if;
-
-                                    v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden - v_f_stunden_loa, 0);
-                                end if;
-                            elsif nvl(v_tarifmodell.tarif_ueb_std, 0) = 0 then
-                                v_anz_arb_stunden := get_pers_monat_soll_std(in_pers_nr, null, v_von_datum); -- Ermittlung der Sollstunden aller Kostenstellen
-                                v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
-                            end if;
-
-                            v_kappung_flex_std := get_pers_kappung_flex_std(in_pers_nr);
-                            v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - nvl(v_kappung_flex_std, 0);
+                if v_loa_kumuliert.lohnart is not null then
+                    if v_tarifmodell.tarif_ueb_proz_wie_ueb_auszahlung = 'T' then
+                        v_loa_kumuliert_loa_value := v_ueb_std_proz;
+                        v_ueb_std_proz := 0;
+                    else
+                        if
+                            nvl(v_tarifmodell.tarif_ueb_basis, 'XX') not in ( 'MM', 'WW', 'DD' )     -- Alle gefundenen Überstunden buchen
+                            and get_pers_loa_is_gueltig(in_pers_nr, v_loa_kumuliert.lz_id, null) = 1  -- Auf Gültigkeit prüfen
+                        then
+                            v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum, v_bis_datum,   -- Ermittlung der gearbeiteten Stunden
+                             false, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                                        false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
+                                                                        );  -- Krank und Urlaub kommen dazu?
+                            v_anz_arb_stunden := get_pers_monat_soll_std(in_pers_nr, v_kst_id, v_von_datum); -- Ermittlung der Sollstunden
+                            v_arb_stunden := v_arb_stunden + v_ueb_stunden_loa2;
+                            v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
                             if v_loa_kumuliert.loa_value < 0 then
                                 v_loa_kumuliert.loa_value := 0;
                             end if;
-                            v_loa_kumuliert_loa_value := v_loa_kumuliert.loa_value;
-                        elsif v_tarifmodell.tarif_ueb_basis_ermittlung = 'WW' -- Wochenweise
-                         then
-                            v_start_datum_ueb_p := trunc(v_start_datum, 'iw');
-                            v_ende_datum_ueb_p := v_start_datum_ueb_p + 6;
-                            if v_start_datum_ueb_p < v_start_datum then
-                                v_start_datum_ueb_p := v_start_datum;
-                            end if;
-                            v_loa_kumuliert_loa_value := 0;
-                            v_loa_kumuliert.loa_value := null;
-                            loop
-                                exit when v_start_datum_ueb_p > v_ende_datum;
-                                if v_ende_datum_ueb_p > v_ende_datum then
-                                    v_ende_datum_ueb_p := v_ende_datum;
-                                end if;
-                                v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum_ueb_p, v_ende_datum_ueb_p
-                                ,   -- Ermittlung der gearbeiteten Stunden
-                                 true, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
-                                                                            true -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
-                                                                            );  -- Krank und Urlaub kommen dazu?
-                                v_anz_arb_tage := get_anz_arbeitstage_r32(in_pers_nr, v_start_datum_ueb_p, v_ende_datum_ueb_p);    -- p_ende_datum => :p_ende_datum,
-
-                                if v_arb_stunden > 0 then
-                                    if v_tarifmodell.tarif_ueb_std > 0 then
-                                        v_soll_std := 0;
-                                        if
-                                            v_tarifmodell.tarif_ueb_basis = 'WW'
-                                            and v_tarifmodell.tarif_ueb_basis_w_tage > 0
-                                            and v_anz_arb_tage > 0
-                                        then
-                                            v_soll_std := v_tarifmodell.tarif_ueb_std / v_tarifmodell.tarif_ueb_basis_w_tage * v_anz_arb_tage
-                                            ;
-                                        elsif v_tarifmodell.tarif_ueb_basis = 'DD' then
-                                            v_soll_std := v_tarifmodell.tarif_ueb_std * v_anz_arb_tage;
+                        elsif v_tarifmodell.tarif_ueb_basis in ( 'MM', 'WW', 'DD' ) then
+                            v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum, v_bis_datum,   -- Ermittlung der gearbeiteten Stunden
+                             false, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                                        false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
+                                                                        );  -- Krank und Urlaub kommen dazu?
+                            v_arb_stunden := v_arb_stunden + v_ueb_stunden_loa2;
+                            if nvl(v_tarifmodell.tarif_ueb_basis_ermittlung, 'MM') = 'MM' -- Monatsweise - Default
+                            or (
+                                v_tarifmodell.tarif_ueb_basis = 'MM'
+                                and v_tarifmodell.tarif_ueb_std > 0
+                            ) -- In der Kombination kann nur so gerechnete werden
+                             then
+                                if v_tarifmodell.tarif_ueb_std > 0 then
+                                    if v_tarifmodell.tarif_ueb_basis = 'MM' then
+                                        v_tarifmodell.tarif_ueb_std := v_tarifmodell.tarif_ueb_std - v_f_stunden_loa;
+                                        if v_tarifmodell.tarif_ueb_std >= v_arb_stunden then
+                                            v_loa_kumuliert.loa_value := 0;
+                                        else
+                                            v_loa_kumuliert.loa_value := v_arb_stunden - v_tarifmodell.tarif_ueb_std;
                                         end if;
 
-                                    elsif nvl(v_tarifmodell.tarif_ueb_std, 0) = 0 then
-                                        v_soll_std := v_day_schnitt * v_anz_arb_tage;
+                                    elsif v_tarifmodell.tarif_ueb_basis = 'WW' then
+                                        v_anz_arb_stunden := round(v_tarifmodell.tarif_ueb_std / pzm_p_schicht_tag.get_anz_schicht_tage
+                                        (in_pers_nr, v_start_datum, v_start_datum + 6) * v_anz_arb_tage,
+                                                                   3); -- Ermittlung der Sollstunden
+                    -- v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden - v_f_stunden_loa, 0);
+                    -- -AG- 06.05.2026 Die Feiertage sind schon abgezogen 
+                                        v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
+                                    elsif v_tarifmodell.tarif_ueb_basis = 'DD' then
+                                        v_anz_arb_stunden := v_tarifmodell.tarif_ueb_std * v_anz_arb_tage; -- Ermittlung der Sollstunden
+                    -- Feiertag mit Ü-Tag-Stunden rechnen
+                                        if get_pers_schicht_d_std(in_pers_nr) > 0 then
+                                            v_f_stunden_loa := round(v_f_stunden_loa / get_pers_schicht_d_std(in_pers_nr) * v_tarifmodell.tarif_ueb_std
+                                            ,
+                                                                     3);
+
+                                        end if;
+                    -- v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden - v_f_stunden_loa, 0);
+                    -- -AG- 06.05.2026 Die Feiertage sind schon abgezogen 
+                                        v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
                                     end if;
-                                else
-                  -- Sollstunden ermiteln
-                                    v_soll_std := v_anz_arb_tage * v_day_schnitt;
+                                elsif nvl(v_tarifmodell.tarif_ueb_std, 0) = 0 then
+                                    v_anz_arb_stunden := get_pers_monat_soll_std(in_pers_nr, null, v_von_datum); -- Ermittlung der Sollstunden aller Kostenstellen
+                                    v_loa_kumuliert.loa_value := nvl(v_arb_stunden - v_anz_arb_stunden, 0);
                                 end if;
 
-                                v_anz_arb_stunden := nvl(v_arb_stunden - v_soll_std, 0);
-                                if v_anz_arb_stunden > 0 then
-                                    v_loa_kumuliert_loa_value := v_loa_kumuliert_loa_value + v_anz_arb_stunden;
+                                v_kappung_flex_std := get_pers_kappung_flex_std(in_pers_nr);
+                                v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - nvl(v_kappung_flex_std, 0);
+                                if v_loa_kumuliert.loa_value < 0 then
+                                    v_loa_kumuliert.loa_value := 0;
                                 end if;
-                                if v_loa_kumuliert_loa_value < 0 then
-                                    v_loa_kumuliert_loa_value := 0;
-                                end if;
-                                v_start_datum_ueb_p := v_ende_datum_ueb_p + 1;
+                                v_loa_kumuliert_loa_value := v_loa_kumuliert.loa_value;
+                            elsif v_tarifmodell.tarif_ueb_basis_ermittlung = 'WW' -- Wochenweise
+                             then
+                                v_start_datum_ueb_p := trunc(v_start_datum, 'iw');
                                 v_ende_datum_ueb_p := v_start_datum_ueb_p + 6;
-                            end loop;
+                                if v_start_datum_ueb_p < v_start_datum then
+                                    v_start_datum_ueb_p := v_start_datum;
+                                end if;
+                                v_loa_kumuliert_loa_value := 0;
+                                v_loa_kumuliert.loa_value := null;
+                                loop
+                                    exit when v_start_datum_ueb_p > v_ende_datum;
+                                    if v_ende_datum_ueb_p > v_ende_datum then
+                                        v_ende_datum_ueb_p := v_ende_datum;
+                                    end if;
+                                    v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr, null, v_start_datum_ueb_p, v_ende_datum_ueb_p
+                                    ,   -- Ermittlung der gearbeiteten Stunden
+                                     true, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                                                true -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
+                                                                                );  -- Krank und Urlaub kommen dazu?
+                                    v_anz_arb_tage := get_anz_arbeitstage_r32(in_pers_nr, v_start_datum_ueb_p, v_ende_datum_ueb_p);    -- p_ende_datum => :p_ende_datum,
+
+                                    if v_arb_stunden > 0 then
+                                        if v_tarifmodell.tarif_ueb_std > 0 then
+                                            v_soll_std := 0;
+                                            if
+                                                v_tarifmodell.tarif_ueb_basis = 'WW'
+                                                and v_tarifmodell.tarif_ueb_basis_w_tage > 0
+                                                and v_anz_arb_tage > 0
+                                            then
+                                                v_soll_std := v_tarifmodell.tarif_ueb_std / v_tarifmodell.tarif_ueb_basis_w_tage * v_anz_arb_tage
+                                                ;
+                                            elsif v_tarifmodell.tarif_ueb_basis = 'DD' then
+                                                v_soll_std := v_tarifmodell.tarif_ueb_std * v_anz_arb_tage;
+                                            end if;
+
+                                        elsif nvl(v_tarifmodell.tarif_ueb_std, 0) = 0 then
+                                            v_soll_std := v_day_schnitt * v_anz_arb_tage;
+                                        end if;
+                                    else
+                    -- Sollstunden ermiteln
+                                        v_soll_std := v_anz_arb_tage * v_day_schnitt;
+                                    end if;
+
+                                    v_anz_arb_stunden := nvl(v_arb_stunden - v_soll_std, 0);
+                                    if v_anz_arb_stunden > 0 then
+                                        v_loa_kumuliert_loa_value := v_loa_kumuliert_loa_value + v_anz_arb_stunden;
+                                    end if;
+                                    if v_loa_kumuliert_loa_value < 0 then
+                                        v_loa_kumuliert_loa_value := 0;
+                                    end if;
+                                    v_start_datum_ueb_p := v_ende_datum_ueb_p + 1;
+                                    v_ende_datum_ueb_p := v_start_datum_ueb_p + 6;
+                                end loop;
+
+                            end if;
 
                         end if;
-
                     end if;
                 end if;
 
@@ -5285,13 +5546,18 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
           -- and v_zk_monat_saldo_kug_done = false                -- Bei Kurzarbeit werden kene Ü-Std-% auf das Konto gebucht
                     then
                         v_zk_monat_saldo := nvl(
-                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                             0
                         );
 
                         if v_zk_monat_saldo < v_personal.pers_max_freistd -- Konto hat noch Platz
 
                          then
+                            v_zk_monat_saldo := nvl(
+                                pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                                0
+                            );
+
                             v_korr_std := v_loa_kumuliert_loa_value * v_tarifmodell.tarif_ueb_zeitkonto_proz / 100;
               --if v_zk_monat_saldo + v_loa_kumuliert.loa_value < v_personal.pers_max_freistd
                             if v_zk_monat_saldo + v_korr_std > v_personal.pers_max_freistd then
@@ -7158,4 +7424,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"e642f76118ca3ab60df270ebbaad1b493845da33","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f22df06920a27e797de04123fc4541a603b9ded3","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

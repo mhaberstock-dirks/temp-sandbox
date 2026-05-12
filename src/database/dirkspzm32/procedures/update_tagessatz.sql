@@ -58,8 +58,8 @@ begin
                         get_pers_kst_id(p_pers_nr));
         v_abt_id := nvl(v_isi_pzm_ze_tagessatz.ts_day_abt_id,
                         get_pers_abt_id(p_pers_nr));
-    -- -AG- 2026.03.25 wird nicht benutzt
-    -- v_pb_id := nvl(v_isi_pzm_ze_tagessatz.ts_day_pb_id, get_pers_pb_id(p_pers_nr));
+        v_pb_id := nvl(v_isi_pzm_ze_tagessatz.ts_day_pb_id,
+                       get_pers_pb_id(p_pers_nr));
         if v_isi_pzm_ze_tagessatz.ts_abschluss is null then
             if
                 v_auto_ueb_std_genehmigung
@@ -67,7 +67,7 @@ begin
                 and v_isi_pzm_ze_tagessatz.ts_ueb_ok_pers_nr is null
             then
         -- dies ist eine automatische genehmigung, die kann auch automatisch korrigiert werden.
-        -- für die korrekte Buchung muss die alte genehmigung erst storniert werden.
+        -- f?r die korrekte Buchung muss die alte genehmigung erst storniert werden.
                 update pzm_ze_tagessatz t
                 set
                     t.ts_ueb_ok_datum = null
@@ -103,7 +103,7 @@ begin
                 and ( p_day_ueb_std > 0
                 or p_day_flex_std > 0 )
             then
-        -- überstunden automatisch genehmigen
+        -- ?berstunden automatisch genehmigen
                 update pzm_ze_tagessatz t
                 set
                     t.ts_ueb_ok_datum = sysdate
@@ -205,4 +205,4 @@ end update_tagessatz;
 /
 
 
--- sqlcl_snapshot {"hash":"140d3b8e8baf1137ef836f55cd1b4136a2b5d5e0","type":"PROCEDURE","name":"UPDATE_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e281899ed453935403153fb2dafe96c3cbaf24a0","type":"PROCEDURE","name":"UPDATE_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

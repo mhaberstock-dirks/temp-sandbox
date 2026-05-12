@@ -404,14 +404,13 @@ create or replace package body dirkspzm32.pzm_bde_utils is
                 fetch c_pzm_ze_zeiten into v_bde_zeiten;
                 v_found := c_pzm_ze_zeiten%found;
                 if v_found then
-                    update bde_fa_auftrag t
-                    set
-                        t.prod_zeit_ist = t.prod_zeit_ist - nvl(v_bde_zeiten.ze_bde_zeit_min, 0)
-                    where
-                            t.leitzahl = v_bde_zeiten.ze_bde_leitzahl
-                        and t.fa_ag = v_bde_zeiten.ze_bde_fa_ag
-                        and t.fa_upos = v_bde_zeiten.ze_bde_fa_upos;
-
+          /*
+          update bde_fa_auftrag t
+             set t.prod_zeit_ist = t.prod_zeit_ist - nvl(v_bde_zeiten.ze_bde_zeit_min, 0)
+           where t.leitzahl = v_bde_zeiten.ze_bde_leitzahl
+             and t.fa_ag = v_bde_zeiten.ze_bde_fa_ag
+             and t.fa_upos = v_bde_zeiten.ze_bde_fa_upos;
+          */
                     update pzm_ze_bde_zeiten t -- Gebuchte Zeiten aus dem Satz nehmen
                     set
                         t.ze_bde_zeit_min = 0, -- round(t.ze_bde_zeit_min - v_bde_zeiten.ze_bde_zeit_min, 0)
@@ -494,8 +493,8 @@ create or replace package body dirkspzm32.pzm_bde_utils is
                     v_start_str := to_char(v_bde_zeiten.ze_bde_day_ist_start, 'dd.mm.yyyy hh24:mi_ss');
                     v_ende_str := to_char(v_bde_zeiten.ze_bde_day_ist_ende, 'dd.mm.yyyy hh24:mi_ss');
                     update bde_fa_auftrag t
-                    set
-                        t.prod_zeit_ist = t.prod_zeit_ist + v_bde_minuten_ges,
+                    set --t.prod_zeit_ist = t.prod_zeit_ist + v_bde_minuten_ges,
+                        t.termin_start_ist = nvl(t.termin_start_ist, v_bde_zeiten.ze_bde_day_ist_start),
                         t.status_begin = in_datum,
                         t.termin_ende_ist = v_bde_zeiten.ze_bde_day_ist_ende,
                         t.freig_status = 'F'
@@ -688,4 +687,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"d909a303de4f8205aa8eefd07873dc99fa775b48","type":"PACKAGE_BODY","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0e6cab355c964f7b409fbb480723599bdebdfbce","type":"PACKAGE_BODY","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}

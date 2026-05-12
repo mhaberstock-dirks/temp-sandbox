@@ -461,7 +461,7 @@ begin
                 v_dayabwstd := v_std;
             elsif v_status = status_feiertag then
                 v_dayaastatus := v_aa_status;
-                v_dayabwstd := v_std;
+        --v_DayAbwStd := v_Std;
             elsif v_status = status_anwesend
             or v_status = status_dienstgang
             or v_status = status_pause then
@@ -495,7 +495,7 @@ begin
                 if v_aa_status is not null then -- Abweseheit begruendet?
                     v_dayaastatus := v_aa_status;
                 end if;
-                v_dayabwstd := v_dayabwstd + v_std;
+        --v_DayAbwStd := v_DayAbwStd + v_Std;
             elsif v_status = status_anwesend
             or v_status = status_dienstgang
             or v_status = status_pause then
@@ -969,4 +969,4 @@ end update_pers_ze_tag;
 /
 
 
--- sqlcl_snapshot {"hash":"385a7d9a6053625852d6dfab4f71a781cbf0bef2","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"09741ced775d45ada37c73f38f471a6332502694","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}

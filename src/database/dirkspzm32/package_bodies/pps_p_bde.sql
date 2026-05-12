@@ -2348,8 +2348,7 @@ create or replace package body dirkspzm32.pps_p_bde is
          then
             close c_bde_fa_plan;
             raise_isi_error(20,
-                            lc.ec_p1(lc.o_tp1_arb_plan_pos_fehlt || 'xx', v_artikel.artikel));
-
+                            lc.ec_p1(lc.o_tp1_arb_plan_pos_fehlt, v_artikel.artikel));
         end if;
 
         if in_out_leitzahl is null then
@@ -5817,4 +5816,4 @@ end pps_p_bde;
 /
 
 
--- sqlcl_snapshot {"hash":"9facfca1f49cae8f11f86fd197fe2631cc750ede","type":"PACKAGE_BODY","name":"PPS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"59735352ea3434b055a3ca501313ed7d0e9e5323","type":"PACKAGE_BODY","name":"PPS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}

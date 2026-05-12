@@ -13,6 +13,7 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
   -- Private Konstanten
   -----------------------------------------------------------------------------------------------
     c_max_std_offen_default constant number := 11;  -- 11 Stunden (Default Ruhezeit)
+    c_max_std_nahe          constant number := 4;  -- max. Stunden seit letztem berechneten Ende fuer Kontext-Uebernahme (Pause-als-G/K)
 
   -- Default Timezone f?r Legacy-Aufrufe ohne explizite Timezone-Angabe
   -- TODO: Nach vollst?ndiger Client-Migration kann diese Konstante entfernt werden
@@ -159,145 +160,30 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
 
     end;
 
-  /*  Kontextbasierte Schichttag-Ermittlung ? Beispiele
-      ==================================================
-
-      HINTERGRUND
-      -----------
-      Der Schichttag eines Zeiterfassungseintrags entspricht nicht zwingend dem
-      Kalendertag des Zeitstempels. Buchungen die nach Mitternacht stattfinden,
-      aber noch zur vorangegangenen Schicht geh?ren, m?ssen dem Schichttag des
-      Vortages zugeordnet werden. Die Schichtmodell-Berechnung allein kann das
-      nicht leisten, da sie keinen Zustand kennt. load_schicht_daten l?st das
-      durch einen vorgelagerten Blick in bereits vorhandene Eintr?ge derselben
-      Person (Kontextsuche).
-
-      BEISPIEL 1 ? Normalfall (Tagschicht, kein Mitternacht-?bergang)
-      ---------------------------------------------------------------
-      Mitarbeiter: Tagschicht 06:00?14:30
-
-        06:12 Kommen  ? kein Voreintrag vorhanden
-                      ? Schichtmodell-Berechnung: Schichttag = 10.03.2026
-        14:18 Gehen   ? Voreintrag gefunden: ze_ist_start=06:12, Schichttag=10.03.2026
-                      ? Schichttag aus Kontext ?bernommen: 10.03.2026  ?
-
-      Hier ?ndert sich nichts. Der Kontextsuche-Pfad liefert dasselbe 
-      Ergebnis wie die Schichtmodell-Berechnung.
-
-      BEISPIEL 2 ? Gehen nach Mitternacht (ohne dedizierte Nachtschicht)
-      ------------------------------------------------------------------
-      Mitarbeiter: Sp?tschicht 14:00?22:30, stempelt sich versp?tet aus.
-
-        13:55 Kommen  ? kein Voreintrag vorhanden
-                      ? Schichtmodell-Berechnung: Schichttag = 10.03.2026
-        00:18 Gehen   ? Voreintrag gefunden: ze_ist_start=13:55 am 10.03.2026
-                        (liegt innerhalb [00:18 - max_std_offen, 00:18))
-                      ? Schichttag aus Kontext ?bernommen: 10.03.2026  ?
-                      ? find_offener_eintrag_id(pers_nr, 10.03.2026) findet
-                        den offenen Kommen-Eintrag ? Buchung erfolgreich
-
-      Ohne Kontextsuche: get_schicht_tag_fuer_zeit liefert 11.03.2026.
-      find_offener_eintrag_id(pers_nr, 11.03.2026) ? NULL ? Fehler
-      "Gehen ohne Kommen".
-
-      BEISPIEL 3 ? Dedizierte Nachtschicht (Schichttag = Beginn-Datum)
-      -----------------------------------------------------------------
-      Mitarbeiter: Nachtschicht 22:00?06:00, Schichttag = Tag des Schichtbeginns.
-
-        21:58 Kommen  ? kein Voreintrag vorhanden
-                      ? Schichtmodell-Berechnung: Schichttag = 10.03.2026
-        02:34 Gehen   ? Voreintrag gefunden: ze_ist_start=21:58 am 10.03.2026
-                      ? Schichttag aus Kontext ?bernommen: 10.03.2026  ?
-
-      Identisches Verhalten wie Beispiel 2. Die Kontextsuche funktioniert
-      unabh?ngig davon, ob das Schichtmodell Nachtschichten kennt oder nicht.
-
-      BEISPIEL 4 ? Pause als Gehen/Kommen nach Mitternacht
-      -----------------------------------------------------
-      Mitarbeiter stempelt keine Pausen, sondern Gehen + Kommen.
-      Schicht 22:00?06:00.
-
-        21:58 Kommen  ? Schichttag = 10.03.2026  (Schichtmodell)
-        00:15 Gehen   ? Voreintrag: ze_ist_start=21:58, Schichttag=10.03.2026
-                      ? Schichttag aus Kontext: 10.03.2026  ?
-                      ? Eintrag geschlossen: ze_ist_start=21:58, ze_ist_ende=00:15
-        00:47 Kommen  ? Voreintrag: ze_ist_start=00:15 (Gehen), Schichttag=10.03.2026
-                      ? Schichttag aus Kontext: 10.03.2026  ?
-                      ? Neuer offener Eintrag mit Schichttag=10.03.2026 erstellt
-        05:52 Gehen   ? Voreintrag: ze_ist_start=00:47, Schichttag=10.03.2026
-                      ? Schichttag aus Kontext: 10.03.2026  ?
-
-      Ohne Kontextsuche: Das zweite Kommen (00:47) w?rde Schichttag=11.03.2026
-      erhalten. Das abschlie?ende Gehen (05:52) findet dann keinen offenen
-      Eintrag am 11.03.2026 ? Fehler "Gehen ohne Kommen".
-
-      Wichtig: Die Kontextsuche zieht auch bereits geschlossene Eintr?ge heran
-      (ze_ist_start < p_zeitstempel, ohne Pr?fung auf ze_ist_ende). Das ist
-      gewollt ? entscheidend ist nur ob der Startzeitpunkt zeitlich plausibel
-      zur aktuellen Buchung passt.
-
-      BEISPIEL 5 ? Erster Eintrag einer neuen Schicht (kein Voreintrag)
-      -----------------------------------------------------------------
-      Mitarbeiter: Fr?hschicht 06:00?14:30, erste Buchung des Tages.
-
-        05:58 Kommen  ? Kontextsuche: kein Eintrag innerhalb der letzten
-                        max_std_offen Stunden vorhanden
-                      ? Fallback: Schichtmodell-Berechnung
-                      ? Schichttag = 10.03.2026  ?
-
-      Der Fallback-Pfad bleibt vollst?ndig erhalten. Das Kommen als erste
-      Buchung einer Schicht funktioniert wie bisher.
-
-      BEISPIEL 6 ? Schichttag bereits extern gesetzt (manuelle Korrektur)
-      -------------------------------------------------------------------
-      Bei c_manuelle_korrektur wird io_ze_context.schicht_tag vor dem Aufruf
-      von load_schicht_daten bereits gesetzt.
-
-        io_ze_context.schicht_tag = 10.03.2026  (extern vorgegeben)
-
-        ? load_schicht_daten: schicht_tag is not null ? Kontextsuche wird
-          ?bersprungen, kein get_schicht_tag_fuer_zeit
-        ? Nur sa_kurzname + sm_name werden ggf. aus vorhandenen Eintr?gen
-          des gesetzten Schichttages nachgeladen
-
-      Das Verhalten bei extern gesetztem Schichttag ist unver?ndert.
-
-      GRENZFALL ? Zwei aufeinanderfolgende Schichten ohne L?cke
-      ---------------------------------------------------------
-      Mitarbeiter arbeitet Doppelschicht: Sp?t 14:00?22:30 direkt gefolgt
-      von Nacht 22:30?06:00 (anderer Schichttag, z.B. bei Schichttausch).
-
-        13:58 Kommen  ? Schichttag = 10.03.2026
-        22:28 Gehen   ? Voreintrag (13:58): Schichttag=10.03.2026  ?
-        22:31 Kommen  ? Voreintrag (13:58 oder 22:28): Schichttag=10.03.2026
-
-        ? Das neue Kommen (22:31) erbt Schichttag=10.03.2026, obwohl es
-          eigentlich eine neue Schicht des selben Tages ist. Das ist korrekt,
-          da die zweite Schicht am selben Kalendertag beginnt und der
-          Schichttag sich nicht ?ndert.
-
-      W?rde die zweite Schicht auf 23:00 beginnen und dem Folgetag zugeordnet
-      sein, muss das ?ber eine ausreichend gro?e L?cke zwischen den Eintr?gen
-      sichergestellt werden ? oder der Schichttag wird beim Kommen manuell
-      gesetzt (c_manuelle_korrektur). Die Kontextsuche kann inhaltlich keine
-      Schichtzugeh?rigkeit erzwingen, die das Schichtmodell nicht hergibt.
-
-      PARAMETER: max_std_offen
-      ------------------------
-      Das Zeitfenster der Kontextsuche ist identisch mit der Grenze, ab der
-      auto_close_eintrag einen offenen Eintrag als fehlerhaft behandelt. Damit
-      gilt: Eintr?ge die noch nicht auto-geclosed w?ren, k?nnen noch zur
-      laufenden Schicht geh?ren ? und genau diese werden in der Kontextsuche
-      ber?cksichtigt. Es handelt sich um keine zus?tzliche magische Konstante.
-   */
-
   /**
    * Laedt Schichtdaten in den Buchungskontext.
    * Ermittelt den Schichttag kontextbasiert: Zuerst wird geprueft ob eine zeitlich
    * passende existierende Zeiterfassung vorliegt (Mitternacht-Ueberschreitung bei
    * Nachtschichten oder Pause-als-Gehen/Kommen). Erst als Fallback erfolgt die
-   * reine Schichtmodell-Berechnung via get_schicht_tag_fuer_zeit.
+   * reine Schichtmodell-Berechnung via get_schicht_daten.
    * Es wird davon ausgegangen, dass 'pers_nr' bereits gesetzt ist.
+   *
+   * Kontextsuche ? zwei Faelle:
+   *   Fall 1 ? Offene Stempelzeit (ze_ist_ende IS NULL):
+   *     Fenster: ze_ist_start innerhalb der letzten max_std_offen Stunden.
+   *     ze_calc_ist_start ist bei offenen Eintraegen noch nicht gesetzt,
+   *     daher wird ze_ist_start als Zeitreferenz verwendet.
+   *     Abdeckung: Gehen/Pause nach Mitternacht bei noch laufender Schicht.
+   *
+   *   Fall 2 ? Geschlossener Eintrag (ze_calc_ist_ende IS NOT NULL):
+   *     Fenster: ze_calc_ist_ende innerhalb der letzten c_max_std_nahe Stunden,
+   *     zusaetzlich auf denselben oder vorigen Kalendertag eingeschraenkt.
+   *     ze_calc_ist_ende repraesentiert das tatsaechlich bewertete Ende (auch
+   *     nach manueller Korrektur), im Gegensatz zu ze_ist_ende.
+   *     Abdeckung: Pause-als-G/K, d.h. Kommen kurz nach einem Gehen.
+   *
+   * Sortierung: GREATEST(ze_ist_start, ze_calc_ist_ende) DESC ? bei Koexistenz
+   * beider Faelle gewinnt immer der zeitlich naechste Eintrag zur Buchungszeit.
    */
     procedure load_schicht_daten (
         io_ze_context in out t_buchung_context
@@ -305,9 +191,6 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
 
         v_schicht_modell pzm_schicht_modelle%rowtype;
         v_max_std_diff   number;
-
-    -- Sucht den letzten zeitlich passenden Eintrag innerhalb des max. offenen Zeitfensters.
-    -- Liefert Schichttag + Schichtart des gefundenen Eintrags fuer die Kontextuebertragung.
         cursor c_kontext_zeiterfassung (
             p_zeitstempel in date
         ) is
@@ -319,11 +202,25 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
             pzm_zeiterfassung t
         where
                 t.ze_pers_nr = io_ze_context.pers_nr
-            and t.ze_ist_start >= p_zeitstempel - ( v_max_std_diff / 24 )
-            and t.ze_ist_start < p_zeitstempel
             and t.ze_sa_kurzname is not null
+            and t.ze_typ != typ_auto
+            and (
+           -- Fall 1: Offene Stempelzeit innerhalb max_std_offen
+             ( t.ze_ist_ende is null
+                    and t.ze_ist_start is not null
+                    and t.ze_ist_start >= p_zeitstempel - ( v_max_std_diff / 24 )
+                    and t.ze_ist_start < p_zeitstempel )
+                  or
+           -- Fall 2: Geschlossener Eintrag, berechnetes Ende nah an Buchungszeit.
+           -- Einschraenkung auf selben/vorigen Kalendertag verhindert Fehlzuordnung
+           -- bei kurzer Ruhezeit zwischen zwei Schichten.
+                   ( t.ze_calc_ist_ende is not null
+                       and t.ze_calc_ist_ende >= p_zeitstempel - ( c_max_std_nahe / 24 )
+                       and t.ze_calc_ist_ende < p_zeitstempel
+                       and trunc(t.ze_calc_ist_ende) >= trunc(p_zeitstempel) - 1 ) )
         order by
-            t.ze_ist_start desc
+            greatest(t.ze_ist_start,
+                     nvl(t.ze_calc_ist_ende, t.ze_ist_start)) desc
         fetch first 1 row only;
 
     -- Laedt Schichtart + Schichtmodell eines bereits bekannten Schichttages
@@ -895,36 +792,12 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
         in_pers_nr     in number,
         in_zeitstempel in date
     ) return date is
-
-        v_schicht_modell pzm_schicht_modelle%rowtype;
-        v_sa_found       boolean;
-        v_sa_kurzname    pzm_schichtarten.sa_kurzname%type;
-        v_sa_beginn      pzm_schichtarten.sa_beginn%type;
-        v_sa_ende        pzm_schichtarten.sa_ende%type;
-        v_sa_std_pro_tag pzm_schichtarten.sa_std_pro_tag%type;
-        v_schicht_tag    date;
+        v_buchung_context t_buchung_context;
     begin
-        v_schicht_tag := trunc(in_zeitstempel);
-        if pzm_p_base.get_schicht_modell(in_pers_nr, v_schicht_modell) then
-            v_sa_found := get_schicht_daten(in_pers_nr, in_zeitstempel, v_schicht_tag, v_sa_kurzname, v_sa_beginn,
-                                            v_sa_ende, v_sa_std_pro_tag) = 1;
-
-            if not v_sa_found then
-                pzm_p_log.error('Es konnte keine Schicht gefunden werden! '
-                                || 'Zeit='
-                                || to_char(in_zeitstempel, 'DD.MM.YYYY HH24:MI')
-                                || ', PersNr='
-                                || in_pers_nr,
-                                pzm_p_log.cat_zeiterfassung,
-                                'get_schicht_tag_fuer_zeit');
-
-            end if;
-
-        else
-            v_schicht_tag := trunc(in_zeitstempel);
-        end if;
-
-        return v_schicht_tag;
+        v_buchung_context.pers_nr := in_pers_nr;
+        v_buchung_context.zeitstempel := in_zeitstempel;
+        load_schicht_daten(v_buchung_context);
+        return v_buchung_context.schicht_tag;
     end;
 
   /**
@@ -1610,6 +1483,7 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
             t.ze_calc_ist_start = v_context.calc_ist_start,
             t.ze_calc_ist_ende = v_context.calc_ist_ende,
             t.ze_std = v_context.ze_std,
+            t.ze_typ = typ_manuell,
             t.ze_korr_pers_nr = in_korr_pers_nr,
             t.ze_korr_datum = sysdate,
             t.last_change_date = sysdate,
@@ -1683,9 +1557,9 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
 
         update pzm_zeiterfassung t
         set
-            t.ze_kst_id = in_kst_id,
-            t.ze_abt_id = in_abt_id,
-            t.ze_pb_id = in_pb_id,
+            t.ze_kst_id = nvl(in_kst_id, t.ze_kst_id),
+            t.ze_abt_id = nvl(in_abt_id, t.ze_abt_id),
+            t.ze_pb_id = nvl(in_pb_id, t.ze_pb_id),
             t.last_change_date = sysdate,
             t.last_change_login_id = current_isi_user_login_id()
         where
@@ -1786,8 +1660,6 @@ create or replace package body dirkspzm32.pzm_p_zeiterfassung is
             t.ze_calc_ist_start = v_context.calc_ist_start,
             t.ze_calc_ist_ende = v_context.calc_ist_ende,
             t.ze_std = v_context.ze_std,
-            t.ze_korr_pers_nr = null,
-            t.ze_korr_datum = null,
             t.last_change_date = sysdate,
             t.last_change_login_id = current_isi_user_login_id()
         where
@@ -2422,4 +2294,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"5617dd0b2645a7a51769d4e29c0403042ef87177","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"af7be59031cfc6ce6de15e5cbb1563525c611b36","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

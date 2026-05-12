@@ -21,6 +21,16 @@ create or replace package dirkspzm32.pzm_lohnauswertung is
   **************************************************************************************************/
 
     v_pzm_sim_on boolean := false;
+
+  --------------------------------------------------------------------------
+  -- Die Funktion prüt, ob die LOA für diesen Mitarbeiter gültigt ist (Tarif, Sichtart und Kostenstelle)
+  -------------------------------------------------------------------------- 
+    function get_pers_loa_is_gueltig (
+        in_pers_nr     in pzm_personal.pers_nr%type,
+        in_lz_id       in pzm_lohnarten.lz_id%type,
+        in_sa_kurzname in pzm_schichtarten.sa_kurzname%type
+    ) return number;
+
     function get_alternativ_loa (
         in_loa_id in pzm_lohnarten.lz_id%type
     ) return pzm_lohnarten.lz_lohnart%type;
@@ -135,4 +145,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"a1ee22f0f21775c0570c0ccc2e985ee5648cf12d","type":"PACKAGE_SPEC","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"25672d410eb4dd09391133dfbc8a82eb6ff10053","type":"PACKAGE_SPEC","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

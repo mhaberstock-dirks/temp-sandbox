@@ -41,7 +41,7 @@ create or replace force editionable view dirkspzm32.z_pzm_pbi_auslastungsquote (
         and a.abt_pb_id = bu.pb_id (+)
         and bu.bu_id = b.bu_id (+)
         and ts.ts_day_arb_std + ts.ts_day_ueb_std + ts.ts_day_flex_std > 0
-        and ts.ts_datum > trunc(sysdate) - 31
+    --and ts.ts_datum > trunc(sysdate) - 31
         and ts.ts_datum < trunc(sysdate)
     union
     select
@@ -73,8 +73,8 @@ create or replace force editionable view dirkspzm32.z_pzm_pbi_auslastungsquote (
         and bu.bu_id = b.bu_id (+)
         and ts.ts_day_abw_std > 0
         and ts.ts_aa_id = aa.aa_id
-        and ts.ts_datum > trunc(sysdate) - 31
+    --and ts.ts_datum > trunc(sysdate) - 31
         and ts.ts_datum < trunc(sysdate);
 
 
--- sqlcl_snapshot {"hash":"6ec94cac38da6996865e54d9a65b0de1fdfc41c6","type":"VIEW","name":"Z_PZM_PBI_AUSLASTUNGSQUOTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"75f1c6c17640dfa46339413afbf0b8b2c636d474","type":"VIEW","name":"Z_PZM_PBI_AUSLASTUNGSQUOTE","schemaName":"DIRKSPZM32","sxml":""}

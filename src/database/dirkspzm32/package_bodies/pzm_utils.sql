@@ -721,11 +721,10 @@ create or replace package body dirkspzm32.pzm_utils is
                 fetch c_pzm_schichtarten into v_sa_std_pro_tag;
                 close c_pzm_schichtarten;
                 v_sa_std := v_sa_std + nvl(v_sa_std_pro_tag, 8);  -- Wenn fehlt dann werden 8 Stunden angenommen
-        --if v_sa_std_pro_tag = 0
-        --then
-        --  v_sa_std_durch_tag := 0;                      -- Wenn Freischichten eingetragen, dann muss der D-Wert aus dem Schichtmodell verwendet werden
-        --  EXIT;
-        --end if;
+                if v_sa_std_pro_tag = 0 then
+                    v_sa_std_durch_tag := 0;                      -- Wenn Freischichten eingetragen, dann muss der D-Wert aus dem Schichtmodell verwendet werden
+                    exit;
+                end if;
                 if nvl(v_sa_std_pro_tag, 8) > 0 then
                     v_sa_tage := v_sa_tage + 1;
                 end if;
@@ -742,11 +741,10 @@ create or replace package body dirkspzm32.pzm_utils is
                 fetch c_pzm_schichtarten into v_sa_std_pro_tag;
                 close c_pzm_schichtarten;
                 v_sa_std := v_sa_std + nvl(v_sa_std_pro_tag, 8);  -- Wenn fehlt dann werden 8 Stunden angenommen
-        --if v_sa_std_pro_tag = 0
-        --then
-        --  v_sa_std_durch_tag := 0;                      -- Wenn Freischichten eingetragen, dann muss der D-Wert aus dem Schichtmodell verwendet werden
-        --  EXIT;
-        --end if;
+                if v_sa_std_pro_tag = 0 then
+                    v_sa_std_durch_tag := 0;                      -- Wenn Freischichten eingetragen, dann muss der D-Wert aus dem Schichtmodell verwendet werden
+                    exit;
+                end if;
                 if nvl(v_sa_std_pro_tag, 8) > 0 then
                     v_sa_tage := v_sa_tage + 1;
                 end if;
@@ -808,6 +806,50 @@ create or replace package body dirkspzm32.pzm_utils is
         return v_return;
     end;
 
+  ---------------------------------------------------------------------------------------------
+  -- Diese Tage sind zur Ermittlung der Soll-Arbeitstage
+  ---------------------------------------------------------------------------------------------
+
+    function get_pers_arb_tage (
+        in_pers_nr    in pzm_personal.pers_nr%type,
+        in_kst_id     in pzm_personal.pers_kst_id%type,
+        in_datum_beg  in date,
+        in_datum_ende in date
+    ) return number is
+
+        v_return number;
+        cursor c_tagessatz is
+        select
+            count(t.ts_day_arb_std)
+        from
+            pzm_ze_tagessatz t
+        where
+                t.ts_pers_nr = in_pers_nr
+            and ( nvl(t.ts_day_kst_id, in_kst_id) = in_kst_id
+                  or in_kst_id is null )
+            and t.ts_datum >= in_datum_beg
+            and t.ts_datum <= in_datum_ende
+            and ( t.ts_day_arb_std > 0
+                  or ( t.ts_day_arb_std = 0
+                       and exists (
+                select
+                    la.lz_konto_name_kurz
+                from
+                    pzm_abwesenheitsarten aa,
+                    pzm_lohnarten         la
+                where
+                        aa.aa_id = t.ts_aa_id
+                    and la.lz_id = aa.lz_id
+                    and la.lz_konto_name_kurz in ( 'ZK', 'UK', 'UKS' )
+            ) ) );
+
+    begin
+        open c_tagessatz;
+        fetch c_tagessatz into v_return;
+        close c_tagessatz;
+        return v_return;
+    end;
+  
   ---------------------------------------------------------------------------------------------
   -- Diese Tage sind zur Ermittlung für den 13 Tage Std-Schnitt
   ---------------------------------------------------------------------------------------------
@@ -1735,4 +1777,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"943cc9c66ebe70ab2aacd8fa40d3eadfbcbee97d","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"76fd887140aca18b4c52a1cf97ac5f3b9465e18c","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

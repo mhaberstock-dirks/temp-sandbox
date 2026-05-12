@@ -31,7 +31,7 @@ begin
             if :new.saldo > :new.max_saldo then
                 pzm_p_log.log_data(
                     p_level      => pzm_p_log.level_warning,
-                    p_message    => 'Der Saldo überschreitet den Maximalwert des Kontos. Konto: ' || :new.name,
+                    p_message    => 'Der Saldo ueberschreitet den Maximalwert des Kontos. Konto: ' || :new.name,
                     p_category   => pzm_p_log.cat_system,
                     p_module     => 'TR_PZM_KONTEN_BIU',
                     p_error_code => pzm_p_lc.pzm_error_buchung,
@@ -49,4 +49,4 @@ end;
 alter trigger dirkspzm32.tr_pzm_konten_biu enable;
 
 
--- sqlcl_snapshot {"hash":"0d93f662a37983484c67ceaa0eeb302de1052d7e","type":"TRIGGER","name":"TR_PZM_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2e1ce5cd3ab3c5e5d13f3a356bc67f7faa5bfc13","type":"TRIGGER","name":"TR_PZM_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
