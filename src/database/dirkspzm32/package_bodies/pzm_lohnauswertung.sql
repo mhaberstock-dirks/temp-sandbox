@@ -3880,10 +3880,17 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                 v_zk_13_w_schnitt_ueb := v_loa_kumuliert.loa_value + v_uer_std_aus_k_u_f_13w - v_uer_std_aus_k_u_f;
                                 v_ueb_stunden_13w := nvl(v_uer_std_aus_k_u_f_13w - v_uer_std_aus_k_u_f, 0);
                                 v_loa_zk_done := true;
+
+                /*
+                v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
+                                                                             in_pers_nr,
+                                                                             'ZK',
+                                                                             v_von_datum - 1), 0) + v_loa_kumuliert.loa_value;
+                */
                                 v_zk_monat_saldo := nvl(
-                                    pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                                    pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                     0
-                                ) + v_loa_kumuliert.loa_value;
+                                );
 
                                 if
                                     v_zk_monat_saldo < nvl(v_tarifmodell.tarif_fest_std_akz_minus, 0) * -1 -- Minus ist unterschritten
@@ -3933,9 +3940,14 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                         if nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F' then
                                             v_ueb_std := v_zk_monat_saldo * -1;  -- Bei Gehalt über Überstunden - abziehen
                                         end if;
-
+                    /*
+                    v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
+                                                             in_pers_nr,
+                                                             'ZK',
+                                                             v_von_datum - 1), 0) + v_loa_kumuliert.loa_value;
+                    */
                                         v_zk_monat_saldo := nvl(
-                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                             0
                                         ) + v_loa_kumuliert.loa_value;
 
@@ -4166,10 +4178,17 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                             v_korr_std_abz := v_loa_kumuliert.konto_val_korr;
                                         end if;
 
+                    /*
+                    v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
+                                                                                 in_pers_nr,
+                                                                                 'ZK',
+                                                                                 v_von_datum - 1), 0) + v_loa_kumuliert.loa_value
+                                                                                 + (v_kug_loa_value + v_kugk_loa_value);
+                    */
                                         v_zk_monat_saldo := nvl(
-                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                             0
-                                        ) + v_loa_kumuliert.loa_value + ( v_kug_loa_value + v_kugk_loa_value );
+                                        ) + ( v_kug_loa_value + v_kugk_loa_value );
 
                                         v_pers_max_frei_stunden := v_personal.pers_max_freistd;
                     -- Überstunden bis Grenze auszahlen
@@ -4262,11 +4281,17 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                         ( v_korr_std ) + v_ueb_stunden_13w - ( v_kug_loa_value + v_kugk_loa_value ) < 0
                                                         and ( v_kug_loa_value + v_kugk_loa_value ) > 0
                                                     then
+                            /*
+                            v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
+                                                                                         in_pers_nr,
+                                                                                         'ZK',
+                                                                                         v_von_datum - 1), 0) + orignal_loa_value;
+                            */
                                                         v_zk_monat_saldo := nvl(
-                                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1
+                                                            pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum
                                                             ),
                                                             0
-                                                        ) + orignal_loa_value;
+                                                        );
 
                                                         v_zk_monat_saldo_old := nvl(
                                                             pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1
@@ -4291,10 +4316,16 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                             end if;
 
                                         else
+                      /*
+                      v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
+                                                                                   in_pers_nr,
+                                                                                   'ZK',
+                                                                                   v_von_datum - 1), 0) + orignal_loa_value;
+                      */
                                             v_zk_monat_saldo := nvl(
-                                                pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
+                                                pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                                 0
-                                            ) + orignal_loa_value;
+                                            );
 
                                             v_zk_monat_saldo_old := nvl(
                                                 pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_von_datum - 1),
@@ -4535,6 +4566,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                 v_ueb_std_proz := v_ueb_std;
                                             end if;
                       --v_ueb_stunden_13w := v_loa_kumuliert.loa_value;
+                      -- -AG- lesen der gebuchten Ueberstunden
                                             v_stat_value_arb_std := v_stat_value_arb_std + v_loa_kumuliert.loa_value;
                                             v_loa_kumuliert.konto_nr_korr := null;
                                             v_loa_kumuliert.konto_val_korr := null;
@@ -4548,7 +4580,28 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                     insert_pzm_ze_loa_exp_ext_gutsch(v_loa_kumuliert, v_bis_datum, v_personal.pers_vname
                                                     , v_personal.pers_nname, v_pb_abteilung);
                                                 else
+                                                    select
+                                                        sum(loa.loa_value)
+                                                    into v_ueb_std
+                                                    from
+                                                        pzm_ze_loa_exp_host loa
+                                                    where
+                                                            loa.pers_nr = in_pers_nr
+                                                        and loa.lz_id = v_loa_kumuliert.lz_id
+                                                        and loa.datum = v_loa_kumuliert.datum;
+
+                                                    if v_ueb_std != 0 then
+                                                        delete pzm_ze_loa_exp_host loa
+                                                        where
+                                                                loa.pers_nr = in_pers_nr
+                                                            and loa.lz_id = v_loa_kumuliert.lz_id
+                                                            and loa.datum = v_loa_kumuliert.datum;
+
+                                                        v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value + v_ueb_std;
+                                                    end if;
+
                                                     if v_found_ue = true -- Daten bereits übertragen und es muss eine korrektur durchgeführt werden
+
                                                      then
                                                         v_loa_kumuliert.status := 'NK';  -- Neu korrigiert
                                                     end if;
@@ -5381,27 +5434,35 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
         v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + nvl(v_arb_stunden, 0);  -- Diese Arbeitsstunden dazuneh´men
         */
                 v_arb_stunden := 0;
-                select
-                    loa.lz_lohnart,
-                    loa.lz_id
-                into
-                    v_loa_kumuliert.lohnart,
-                    v_loa_kumuliert.lz_id
-                from
-                    pzm_lohnarten loa
-                where
-                    lz_id = (
-                        select
-                            min(lz_id)
-                        from
-                            pzm_lohnarten
-                        where
-                                lz_konto_name_kurz = 'ZK'
-                            and lz_konto_bus is null
-                            and lz_typ = 'UEB_STD'
-                            and lz_operator = 'UESTDPROZ'
-                            and pzm_lohnauswertung.get_pers_loa_is_gueltig(in_pers_nr, lz_id, null) = 1
-                    );
+                v_loa_kumuliert.lohnart := null; -- Initial
+
+                begin
+                    select
+                        loa.lz_lohnart,
+                        loa.lz_id
+                    into
+                        v_loa_kumuliert.lohnart,
+                        v_loa_kumuliert.lz_id
+                    from
+                        pzm_lohnarten loa
+                    where
+                        lz_id = (
+                            select
+                                min(lz_id)
+                            from
+                                pzm_lohnarten
+                            where
+                                    lz_konto_name_kurz = 'ZK'
+                                and lz_konto_bus is null
+                                and lz_typ = 'UEB_STD'
+                                and lz_operator = 'UESTDPROZ'
+                                and get_pers_loa_is_gueltig(in_pers_nr, lz_id, null) = 1
+                        );
+
+                exception
+                    when others then
+                        v_loa_kumuliert.lohnart := null;
+                end;
 
                 if v_loa_kumuliert.lohnart is not null then
                     if v_tarifmodell.tarif_ueb_proz_wie_ueb_auszahlung = 'T' then
@@ -7424,4 +7485,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"f22df06920a27e797de04123fc4541a603b9ded3","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7a0bac1620c47814abe211bc99d4112483d8c401","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

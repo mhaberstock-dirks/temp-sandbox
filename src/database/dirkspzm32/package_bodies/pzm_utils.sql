@@ -1,15 +1,29 @@
 create or replace package body dirkspzm32.pzm_utils is
 
-    v_build_number constant number := 1;
+    v_build_number      constant number := 1;
   /*
    *  Build history
    *  date       | version    | info
    *  ---------------------------------------------------------------------------------
    *  16.12.2009 | 3.4.11.1   | (-WK-) package created
+   *  19.05.2026 |            | (MHab) added result-chached-function of Get_Pers_Kst_Id  
    */
     v_error exception;
-    v_err_nr       number;
-    v_err_text     varchar2(255);
+    v_err_nr            number;
+    v_err_text          varchar2(255);
+
+  /*
+   * Function result cache for get_per_kst_id()
+   */
+    type t_pers_kst_id_cache_entry is record (
+            kst_id    number,
+            cached_at timestamp
+    );
+    type t_pers_kst_id_cache is
+        table of t_pers_kst_id_cache_entry index by pls_integer;
+    g_pers_kst_id_cache t_pers_kst_id_cache;
+    gc_pers_kst_id_ttl  constant interval day to second := interval '1' minute;
+   
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehlerhandling für Exceptions
@@ -1773,8 +1787,50 @@ create or replace package body dirkspzm32.pzm_utils is
         return ( v_result );
     end;
 
+  /* 
+   * Result-Cached Version of GET_PERS_KST_ID()
+   * If KST_ID for IN_PERS_NR has been queried 
+   */
+
+    function pb_get_pers_kst_id (
+        in_pers_nr in pzm_personal.pers_nr%type
+    ) return number is
+        result number;
+    begin
+        if g_pers_kst_id_cache.exists(in_pers_nr) then
+            if systimestamp - g_pers_kst_id_cache(in_pers_nr).cached_at < gc_pers_kst_id_ttl then
+                result := g_pers_kst_id_cache(in_pers_nr).kst_id;
+            end if;
+        end if;
+
+        if result is null then
+            select
+                nvl(
+                    nvl(p.pers_kst_id, a.abt_kst_id),
+                    pb.pb_kst_id
+                )
+            into result
+            from
+                pzm_personal            p,
+                pzm_abteilungen         a,
+                pzm_produktionsbereiche pb
+            where
+                    p.pers_nr = in_pers_nr
+                and p.pers_abt_id = a.abt_id (+)
+                and pb.pb_id = nvl(p.pers_pb_id, a.abt_pb_id);
+
+            g_pers_kst_id_cache(in_pers_nr).kst_id := result;
+            g_pers_kst_id_cache(in_pers_nr).cached_at := systimestamp;
+        end if;
+
+        return ( result );
+    exception
+        when others then
+            return ( null );
+    end pb_get_pers_kst_id;
+
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"76fd887140aca18b4c52a1cf97ac5f3b9465e18c","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"babb695da46628b6d4060193a61e86eb564bf05b","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

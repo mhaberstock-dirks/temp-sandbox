@@ -93,6 +93,9 @@ begin
         fetch c_pzm_konten_uk into v_uk_konto;
         v_found := c_pzm_konten_uk%found;
         close c_pzm_konten_uk;
+        v_found := false;  -- -AG- 20260519 Keine Bereichnung bei neuen Mitarbeiten der Urlaubanspruchs
+                       -- Probleme wenn das Schitmodell fehlr, ...
+
         begin
             if
                 :new.pers_urlaub_anspr_wert is not null
@@ -184,4 +187,4 @@ end;
 alter trigger dirkspzm32.tr_pzm_personal_aiu enable;
 
 
--- sqlcl_snapshot {"hash":"be317b4bc1fb7e57b67d96b9a481a3e7b1e7378a","type":"TRIGGER","name":"TR_PZM_PERSONAL_AIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b369eeed603f8ada2f12ae96ba7a271df691b5f5","type":"TRIGGER","name":"TR_PZM_PERSONAL_AIU","schemaName":"DIRKSPZM32","sxml":""}

@@ -17,6 +17,7 @@ create or replace package dirkspzm32.pzm_utils is
   Date         Ver.        AUTOR    Comment
   -----------  ---------   ------   ---------------
   27.11.2009   3.4.11.1    (-WK-)   Erwiterungen Euscher
+  19.05.2026               (MHab)   added result-chached-function of Get_Pers_Kst_Id
   */
 
     type pzm_schicht_perioden_refcur_t is ref cursor return pzm_schicht_perioden%rowtype;
@@ -221,8 +222,12 @@ create or replace package dirkspzm32.pzm_utils is
         in_to_pers_nr in pzm_personal.pers_nr%type
     ) return varchar2;
 
+    function pb_get_pers_kst_id (
+        in_pers_nr in pzm_personal.pers_nr%type
+    ) return number;
+
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"7376afa86f8cdea850cb8e2fb053174d327f3469","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5c4de2115cec1628d2006034892ae940e6f81389","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
