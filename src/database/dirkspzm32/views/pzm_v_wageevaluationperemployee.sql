@@ -1,11 +1,11 @@
 create or replace force editionable view dirkspzm32.pzm_v_wageevaluationperemployee (
     union_order,
-    data_src,
-    pers_nr,
+    "DataSourceInfo",
+    "EmployeeId",
     "ShiftDay",
-    kst_id,
-    sa_kurzname,
-    aa_id,
+    "CostCenterId",
+    "ShiftShortName",
+    "DayAbsenceTypeId",
     "ExpectedWorkingHours",
     "TimeStart",
     "TimeEnd",
@@ -26,13 +26,13 @@ create or replace force editionable view dirkspzm32.pzm_v_wageevaluationperemplo
     "ExpectedWorkingHoursDiff"
 ) as
     select
-        0                   union_order,
-        'ZE'                data_src, -- ZE = tägliche Zeiterfassung (time collection)
-        vts.pers_nr,
+        0                           union_order,
+        'ZE'                        "DataSourceInfo", -- data_src,  ZE = tägliche Zeiterfassung (time collection)
+        vts."EmployeeId",
         vts."ShiftDay",
-        to_char(vts.kst_id) kst_id,
-        vts.sa_kurzname,
-        vts.aa_id,
+        to_char(vts."CostCenterId") "CostCenterId",
+        vts."ShiftShortName",
+        vts."DayAbsenceTypeId",
         vts."ExpectedWorkingHours",
         vts."TimeStart",
         vts."TimeEnd",
@@ -58,15 +58,15 @@ create or replace force editionable view dirkspzm32.pzm_v_wageevaluationperemplo
 -- ERP/HOST (Lohnbuchhaltungssoftware) Datensätze, die erst am Monatsende verfügbar sind
     select
         1                        union_order,
-        'LOA_EXP'                data_src, -- für den Export generierte LOA-Daten
-        loa_exp.pers_nr,
+        'LOA_EXP'                "DataSourceInfo", -- für den Export generierte LOA-Daten
+        loa_exp.pers_nr          "EmployeId",
         trunc(loa_exp.datum) - 1 "ShiftDay",
         nvl(
             stradd_distinct(to_char(loa_exp.kst_id)),
             to_char(get_pers_kst_id(loa_exp.pers_nr))
-        )                        kst_id,
-        null                     sa_kurzname,
-        null                     aa_id,
+        )                        "CostCenterId",
+        null                     "ShiftShortName",
+        null                     "DayAbsenceTypeId",
         null                     "ExpectedWorkingHours",
         null                     "TimeStart",
         null                     "TimeEnd",
@@ -122,12 +122,12 @@ create or replace force editionable view dirkspzm32.pzm_v_wageevaluationperemplo
 -- die erst am Monatsende verfügbar sind
     select
         2                                          union_order,
-        'STAT_EXP'                                 data_src, -- für den Export generierte LOA-Daten
-        loa_stat.pers_nr,
+        'STAT_EXP'                                 "DataSourceInfo", -- für den Export generierte LOA-Daten
+        loa_stat.pers_nr                           "EmployeId",
         trunc(loa_stat.datum) - 1                  "ShiftDay",
-        to_char(get_pers_kst_id(loa_stat.pers_nr)) kst_id,
-        null                                       sa_kurzname,
-        null                                       aa_id,
+        to_char(get_pers_kst_id(loa_stat.pers_nr)) "CostCenterId",
+        null                                       "ShiftShortName",
+        null                                       "DayAbsenceTypeId",
         null                                       "ExpectedWorkingHours",
         null                                       "TimeStart",
         null                                       "TimeEnd",
@@ -181,4 +181,4 @@ create or replace force editionable view dirkspzm32.pzm_v_wageevaluationperemplo
         union_order;
 
 
--- sqlcl_snapshot {"hash":"4e3869cd4faae76225a8d33112b19f03af318c39","type":"VIEW","name":"PZM_V_WAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"80f29da7804ba8055c4ebfc7a1004b1bc859bb86","type":"VIEW","name":"PZM_V_WAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}

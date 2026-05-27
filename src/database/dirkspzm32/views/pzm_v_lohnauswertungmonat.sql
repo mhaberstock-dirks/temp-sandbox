@@ -1,9 +1,9 @@
 create or replace force editionable view dirkspzm32.pzm_v_lohnauswertungmonat (
-    pers_nr,
+    "EmployeeId",
     "ShiftDay",
-    kst_id,
-    sa_kurzname,
-    aa_id,
+    "CostCenterId",
+    "ShiftShortName",
+    "DayAbsenceTypeId",
     "ExpectedWorkingHours",
     "TimeStart",
     "TimeEnd",
@@ -226,13 +226,14 @@ create or replace force editionable view dirkspzm32.pzm_v_lohnauswertungmonat (
             ts.ts_datum
     )
     select
-        a.pers_nr,
+        a.pers_nr             as "EmployeeId"                        --
+        ,
         a.ts_datum            as "ShiftDay"
      --ShiftDayOfWeek muss in Dot.Net abgeleitet werden wegen aktiver Spracheinstellung des Frontend (Deutsch/Englisch,Polnisch, etc)
         ,
-        a.kst_id              as kst_id,
-        a.sa_kurzname         as sa_kurzname,
-        a.aa_id               as aa_id,
+        a.kst_id              as "CostCenterId",
+        a.sa_kurzname         as "ShiftShortName",
+        a.aa_id               as "DayAbsenceTypeId",
         a.ts_day_soll_std     as "ExpectedWorkingHours",
         a.ze_ist_start        as "TimeStart",
         a.ze_ist_ende         as "TimeEnd",
@@ -269,4 +270,4 @@ create or replace force editionable view dirkspzm32.pzm_v_lohnauswertungmonat (
         a.ts_datum;
 
 
--- sqlcl_snapshot {"hash":"0d094b5bc8dd83f4b7ff0d8a94865a7dc26bd987","type":"VIEW","name":"PZM_V_LOHNAUSWERTUNGMONAT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f86a890e887e287f6b6841ab5a9e9fb4456606e1","type":"VIEW","name":"PZM_V_LOHNAUSWERTUNGMONAT","schemaName":"DIRKSPZM32","sxml":""}

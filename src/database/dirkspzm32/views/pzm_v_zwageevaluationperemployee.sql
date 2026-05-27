@@ -1,9 +1,9 @@
 create or replace force editionable view dirkspzm32.pzm_v_zwageevaluationperemployee (
-    pers_nr,
+    "EmployeeId",
     "ShiftDay",
-    sa_kurzname,
-    aa_id,
-    kst_id,
+    "ShiftShortName",
+    "DayAbsenceTypeId",
+    "CostCenterId",
     "ExpectedWorkingHours",
     "DayOnSiteHours",
     "DayWorkingHours",
@@ -23,19 +23,19 @@ create or replace force editionable view dirkspzm32.pzm_v_zwageevaluationperempl
     "DayAbsenceValues",
     "DayWageTypeValues",
     union_order,
-    data_src,
+    "DataSourceInfo",
     "feiertagszuschlag",
     "nachtzuschlag",
     "sonntagszuschlag",
     "samstagszuschlag"
 ) as
     select
-        loa_ausw.pers_nr,
+        loa_ausw."EmployeeId",
         loa_ausw."ShiftDay"    -- ts_datum
         ,
-        loa_ausw.sa_kurzname,
-        loa_ausw.aa_id,
-        loa_ausw.kst_id,
+        loa_ausw."ShiftShortName",
+        loa_ausw."DayAbsenceTypeId",
+        loa_ausw."CostCenterId",
         loa_ausw."ExpectedWorkingHours"     -- ts_day_soll_std,
         ,
         loa_ausw."DayOnSiteHours"           -- ts_day_anwesenheit_std,
@@ -73,7 +73,7 @@ create or replace force editionable view dirkspzm32.pzm_v_zwageevaluationperempl
         loa_ausw."DayWageTypeValues"        -- loa_list_cr
         ,
         loa_ausw.union_order,
-        loa_ausw.data_src
+        loa_ausw."DataSourceInfo"
 
     -- Feiertagszuschlag (Lohnart 518)
         ,
@@ -98,4 +98,4 @@ create or replace force editionable view dirkspzm32.pzm_v_zwageevaluationperempl
         pzm_v_wageevaluationperemployee loa_ausw;
 
 
--- sqlcl_snapshot {"hash":"832b2b9702b4caf13b7f2d608341e2a36f37d843","type":"VIEW","name":"PZM_V_ZWAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d5b8086040dc45f0381d9e5140c6a981c3f5a9fa","type":"VIEW","name":"PZM_V_ZWAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}
