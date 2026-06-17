@@ -9,236 +9,6 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
         table of t_kst_std_rec index by binary_integer;
     v_lz_korr_we_f boolean;
 
-  --------------------------------------------------------------------------
-  -- Die Funktion prüt, ob die LOA für diesen Mitarbeiter gültigt ist (Tarif, Sichtart und Kostenstelle)
-  -------------------------------------------------------------------------- 
-    function get_pers_loa_is_gueltig (
-        in_pers_nr     in pzm_personal.pers_nr%type,
-        in_lz_id       in pzm_lohnarten.lz_id%type,
-        in_sa_kurzname in pzm_schichtarten.sa_kurzname%type
-    ) return number is
-
-        v_gueltig        boolean;
-        v_gueltigx       boolean;
-        v_gueltig_ret    number;
-        v_tarif_name     pzm_tarifmodelle.tarif_name%type;
-        v_kst_id         pzm_personal.pers_kst_id%type;
-        v_pzm_lz_tarif   pzm_lz_tarifmodelle%rowtype;
-        v_isi_pzm_lz_kst pzm_lz_kst%rowtype;
-        v_isi_pzm_lz_sa  pzm_lz_sa%rowtype;
-
-    --------------------
-        cursor c_lztarif is
-        select
-            *
-        from
-            pzm_lz_tarifmodelle t
-        where
-            t.lz_id = in_lz_id;
-    --------------------
-        cursor c_lzsa is
-        select
-            *
-        from
-            pzm_lz_sa
-        where
-            lzsa_lz_id = in_lz_id;
-    --------------------
-        cursor c_lzkst is
-        select
-            *
-        from
-            pzm_lz_kst
-        where
-            lzkst_lz_id = in_lz_id;
-    --------------------
-        cursor c_pers is
-        select
-            t.tarif_name
-        from
-            pzm_personal t
-        where
-            t.pers_nr = in_pers_nr;
-
-    begin
-        open c_pers;
-        fetch c_pers into v_tarif_name;
-        close c_pers;
-        v_kst_id := get_pers_kst_id(in_pers_nr);
-        v_gueltig := true;
-        if v_gueltig = true then
-            open c_lztarif;
-            loop
-                fetch c_lztarif into v_pzm_lz_tarif;
-        -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
-                exit when c_lztarif%notfound;
-
-        -- Eintrag vorhanden, dann erst mal ungültig
-                if c_lztarif%rowcount = 1 then
-                    v_gueltig := false;
-                end if;
-
-        -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
-                if v_pzm_lz_tarif.lz_gueltig = 1 then
-                    v_gueltigx := false;
-                    v_gueltig := false;
-                end if;
-
-        -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
-        -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
-                if
-                    v_tarif_name = v_pzm_lz_tarif.tarif_name
-                    and v_pzm_lz_tarif.lz_gueltig = 1
-                then
-                    v_gueltig := true;
-                    exit;
-                end if;
-
-        -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
-        -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
-                if
-                    v_tarif_name = v_pzm_lz_tarif.tarif_name
-                    and v_pzm_lz_tarif.lz_gueltig = 0
-                then
-                    v_gueltig := false;
-                    exit;
-                end if;
-
-        -- Ein Entrag mit UNGUELTIG fuer einen anderen Tarif gefunden,
-        -- dann erst mal wieder auf gueltig stellen
-                if
-                    v_tarif_name = v_pzm_lz_tarif.tarif_name
-                    and v_pzm_lz_tarif.lz_gueltig = 0
-                then
-                    v_gueltig := v_gueltigx;
-                end if;
-
-            end loop;
-
-            close c_lztarif;
-        end if;
-          
-    -- Jede gefundene Lohnart ist gueltig, wenn LoaZeit in der Schichtzeit !!!!
-        v_gueltigx := true;
-        if
-            v_gueltig = true
-            and in_sa_kurzname is not null
-        then
-            open c_lzsa;
-            loop
-                fetch c_lzsa into v_isi_pzm_lz_sa;
-        -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
-                exit when c_lzsa%notfound;
-
-        -- Eintrag vorhanden, dann erst mal ungültig
-                if c_lzsa%rowcount = 1 then
-                    v_gueltig := false;
-                end if;
-
-        -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
-                if v_isi_pzm_lz_sa.lzsa_gueltig = 1 then
-                    v_gueltigx := false;
-                    v_gueltig := false;
-                end if;
-
-        -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
-        -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
-                if
-                    v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
-                    and v_isi_pzm_lz_sa.lzsa_gueltig = 1
-                then
-                    v_gueltig := true;
-                    exit;
-                end if;
-
-        -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
-        -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
-                if
-                    v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
-                    and v_isi_pzm_lz_sa.lzsa_gueltig = 0
-                then
-                    v_gueltig := false;
-                    exit;
-                end if;
-
-        -- Ein Entrag mit UNGUELTIG fuer eine andere Schicht gefunden,
-        -- dann erst mal wieder auf gueltig stellen
-                if
-                    v_isi_pzm_lz_sa.lzsa_sa_kurzname != in_sa_kurzname
-                    and v_isi_pzm_lz_sa.lzsa_gueltig = 0
-                then
-                    v_gueltig := v_gueltigx;
-                end if;
-
-            end loop;
-
-            close c_lzsa;
-
-      -- Lohnart ist gueltig fuer diese KST!!
-            v_gueltigx := true;
-            if v_gueltig = true then
-                open c_lzkst;
-                loop
-                    fetch c_lzkst into v_isi_pzm_lz_kst;
-
-          -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Abteilungen
-                    exit when c_lzkst%notfound;
-
-          -- Eintrag vorhanden, dann erst mal ungültig
-                    if c_lzkst%rowcount = 1 then
-                        v_gueltig := false;
-                    end if;
-
-          -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Abteilung
-                    if v_isi_pzm_lz_kst.lzkst_gueltig = 1 then
-                        v_gueltigx := false;
-                        v_gueltig := false;
-                    end if;
-
-          -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
-          -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
-                    if
-                        v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
-                        and v_isi_pzm_lz_kst.lzkst_gueltig = 1
-                    then
-                        v_gueltig := true;
-                        exit;
-                    end if;
-
-          -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
-          -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
-                    if
-                        v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
-                        and v_isi_pzm_lz_kst.lzkst_gueltig = 0
-                    then
-                        v_gueltig := false;
-                        exit;
-                    end if;
-
-          -- Ein Entrag mit UNGUELTIG fuer eine andere Abteilung gefunden,
-          -- dann erst mal wieder auf gueltig? stellen
-                    if
-                        v_isi_pzm_lz_kst.lzkst_abt_kst != v_kst_id
-                        and v_isi_pzm_lz_kst.lzkst_gueltig = 0
-                    then
-                        v_gueltig := v_gueltigx;
-                    end if;
-
-                end loop;
-
-                close c_lzkst;
-            end if;
-
-        end if;
-
-        if v_gueltig then
-            v_gueltig_ret := 1;
-        else
-            v_gueltig_ret := 0;
-        end if;
-        return v_gueltig_ret;
-    end get_pers_loa_is_gueltig;
-
     function get_alternativ_loa (
         in_loa_id in pzm_lohnarten.lz_id%type
     ) return pzm_lohnarten.lz_lohnart%type is
@@ -3880,13 +3650,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                 v_zk_13_w_schnitt_ueb := v_loa_kumuliert.loa_value + v_uer_std_aus_k_u_f_13w - v_uer_std_aus_k_u_f;
                                 v_ueb_stunden_13w := nvl(v_uer_std_aus_k_u_f_13w - v_uer_std_aus_k_u_f, 0);
                                 v_loa_zk_done := true;
-
-                /*
-                v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
-                                                                             in_pers_nr,
-                                                                             'ZK',
-                                                                             v_von_datum - 1), 0) + v_loa_kumuliert.loa_value;
-                */
+                -- Wert direkt zum Zeitpunkt Lesen
                                 v_zk_monat_saldo := nvl(
                                     pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                     0
@@ -3940,16 +3704,11 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                         if nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F' then
                                             v_ueb_std := v_zk_monat_saldo * -1;  -- Bei Gehalt über Überstunden - abziehen
                                         end if;
-                    /*
-                    v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
-                                                             in_pers_nr,
-                                                             'ZK',
-                                                             v_von_datum - 1), 0) + v_loa_kumuliert.loa_value;
-                    */
+                    -- Wert direkt zum Zeitpunkt Lesen
                                         v_zk_monat_saldo := nvl(
                                             pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                             0
-                                        ) + v_loa_kumuliert.loa_value;
+                                        );
 
                                     end if;
 
@@ -4177,14 +3936,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
 
                                             v_korr_std_abz := v_loa_kumuliert.konto_val_korr;
                                         end if;
-
-                    /*
-                    v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
-                                                                                 in_pers_nr,
-                                                                                 'ZK',
-                                                                                 v_von_datum - 1), 0) + v_loa_kumuliert.loa_value
-                                                                                 + (v_kug_loa_value + v_kugk_loa_value);
-                    */
+                    -- Wert direkt zum Zeitpunkt Lesen
                                         v_zk_monat_saldo := nvl(
                                             pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                             0
@@ -4281,12 +4033,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                                         ( v_korr_std ) + v_ueb_stunden_13w - ( v_kug_loa_value + v_kugk_loa_value ) < 0
                                                         and ( v_kug_loa_value + v_kugk_loa_value ) > 0
                                                     then
-                            /*
-                            v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
-                                                                                         in_pers_nr,
-                                                                                         'ZK',
-                                                                                         v_von_datum - 1), 0) + orignal_loa_value;
-                            */
+                            -- Wert direkt zum Zeitpunkt Lesen
                                                         v_zk_monat_saldo := nvl(
                                                             pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum
                                                             ),
@@ -4316,12 +4063,7 @@ create or replace package body dirkspzm32.pzm_lohnauswertung is
                                             end if;
 
                                         else
-                      /*
-                      v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
-                                                                                   in_pers_nr,
-                                                                                   'ZK',
-                                                                                   v_von_datum - 1), 0) + orignal_loa_value;
-                      */
+                      -- Wert direkt zum Zeitpunkt Lesen
                                             v_zk_monat_saldo := nvl(
                                                 pzm_kontoverwaltung.zk_get_date_saldo('01', 1, in_pers_nr, 'ZK', v_bis_datum),
                                                 0
@@ -7485,4 +7227,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"7a0bac1620c47814abe211bc99d4112483d8c401","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3bdb6de804bfa0faae43e30f0b8ac36130cbea15","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

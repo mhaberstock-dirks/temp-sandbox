@@ -3,147 +3,228 @@ create or replace function dirkspzm32.get_pers_loa_is_gueltig (
     in_lz_id       in pzm_lohnarten.lz_id%type,
     in_sa_kurzname in pzm_schichtarten.sa_kurzname%type
 ) return number is
-/*
- * Prüft ob eine Lohnart (lz_id) für Person, Schichtart und Kostenstelle gültig ist.
- *
- * Gültigkeitsprinzip für jede Dimension (Tarif / Schichtart / Kostenstelle):
- *   Keine Einträge in Zuordnungstabelle ¿ Lohnart gilt für alle
- *   Einträge mit GUELTIG=1 vorhanden   ¿ Allowlist: nur explizit erlaubte gelten
- *   Nur Einträge mit GUELTIG=0         ¿ Blocklist: alle außer den gesperrten gelten
- */
 
-    v_gueltig       boolean := true;
-    v_gueltig_ret   number;
-    -- Rückfallwert: true = Blocklist-Modus (Standard gültig), false = Allowlist-Modus (Standard ungültig)
-    v_gueltig_basis boolean;
-    v_tarif_name    pzm_tarifmodelle.tarif_name%type;
-    v_kst_id        pzm_personal.pers_kst_id%type;
-    v_row_count     pls_integer;
-begin
+    v_gueltig        boolean;
+    v_gueltigx       boolean;
+    v_gueltig_ret    number;
+    v_tarif_name     pzm_tarifmodelle.tarif_name%type;
+    v_kst_id         pzm_personal.pers_kst_id%type;
+    v_pzm_lz_tarif   pzm_lz_tarifmodelle%rowtype;
+    v_isi_pzm_lz_kst pzm_lz_kst%rowtype;
+    v_isi_pzm_lz_sa  pzm_lz_sa%rowtype;
+
+  --------------------
+    cursor c_lztarif is
     select
-        tarif_name
-    into v_tarif_name
+        *
     from
-        pzm_personal
+        pzm_lz_tarifmodelle t
     where
-        pers_nr = in_pers_nr;
+        t.lz_id = in_lz_id;
+  --------------------
+    cursor c_lzsa is
+    select
+        *
+    from
+        pzm_lz_sa
+    where
+        lzsa_lz_id = in_lz_id;
+  --------------------
+    cursor c_lzkst is
+    select
+        *
+    from
+        pzm_lz_kst
+    where
+        lzkst_lz_id = in_lz_id;
+  --------------------
+    cursor c_pers is
+    select
+        t.tarif_name
+    from
+        pzm_personal t
+    where
+        t.pers_nr = in_pers_nr;
 
+begin
+    open c_pers;
+    fetch c_pers into v_tarif_name;
+    close c_pers;
     v_kst_id := get_pers_kst_id(in_pers_nr);
+    v_gueltig := true;
+    if v_gueltig = true then
+        open c_lztarif;
+        loop
+            fetch c_lztarif into v_pzm_lz_tarif;
+      -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
+            exit when c_lztarif%notfound;
 
-    -- 1. Tarifmodell-Prüfung
-    v_row_count := 0;
-    for rec in (
-        select
-            *
-        from
-            pzm_lz_tarifmodelle
-        where
-            lz_id = in_lz_id
-    ) loop
-        v_row_count := v_row_count + 1;
-        if v_row_count = 1 then
-            v_gueltig := false;  -- Einträge vorhanden ¿ nicht mehr generell gültig
-        end if;
-        if rec.lz_gueltig = 1 then
-            v_gueltig := false;  -- Allowlist-Eintrag gefunden ¿ ungültig bis passender Tarif gefunden
-        end if;
-        if rec.tarif_name = v_tarif_name then
-            v_gueltig := ( rec.lz_gueltig = 1 );
-            exit;
-        end if;
-
-    end loop;
-
-    -- 2. Schichtart-Prüfung (nur wenn Lohnart bisher gültig und Schichtart angegeben)
-    if
-        v_gueltig
-        and in_sa_kurzname is not null
-    then
-        v_row_count := 0;
-        v_gueltig_basis := true;
-        for rec in (
-            select
-                *
-            from
-                pzm_lz_sa
-            where
-                lzsa_lz_id = in_lz_id
-        ) loop
-            v_row_count := v_row_count + 1;
-            if v_row_count = 1 then
-                v_gueltig := false;
-            end if;
-            if rec.lzsa_gueltig = 1 then
-                -- Allowlist-Eintrag ¿ Standard-Gültigkeit wechselt auf false
-                v_gueltig_basis := false;
+      -- Eintrag vorhanden, dann erst mal ungültig
+            if c_lztarif%rowcount = 1 then
                 v_gueltig := false;
             end if;
 
-            if rec.lzsa_sa_kurzname = in_sa_kurzname then
-                v_gueltig := ( rec.lzsa_gueltig = 1 );
+      -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
+            if v_pzm_lz_tarif.lz_gueltig = 1 then
+                v_gueltigx := false;
+                v_gueltig := false;
+            end if;
+
+      -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
+      -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+            if
+                v_tarif_name = v_pzm_lz_tarif.tarif_name
+                and v_pzm_lz_tarif.lz_gueltig = 1
+            then
+                v_gueltig := true;
                 exit;
             end if;
 
-            -- Blocklist-Eintrag für andere Schicht ¿ Standard-Gültigkeit wiederherstellen
+      -- Wenn der Passende Tarif gefunden wurde und fuer diesen Tarif des Status
+      -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
             if
-                rec.lzsa_sa_kurzname != in_sa_kurzname
-                and rec.lzsa_gueltig = 0
+                v_tarif_name = v_pzm_lz_tarif.tarif_name
+                and v_pzm_lz_tarif.lz_gueltig = 0
             then
-                v_gueltig := v_gueltig_basis;
+                v_gueltig := false;
+                exit;
+            end if;
+
+      -- Ein Entrag mit UNGUELTIG fuer einen anderen Tarif gefunden,
+      -- dann erst mal wieder auf gueltig stellen
+            if
+                v_tarif_name = v_pzm_lz_tarif.tarif_name
+                and v_pzm_lz_tarif.lz_gueltig = 0
+            then
+                v_gueltig := v_gueltigx;
             end if;
 
         end loop;
 
-        -- 3. Kostenstellen-Prüfung
-        if v_gueltig then
-            v_row_count := 0;
-            v_gueltig_basis := true;
-            for rec in (
-                select
-                    *
-                from
-                    pzm_lz_kst
-                where
-                    lzkst_lz_id = in_lz_id
-            ) loop
-                v_row_count := v_row_count + 1;
-                if v_row_count = 1 then
-                    v_gueltig := false;
-                end if;
-                if rec.lzkst_gueltig = 1 then
-                    v_gueltig_basis := false;
+        close c_lztarif;
+    end if;
+        
+  -- Jede gefundene Lohnart ist gueltig, wenn LoaZeit in der Schichtzeit !!!!
+    v_gueltigx := true;
+    if
+        v_gueltig = true
+        and in_sa_kurzname is not null
+    then
+        open c_lzsa;
+        loop
+            fetch c_lzsa into v_isi_pzm_lz_sa;
+      -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Schichten
+            exit when c_lzsa%notfound;
+
+      -- Eintrag vorhanden, dann erst mal ungültig
+            if c_lzsa%rowcount = 1 then
+                v_gueltig := false;
+            end if;
+
+      -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Schicht
+            if v_isi_pzm_lz_sa.lzsa_gueltig = 1 then
+                v_gueltigx := false;
+                v_gueltig := false;
+            end if;
+
+      -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
+      -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+            if
+                v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
+                and v_isi_pzm_lz_sa.lzsa_gueltig = 1
+            then
+                v_gueltig := true;
+                exit;
+            end if;
+
+      -- Wenn die Passende Schicht gefunden wurde und fuer diesen Eintrag des Status
+      -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
+            if
+                v_isi_pzm_lz_sa.lzsa_sa_kurzname = in_sa_kurzname
+                and v_isi_pzm_lz_sa.lzsa_gueltig = 0
+            then
+                v_gueltig := false;
+                exit;
+            end if;
+
+      -- Ein Entrag mit UNGUELTIG fuer eine andere Schicht gefunden,
+      -- dann erst mal wieder auf gueltig stellen
+            if
+                v_isi_pzm_lz_sa.lzsa_sa_kurzname != in_sa_kurzname
+                and v_isi_pzm_lz_sa.lzsa_gueltig = 0
+            then
+                v_gueltig := v_gueltigx;
+            end if;
+
+        end loop;
+
+        close c_lzsa;
+
+    -- Lohnart ist gueltig fuer diese KST!!
+        v_gueltigx := true;
+        if v_gueltig = true then
+            open c_lzkst;
+            loop
+                fetch c_lzkst into v_isi_pzm_lz_kst;
+
+        -- Wenn kein Eintrag vorhanden, dann gilt diese Lohnart fuer all Abteilungen
+                exit when c_lzkst%notfound;
+
+        -- Eintrag vorhanden, dann erst mal ungültig
+                if c_lzkst%rowcount = 1 then
                     v_gueltig := false;
                 end if;
 
-                if rec.lzkst_abt_kst = v_kst_id then
-                    v_gueltig := ( rec.lzkst_gueltig = 1 );
+        -- Ein Eintrag mit gültig gefunden, dann nur noch Gültig wenn Eintrag genau für diese Abteilung
+                if v_isi_pzm_lz_kst.lzkst_gueltig = 1 then
+                    v_gueltigx := false;
+                    v_gueltig := false;
+                end if;
+
+        -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
+        -- GUELTIG gesetzt ist, dann ist diese Lohnart immer noch gültig.
+                if
+                    v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
+                    and v_isi_pzm_lz_kst.lzkst_gueltig = 1
+                then
+                    v_gueltig := true;
                     exit;
                 end if;
 
-                -- Blocklist-Eintrag für andere Kostenstelle ¿ Standard-Gültigkeit wiederherstellen
+        -- Wenn die Passende Abteilung gefunden wurde und fuer diesen Eintrag des Status
+        -- UNGUELTIG gesetzt ist, dann ist diese Lohnart ungültig.
                 if
-                    rec.lzkst_abt_kst != v_kst_id
-                    and rec.lzkst_gueltig = 0
+                    v_isi_pzm_lz_kst.lzkst_abt_kst = v_kst_id
+                    and v_isi_pzm_lz_kst.lzkst_gueltig = 0
                 then
-                    v_gueltig := v_gueltig_basis;
+                    v_gueltig := false;
+                    exit;
+                end if;
+
+        -- Ein Entrag mit UNGUELTIG fuer eine andere Abteilung gefunden,
+        -- dann erst mal wieder auf gueltig? stellen
+                if
+                    v_isi_pzm_lz_kst.lzkst_abt_kst != v_kst_id
+                    and v_isi_pzm_lz_kst.lzkst_gueltig = 0
+                then
+                    v_gueltig := v_gueltigx;
                 end if;
 
             end loop;
 
+            close c_lzkst;
         end if;
 
     end if;
 
-    v_gueltig_ret :=
-        case
-            when v_gueltig then
-                1
-            else
-                0
-        end;
+    if v_gueltig then
+        v_gueltig_ret := 1;
+    else
+        v_gueltig_ret := 0;
+    end if;
     return v_gueltig_ret;
 end get_pers_loa_is_gueltig;
 /
 
 
--- sqlcl_snapshot {"hash":"660ce269da9b77391876e5631ac3642731f195fb","type":"FUNCTION","name":"GET_PERS_LOA_IS_GUELTIG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"66f7bc6ac50c3685de6793b1ceac04c45d7d8ee1","type":"FUNCTION","name":"GET_PERS_LOA_IS_GUELTIG","schemaName":"DIRKSPZM32","sxml":""}

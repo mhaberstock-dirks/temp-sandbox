@@ -991,6 +991,13 @@ create or replace package body dirkspzm32.pzm_utils is
                   or in_kst_id is null )
             and t.ts_datum >= in_datum_beg
             and t.ts_datum <= in_datum_ende
+            and pzm_utils.ist_feiertag_sqlresult(
+                in_pers_nr => in_pers_nr,
+                in_pb_id   => t.ts_day_pb_id,
+                in_abt_id  => t.ts_day_abt_id,
+                in_kst_id  => t.ts_day_kst_id,
+                in_datum   => t.ts_datum
+            ) = 0
             and t.ts_aa_id = a.aa_id
             and a.kennz_urlaub != 'T'           -- Urlaub
             and a.lz_id = l.lz_id (+)
@@ -1833,4 +1840,4 @@ end;
 /
 
 
--- sqlcl_snapshot {"hash":"babb695da46628b6d4060193a61e86eb564bf05b","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f782ff2dc17bc34f6d0a54fae6d8b368ff9be002","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
