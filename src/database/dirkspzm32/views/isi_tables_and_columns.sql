@@ -1,37 +1,27 @@
-create or replace force editionable view dirkspzm32.isi_tables_and_columns (
-    modul,
-    table_name,
-    table_comments,
-    column_name,
-    nullable,
-    data_type,
-    data_length,
-    column_comments
-) as
-    select
-        substr(ut.table_name,
-               1,
-               instr(ut.table_name, '_') - 1) as modul,
-        ut.table_name,
-        utco.comments                         table_comments,
-        utf.column_name,
-        utf.nullable,
-        utf.data_type,
-        utf.data_length,
-        substr(ucc.comments, 1, 500)          column_comments
-    from
-        user_tables       ut,
-        user_tab_comments utco,
-        user_tab_cols     utf,
-        user_col_comments ucc
-    where
-            ut.table_name = utco.table_name
-        and ut.table_name = utf.table_name
-        and utf.table_name = ucc.table_name
-        and utf.column_name = ucc.column_name
-    order by
-        ut.table_name,
-        utf.column_id;
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."ISI_TABLES_AND_COLUMNS" ("MODUL", "TABLE_NAME", "TABLE_COMMENTS", "COLUMN_NAME", "NULLABLE", "DATA_TYPE", "DATA_LENGTH", "COLUMN_COMMENTS") AS 
+  select
+  substr(ut.table_name, 1, instr(ut.TABLE_NAME, '_')- 1) as Modul,
+  ut.TABLE_NAME,
+  utco.COMMENTS Table_Comments,
+  utf.COLUMN_NAME,
+  utf.NULLABLE,
+  utf.DATA_TYPE,
+  utf.DATA_LENGTH,
+  substr(ucc.COMMENTS, 1, 500) Column_Comments
+from
+  user_tables ut,
+  user_tab_comments utco,
+  user_tab_cols utf,
+  user_col_comments ucc
+where
+  ut.TABLE_NAME = utco.table_name
+  and ut.TABLE_NAME = utf.TABLE_NAME
+  and utf.TABLE_NAME = ucc.TABLE_NAME
+  and utf.COLUMN_NAME = ucc.COLUMN_NAME
+order
+  by ut.TABLE_NAME, utf.COLUMN_ID
+;
 
 
--- sqlcl_snapshot {"hash":"bf39fe9ac6dab59c27fc5dc0a97fa395c334be85","type":"VIEW","name":"ISI_TABLES_AND_COLUMNS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ed3cca950d6af1d11fcf06fb03c96bf08427798d","type":"VIEW","name":"ISI_TABLES_AND_COLUMNS","schemaName":"DIRKSPZM32","sxml":""}

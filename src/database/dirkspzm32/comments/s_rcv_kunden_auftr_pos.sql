@@ -1,158 +1,60 @@
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.adr_art is
-    'K = Kunde L = Lieferant';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.adr_liefer is
-    'Lieferadresse bei Kunden aus ADR';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.adr_nr is
-    'Kunden oder Lieferanten-Nummer aus ADR';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.anbruch is
-    'T = True Erlaubt, F = False Verboten, A = Vozugsweise Anbruch, V = Vorzugsweise Volle, I = Egal ignorieren';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.arbeitsplatz_id is
-    'ID des Arbeitsplatz der die Lagerbewegung auslösen soll';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.artikel is
-    'Artikelnummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.auftrag is
-    'Auftragsnummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.besteller is
-    'LVS, HOST, BDE ...';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.best_nr_kunde is
-    'Bestellnummer des Kunden';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.charge is
-    'Charge';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.fa_ag is
-    'Arbeitsgang der Leitzahl (Filter nur diesen FA benutzen)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.fa_nr is
-    'Leitzahl Fertigungsauftrag (Filter nur diesen FA benutzen)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.fa_upos is
-    'Unterposition (gruppenarbeit) um eine Maschine zu selectieren';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.fertig_datum is
-    'Abgeschlossen am';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.firma_nr is
-    'Mandant z.B. 01';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.freigabe is
-    'M = Manuelle Freigabe, A = Automatisch Freigeben zum Datum, E = Paletten Einzelanforderung';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.freigabe_datum is
-    'FREIGABE = M --> Erst dann freizugeben, A --> Automatische Freigabe genau am';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.freigegeben_datum is
-    'Freigegeban am';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.kom_info is
-    'zus. Info für Kommissionierer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel1 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel10 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel2 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel3 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel4 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel5 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel6 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel7 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel8 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.lam_sel9 is
-    'Parameter zusätzliche Selectionsparameter';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.liefer_datum is
-    'Gewünsches Liefer/Transportdatum';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.li_nr is
-    'Vorgegebene Lieferscheinnummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.li_pos_nr is
-    'Vorgegebene Lieferschein-Positionsnummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.login_id is
-    'ID des Erstellers';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.mengeneinheit is
-    'Mengeneinheit aus Menge Basis';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.mhd is
-    'MHD Welches MHD soll genommen werden (Filter nur Ware mit diesem MHD darf genommen werden)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.min_mhd_tage is
-    'Mindest MHD-Tage für die Ware (Filter)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.min_reifezeit is
-    'Mindest Reifezeit für diesen Artikel (Filter)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.order_datum is
-    'Generierungsdatum';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.pos_nr is
-    'Positionsnummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.prioritaet is
-    'Priorität (0..9), 9: hohe Priorität';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.prod_params is
-    'Optional: Parameter die ggf. zusammen mit dem Maschinenprogr. an die Resource gesendet werden.';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.seriennr is
-    'Serien-Nummer';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.sid is
-    'Datenbank für Konsolidierung';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.soll_menge is
-    'Soll-Menge';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.status is
-    'ISIPlus Status,
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ADR_ART" is 'K = Kunde L = Lieferant';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ADR_LIEFER" is 'Lieferadresse bei Kunden aus ADR';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ADR_NR" is 'Kunden oder Lieferanten-Nummer aus ADR';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ANBRUCH" is 'T = True Erlaubt, F = False Verboten, A = Vozugsweise Anbruch, V = Vorzugsweise Volle, I = Egal ignorieren';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ARBEITSPLATZ_ID" is 'ID des Arbeitsplatz der die Lagerbewegung auslösen soll';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ARTIKEL" is 'Artikelnummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."AUFTRAG" is 'Auftragsnummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."BESTELLER" is 'LVS, HOST, BDE ...';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."BEST_NR_KUNDE" is 'Bestellnummer des Kunden';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."CHARGE" is 'Charge';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FA_AG" is 'Arbeitsgang der Leitzahl (Filter nur diesen FA benutzen)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FA_NR" is 'Leitzahl Fertigungsauftrag (Filter nur diesen FA benutzen)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FA_UPOS" is 'Unterposition (gruppenarbeit) um eine Maschine zu selectieren';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FERTIG_DATUM" is 'Abgeschlossen am';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FIRMA_NR" is 'Mandant z.B. 01';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FREIGABE" is 'M = Manuelle Freigabe, A = Automatisch Freigeben zum Datum, E = Paletten Einzelanforderung';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FREIGABE_DATUM" is 'FREIGABE = M --> Erst dann freizugeben, A --> Automatische Freigabe genau am';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."FREIGEGEBEN_DATUM" is 'Freigegeban am';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."KOM_INFO" is 'zus. Info für Kommissionierer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL1" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL10" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL2" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL3" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL4" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL5" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL6" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL7" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL8" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LAM_SEL9" is 'Parameter zusätzliche Selectionsparameter';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LIEFER_DATUM" is 'Gewünsches Liefer/Transportdatum';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LI_NR" is 'Vorgegebene Lieferscheinnummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LI_POS_NR" is 'Vorgegebene Lieferschein-Positionsnummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."LOGIN_ID" is 'ID des Erstellers';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."MENGENEINHEIT" is 'Mengeneinheit aus Menge Basis';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."MHD" is 'MHD Welches MHD soll genommen werden (Filter nur Ware mit diesem MHD darf genommen werden)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."MIN_MHD_TAGE" is 'Mindest MHD-Tage für die Ware (Filter)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."MIN_REIFEZEIT" is 'Mindest Reifezeit für diesen Artikel (Filter)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ORDER_DATUM" is 'Generierungsdatum';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."POS_NR" is 'Positionsnummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."PRIORITAET" is 'Priorität (0..9), 9: hohe Priorität';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."PROD_PARAMS" is 'Optional: Parameter die ggf. zusammen mit dem Maschinenprogr. an die Resource gesendet werden.';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."SERIENNR" is 'Serien-Nummer';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."SID" is 'Datenbank für Konsolidierung';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."SOLL_MENGE" is 'Soll-Menge';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."STATUS" is 'ISIPlus Status,
 N=Host Neu,
 U=Host Update läuft,
 D=bereits vom Host übernommen (deleted),
 UE= von ISIPlus übernommen,
 DF=Freigabe zum Löschen,
 ERR=Fehler (Fehler bei der Übernahme in ISI)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.strategie is
-    'FIFO, LIFO ...';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.upos_nr is
-    'Unterposition Bsp.: Eine Position mit n Chargen etc.';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.wae_ziel is
-    'SPED = Spedition SELB = Selbstabholer UPS = UPS DPAD = Paketversand, MASCH = Maschine, LAGER = Lager';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.zeichnung_index is
-    'Zeichnungsindex (Filter)';
-
-comment on column dirkspzm32.s_rcv_kunden_auftr_pos.ziel is
-    'WA wenn Auslagerung';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."STRATEGIE" is 'FIFO, LIFO ...';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."UPOS_NR" is 'Unterposition Bsp.: Eine Position mit n Chargen etc.';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."WAE_ZIEL" is 'SPED = Spedition SELB = Selbstabholer UPS = UPS DPAD = Paketversand, MASCH = Maschine, LAGER = Lager';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ZEICHNUNG_INDEX" is 'Zeichnungsindex (Filter)';
+comment on column DIRKSPZM32.S_RCV_KUNDEN_AUFTR_POS."ZIEL" is 'WA wenn Auslagerung';
 
 
--- sqlcl_snapshot {"hash":"e52c2c316ae59f347313ef09276d8523e7a31e73","type":"COMMENT","name":"s_rcv_kunden_auftr_pos","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f64ddf9a38310a501a334f7664ec70e850565139","type":"COMMENT","name":"s_rcv_kunden_auftr_pos","schemaName":"dirkspzm32","sxml":""}

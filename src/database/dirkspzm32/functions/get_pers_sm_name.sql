@@ -1,18 +1,20 @@
-create or replace function dirkspzm32.get_pers_sm_name (
-    in_pers_nr in pzm_personal.pers_nr%type
-) return varchar2 is
-    result pzm_schicht_modelle.sm_name%type;
-begin
-    if not pzm_utils.get_schicht_modell_name(in_pers_nr, result) then
-        result := null;
-    end if;
+create or replace 
+function DIRKSPZM32.GET_PERS_SM_NAME(in_pers_nr in pzm_personal.pers_nr%type
+                                        ) return varchar2 is
 
-    return result;
+  Result pzm_schicht_modelle.sm_name%type;
+begin
+  if not pzm_utils.get_schicht_modell_name(in_pers_nr, Result)
+  then
+    Result := NULL;
+  end if;
+  return Result;
 exception
-    when others then
-        return ( null );
-end get_pers_sm_name;
+  when others then
+    return(NULL);
+end GET_PERS_SM_NAME;
 /
 
 
--- sqlcl_snapshot {"hash":"128eaacf8c11f63119c6054f3b1d234c6af63133","type":"FUNCTION","name":"GET_PERS_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"1b29f0b561d818340add956205206b1b5e99eb02","type":"FUNCTION","name":"GET_PERS_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}

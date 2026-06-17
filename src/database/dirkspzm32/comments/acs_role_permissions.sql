@@ -1,14 +1,8 @@
-comment on table dirkspzm32.acs_role_permissions is
-    'Access Control System (assigned Roles to Access Points)';
-
-comment on column dirkspzm32.acs_role_permissions.access_point_device_id is
-    'Unique Identifier of Access Point Device (GUID)';
-
-comment on column dirkspzm32.acs_role_permissions.role_id is
-    'Unique Identifier of Role (GUID)';
-
-comment on column dirkspzm32.acs_role_permissions.security_level is
-    'Number Value between 0 and 3, representing the knowlegde of this role of this access point';
+comment on table DIRKSPZM32.ACS_ROLE_PERMISSIONS is 'Access Control System (assigned Roles to Access Points)';
+comment on column DIRKSPZM32.ACS_ROLE_PERMISSIONS."ACCESS_POINT_DEVICE_ID" is 'Unique Identifier of Access Point Device (GUID)';
+comment on column DIRKSPZM32.ACS_ROLE_PERMISSIONS."ROLE_ID" is 'Unique Identifier of Role (GUID)';
+comment on column DIRKSPZM32.ACS_ROLE_PERMISSIONS."SECURITY_LEVEL" is 'Number Value between 0 and 3, representing the knowlegde of this role of this access point';
 
 
--- sqlcl_snapshot {"hash":"0ba5a1b35f6e473ae25047be13bf86b040c48e0b","type":"COMMENT","name":"acs_role_permissions","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ecb9dbe7d85b511f5e73425ea1d78289b48376b6","type":"COMMENT","name":"acs_role_permissions","schemaName":"dirkspzm32","sxml":""}

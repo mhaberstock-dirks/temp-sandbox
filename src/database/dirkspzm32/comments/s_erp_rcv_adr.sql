@@ -1,138 +1,49 @@
-comment on table dirkspzm32.s_erp_rcv_adr is
-    'Adressen von SAP uebergeben';
-
-comment on column dirkspzm32.s_erp_rcv_adr.adress_id_h is
-    'Referenz auf den Hersteller der gegenüber dem Warenempfänger auftritt';
-
-comment on column dirkspzm32.s_erp_rcv_adr.adr_art is
-    'K = Kunde, L = Lieferant';
-
-comment on column dirkspzm32.s_erp_rcv_adr.adr_liefer is
-    'Lieferadresse beim Kunden';
-
-comment on column dirkspzm32.s_erp_rcv_adr.adr_nr is
-    'Kunden oder Lieferanten Nr.';
-
-comment on column dirkspzm32.s_erp_rcv_adr.aktiv is
-    'T = Adresse ist Aktiv, F = Adresse ist Inaktiv';
-
-comment on column dirkspzm32.s_erp_rcv_adr.anspr is
-    'Ansprechpartner';
-
-comment on column dirkspzm32.s_erp_rcv_adr.avis is
-    'NULL = Kein AVIS, PDF_EMAIL, TXT_EMAIL, EDI_EMAIL';
-
-comment on column dirkspzm32.s_erp_rcv_adr.charge_lte_id_lief_tausch is
-    '''T'' => Bei der Etikettierung mit Scanner muss die LTE_ID und Charge getauscht werden. ';
-
-comment on column dirkspzm32.s_erp_rcv_adr.created_date is
-    'Erstelldatum und Zeitstempel wann der Datensatz erstellt wurde';
-
-comment on column dirkspzm32.s_erp_rcv_adr.created_login_id is
-    '  Id des Benutzers der diesen Datensatz erstellt hat';
-
-comment on column dirkspzm32.s_erp_rcv_adr.ecc_hersteller_id is
-    'Hersteller ID bei ECC (wird ggf. bei EDI gebraucht)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.edi_gln is
-    'EDI: Global Location Number (zur globalen Identifizierung von Herst. Warenemp. etc.)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.edi_gln_b is
-    'Referenz auf den Einkäufer der gegenüber dem Warenempfänger auftritt';
-
-comment on column dirkspzm32.s_erp_rcv_adr.edi_gln_r is
-    'Referenz auf die Rechnungsadresse für den Warenempfänger';
-
-comment on column dirkspzm32.s_erp_rcv_adr.eink_preis_berechnen is
-    'Vorgabe Artikel_Lieferant.EINK_PREIS Berechnen oder Eingeben.!';
-
-comment on column dirkspzm32.s_erp_rcv_adr.email is
-    'E-Mail-Adresse';
-
-comment on column dirkspzm32.s_erp_rcv_adr.ext_etiketten_druck is
-    '''T'' => für diesen Lieferanten ist die externe Etikettendruck-Funktion freigeschaltet';
-
-comment on column dirkspzm32.s_erp_rcv_adr.fax is
-    'Fax Nr.';
-
-comment on column dirkspzm32.s_erp_rcv_adr.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.s_erp_rcv_adr.info_1 is
-    'Freier Text zu einem Lieferanten bzw. Kunden';
-
-comment on column dirkspzm32.s_erp_rcv_adr.isiplus_module is
-    'Welche ISIPlus Module stehen an dieser Adresse zur Verfügung (z.B. bei Fillialen, ext. Lager-Dienstleistern). Modulnamen mit ; getrennt.'
-    ;
-
-comment on column dirkspzm32.s_erp_rcv_adr.kundennrlief is
-    'Meine Kundennummer bei Lieferant / meine Lieferantennummer beim Kunden';
-
-comment on column dirkspzm32.s_erp_rcv_adr.land is
-    'Land';
-
-comment on column dirkspzm32.s_erp_rcv_adr.land_kurz is
-    'Länderkürzel';
-
-comment on column dirkspzm32.s_erp_rcv_adr.last_change_date is
-    'Änderungsdatum und Zeitstempel wann der Datensatz zuletzt geändert wurde';
-
-comment on column dirkspzm32.s_erp_rcv_adr.last_change_login_id is
-    'Id des Benutzers der diesen Datensatz zuletzt geändert hat';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lhm_etiketten_layout is
-    'Etikettenlayout für diesen Kunden';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lhm_etiketten_name is
-    'Etikettenname für LHM';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lhm_etiketten_spez_barcode is
-    'Etikettentyp (CCG, VDA; ...)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lhm_etiketten_typ is
-    'Etikettentyp (CCG, VDA; ...)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lieferbedingungen is
-    'Lieferbedingungen';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lief_eink_rabatt_faktor is
-    'Vorgabe Eink_Rabatt_Faktor für Berechnung Eink_Preis';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lte_etiketten_layout is
-    'Etikettenlayout für diesen Kunden';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lte_etiketten_name is
-    'Etikettenname für Transpoprteinheiten';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lte_etiketten_spez_barcode is
-    'Etikettentyp (CCG, VDA; ...)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.lte_etiketten_typ is
-    'Etikettentyp (CCG, VDA; ...)';
-
-comment on column dirkspzm32.s_erp_rcv_adr.name_1 is
-    'Eintrag Name 1';
-
-comment on column dirkspzm32.s_erp_rcv_adr.name_2 is
-    'Eintrag Name 2';
-
-comment on column dirkspzm32.s_erp_rcv_adr.name_3 is
-    'Eintrag Name 3';
-
-comment on column dirkspzm32.s_erp_rcv_adr.rg_mwst_text is
-    'Text für Erklärung der MWST Ausland / Inlanf und Europa';
-
-comment on column dirkspzm32.s_erp_rcv_adr.tel is
-    'Telefon Nr.';
-
-comment on column dirkspzm32.s_erp_rcv_adr.ust_id_nummer is
-    'Umsatzsteuer ID Nummer';
-
-comment on column dirkspzm32.s_erp_rcv_adr.waehrung is
-    'Währung EUR, USD, ...';
-
-comment on column dirkspzm32.s_erp_rcv_adr.zahlungsbedingungen is
-    'Zahlungsbedingungen';
+comment on table DIRKSPZM32.S_ERP_RCV_ADR is 'Adressen von SAP uebergeben';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ADRESS_ID_H" is 'Referenz auf den Hersteller der gegenüber dem Warenempfänger auftritt';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ADR_ART" is 'K = Kunde, L = Lieferant';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ADR_LIEFER" is 'Lieferadresse beim Kunden';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ADR_NR" is 'Kunden oder Lieferanten Nr.';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."AKTIV" is 'T = Adresse ist Aktiv, F = Adresse ist Inaktiv';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ANSPR" is 'Ansprechpartner';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."AVIS" is 'NULL = Kein AVIS, PDF_EMAIL, TXT_EMAIL, EDI_EMAIL';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."CHARGE_LTE_ID_LIEF_TAUSCH" is '''T'' => Bei der Etikettierung mit Scanner muss die LTE_ID und Charge getauscht werden. ';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."CREATED_DATE" is 'Erstelldatum und Zeitstempel wann der Datensatz erstellt wurde';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."CREATED_LOGIN_ID" is '  Id des Benutzers der diesen Datensatz erstellt hat';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ECC_HERSTELLER_ID" is 'Hersteller ID bei ECC (wird ggf. bei EDI gebraucht)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EDI_GLN" is 'EDI: Global Location Number (zur globalen Identifizierung von Herst. Warenemp. etc.)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EDI_GLN_B" is 'Referenz auf den Einkäufer der gegenüber dem Warenempfänger auftritt';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EDI_GLN_R" is 'Referenz auf die Rechnungsadresse für den Warenempfänger';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EINK_PREIS_BERECHNEN" is 'Vorgabe Artikel_Lieferant.EINK_PREIS Berechnen oder Eingeben.!';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EMAIL" is 'E-Mail-Adresse';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."EXT_ETIKETTEN_DRUCK" is '''T'' => für diesen Lieferanten ist die externe Etikettendruck-Funktion freigeschaltet';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."FAX" is 'Fax Nr.';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."INFO_1" is 'Freier Text zu einem Lieferanten bzw. Kunden';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ISIPLUS_MODULE" is 'Welche ISIPlus Module stehen an dieser Adresse zur Verfügung (z.B. bei Fillialen, ext. Lager-Dienstleistern). Modulnamen mit ; getrennt.';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."KUNDENNRLIEF" is 'Meine Kundennummer bei Lieferant / meine Lieferantennummer beim Kunden';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LAND" is 'Land';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LAND_KURZ" is 'Länderkürzel';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LAST_CHANGE_DATE" is 'Änderungsdatum und Zeitstempel wann der Datensatz zuletzt geändert wurde';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LAST_CHANGE_LOGIN_ID" is 'Id des Benutzers der diesen Datensatz zuletzt geändert hat';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LHM_ETIKETTEN_LAYOUT" is 'Etikettenlayout für diesen Kunden';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LHM_ETIKETTEN_NAME" is 'Etikettenname für LHM';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LHM_ETIKETTEN_SPEZ_BARCODE" is 'Etikettentyp (CCG, VDA; ...)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LHM_ETIKETTEN_TYP" is 'Etikettentyp (CCG, VDA; ...)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LIEFERBEDINGUNGEN" is 'Lieferbedingungen';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LIEF_EINK_RABATT_FAKTOR" is 'Vorgabe Eink_Rabatt_Faktor für Berechnung Eink_Preis';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LTE_ETIKETTEN_LAYOUT" is 'Etikettenlayout für diesen Kunden';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LTE_ETIKETTEN_NAME" is 'Etikettenname für Transpoprteinheiten';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LTE_ETIKETTEN_SPEZ_BARCODE" is 'Etikettentyp (CCG, VDA; ...)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."LTE_ETIKETTEN_TYP" is 'Etikettentyp (CCG, VDA; ...)';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."NAME_1" is 'Eintrag Name 1';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."NAME_2" is 'Eintrag Name 2';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."NAME_3" is 'Eintrag Name 3';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."RG_MWST_TEXT" is 'Text für Erklärung der MWST Ausland / Inlanf und Europa';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."TEL" is 'Telefon Nr.';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."UST_ID_NUMMER" is 'Umsatzsteuer ID Nummer';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."WAEHRUNG" is 'Währung EUR, USD, ...';
+comment on column DIRKSPZM32.S_ERP_RCV_ADR."ZAHLUNGSBEDINGUNGEN" is 'Zahlungsbedingungen';
 
 
--- sqlcl_snapshot {"hash":"e3c00d9d432a67ea82abb7d857bcca2eb3059f2b","type":"COMMENT","name":"s_erp_rcv_adr","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"08b0e09769b72ae96f6f968b75c666f63c8e2aee","type":"COMMENT","name":"s_erp_rcv_adr","schemaName":"dirkspzm32","sxml":""}

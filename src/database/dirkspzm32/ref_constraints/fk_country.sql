@@ -1,8 +1,6 @@
-alter table dirkspzm32.isi_land_region
-    add constraint fk_country
-        foreign key ( country )
-            references dirkspzm32.isi_land ( isocode )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_LAND_REGION" ADD CONSTRAINT "FK_COUNTRY" FOREIGN KEY ("COUNTRY")
+	  REFERENCES "DIRKSPZM32"."ISI_LAND" ("ISOCODE") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"b7d29ac5cdb08f5eb1d45ef3d4ac2fa78e8525c3","type":"REF_CONSTRAINT","name":"FK_COUNTRY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4e71153bcd87becf982d1e6ec62a08a2c019851b","type":"REF_CONSTRAINT","name":"FK_COUNTRY","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,62 +1,47 @@
-create or replace editionable trigger dirkspzm32.tr_isi_res_schicht_bi before
-    insert on dirkspzm32.isi_res_schicht
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_SCHICHT_BI" 
+  before insert on DIRKSPZM32.isi_res_schicht
+  for each row
 declare
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
-    v_error exception;                 --
-    v_err_nr   number;
-    v_err_text varchar2(255);
+  v_error     EXCEPTION;                 --
+  v_err_nr    number;
+  v_err_text  varchar2(255);
+
 begin
-    if :new.schicht_id is null then
-        select
-            seq_isi_res_schicht_id.nextval
-        into :new.schicht_id
-        from
-            dual;
+  if :new.SCHICHT_ID is NULL then
+    select seq_isi_res_schicht_id.nextval into :new.Schicht_ID from dual;
+  end if;
+  if :new.schicht_type = 'S' then -- Schicht
+    :new.Parent_id := :new.Schicht_id;
+  end if;
 
-    end if;
-
-    if :new.schicht_type = 'S' then -- Schicht
-        :new.parent_id := :new.schicht_id;
-    end if;
 
 exception
      -- Im Fehlerfall is der Fehlertext bereits gesetzt.
     when v_error then  -- Update 2011 show Exception Source Line
-        v_err_text := v_err_text
-                      || chr(13)
-                      || chr(10)
-                      || dbms_utility.format_error_backtrace;
-
-        raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        raise;
+      v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+      RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+      raise;
     when others then
-        if v_err_nr is not null then
-            v_err_text := v_err_text
-                          || chr(13)
-                          || chr(10)
-                          || dbms_utility.format_error_backtrace;
-
-            raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        else
-            v_err_text := dbms_utility.format_error_backtrace;
-            if v_err_text not like 'ORA-%ORA-%' then
-                v_err_text := lc.ec(lc.o_txt_db_error)
-                              || chr(13)
-                              || chr(10)
-                              || dbms_utility.format_error_backtrace;
-
-                raise_application_error(-20000, v_err_text, true);
-            end if;
-
-            raise;
+      if v_err_nr is not NULL then
+        v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+        RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+      else
+        v_err_text := DBMS_UTILITY.format_error_backtrace;
+        if v_err_text not like 'ORA-%ORA-%'
+        then
+          v_err_text := LC.ec(LC.O_TXT_DB_ERROR) || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+          RAISE_APPLICATION_ERROR(-20000, v_err_text, true);
         end if;
-end tr_isi_res_schicht_bi;
+        raise;
+      end if;
+end TR_ISI_RES_SCHICHT_BI;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_SCHICHT_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_res_schicht_bi enable;
 
-
--- sqlcl_snapshot {"hash":"eb5633150ffddfe0475357bb953b978067d0fed1","type":"TRIGGER","name":"TR_ISI_RES_SCHICHT_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f2a4b8a0ef6ce3e005e56656845b4ba6f548d5a2","type":"TRIGGER","name":"TR_ISI_RES_SCHICHT_BI","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,53 +1,21 @@
-comment on table dirkspzm32.pps_arb_plan_ag_stl is
-    'Relation Arbeitsplan - Stückliste';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.ag_alternative is
-    'Vorgang Alternative Leer = Standard';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.arb_plan_id is
-    'Arbeitsplan, dem dieser AG zugeordnet werden soll';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.arb_plan_pos_id is
-    'Arbeitsplan Position ';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.created_login_id is
-    'login ID of the user creating this dataset';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.firma_nr is
-    'Firmennummer (Ist auch die ADR_NR in der Adressentabelle)';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.last_change_login_id is
-    'login ID of the user changing this dataset';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.prod_menge_ix is
-    'Index, falls die STL-Position vereinzelt werden soll';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.prod_menge_p_einheit is
-    'Menge je Einheit als Abs. Multiplikator oder Divisor. Bedarfsmenge zum AG';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.prod_menge_p_einheit_op is
-    '''ABS'' = Absolute -> Immer genau diese Menge ''MUL'' = Multiplizieren, ''DIV'' = Dividieren';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.prod_reihenfolge is
-    'Produktionsreihenfolge (In dieser Reihenfolge wird diese Stücklisteneintrag in der Produktion verarbeitet)';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.sid is
-    'Datenbank dieser Firma';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.sl_alternative is
-    'Vorgang Alternative Leer = Standard';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.stueckliste_id is
-    'Eindeutige Sequenz der Stückliste ';
-
-comment on column dirkspzm32.pps_arb_plan_ag_stl.stueckliste_pos_id is
-    'Zugehöriger Stücklisteneintrag';
+comment on table DIRKSPZM32.PPS_ARB_PLAN_AG_STL is 'Relation Arbeitsplan - Stückliste';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."AG_ALTERNATIVE" is 'Vorgang Alternative Leer = Standard';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."ARB_PLAN_ID" is 'Arbeitsplan, dem dieser AG zugeordnet werden soll';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."ARB_PLAN_POS_ID" is 'Arbeitsplan Position ';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."CREATED_LOGIN_ID" is 'login ID of the user creating this dataset';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."FIRMA_NR" is 'Firmennummer (Ist auch die ADR_NR in der Adressentabelle)';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."LAST_CHANGE_LOGIN_ID" is 'login ID of the user changing this dataset';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."PROD_MENGE_IX" is 'Index, falls die STL-Position vereinzelt werden soll';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."PROD_MENGE_P_EINHEIT" is 'Menge je Einheit als Abs. Multiplikator oder Divisor. Bedarfsmenge zum AG';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."PROD_MENGE_P_EINHEIT_OP" is '''ABS'' = Absolute -> Immer genau diese Menge ''MUL'' = Multiplizieren, ''DIV'' = Dividieren';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."PROD_REIHENFOLGE" is 'Produktionsreihenfolge (In dieser Reihenfolge wird diese Stücklisteneintrag in der Produktion verarbeitet)';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."SID" is 'Datenbank dieser Firma';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."SL_ALTERNATIVE" is 'Vorgang Alternative Leer = Standard';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."STUECKLISTE_ID" is 'Eindeutige Sequenz der Stückliste ';
+comment on column DIRKSPZM32.PPS_ARB_PLAN_AG_STL."STUECKLISTE_POS_ID" is 'Zugehöriger Stücklisteneintrag';
 
 
--- sqlcl_snapshot {"hash":"3d21f6666e0ecadf3450e8a209d70010c6cfdeb4","type":"COMMENT","name":"pps_arb_plan_ag_stl","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"5c2d4531d8e6be70709a674e22b0bac5147e4971","type":"COMMENT","name":"pps_arb_plan_ag_stl","schemaName":"dirkspzm32","sxml":""}

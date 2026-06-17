@@ -1,4 +1,6 @@
-create or replace package body dirkspzm32.z_essex_druck is
+create or replace 
+package body DIRKSPZM32.z_essex_druck is
+
 
   /*
   __________________________________________________
@@ -15,6 +17,7 @@ create or replace package body dirkspzm32.z_essex_druck is
   -----------  ---------   ------   ---------------
   17.07.2013   3.5.3.0     (-AG-)   Minor Release
   */
+
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -74,1112 +77,677 @@ create or replace package body dirkspzm32.z_essex_druck is
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
-    v_error exception;                 --
-    v_err_nr   number;
-    v_err_text varchar2(255);
+  v_error     EXCEPTION;                 --
+  v_err_nr    number;
+  v_err_text  varchar2(255);
 
   -- Function and procedure implementations
-    function vda_etikett (
-        in_sid       in isi_sid.sid%type,
-        in_firma_nr  in isi_firma.firma_nr%type,
-        in_id        in lvs_lte.lte_id%type,
-        in_waren_typ in lvs_lte.waren_typ%type
-    ) return varchar2 is
+  function vda_etikett(in_sid         in isi_sid.sid%type,
+                       in_firma_nr    in isi_firma.firma_nr%type,
+                       in_id          in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type)
+                       return varchar2 is
 
-        v_print_daten                  varchar2(4096);
-        v_found                        boolean;
-        v_pos                          isi_order_pos%rowtype;
-        v_kopf                         isi_order_kopf%rowtype;
-        v_adr                          isi_adressen%rowtype;
-        v_art                          isi_artikel%rowtype;
-        v_art_kd                       isi_artikel_kunde%rowtype;
-        v_charge                       lvs_charge%rowtype;
-        v_lte_c                        lvs_lte_cfg%rowtype;
-        v_lhm_c                        lvs_lhm_cfg%rowtype;
-        v_lte_sid                      lvs_lte.sid%type;
-        v_lte_firma_nr                 lvs_lte.firma_nr%type;
-        v_lte_lte_id                   lvs_lte.lte_id%type;
-        v_lte_lte_name                 lvs_lte.lte_name%type;
-        v_lte_ziel_lgr_platz           lvs_lte.ziel_lgr_platz%type;
-        v_lte_lte_akt_lhm              lvs_lte.lte_akt_lhm%type;
-        v_lte_order_vorgang_id         lvs_lte.order_vorgang_id%type;
-        v_lhm_lhm_name                 lvs_lhm.lhm_name%type;
-        v_lam_charge_id                lvs_lam.charge_id%type;
-        v_lam_kunden_nr                lvs_lam.kunden_nr%type;
-        v_lam_memge                    lvs_lam.menge%type;
-        v_lam_memge_basis              lvs_lam.menge_basis%type;
-        v_lam_leitzahl                 lvs_lam.leitzahl%type;
-        v_lam_prod_datum               lvs_lam.prod_datum%type;
-        v_order_pos_auf_id             isi_order_pos.auf_id%type;
-        v_lte_id_b                     varchar2(100);
-        v_lte_lte_voll                 lvs_lte.lte_voll%type;
-        v_lam_zeichnung                lvs_lam.zeichnung%type;
-        v_lam_zeichnung_index          lvs_lam.zeichnung_index%type;
-        v_lam_best_nr                  lvs_lam.best_nr%type;
-        v_fa_auftrag                   bde_fa_auftrag%rowtype;
-        v_netto                        number;
-        v_brutto                       number;
-        v_adr_nr                       isi_adressen.adr_nr%type;
-        v_adr_liefer                   isi_adressen.adr_liefer%type;
-        v_adr_id                       isi_adressen.adress_id%type;
-        v_lam_order_pos_auf_id         isi_order_pos.auf_id%type;
-        v_lam_artikel_id               isi_artikel.artikel_id%type;
-        v_lam_art_fanr                 lvs_lam.leitzahl%type;
-        v_lam_art_faag                 lvs_lam.fa_ag%type;
-        v_lieferanten_nr               isi_adressen.adr_nr%type;
-        v_best_nr_kunde                isi_order_pos.best_nr_kunde%type;
-        v_li_nr_lief                   lvs_lam.li_nr_lief%type;
-        v_naechste_maschine            isi_resource.res_ext_name%type;
-        v_vdadatenfeldfuerlieferanten  varchar2(255);
-        v_vdagewichtbrutto             varchar2(255);
-        v_vdagewichtnetto              varchar2(255);
-        v_vdalieferscheinnrbestnr      varchar2(255);
-        v_vdalieferscheinnr            varchar2(255);
-        v_vdalieferscheinnrlief        varchar2(255);
-        v_vdawarenempfaengerkurz       varchar2(255);
-        v_vdawarenempfaengerlang1      varchar2(255);
-        v_vdawarenempfaengerlang2      varchar2(255);
-        v_vdawarenempfaengerlang3      varchar2(255);
-        v_vdaabladestelle              varchar2(255);
-        v_vdaanzahlpackstuecke         varchar2(255);
-        v_vdafuellmenge                varchar2(255);
-        v_vdafuellmengemengeneinheit   varchar2(255);
-        v_vdabezeichnunglieferungl     varchar2(255);
-        v_vdasachnrlieferant           varchar2(255);
-        v_vdasachnrlieferantiskdpackm  varchar2(255);
-        v_vdasachnrlieferantzusangaben varchar2(255);
-        v_vdasachnrlieferantprodnr     varchar2(255);
-        v_vdasachnrlieferantabmessung  varchar2(255);
-        v_vdasachnrkunde               varchar2(255);
-        v_vdadatum                     varchar2(255);
-        v_vdaaenderungkonstruktion     varchar2(255);
-        v_vdaaenderungkonstruktiono    varchar2(255);
-        v_vdaaenderungkonstruktionz    varchar2(255);
-        v_vdapackstucknr               varchar2(255);
-        v_vdachangennr                 varchar2(255);
-        v_vdasachnrkundebarcode        varchar2(255);
-        v_vdafuellmengebarcode         varchar2(255);
-        v_vdapackstucknrbarcode        varchar2(255);
-        v_vdasachnrlieferantbarcode    varchar2(255);
-        v_vdachangennrbarcode          varchar2(255);
-        v_vdasachnrlieferantprodnrbarc varchar2(255);
-        v_vdanrkundebarcode            varchar2(255);
-        v_vdalieferanschriftkurz       varchar2(255);
-        v_vdalieferantennr             varchar2(255);
-        v_vdalieferantennrbarcode      varchar2(255);
-        v_vdalieferantenanschrift1     varchar2(255);
-        v_vdalieferantenanschrift2     varchar2(255);
-        v_vdalieferantenanschrift3     varchar2(255);
-        v_vdalieferantenanschrift4     varchar2(255);
-        v_vdabestellnummerkunde        varchar2(255);
-        v_vdabezeichnungkunde          varchar2(50);
-        v_grapholhmid                  varchar2(50);
-        v_chargeid                     varchar2(50);
-        cursor c_lte is
-        select
-            lte.sid,
-            lte.firma_nr,
-            lte.lte_id,
-            lte.lte_name,
-            nvl(lte.ziel_lgr_platz, lte.lgr_platz) lgr_platz,
-            lte.lte_akt_lhm,
-            lte.order_vorgang_id,
-            lte.lte_voll,
-            (
-                select
-                    decode(
-                        min(lhm.lhm_name),
-                        max(lhm.lhm_name),
-                        min(lhm.lhm_name),
-                        null
-                    )
-                from
-                    lvs_lhm lhm
-                where
-                        lte.sid = lhm.sid (+)
-                    and lte.lte_id = lhm.lte_id (+)
-            )                                      lhm_name,
-            min(lam.charge_id)                     charge_id,   -- -AG- Erste Charge der Palette andrucken
-            decode(
-                min(lam.kunden_nr),
-                max(lam.kunden_nr),
-                min(lam.kunden_nr),
-                null
-            )                                      kunden_nr,
-            decode(
-                min(lam.best_nr),
-                max(lam.best_nr),
-                min(lam.best_nr),
-                null
-            )                                      best_nr,
-            min(lte.lte_akt_kg),
-            sum(lam.lam_kg)                        netto,
-            min(lam.order_pos_auf_id)              order_pos_auf_id,
-            sum(lam.menge),
-            decode(
-                min(lam.mengeneinheit_basis),
-                max(lam.mengeneinheit_basis),
-                min(lam.mengeneinheit_basis),
-                null
-            )                                      menge_basis,
-            decode(
-                min(lam.leitzahl),
-                max(lam.leitzahl),
-                min(lam.leitzahl),
-                null
-            )                                      leitzahl,
-            decode(
-                trunc(min(lam.prod_datum)),
-                trunc(max(lam.prod_datum)),
-                trunc(min(lam.prod_datum)),
-                null
-            )                                      prod_datum,
-            decode(
-                min(lam.zeichnung),
-                max(lam.zeichnung),
-                min(lam.zeichnung),
-                null
-            )                                      zeichnung,
-            decode(
-                min(lam.zeichnung_index),
-                max(lam.zeichnung_index),
-                min(lam.zeichnung_index),
-                null
-            )                                      zeichnung_index,
-            decode(
-                min(lam.artikel_id),
-                max(lam.artikel_id),
-                min(lam.artikel_id),
-                null
-            )                                      artikel_id,
-            decode(
-                min(lam.leitzahl),
-                max(lam.leitzahl),
-                min(lam.leitzahl),
-                null
-            )                                      leitzahl,
-            decode(
-                min(lam.fa_ag),
-                max(lam.fa_ag),
-                min(lam.fa_ag),
-                null
-            )                                      fa_ag,
-            decode(
-                min(lam.lieferant_nr),
-                max(lam.lieferant_nr),
-                min(lam.lieferant_nr),
-                null
-            )                                      lieferanten_nr,
-            decode(
-                min(lam.li_nr_lief),
-                max(lam.li_nr_lief),
-                min(lam.li_nr_lief),
-                null
-            )                                      li_nr_lief,
-            decode(
-                min(lam.charge_id),
-                max(lam.charge_id),
-                min(lam.charge_id),
-                null
-            )                                      charge_id
-        from
-            lvs_lte lte,
-            lvs_lam lam
-        where
-                lte.sid = lam.sid (+)
-            and lte.lte_id = in_id
-            and lte.lte_id = lam.lte_id (+)
-        group by
-            lte.sid,
-            lte.firma_nr,
-            lte.order_vorgang_id,
-            lte.lte_voll,
-            lte.lte_id,
-            lte.lte_name,
-            lte.ziel_lgr_platz,
-            lte.lte_akt_lhm,
-            lte.lgr_platz;
+    v_print_daten     varchar2(4096);
 
-        cursor c_lhm is
-        select
-            lam.sid,
-            lam.firma_nr,
-            lhm.lhm_id,
-            lhm.lhm_name,
-            nvl(lte.ziel_lgr_platz, lte.lgr_platz) lgr_platz,
-            '1',
-            lte.order_vorgang_id,
-            'V',
-            decode(
-                min(lhm.lhm_name),
-                max(lhm.lhm_name),
-                min(lhm.lhm_name),
-                null
-            )                                      lhm_name,
-            min(lam.charge_id)                     charge_id,    -- -AG- Erste Charge der Palette andrucken
-            decode(
-                min(lam.kunden_nr),
-                max(lam.kunden_nr),
-                min(lam.kunden_nr),
-                null
-            )                                      kunden_nr,
-            decode(
-                min(lam.best_nr),
-                max(lam.best_nr),
-                min(lam.best_nr),
-                null
-            )                                      best_nr,
-            min(lhm.lhm_akt_kg)                    brutto,
-            sum(lam.lam_kg)                        netto,
-            min(lam.order_pos_auf_id)              order_pos_auf_id,
-            sum(lam.menge),
-            decode(
-                min(lam.menge_basis),
-                max(lam.menge_basis),
-                min(lam.menge_basis),
-                null
-            )                                      menge_basis,
-            decode(
-                min(lam.leitzahl),
-                max(lam.leitzahl),
-                min(lam.leitzahl),
-                null
-            )                                      leitzahl,
-            decode(
-                trunc(min(lam.prod_datum)),
-                trunc(max(lam.prod_datum)),
-                trunc(min(lam.prod_datum)),
-                null
-            )                                      prod_datum,
-            decode(
-                min(lam.zeichnung),
-                max(lam.zeichnung),
-                min(lam.zeichnung),
-                null
-            )                                      zeichnung,
-            decode(
-                min(lam.zeichnung_index),
-                max(lam.zeichnung_index),
-                min(lam.zeichnung_index),
-                null
-            )                                      zeichnung_index,
-            decode(
-                min(lam.artikel_id),
-                max(lam.artikel_id),
-                min(lam.artikel_id),
-                null
-            )                                      artikel_id,
-            decode(
-                min(lam.leitzahl),
-                max(lam.leitzahl),
-                min(lam.leitzahl),
-                null
-            )                                      leitzahl,
-            decode(
-                min(lam.fa_ag),
-                max(lam.fa_ag),
-                min(lam.fa_ag),
-                null
-            )                                      fa_ag,
-            decode(
-                min(lam.lieferant_nr),
-                max(lam.lieferant_nr),
-                min(lam.lieferant_nr),
-                null
-            )                                      lieferanten_nr,
-            decode(
-                min(lam.li_nr_lief),
-                max(lam.li_nr_lief),
-                min(lam.li_nr_lief),
-                null
-            )                                      li_nr_lief,
-            decode(
-                min(lam.charge_id),
-                max(lam.charge_id),
-                min(lam.charge_id),
-                null
-            )                                      charge_id
-        from
-            lvs_lhm lhm,
-            lvs_lte lte,
-            lvs_lam lam
-        where
-                lhm.lhm_id = in_id
-            and lhm.lte_id = lte.lte_id
-            and lhm.lhm_id = lam.lhm_id
-        group by
-            lam.sid,
-            lam.firma_nr,
-            lte.order_vorgang_id,
-            lhm.lhm_id,
-            lhm.lhm_name,
-            lte.ziel_lgr_platz,
-            lte.lgr_platz;
+    v_found           boolean;
+    v_pos                     isi_order_pos%rowtype;
+    v_kopf                    isi_order_kopf%rowtype;
+    v_adr                     isi_adressen%rowtype;
+    v_art                     isi_artikel%rowtype;
+    v_art_kd                  isi_artikel_kunde%rowtype;
+    v_charge                  lvs_charge%rowtype;
+    v_lte_c                   lvs_lte_cfg%rowtype;
+    v_lhm_c                   lvs_lhm_cfg%rowtype;
 
-        cursor c_art is
-        select
-            *
-        from
-            isi_artikel art
-        where
-                art.sid = v_lte_sid
-            and art.artikel_id = v_lam_artikel_id;
+    v_lte_sid                 lvs_lte.sid%type;
+    v_lte_firma_nr            lvs_lte.firma_nr%type;
+    v_lte_lte_id              lvs_lte.lte_id%type;
+    v_lte_lte_name            lvs_lte.lte_name%type;
+    v_lte_ziel_lgr_platz      lvs_lte.ziel_lgr_platz%type;
+    v_lte_lte_akt_lhm         lvs_lte.lte_akt_lhm%type;
+    v_lte_order_vorgang_id    lvs_lte.order_vorgang_id%type;
+    v_lhm_lhm_name            lvs_lhm.lhm_name%type;
+    v_lam_charge_id           lvs_lam.charge_id%type;
+    v_lam_kunden_nr           lvs_lam.kunden_nr%type;
+    v_lam_memge               lvs_lam.menge%type;
+    v_lam_memge_basis         lvs_lam.menge_basis%type;
+    v_lam_leitzahl            lvs_lam.leitzahl%type;
+    v_lam_prod_datum          lvs_lam.prod_datum%type;
+    v_order_pos_auf_id        isi_order_pos.auf_id%type;
+    v_lte_id_b                varchar2(100);
+    v_lte_lte_voll            lvs_lte.lte_voll%type;
+    v_lam_zeichnung           lvs_lam.zeichnung%type;
+    v_lam_zeichnung_index     lvs_lam.zeichnung_index%type;
+    v_lam_best_nr             lvs_lam.best_nr%type;
+    v_fa_auftrag              bde_fa_auftrag%rowtype;
 
-        cursor c_art_kd is
-        select
-            *
-        from
-            isi_artikel_kunde art
-        where
-                art.sid = v_lte_sid
-            and art.artikel_id = v_lam_artikel_id
-            and art.kunden_nr = v_adr_nr;
+    v_netto                   number;
+    v_brutto                  number;
 
-        cursor c_pos is
-        select
-            *
-        from
-            isi_order_pos pos
-        where
-                pos.sid = v_lte_sid
-            and pos.firma_nr = v_lte_firma_nr
-            and pos.auf_id = v_lam_order_pos_auf_id;
+    v_adr_nr                  isi_adressen.adr_nr%type;
+    v_adr_liefer              isi_adressen.adr_liefer%type;
+    v_adr_id                  isi_adressen.adress_id%type;
+    v_lam_order_pos_auf_id    isi_order_pos.auf_id%type;
 
-        cursor c_pos_lte_all is
-        select
-            decode(
-                min(pos.best_nr_kunde),
-                max(pos.best_nr_kunde),
-                min(pos.best_nr_kunde),
-                null
-            )
-        from
-            isi_order_pos pos,
-            lvs_lam       lam
-        where
-                pos.sid = v_lte_sid
-            and pos.firma_nr = v_lte_firma_nr
-            and pos.auf_id = lam.order_pos_auf_id
-            and lam.sid = v_lte_sid
-            and lam.firma_nr = v_lte_firma_nr
-            and lam.lte_id = v_lte_lte_id;
+    v_lam_artikel_id          isi_artikel.artikel_id%type;
+    v_lam_art_fanr            lvs_lam.leitzahl%type;
+    v_lam_art_faag            lvs_lam.fa_ag%type;
 
-        cursor c_pos_lhm_all is
-        select
-            decode(
-                min(pos.best_nr_kunde),
-                max(pos.best_nr_kunde),
-                min(pos.best_nr_kunde),
-                null
-            )
-        from
-            isi_order_pos pos,
-            lvs_lam       lam
-        where
-                pos.sid = v_lte_sid
-            and pos.firma_nr = v_lte_firma_nr
-            and pos.auf_id = lam.order_pos_auf_id
-            and lam.sid = v_lte_sid
-            and lam.firma_nr = v_lte_firma_nr
-            and lam.lhm_id = v_lte_lte_id;
+    v_lieferanten_nr          isi_adressen.adr_nr%type;
+    v_best_nr_kunde           isi_order_pos.best_nr_kunde%type;
+    v_li_nr_lief              lvs_lam.li_nr_lief%type;
+    v_naechste_maschine       isi_resource.res_ext_name%type;
 
-        cursor c_kopf is
-        select
-            *
-        from
-            isi_order_kopf kopf
-        where
-                kopf.sid = v_lte_sid
-            and kopf.firma_nr = v_lte_firma_nr
-            and kopf.vorgang_typ = 'WAE'
-            and kopf.vorgang_id = v_lte_order_vorgang_id
-            and kopf.li_nr = v_pos.li_nr;
+    v_VdaDatenfeldFuerLieferanten                         varchar2(255);
+    v_VdaGewichtBrutto                                    varchar2(255);
+    v_VdaGewichtNetto                                     varchar2(255);
+    v_VdaLieferscheinNrBestNr                             varchar2(255);
+    v_VdaLieferscheinNr                                   varchar2(255);
+    v_VdaLieferscheinNrLief                               varchar2(255);
+    v_VdaWarenempfaengerKurz                              varchar2(255);
+    v_VdaWarenempfaengerLang1                             varchar2(255);
+    v_VdaWarenempfaengerLang2                             varchar2(255);
+    v_VdaWarenempfaengerLang3                             varchar2(255);
+    v_VdaAbladestelle                                     varchar2(255);
+    v_VdaAnzahlPackstuecke                                varchar2(255);
+    v_VdaFuellmenge                                       varchar2(255);
+    v_VdaFuellmengeMengeneinheit                          varchar2(255);
+    v_VdaBezeichnungLieferungL                            varchar2(255);
+    v_VdaSachNrLieferant                                  varchar2(255);
+    v_VdaSachNrLieferantISKDPackm                         varchar2(255);
+    v_VdaSachNrLieferantZusAngaben                        varchar2(255);
+    v_VdaSachNrLieferantProdNr                            varchar2(255);
+    v_VdaSachNrLieferantAbmessung                         varchar2(255);
+    v_VdaSachNrKunde                                      varchar2(255);
+    v_VdaDatum                                            varchar2(255);
+    v_VdaAenderungKonstruktion                            varchar2(255);
+    v_VdaAenderungKonstruktionO                           varchar2(255);
+    v_VdaAenderungKonstruktionZ                           varchar2(255);
+    v_VdaPackstuckNr                                      varchar2(255);
+    v_VdaChangenNr                                        varchar2(255);
+    v_VdaSachNrKundeBarcode                               varchar2(255);
+    v_VdaFuellmengeBarcode                                varchar2(255);
+    v_VdaPackstuckNrBarcode                               varchar2(255);
+    v_VdaSachNrLieferantBarcode                           varchar2(255);
+    v_VdaChangenNrBarcode                                 varchar2(255);
+    v_VdaSachNrLieferantProdNrBarc                        varchar2(255);
+    v_VdaNrKundeBarcode                                   varchar2(255);
+    v_VdaLieferanschriftkurz                              varchar2(255);
+    v_VdaLieferantenNr                                    varchar2(255);
+    v_VdaLieferantenNrBarcode                             varchar2(255);
+    v_VdaLieferantenAnschrift1                            varchar2(255);
+    v_VdaLieferantenAnschrift2                            varchar2(255);
+    v_VdaLieferantenAnschrift3                            varchar2(255);
+    v_VdaLieferantenAnschrift4                            varchar2(255);
+    v_VdaBestellNummerKunde                               varchar2(255);
+    v_VdaBezeichnungKunde                                 varchar2(50);
+    v_GraphoLhmId                                         varchar2(50);
+    v_ChargeId                                            varchar2(50);
 
-        cursor c_resource is
-        select
-            r.res_ext_name
-        from
-            isi_resource r
-        where
-                r.sid = v_fa_auftrag.sid
-            and r.res_id = v_fa_auftrag.res_id;
+    CURSOR c_lte is
+      select lte.sid,
+             lte.firma_nr,
+             lte.lte_id,
+             lte.lte_name,
+             nvl(lte.ziel_lgr_platz, lte.lgr_platz) lgr_platz,
+             lte.lte_akt_lhm,
+             lte.order_vorgang_id,
+             lte.lte_voll,
+             (select decode(min(lhm.lhm_name), max(lhm.lhm_name), min(lhm.lhm_name) , NULL)
+                from lvs_lhm lhm
+               where lte.sid = lhm.sid (+)
+                 and lte.lte_id = lhm.lte_id (+)) lhm_name,
+             min(lam.charge_id) charge_id,   -- -AG- Erste Charge der Palette andrucken
+             decode(min(lam.kunden_nr), max(lam.kunden_nr), min(lam.kunden_nr) , NULL) kunden_nr,
+             decode(min(lam.best_nr), max(lam.best_nr), min(lam.best_nr) , NULL) best_nr,
+             min(lte.lte_akt_kg),
+             sum(lam.lam_kg) netto,
+             min(lam.order_pos_auf_id) order_pos_auf_id,
+             sum(lam.menge),
+             decode(min(lam.mengeneinheit_basis), max(lam.mengeneinheit_basis), min(lam.mengeneinheit_basis) , NULL) menge_basis,
+             decode(min(lam.leitzahl), max(lam.leitzahl), min(lam.leitzahl) , NULL) leitzahl,
+             decode(trunc(min(lam.prod_datum)), trunc(max(lam.prod_datum)), trunc(min(lam.prod_datum)) , NULL) prod_datum,
+             decode(min(lam.zeichnung), max(lam.zeichnung), min(lam.zeichnung) , NULL) zeichnung,
+             decode(min(lam.zeichnung_index), max(lam.zeichnung_index), min(lam.zeichnung_index) , NULL) zeichnung_index,
+             decode(min(lam.artikel_id), max(lam.artikel_id), min(lam.artikel_id) , NULL) artikel_id,
+             decode(min(lam.leitzahl), max(lam.leitzahl), min(lam.leitzahl), NULL) leitzahl,
+             decode(min(lam.fa_ag), max(lam.fa_ag), min(lam.fa_ag), NULL) fa_ag,
+             decode(min(lam.lieferant_nr), max(lam.lieferant_nr), min(lam.lieferant_nr) , NULL) lieferanten_nr,
+             decode(min(lam.li_nr_lief), max(lam.li_nr_lief), min(lam.li_nr_lief) , NULL) li_nr_lief,
+             decode(min(lam.charge_id), max(lam.charge_id), min(lam.charge_id) , NULL) charge_id
+        from lvs_lte lte,
+             lvs_lam lam
+       where  lte.sid = lam.sid (+)
+         and lte.lte_id = in_id
+         and lte.lte_id = lam.lte_id (+)
+       group by lte.sid, lte.firma_nr, lte.order_vorgang_id, lte.lte_voll, lte.lte_id, lte.lte_name, lte.ziel_lgr_platz,
+                lte.lte_akt_lhm, lte.lgr_platz;
 
-        cursor c_fa_next_ag is
-        select
-            fa.*
-        from
-            bde_fa_auftrag fa
-        where
-                fa.sid = v_lte_sid
-            and fa.firma_nr = v_lte_firma_nr
-            and fa.leitzahl = v_lam_art_fanr
-            and fa.fa_ag > v_lam_art_faag
-        order by
-            fa_ag;
+    CURSOR c_lhm is
+      select lam.sid,
+             lam.firma_nr,
+             lhm.lhm_id,
+             lhm.lhm_name,
+             nvl(lte.ziel_lgr_platz, lte.lgr_platz) lgr_platz,
+             '1',
+             lte.order_vorgang_id,
+             'V',
+             decode(min(lhm.lhm_name), max(lhm.lhm_name), min(lhm.lhm_name) , NULL) lhm_name,
+             min(lam.charge_id) charge_id,    -- -AG- Erste Charge der Palette andrucken
+             decode(min(lam.kunden_nr), max(lam.kunden_nr), min(lam.kunden_nr) , NULL) kunden_nr,
+             decode(min(lam.best_nr), max(lam.best_nr), min(lam.best_nr) , NULL) best_nr,
+             min(lhm.lhm_akt_kg) brutto,
+             sum(lam.lam_kg) netto,
+             min(lam.order_pos_auf_id) order_pos_auf_id,
+             sum(lam.menge),
+             decode(min(lam.menge_basis), max(lam.menge_basis), min(lam.menge_basis) , NULL) menge_basis,
+             decode(min(lam.leitzahl), max(lam.leitzahl), min(lam.leitzahl) , NULL) leitzahl,
+             decode(trunc(min(lam.prod_datum)), trunc(max(lam.prod_datum)), trunc(min(lam.prod_datum)) , NULL) prod_datum,
+             decode(min(lam.zeichnung), max(lam.zeichnung), min(lam.zeichnung), NULL) zeichnung,
+             decode(min(lam.zeichnung_index), max(lam.zeichnung_index), min(lam.zeichnung_index) , NULL) zeichnung_index,
+             decode(min(lam.artikel_id), max(lam.artikel_id), min(lam.artikel_id) , NULL) artikel_id,
+             decode(min(lam.leitzahl), max(lam.leitzahl), min(lam.leitzahl), NULL) leitzahl,
+             decode(min(lam.fa_ag), max(lam.fa_ag), min(lam.fa_ag), NULL) fa_ag,
+             decode(min(lam.lieferant_nr), max(lam.lieferant_nr), min(lam.lieferant_nr) , NULL) lieferanten_nr,
+             decode(min(lam.li_nr_lief), max(lam.li_nr_lief), min(lam.li_nr_lief) , NULL) li_nr_lief,
+             decode(min(lam.charge_id), max(lam.charge_id), min(lam.charge_id) , NULL) charge_id
+        from lvs_lhm lhm, lvs_lte lte, lvs_lam lam
+       where lhm.lhm_id = in_id
+         and lhm.lte_id = lte.lte_id
+         and lhm.lhm_id = lam.lhm_id
+       group by lam.sid, lam.firma_nr, lte.order_vorgang_id, lhm.lhm_id, lhm.lhm_name, lte.ziel_lgr_platz, lte.lgr_platz;
 
-        cursor c_fa_auf_lte is
-        select
-            decode(
-                min(fa.best_nr_kunde),
-                max(fa.best_nr_kunde),
-                min(fa.best_nr_kunde),
-                null
-            )
-        from
-            bde_fa_auftrag fa,
-            lvs_lam        lam
-        where
-                fa.sid = v_lte_sid
-            and fa.firma_nr = v_lte_firma_nr
-            and ( lam.lte_id = v_lte_lte_id
-                  or lam.lhm_id = v_lte_lte_id )
-            and fa.leitzahl = lam.leitzahl
-            and decode(fa.kenz_letzt_ag, 1, fa.fa_ag, 0) = nvl(lam.fa_ag, 0);
+    CURSOR c_art is
+      select *
+        from isi_artikel art
+       where art.sid = v_lte_sid
+         and art.artikel_id = v_lam_artikel_id;
 
-        cursor c_fa_auf_lhm is
-        select
-            decode(
-                min(fa.best_nr_kunde),
-                max(fa.best_nr_kunde),
-                min(fa.best_nr_kunde),
-                null
-            )
-        from
-            bde_fa_auftrag fa,
-            lvs_lam        lam
-        where
-                fa.sid = v_lte_sid
-            and fa.firma_nr = v_lte_firma_nr
-            and lam.lhm_id = v_lte_lte_id
-            and fa.leitzahl = lam.leitzahl
-            and decode(fa.kenz_letzt_ag, 1, fa.fa_ag, 0) = nvl(lam.fa_ag, 0);
+    CURSOR c_art_kd is
+      select *
+        from isi_artikel_kunde art
+       where art.sid = v_lte_sid
+         and art.artikel_id = v_lam_artikel_id
+         and art.kunden_nr = v_adr_nr;
 
-        cursor c_kunde is
-        select
-            *
-        from
-            isi_adressen adr
-        where
-                adr.sid = v_lte_sid
-            and adr.firma_nr = v_lte_firma_nr
-            and adr.adr_art = 'K'
-            and adr.adr_nr = v_adr_nr
-            and adr.adr_liefer = 0;
+    CURSOR c_pos is
+      select *
+        from isi_order_pos pos
+       where pos.sid = v_lte_sid
+         and pos.firma_nr = v_lte_firma_nr
+         and pos.auf_id = v_lam_order_pos_auf_id;
 
-        cursor c_lieferant is
-        select
-            *
-        from
-            isi_adressen adr
-        where
-                adr.sid = v_lte_sid
-            and adr.firma_nr = v_lte_firma_nr
-            and adr.adr_art = 'L'
-            and adr.adr_nr = v_lieferanten_nr
-            and adr.adr_liefer = 0;
+    CURSOR c_pos_lte_all is
+      select decode(min(pos.best_nr_kunde), max(pos.best_nr_kunde), min(pos.best_nr_kunde), NULL)
+        from isi_order_pos pos,
+             lvs_lam lam
+       where pos.sid = v_lte_sid
+         and pos.firma_nr = v_lte_firma_nr
+         and pos.auf_id = lam.order_pos_auf_id
+         and lam.sid = v_lte_sid
+         and lam.firma_nr = v_lte_firma_nr
+         and lam.lte_id = v_lte_lte_id;
 
-        cursor c_adr is
-        select
-            *
-        from
-            isi_adressen adr
-        where
-                adr.sid = v_lte_sid
-            and adr.adress_id = v_adr_id;
+    CURSOR c_pos_lhm_all is
+      select decode(min(pos.best_nr_kunde), max(pos.best_nr_kunde), min(pos.best_nr_kunde), NULL)
+        from isi_order_pos pos,
+             lvs_lam lam
+       where pos.sid = v_lte_sid
+         and pos.firma_nr = v_lte_firma_nr
+         and pos.auf_id = lam.order_pos_auf_id
+         and lam.sid = v_lte_sid
+         and lam.firma_nr = v_lte_firma_nr
+         and lam.lhm_id = v_lte_lte_id;
 
-        cursor c_charge is
-        select
-            *
-        from
-            lvs_charge c
-        where
-                c.sid = v_lte_sid
-            and c.charge_id = v_lam_charge_id;
+    CURSOR c_kopf is
+      select *
+        from isi_order_kopf kopf
+       where kopf.sid = v_lte_sid
+         and kopf.firma_nr = v_lte_firma_nr
+         and kopf.vorgang_typ = 'WAE'
+         and kopf.vorgang_id = v_lte_order_vorgang_id
+         and kopf.li_nr = v_pos.li_nr;
 
-        cursor c_lhm_c is
-        select
-            *
-        from
-            lvs_lhm_cfg lhm_c
-        where
-                lhm_c.sid = v_lte_sid
-            and lhm_c.firma_nr = v_lte_firma_nr
-            and lhm_c.lhm_name = v_lte_lte_name;
+    CURSOR c_resource is
+      select r.res_ext_name
+        from isi_resource r
+       where r.sid = v_fa_auftrag.sid
+         and r.res_id = v_fa_auftrag.res_id;
 
-        cursor c_lte_c is
-        select
-            *
-        from
-            lvs_lte_cfg lte_c
-        where
-                lte_c.sid = v_lte_sid
-            and lte_c.firma_nr = v_lte_firma_nr
-            and lte_c.lte_name = v_lte_lte_name;
+    CURSOR c_fa_next_ag is
+      select fa.*
+        from bde_fa_auftrag fa
+       where fa.sid = v_lte_sid
+         and fa.firma_nr = v_lte_firma_nr
+         and fa.leitzahl = v_lam_art_fanr
+         and fa.fa_ag > v_lam_art_faag
+       order by fa_ag;
 
-    begin
-        v_vdadatenfeldfuerlieferanten := null;
-        v_vdagewichtnetto := null;
-        v_vdagewichtbrutto := null;
-        v_vdalieferscheinnrbestnr := null;
-        v_vdalieferscheinnr := null;
-        v_vdalieferscheinnrlief := null;
-        v_vdawarenempfaengerkurz := null;
-        v_vdawarenempfaengerlang1 := null;
-        v_vdawarenempfaengerlang2 := null;
-        v_vdawarenempfaengerlang3 := null;
-        v_vdaabladestelle := null;
-        v_vdaanzahlpackstuecke := null;
-        v_vdafuellmenge := null;
-        v_vdafuellmengemengeneinheit := null;
-        v_vdabezeichnunglieferungl := null;
-        v_vdasachnrlieferant := null;
-        v_vdasachnrlieferantiskdpackm := null;
-        v_vdasachnrlieferantzusangaben := null;
-        v_vdasachnrlieferantprodnr := null;
-        v_vdasachnrlieferantabmessung := null;
-        v_vdasachnrkunde := null;
-        v_vdadatum := null;
-        v_vdaaenderungkonstruktion := null;
-        v_vdaaenderungkonstruktiono := null;
-        v_vdaaenderungkonstruktionz := null;
-        v_vdapackstucknr := null;
-        v_vdachangennr := null;
-        v_vdalieferantennr := null;
-        v_vdasachnrkundebarcode := null;
-        v_vdafuellmengebarcode := null;
-        v_vdapackstucknrbarcode := null;
-        v_vdasachnrlieferantbarcode := null;
-        v_vdachangennrbarcode := null;
-        v_vdasachnrlieferantprodnrbarc := null;
-        v_vdanrkundebarcode := null;
-        v_vdalieferantennrbarcode := null;
-        v_vdalieferantenanschrift1 := null;
-        v_vdalieferantenanschrift2 := null;
-        v_vdalieferantenanschrift3 := null;
-        v_vdalieferantenanschrift4 := null;
-        v_vdabezeichnungkunde := null;
-        v_grapholhmid := null;
-        v_chargeid := null;
-        v_lam_art_fanr := null;
-        v_lam_art_faag := null;
-        if lvs_p_lte_lhm.lvs_lte_lhm_ref(in_sid, in_firma_nr, in_id) = c.basis_lte then
-            open c_lte;
-            fetch c_lte into
-                v_lte_sid,
-                v_lte_firma_nr,
-                v_lte_lte_id,
-                v_lte_lte_name,
-                v_lte_ziel_lgr_platz,
-                v_lte_lte_akt_lhm,
-                v_lte_order_vorgang_id,
-                v_lte_lte_voll,
-                v_lhm_lhm_name,
-                v_lam_charge_id,
-                v_lam_kunden_nr,
-                v_lam_best_nr,
-                v_brutto,
-                v_netto,
-                v_order_pos_auf_id,
-                v_lam_memge,
-                v_lam_memge_basis,
-                v_lam_leitzahl,
-                v_lam_prod_datum,
-                v_lam_zeichnung,
-                v_lam_zeichnung_index,
-                v_lam_artikel_id,
-                v_lam_art_fanr,
-                v_lam_art_faag,
-                v_lieferanten_nr,
-                v_li_nr_lief,
-                v_chargeid;
+    CURSOR c_fa_auf_lte is
+      select decode(min(fa.best_nr_kunde), max(fa.best_nr_kunde), min(fa.best_nr_kunde), NULL)
+        from bde_fa_auftrag fa,
+             lvs_lam lam
+       where fa.sid = v_lte_sid
+         and fa.firma_nr = v_lte_firma_nr
+         and (lam.lte_id = v_lte_lte_id
+           or lam.lhm_id = v_lte_lte_id)
+         and fa.leitzahl = lam.leitzahl
+         and decode(fa.kenz_letzt_ag, 1, fa.fa_ag, 0) = nvl(lam.fa_ag, 0);
 
-            v_found := c_lte%found;
-            close c_lte;
-            open c_lte_c;
-            fetch c_lte_c into v_lte_c;
-            if c_lte_c%found then
-                v_vdadatenfeldfuerlieferanten := v_lte_c.lte_text;
-            end if;
-            close c_lte_c;
-            open c_fa_auf_lte;
-            fetch c_fa_auf_lte into v_vdabestellnummerkunde;
-            if c_fa_auf_lte%notfound then
-                v_vdabestellnummerkunde := null;
-            end if;
-            close c_fa_auf_lte;
-            open c_pos_lte_all;
-            fetch c_pos_lte_all into v_best_nr_kunde;
-            if c_pos_lte_all%found then
-                v_vdabestellnummerkunde := v_best_nr_kunde;
-            end if;
-            close c_pos_lte_all;
-        elsif lvs_p_lte_lhm.lvs_lte_lhm_ref(in_sid, in_firma_nr, in_id) = c.basis_lhm then
-            open c_lhm;
-            fetch c_lhm into
-                v_lte_sid,
-                v_lte_firma_nr,
-                v_lte_lte_id,
-                v_lte_lte_name,
-                v_lte_ziel_lgr_platz,
-                v_lte_lte_akt_lhm,
-                v_lte_order_vorgang_id,
-                v_lte_lte_voll,
-                v_lhm_lhm_name,
-                v_lam_charge_id,
-                v_lam_kunden_nr,
-                v_lam_best_nr,
-                v_brutto,
-                v_netto,
-                v_order_pos_auf_id,
-                v_lam_memge,
-                v_lam_memge_basis,
-                v_lam_leitzahl,
-                v_lam_prod_datum,
-                v_lam_zeichnung,
-                v_lam_zeichnung_index,
-                v_lam_artikel_id,
-                v_lam_art_fanr,
-                v_lam_art_faag,
-                v_lieferanten_nr,
-                v_li_nr_lief,
-                v_chargeid;
+    CURSOR c_fa_auf_lhm is
+      select decode(min(fa.best_nr_kunde), max(fa.best_nr_kunde), min(fa.best_nr_kunde), NULL)
+        from bde_fa_auftrag fa,
+             lvs_lam lam
+       where fa.sid = v_lte_sid
+         and fa.firma_nr = v_lte_firma_nr
+         and lam.lhm_id = v_lte_lte_id
+         and fa.leitzahl = lam.leitzahl
+         and decode(fa.kenz_letzt_ag, 1, fa.fa_ag, 0) = nvl(lam.fa_ag, 0);
 
-            v_found := c_lhm%found;
-            close c_lhm;
-            open c_lhm_c;
-            fetch c_lhm_c into v_lhm_c;
-            if c_lhm_c%found then
-                v_vdadatenfeldfuerlieferanten := v_lhm_c.lhm_text;
-            end if;
-            close c_lhm_c;
-            open c_fa_auf_lhm;
-            fetch c_fa_auf_lhm into v_vdabestellnummerkunde;
-            if c_fa_auf_lhm%notfound then
-                v_vdabestellnummerkunde := null;
-            end if;
-            close c_fa_auf_lhm;
-            open c_pos_lhm_all;
-            fetch c_pos_lhm_all into v_best_nr_kunde;
-            if c_pos_lhm_all%found then
-                v_vdabestellnummerkunde := v_best_nr_kunde;
-            end if;
-            close c_pos_lhm_all;
-        end if;
+    CURSOR c_kunde is
+      select *
+        from isi_adressen adr
+       where adr.sid = v_lte_sid
+         and adr.firma_nr = v_lte_firma_nr
+         and adr.adr_art = 'K'
+         and adr.adr_nr = v_adr_nr
+         and adr.adr_liefer = 0;
 
-        v_naechste_maschine := null;
-        if v_lam_art_fanr is not null then
-            open c_fa_next_ag;
-            fetch c_fa_next_ag into v_fa_auftrag;
-            if c_fa_next_ag%found then
-                open c_resource;
-                fetch c_resource into v_naechste_maschine;
-                close c_resource;
-            end if;
+    CURSOR c_lieferant is
+      select *
+        from isi_adressen adr
+       where adr.sid = v_lte_sid
+         and adr.firma_nr = v_lte_firma_nr
+         and adr.adr_art = 'L'
+         and adr.adr_nr = v_lieferanten_nr
+         and adr.adr_liefer = 0;
 
-            close c_fa_next_ag;
-        end if;
+    CURSOR c_adr is
+      select *
+        from isi_adressen adr
+       where adr.sid = v_lte_sid
+         and adr.adress_id = v_adr_id;
 
-        open c_art;
-        fetch c_art into v_art;
-        if c_art%notfound then
-            v_art := null;
-        end if;
-        close c_art;
-        if v_found then
-            v_vdagewichtnetto := v_netto;
-            v_vdagewichtbrutto := v_brutto;
-            v_vdalieferscheinnrbestnr := v_lam_best_nr;
-            v_vdaabladestelle := v_lte_ziel_lgr_platz;
-            v_vdasachnrlieferantprodnr := v_lam_leitzahl;
-            v_vdasachnrlieferantiskdpackm := v_lte_lte_name;
-            v_vdasachnrlieferantzusangaben := v_lhm_lhm_name;
-            v_vdaanzahlpackstuecke := v_lte_lte_akt_lhm;
-            v_vdasachnrlieferant := v_art.artikel_p1; -- Bei Euscher QS-Prüftext
+    CURSOR c_charge is
+      select *
+        from lvs_charge c
+       where c.sid = v_lte_sid
+         and c.charge_id = v_lam_charge_id;
+
+    CURSOR c_lhm_c is
+      select *
+        from lvs_lhm_cfg lhm_c
+       where lhm_c.sid = v_lte_sid
+         and lhm_c.firma_nr = v_lte_firma_nr
+         and lhm_c.lhm_name = v_lte_lte_name;
+
+    CURSOR c_lte_c is
+      select *
+        from lvs_lte_cfg lte_c
+       where lte_c.sid = v_lte_sid
+         and lte_c.firma_nr = v_lte_firma_nr
+         and lte_c.lte_name = v_lte_lte_name;
+
+  begin
+    v_VdaDatenfeldFuerLieferanten := NULL;
+    v_VdaGewichtNetto := NULL;
+    v_VdaGewichtBrutto := NULL;
+    v_VdaLieferscheinNrBestNr := NULL;
+    v_VdaLieferscheinNr := NULL;
+    v_VdaLieferscheinNrLief := NULL;
+    v_VdaWarenempfaengerKurz := NULL;
+    v_VdaWarenempfaengerLang1 := NULL;
+    v_VdaWarenempfaengerLang2 := NULL;
+    v_VdaWarenempfaengerLang3 := NULL;
+    v_VdaAbladestelle := NULL;
+    v_VdaAnzahlPackstuecke := NULL;
+    v_VdaFuellmenge := NULL;
+    v_VdaFuellmengeMengeneinheit := NULL;
+    v_VdaBezeichnungLieferungL := NULL;
+    v_VdaSachNrLieferant := NULL;
+    v_VdaSachNrLieferantISKDPackm := NULL;
+    v_VdaSachNrLieferantZusAngaben := NULL;
+    v_Vdasachnrlieferantprodnr := NULL;
+    v_VdaSachNrLieferantAbmessung := NULL;
+    v_VdaSachNrKunde := NULL;
+    v_VdaDatum := NULL;
+    v_VdaAenderungKonstruktion := NULL;
+    v_Vdaaenderungkonstruktiono := NULL;
+    v_VdaAenderungKonstruktionZ := NULL;
+    v_VdaPackstuckNr := NULL;
+    v_VdaChangenNr := NULL;
+    v_VdaLieferantenNr := NULL;
+    v_VdaSachNrKundeBarcode := NULL;
+    v_VdaFuellmengeBarcode := NULL;
+    v_VdaPackstuckNrBarcode := NULL;
+    v_VdaSachNrLieferantBarcode := NULL;
+    v_VdaChangenNrBarcode := NULL;
+    v_Vdasachnrlieferantprodnrbarc := NULL;
+    v_VdaNrKundeBarcode := NULL;
+    v_VdaLieferantenNrBarcode := NULL;
+    v_VdaLieferantenAnschrift1 := NULL;
+    v_VdaLieferantenAnschrift2 := NULL;
+    v_VdaLieferantenAnschrift3 := NULL;
+    v_VdaLieferantenAnschrift4 := NULL;
+
+    v_VdaBezeichnungKunde      := NULL;
+    v_GraphoLhmId              := NULL;
+    v_ChargeId                 := NULL;
+
+    v_lam_art_fanr := NULL;
+    v_lam_art_faag := NULL;
+
+    if lvs_p_lte_lhm.lvs_lte_lhm_ref(in_sid, in_firma_nr, in_id) = C.Basis_Lte then
+      OPEN c_lte;
+      FETCH c_lte into     v_lte_sid, v_lte_firma_nr, v_lte_lte_id, v_lte_lte_name, v_lte_ziel_lgr_platz,
+                           v_lte_lte_akt_lhm,v_lte_order_vorgang_id,  v_lte_lte_voll, v_lhm_lhm_name, v_lam_charge_id,
+                           v_lam_kunden_nr, v_lam_best_nr, v_brutto, v_netto,
+                           v_order_pos_auf_id, v_lam_memge, v_lam_memge_basis, v_lam_leitzahl,
+                           v_lam_prod_datum, v_lam_zeichnung, v_lam_zeichnung_index,
+                           v_lam_artikel_id, v_lam_art_fanr, v_lam_art_faag, v_lieferanten_nr,
+                           v_li_nr_lief, v_ChargeId;
+
+      v_found := c_lte%FOUND;
+      CLOSE c_lte;
+      OPEN c_lte_c;
+      FETCH c_lte_c into v_lte_c;
+      if c_lte_c%FOUND then
+        v_VdaDatenfeldFuerLieferanten := v_lte_c.lte_text;
+      end if;
+      CLOSE c_lte_c;
+
+
+      OPEN c_fa_auf_lte;
+      FETCH c_fa_auf_lte into v_VdaBestellNummerKunde;
+      if c_fa_auf_lte%NOTFOUND then
+        v_VdaBestellNummerKunde := NULL;
+      end if;
+      CLOSE c_fa_auf_lte;
+
+      OPEN c_pos_lte_all;
+      FETCH c_pos_lte_all into v_best_nr_kunde;
+      if c_pos_lte_all%FOUND then
+        v_VdaBestellNummerKunde := v_best_nr_kunde;
+      end if;
+      CLOSE c_pos_lte_all;
+    elsif lvs_p_lte_lhm.lvs_lte_lhm_ref(in_sid, in_firma_nr, in_id) = C.Basis_Lhm then
+      OPEN c_lhm;
+      FETCH c_lhm into     v_lte_sid, v_lte_firma_nr, v_lte_lte_id, v_lte_lte_name, v_lte_ziel_lgr_platz,
+                           v_lte_lte_akt_lhm,v_lte_order_vorgang_id,  v_lte_lte_voll, v_lhm_lhm_name, v_lam_charge_id,
+                           v_lam_kunden_nr, v_lam_best_nr, v_brutto, v_netto,
+                           v_order_pos_auf_id, v_lam_memge, v_lam_memge_basis, v_lam_leitzahl,
+                           v_lam_prod_datum, v_lam_zeichnung, v_lam_zeichnung_index,
+                           v_lam_artikel_id, v_lam_art_fanr, v_lam_art_faag, v_lieferanten_nr,
+                           v_li_nr_lief, v_ChargeId;
+
+      v_found := c_lhm%FOUND;
+      CLOSE c_lhm;
+      OPEN c_lhm_c;
+      FETCH c_lhm_c into v_lhm_c;
+      if c_lhm_c%FOUND then
+        v_VdaDatenfeldFuerLieferanten := v_lhm_c.lhm_text;
+      end if;
+      CLOSE c_lhm_c;
+
+      OPEN c_fa_auf_lhm;
+      FETCH c_fa_auf_lhm into v_VdaBestellNummerKunde;
+      if c_fa_auf_lhm%NOTFOUND then
+        v_VdaBestellNummerKunde := NULL;
+      end if;
+      CLOSE c_fa_auf_lhm;
+
+      OPEN c_pos_lhm_all;
+      FETCH c_pos_lhm_all into v_best_nr_kunde;
+      if c_pos_lhm_all%FOUND then
+        v_VdaBestellNummerKunde := v_best_nr_kunde;
+      end if;
+      CLOSE c_pos_lhm_all;
+    end if;
+
+    v_naechste_maschine := NULL;
+    if v_lam_art_fanr is not NULL
+    then
+      OPEN c_fa_next_ag;
+      FETCH c_fa_next_ag into v_fa_auftrag;
+      if c_fa_next_ag%FOUND
+      then
+        OPEN c_resource;
+        FETCH c_resource into v_naechste_maschine;
+        CLOSE c_resource;
+      end if;
+      CLOSE c_fa_next_ag;
+    end if;
+
+    OPEN c_art;
+    FETCH c_art into v_art;
+    if c_art%NOTFOUND then
+      v_art := NULL;
+    end if;
+    CLOSE c_art;
+
+    if v_found then
+      v_VdaGewichtNetto              := v_netto;
+      v_VdaGewichtBrutto             := v_brutto;
+      v_VdaLieferscheinNrBestNr      := v_lam_best_nr;
+      v_Vdaabladestelle              := v_lte_ziel_lgr_platz;
+      v_Vdasachnrlieferantprodnr     := v_lam_leitzahl;
+      v_Vdasachnrlieferantiskdpackm  := v_lte_lte_name;
+      v_Vdasachnrlieferantzusangaben := v_lhm_lhm_name;
+      v_Vdaanzahlpackstuecke         := v_lte_lte_akt_lhm;
+      v_Vdasachnrlieferant           := v_art.artikel_p1; -- Bei Euscher QS-Prüftext
       -- Falls der Parameter P1 nicht gefüllt, dann nur die Artikelnummer eintragen
-            if v_vdasachnrlieferant is null then
-                v_vdasachnrlieferant := v_art.artikel;
-            else
-                v_vdasachnrlieferant := v_vdasachnrlieferant
-                                        || ' '
-                                        || v_art.artikel;
-            end if;
-
-            if v_lam_art_faag is not null then
-                v_vdasachnrlieferant := v_vdasachnrlieferant
-                                        || '-'
-                                        || nvl(
-                    to_char(v_lam_art_fanr),
-                    'X'
-                )
-                                        || '/'
-                                        || to_char(v_lam_art_faag);
-
-                if v_naechste_maschine is not null then
-                    v_vdasachnrlieferant := v_vdasachnrlieferant
-                                            || ' --> '
-                                            || v_naechste_maschine;
-                end if;
-
-            end if;
-
-            v_vdafuellmenge := v_lam_memge;
-            v_vdabezeichnunglieferungl := v_art.bezeichnung1;
-            v_vdasachnrlieferantabmessung := v_art.bezeichnung2;
-            v_vdaaenderungkonstruktiono := v_art.bezeichnung3;
-            if v_lam_prod_datum is not null then
-                v_vdadatum := 'P' || to_char(v_lam_prod_datum, 'YYMMDD');
-            end if;
-
-            v_vdaaenderungkonstruktionz := v_lam_zeichnung;
-            v_vdaaenderungkonstruktion := v_lam_zeichnung_index;
-            if v_lam_leitzahl is not null then
-                v_vdasachnrlieferantprodnrbarc := '20S' || v_lam_leitzahl;
-            end if;
-            if v_art.artikel is not null then
-                v_vdasachnrlieferantbarcode := '30S' || v_art.artikel;
-                if v_lam_art_faag is not null then
-                    v_vdasachnrlieferantbarcode := v_vdasachnrlieferantbarcode
-                                                   || '-'
-                                                   || nvl(
-                        to_char(v_lam_art_fanr),
-                        'X'
-                    )
-                                                   || '/'
-                                                   || to_char(v_lam_art_faag);
-
-                end if;
-
-            end if;
-
-            v_vdafuellmengebarcode := 'Q' || v_lam_memge;
-            open c_charge;
-            fetch c_charge into v_charge;
-            v_found := c_charge%found;
-            close c_charge;
-            if v_found then
-                v_vdachangennr := v_charge.charge_bez;
-                v_vdachangennrbarcode := 'H' || v_charge.charge_bez;
-            end if;
-
-            v_vdalieferantennr := v_lieferanten_nr;
-            v_vdalieferscheinnrlief := v_li_nr_lief;
-            v_vdalieferantennrbarcode := 'V' || v_lieferanten_nr;
-            open c_pos;
-            fetch c_pos into v_pos;
-            v_found := c_pos%found;
-            if not v_found then
-                v_adr_nr := v_lam_kunden_nr;
-                open c_kunde;
-                fetch c_kunde into v_adr;
-                v_found := c_kunde%found;
-                close c_kunde;
-                if v_found then
-                    v_vdawarenempfaengerkurz := v_adr.name_1;
-                    v_vdawarenempfaengerlang1 := v_adr.name_1;
-                    v_vdawarenempfaengerlang2 := v_adr.name_2;
-                    v_vdawarenempfaengerlang3 := v_adr.plz
-                                                 || ' '
-                                                 || v_adr.ort;
-                end if;
-
-            else
-                open c_kopf;
-                fetch c_kopf into v_kopf;
-                if v_found then
-                    v_adr_id := v_kopf.adress_id;
-                    v_vdalieferscheinnr := to_char(v_kopf.vorgang_id);
-                    if v_kopf.wae_ziel is not null then
-                        v_vdaabladestelle := v_kopf.wae_ziel;
-                    end if;
-                    open c_adr;
-                    fetch c_adr into v_adr;
-                    v_found := c_adr%found;
-                    if v_found then
-                        v_vdawarenempfaengerkurz := v_adr.name_1;
-                        v_vdawarenempfaengerlang1 := v_adr.name_1;
-                        v_vdawarenempfaengerlang2 := v_adr.name_2;
-                        v_vdawarenempfaengerlang3 := v_adr.plz
-                                                     || ' '
-                                                     || v_adr.ort;
-                        v_vdaabladestelle := nvl(v_kopf.wae_ziel, v_vdaabladestelle);
-                        v_adr_nr := v_adr.adr_nr;
-                    end if;
-
-                    close c_adr;
-                    v_adr_id := v_kopf.order_adress_id;
-                    open c_adr;
-                    fetch c_adr into v_adr;
-                    v_found := c_adr%found;
-                    close c_adr;
-                    if v_found then
-                        v_vdalieferanschriftkurz := v_adr.name_1;
-                    end if;
-                else
-                    v_adr_nr := v_lam_kunden_nr;
-                    open c_kunde;
-                    fetch c_kunde into v_adr;
-                    v_found := c_kunde%found;
-                    close c_kunde;
-                    if v_found then
-                        v_vdawarenempfaengerkurz := v_adr.name_1
-                                                    || ' '
-                                                    || v_adr.name_2
-                                                    || ' '
-                                                    || v_adr.plz
-                                                    || ' '
-                                                    || v_adr.ort;
-
-                        v_vdawarenempfaengerlang1 := v_adr.name_1;
-                        v_vdawarenempfaengerlang2 := v_adr.name_2;
-                        v_vdawarenempfaengerlang3 := v_adr.plz
-                                                     || ' '
-                                                     || v_adr.ort;
-                    end if;
-
-                end if;
-
-                close c_kopf;
-            end if;
-
-            close c_pos;
-            open c_lieferant;
-            fetch c_lieferant into v_adr;
-            v_found := c_lieferant%found;
-            close c_lieferant;
-            if v_found then
-                v_vdalieferantenanschrift1 := v_adr.name_1;
-                v_vdalieferantenanschrift2 := v_adr.name_2;
-                v_vdalieferantenanschrift3 := v_adr.name_3;
-                v_vdalieferantenanschrift4 := v_adr.name_1
-                                              || ', '
-                                              || v_adr.name_2
-                                              || ', '
-                                              || v_adr.plz
-                                              || ', '
-                                              || v_adr.ort;
-
-            end if;
-
-            if v_art.artikel is not null then
-                open c_art_kd;
-                fetch c_art_kd into v_art_kd;
-                v_found := c_art_kd%found;
-                close c_art_kd;
-                if
-                    v_found
-                    and v_art_kd.kd_art_nr is not null
-                    and v_lam_art_faag is null
-                then
-                    v_vdasachnrkundebarcode := 'P' || v_art_kd.kd_art_nr;
-                    v_vdasachnrkunde := v_art_kd.kd_art_nr;
-                    v_vdabezeichnungkunde := v_art_kd.kd_art_text1;
-                end if;
-
-            end if;
-
+      if v_Vdasachnrlieferant is NULL
+      then
+        v_Vdasachnrlieferant           := v_art.artikel;
+      else
+        v_Vdasachnrlieferant           := v_Vdasachnrlieferant || ' ' || v_art.artikel;
+      end if;
+      if v_lam_art_faag is not NULL
+      then
+        v_Vdasachnrlieferant := v_Vdasachnrlieferant || '-' || nvl(to_char(v_lam_art_fanr), 'X') || '/' || to_char(v_lam_art_faag);
+        if v_naechste_maschine is not NULL
+        then
+          v_Vdasachnrlieferant := v_Vdasachnrlieferant || ' --> ' || v_naechste_maschine;
         end if;
+      end if;
+      v_Vdafuellmenge                := v_lam_memge;
+      v_Vdabezeichnunglieferungl     := v_art.bezeichnung1;
+      v_Vdasachnrlieferantabmessung  := v_art.bezeichnung2;
+      v_Vdaaenderungkonstruktiono    := v_art.bezeichnung3;
+      if v_lam_prod_datum is not NULL then
+        v_Vdadatum                   := 'P' || to_char(v_lam_prod_datum, 'YYMMDD');
+      end if;
+      v_Vdaaenderungkonstruktionz    := v_lam_zeichnung;
+      v_Vdaaenderungkonstruktion     := v_lam_zeichnung_index;
 
-        v_print_daten := '';
-        if in_waren_typ = 'MP' then
-            v_vdapackstucknrbarcode := 'G';
-        elsif v_lte_lte_voll = c.lte_voll_v then
-            v_vdapackstucknrbarcode := 'S';
+      if v_lam_leitzahl is not NULL then
+        v_Vdasachnrlieferantprodnrbarc := '20S' || v_lam_leitzahl;
+      end if;
+      if v_art.artikel is not NULL then
+        v_Vdasachnrlieferantbarcode := '30S' || v_art.artikel;
+        if v_lam_art_faag is not NULL
+        then
+          v_Vdasachnrlieferantbarcode := v_Vdasachnrlieferantbarcode || '-' || nvl(to_char(v_lam_art_fanr), 'X') || '/' || to_char(v_lam_art_faag);
+        end if;
+      end if;
+      v_Vdafuellmengebarcode := 'Q' || v_lam_memge;
+
+      OPEN c_charge;
+      FETCH c_charge into v_charge;
+      v_found := c_charge%FOUND;
+      CLOSE c_charge;
+
+      if v_found then
+        v_Vdachangennr := v_charge.charge_bez;
+        v_Vdachangennrbarcode := 'H' || v_charge.charge_bez;
+      end if;
+      v_VdaLieferantenNr := v_lieferanten_nr;
+      v_VdaLieferscheinNrLief := v_li_nr_lief;
+      v_VdaLieferantenNrBarcode := 'V' || v_lieferanten_nr;
+
+      OPEN c_pos;
+      FETCH c_pos into v_pos;
+      v_found := c_pos%FOUND;
+      if not v_found then
+        v_adr_nr := v_lam_kunden_nr;
+        OPEN c_kunde;
+        FETCH c_kunde into v_adr;
+        v_found := c_kunde%FOUND;
+        CLOSE c_kunde;
+        if v_found then
+           v_VdaWarenempfaengerKurz := v_adr.name_1;
+           v_VdaWarenempfaengerLang1 := v_adr.name_1;
+           v_VdaWarenempfaengerLang2 := v_adr.name_2;
+           v_VdaWarenempfaengerLang3 := v_adr.plz || ' ' || v_adr.ort;
+        end if;
+      else
+        OPEN c_kopf;
+        FETCH c_kopf into v_kopf;
+        if v_found then
+          v_adr_id := v_kopf.adress_id;
+          v_VdaLieferscheinNr := to_char(v_kopf.vorgang_id);
+          if v_kopf.wae_ziel is not NULL
+          then
+            v_Vdaabladestelle := v_kopf.wae_ziel;
+          end if;
+          OPEN c_adr;
+          FETCH c_adr into v_adr;
+          v_found := c_adr%FOUND;
+          if v_found then
+            v_Vdawarenempfaengerkurz := v_adr.name_1;
+            v_VdaWarenempfaengerLang1 := v_adr.name_1;
+            v_VdaWarenempfaengerLang2 := v_adr.name_2;
+            v_VdaWarenempfaengerLang3 := v_adr.plz || ' ' || v_adr.ort;
+            v_Vdaabladestelle := nvl(v_kopf.wae_ziel, v_vdaabladestelle);
+            v_adr_nr := v_adr.adr_nr;
+          end if;
+          CLOSE c_adr;
+          v_adr_id := v_kopf.order_adress_id;
+          OPEN c_adr;
+          FETCH c_adr into v_adr;
+          v_found := c_adr%FOUND;
+          CLOSE c_adr;
+          if v_found then
+            v_Vdalieferanschriftkurz := v_adr.name_1;
+          end if;
         else
-            v_vdapackstucknrbarcode := 'M';
+          v_adr_nr := v_lam_kunden_nr;
+          OPEN c_kunde;
+          FETCH c_kunde into v_adr;
+          v_found := c_kunde%FOUND;
+          CLOSE c_kunde;
+          if v_found then
+             v_VdaWarenempfaengerKurz := v_adr.name_1 || ' ' || v_adr.name_2 || ' ' || v_adr.plz || ' ' || v_adr.ort;
+             v_VdaWarenempfaengerLang1 := v_adr.name_1;
+             v_VdaWarenempfaengerLang2 := v_adr.name_2;
+             v_VdaWarenempfaengerLang3 := v_adr.plz || ' ' || v_adr.ort;
+          end if;
         end if;
+        CLOSE c_kopf;
+      end if;
+      CLOSE c_pos;
 
-        v_vdapackstucknr := in_id;
-        v_vdapackstucknrbarcode := v_vdapackstucknrbarcode || in_id;
-        v_grapholhmid := 'E'
-                         || lpad(
-            substr(
-                to_char(v_vdapackstucknr),
-                10
-            ),
-            10,
-            '0'
-        );
+      OPEN c_lieferant;
+      FETCH c_lieferant into v_adr;
+      v_found := c_lieferant%FOUND;
+      CLOSE c_lieferant;
+      if v_found then
+        v_VdaLieferantenAnschrift1 := v_adr.name_1;
+        v_VdaLieferantenAnschrift2 := v_adr.name_2;
+        v_VdaLieferantenAnschrift3 := v_adr.name_3;
+        v_VdaLieferantenAnschrift4 := v_adr.name_1 || ', ' || v_adr.name_2 || ', ' || v_adr.plz || ', ' || v_adr.ort;
+      end if;
 
-        v_print_daten := 'VdaSachNrLieferantDatenfeldFuerLieferanten='
-                         || v_vdadatenfeldfuerlieferanten
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaGewichtBrutto='
-                         || v_vdagewichtbrutto
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaGewichtNetto='
-                         || v_vdagewichtnetto
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferscheinNrBestellnummer='
-                         || v_vdalieferscheinnrbestnr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferscheinNr='
-                         || v_vdalieferscheinnr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferscheinNrLief='
-                         || v_vdalieferscheinnrlief
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaWarenempfaengerKurz='
-                         || v_vdawarenempfaengerkurz
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaWarenempfaengerLang1='
-                         || v_vdawarenempfaengerlang1
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaWarenempfaengerLang2='
-                         || v_vdawarenempfaengerlang2
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaWarenempfaengerLang3='
-                         || v_vdawarenempfaengerlang3
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaAbladestelle='
-                         || v_vdaabladestelle
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaAnzahlPackstuecke='
-                         || v_vdaanzahlpackstuecke
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaFuellmenge='
-                         || v_vdafuellmenge
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaFuellmengeMengeneinheit='
-                         || v_vdafuellmengemengeneinheit
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaBezeichnungLieferungLeistung='
-                         || v_vdabezeichnunglieferungl
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferant='
-                         || v_vdasachnrlieferant
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantISKDPackmittel='
-                         || v_vdasachnrlieferantiskdpackm
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantZusAngaben='
-                         || v_vdasachnrlieferantzusangaben
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantProduktionsNr='
-                         || v_vdasachnrlieferantprodnr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantAbmessung='
-                         || v_vdasachnrlieferantabmessung
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrKunde='
-                         || v_vdasachnrkunde
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaDatum='
-                         || v_vdadatum
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaAenderungKonstruktion='
-                         || v_vdaaenderungkonstruktion
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaAenderungKonstruktionOberflaeche='
-                         || v_vdaaenderungkonstruktiono
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaAenderungKonstruktionZeichnung='
-                         || v_vdaaenderungkonstruktionz
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaPackstuckNr='
-                         || v_vdapackstucknr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaChangenNr='
-                         || v_vdachangennr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferantenNr='
-                         || v_vdalieferantennr
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferantenanschriftLang='
-                         || v_vdalieferantenanschrift4
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrKundeBarcode='
-                         || v_vdasachnrkundebarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaFuellmengeBarcode='
-                         || v_vdafuellmengebarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaPackstuckNrBarcode='
-                         || v_vdapackstucknrbarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantBarcode='
-                         || v_vdasachnrlieferantbarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaChangenNrBarcode='
-                         || v_vdachangennrbarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaSachNrLieferantProduktionsNrBarcode='
-                         || v_vdasachnrlieferantprodnrbarc
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaNrKundeBarcode='
-                         || v_vdanrkundebarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaLieferantenNrBarcode='
-                         || v_vdalieferantennrbarcode
-                         || chr(13)
-                         || chr(10)
-                         || 'VdaBezeichnungKunde='
-                         || v_vdabezeichnungkunde
-                         || chr(13)
-                         || chr(10)
-                         || 'GraphoLhmId='
-                         || v_grapholhmid
-                         || chr(13)
-                         || chr(10)
-                         || 'GraphoArtBez='
-                         || substr(v_vdabezeichnunglieferungl, 1, 10)
-                         || chr(13)
-                         || chr(10)
-                         || 'GraphoChargeId='
-                         || 'E'
-                         || v_chargeid;
+      if v_art.artikel is not NULL then
+        OPEN c_art_kd;
+        FETCH c_art_kd into v_art_kd;
+        v_found := c_art_kd%FOUND;
+        CLOSE c_art_kd;
+        if  v_found
+        and v_art_kd.kd_art_nr is not NULL
+        and v_lam_art_faag is NULL
+        then
+          v_VdaSachnrkundebarcode := 'P' || v_art_kd.kd_art_nr;
+          v_VdaSachnrkunde := v_art_kd.kd_art_nr;
+          v_VdaBezeichnungKunde := v_art_kd.kd_art_text1;
+       end if;
+      end if;
+   end if;
 
-        return ( v_print_daten );
-    exception
+   v_print_daten := '';
+   if in_waren_typ = 'MP' then
+     v_VdaPackstuckNrBarcode := 'G';
+   elsif v_lte_lte_voll = C.Lte_Voll_v then
+     v_VdaPackstuckNrBarcode := 'S';
+   else
+     v_VdaPackstuckNrBarcode := 'M';
+   end if;
+   v_Vdapackstucknr               := in_id;
+   v_VdaPackstuckNrBarcode := v_VdaPackstuckNrBarcode || in_id;
+   v_GraphoLhmId := 'E' || lpad(substr(to_char(v_Vdapackstucknr), 10), 10, '0');
+
+
+   v_print_daten :=
+    'VdaSachNrLieferantDatenfeldFuerLieferanten='         || v_VdaDatenfeldFuerLieferanten || CHR(13) || CHR(10) ||
+    'VdaGewichtBrutto='                                   || v_VdaGewichtBrutto || CHR(13) || CHR(10) ||
+    'VdaGewichtNetto='                                    || v_VdaGewichtNetto || CHR(13) || CHR(10) ||
+    'VdaLieferscheinNrBestellnummer='                     || v_VdaLieferscheinNrBestNr || CHR(13) || CHR(10) ||
+    'VdaLieferscheinNr='                                  || v_VdaLieferscheinNr || CHR(13) || CHR(10) ||
+    'VdaLieferscheinNrLief='                              || v_VdaLieferscheinNrLief || CHR(13) || CHR(10) ||
+    'VdaWarenempfaengerKurz='                             || v_VdaWarenempfaengerKurz || CHR(13) || CHR(10) ||
+    'VdaWarenempfaengerLang1='                            || v_VdaWarenempfaengerLang1 || CHR(13) || CHR(10) ||
+    'VdaWarenempfaengerLang2='                            || v_VdaWarenempfaengerLang2 || CHR(13) || CHR(10) ||
+    'VdaWarenempfaengerLang3='                            || v_VdaWarenempfaengerLang3 || CHR(13) || CHR(10) ||
+    'VdaAbladestelle='                                    || v_VdaAbladestelle || CHR(13) || CHR(10) ||
+    'VdaAnzahlPackstuecke='                               || v_VdaAnzahlPackstuecke || CHR(13) || CHR(10) ||
+    'VdaFuellmenge='                                      || v_VdaFuellmenge || CHR(13) || CHR(10) ||
+    'VdaFuellmengeMengeneinheit='                         || v_VdaFuellmengeMengeneinheit || CHR(13) || CHR(10) ||
+    'VdaBezeichnungLieferungLeistung='                    || v_VdaBezeichnungLieferungL || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferant='                                 || v_VdaSachNrLieferant || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantISKDPackmittel='                   || v_VdaSachNrLieferantISKDPackm || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantZusAngaben='                       || v_VdaSachNrLieferantZusAngaben || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantProduktionsNr='                    || v_VdaSachNrLieferantProdNr || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantAbmessung='                        || v_VdaSachNrLieferantAbmessung || CHR(13) || CHR(10) ||
+    'VdaSachNrKunde='                                     || v_VdaSachNrKunde || CHR(13) || CHR(10) ||
+    'VdaDatum='                                           || v_VdaDatum || CHR(13) || CHR(10) ||
+    'VdaAenderungKonstruktion='                           || v_VdaAenderungKonstruktion || CHR(13) || CHR(10) ||
+    'VdaAenderungKonstruktionOberflaeche='                || v_VdaAenderungKonstruktionO || CHR(13) || CHR(10) ||
+    'VdaAenderungKonstruktionZeichnung='                  || v_VdaAenderungKonstruktionZ || CHR(13) || CHR(10) ||
+    'VdaPackstuckNr='                                     || v_VdaPackstuckNr || CHR(13) || CHR(10) ||
+    'VdaChangenNr='                                       || v_VdaChangenNr || CHR(13) || CHR(10) ||
+    'VdaLieferantenNr='                                   || v_VdaLieferantenNr || CHR(13) || CHR(10) ||
+    'VdaLieferantenanschriftLang='                        || v_VdaLieferantenAnschrift4 || CHR(13) || CHR(10) ||
+    'VdaSachNrKundeBarcode='                              || v_VdaSachNrKundeBarcode || CHR(13) || CHR(10) ||
+    'VdaFuellmengeBarcode='                               || v_VdaFuellmengeBarcode || CHR(13) || CHR(10) ||
+    'VdaPackstuckNrBarcode='                              || v_VdaPackstuckNrBarcode || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantBarcode='                          || v_VdaSachNrLieferantBarcode || CHR(13) || CHR(10) ||
+    'VdaChangenNrBarcode='                                || v_VdaChangenNrBarcode || CHR(13) || CHR(10) ||
+    'VdaSachNrLieferantProduktionsNrBarcode='             || v_Vdasachnrlieferantprodnrbarc || CHR(13) || CHR(10) ||
+    'VdaNrKundeBarcode='                                  || v_VdaNrKundeBarcode || CHR(13) || CHR(10) ||
+    'VdaLieferantenNrBarcode='                            || v_VdaLieferantenNrBarcode || CHR(13) || CHR(10) ||
+    'VdaBezeichnungKunde='                                || v_VdaBezeichnungKunde || CHR(13) || CHR(10) ||
+    'GraphoLhmId='                                        || v_GraphoLhmId || CHR(13) || CHR(10) ||
+    'GraphoArtBez='                                       || substr(v_VdaBezeichnungLieferungL, 1, 10) || CHR(13) || CHR(10) ||
+    'GraphoChargeId='                                     || 'E' || v_ChargeId;
+
+    return (v_print_daten);
+  exception
     -- Im Fehlerfall is der Fehler bereits gesetzt, als lam_id wird 0 zurückgegeben.
-        when v_error then
-            raise_application_error(-20000 - v_err_nr, v_err_text);
-            raise;
-        when others then
-            if v_err_nr is not null then
-                raise_application_error(-20000 - v_err_nr, v_err_text, true);
-            else
-                raise;
-            end if;
-    end vda_etikett;
+    when v_error then
+      RAISE_APPLICATION_ERROR(-20000-v_err_nr,v_err_text);
+      raise;
+    when others then
+      if v_err_nr is not NULL then
+         RAISE_APPLICATION_ERROR(-20000-v_err_nr,v_err_text, true);
+      else
+         raise;
+      end if;
+  end vda_etikett;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"f27b3feda36e1a15226880b5efe50e4cb50eec3e","type":"PACKAGE_BODY","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"cc9ad77829191c84f0f8f56f67de519ed4342cec","type":"PACKAGE_BODY","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

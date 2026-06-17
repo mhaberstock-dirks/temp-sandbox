@@ -1,21 +1,23 @@
-create or replace editionable trigger dirkspzm32.tr_isi_res_fhm_buid before
-    insert or delete on dirkspzm32.isi_res_fhm
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_BUID" 
+  before insert or delete on DIRKSPZM32.ISI_RES_FHM
+  for each row
 declare
-    v_found boolean;
+
+  v_found                 boolean;
 begin
-    if inserting then
-        null;
-    else -- delete
-        delete isi_res_fhm_list t
-        where
-            t.fhm = :old.fhm;
-
-    end if;
+  if inserting
+  then
+    NULL;
+  else -- delete
+    delete isi_res_fhm_list t
+     where t.fhm = :old.fhm;
+  end if;
+  
 end;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_BUID" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_res_fhm_buid enable;
 
-
--- sqlcl_snapshot {"hash":"69b261ff20c1ca651431f4baf58d8f9a7bfb3e3b","type":"TRIGGER","name":"TR_ISI_RES_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ca9f92f89aa33bb7792b3770d7db9381531a4e09","type":"TRIGGER","name":"TR_ISI_RES_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}

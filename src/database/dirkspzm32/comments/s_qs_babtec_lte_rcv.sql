@@ -1,29 +1,13 @@
-comment on table dirkspzm32.s_qs_babtec_lte_rcv is
-    'Rückmeldung babtec QS RCV für Prüftexte';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.bearb_datum is
-    'Bearbeitungsdatum, zuletzt bearbeitet am';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.erstell_datum is
-    'Erstellungsdatum, erstellt am';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.fehler_code is
-    'Host-Übertragung Fehlernummer';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.fehler_text is
-    'Host-Übertragung Fehlertext';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.laborstatus is
-    'G = Gesperrt F = Frei';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.labortext is
-    'Text Grund';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.lte_id is
-    'Palettenummer';
-
-comment on column dirkspzm32.s_qs_babtec_lte_rcv.status is
-    '''N'' = Neu, UE = Übernommen, ERR=Fehler';
+comment on table DIRKSPZM32.S_QS_BABTEC_LTE_RCV is 'Rückmeldung babtec QS RCV für Prüftexte';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."BEARB_DATUM" is 'Bearbeitungsdatum, zuletzt bearbeitet am';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."ERSTELL_DATUM" is 'Erstellungsdatum, erstellt am';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."FEHLER_CODE" is 'Host-Übertragung Fehlernummer';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."FEHLER_TEXT" is 'Host-Übertragung Fehlertext';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."LABORSTATUS" is 'G = Gesperrt F = Frei';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."LABORTEXT" is 'Text Grund';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."LTE_ID" is 'Palettenummer';
+comment on column DIRKSPZM32.S_QS_BABTEC_LTE_RCV."STATUS" is '''N'' = Neu, UE = Übernommen, ERR=Fehler';
 
 
--- sqlcl_snapshot {"hash":"39a100e5516d41abba74049db345e8f157cbc050","type":"COMMENT","name":"s_qs_babtec_lte_rcv","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"507457c8377778628f91d5b59ed7302bdd708730","type":"COMMENT","name":"s_qs_babtec_lte_rcv","schemaName":"dirkspzm32","sxml":""}

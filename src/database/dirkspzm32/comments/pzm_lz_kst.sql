@@ -1,8 +1,6 @@
-comment on table dirkspzm32.pzm_lz_kst is
-    'Die Kostenstellen, die den Lohnzulagen zugewiesen werden';
-
-comment on column dirkspzm32.pzm_lz_kst.lzkst_gueltig is
-    'Ist dieser Lohnzuschlag für diese Abteilung gültig?';
+comment on table DIRKSPZM32.PZM_LZ_KST is 'Die Kostenstellen, die den Lohnzulagen zugewiesen werden';
+comment on column DIRKSPZM32.PZM_LZ_KST."LZKST_GUELTIG" is 'Ist dieser Lohnzuschlag für diese Abteilung gültig?';
 
 
--- sqlcl_snapshot {"hash":"fae6c5a5d194d046cb99ef6d3ff0ceb553d7fc1f","type":"COMMENT","name":"pzm_lz_kst","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"6f331f81f167796518c481e74501b4f3378bf21a","type":"COMMENT","name":"pzm_lz_kst","schemaName":"dirkspzm32","sxml":""}

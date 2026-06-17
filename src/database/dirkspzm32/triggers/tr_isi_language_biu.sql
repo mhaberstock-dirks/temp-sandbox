@@ -1,22 +1,19 @@
-create or replace editionable trigger dirkspzm32.tr_isi_language_biu before
-    insert or update on dirkspzm32.isi_language
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_LANGUAGE_BIU" 
+  before insert or update on DIRKSPZM32.ISI_LANGUAGE
+  for each row
 declare
 
   -- local variables here
- begin
-    if :new.lang_id is null then
-        select
-            seq_isi_language_lang_id.nextval
-        into :new.lang_id
-        from
-            dual;
-
-    end if;
+begin
+  if :new.lang_id is NULL
+  then
+    select SEQ_ISI_LANGUAGE_LANG_ID.NEXTVAL into :new.lang_id from dual;
+  end if;
 end;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_LANGUAGE_BIU" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_language_biu enable;
 
-
--- sqlcl_snapshot {"hash":"f207f3c4f188be8467883236cc471479daa4aa81","type":"TRIGGER","name":"TR_ISI_LANGUAGE_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f5d9c904e1afe067ac216b4dc06af1128c2ee7f3","type":"TRIGGER","name":"TR_ISI_LANGUAGE_BIU","schemaName":"DIRKSPZM32","sxml":""}

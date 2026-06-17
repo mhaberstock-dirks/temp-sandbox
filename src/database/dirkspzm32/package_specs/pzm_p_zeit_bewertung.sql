@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.pzm_p_zeit_bewertung is
+create or replace 
+package DIRKSPZM32.PZM_P_ZEIT_BEWERTUNG is
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_zeit_bewertung
   -- Zweck:   Bewertung von Ist-Zeiten (Stempelzeiten) auf berechnete Zeiten
@@ -21,54 +22,54 @@ create or replace package dirkspzm32.pzm_p_zeit_bewertung is
   -----------------------------------------------------------------------------------------------
   -- Konstanten: Berechnungsbasis (aus pzm_schichtarten.calc_basis)
   -----------------------------------------------------------------------------------------------
-    calc_basis_festschicht constant varchar2(20 char) := 'FESTZ';
-    calc_basis_gleitzeit constant varchar2(20 char) := 'GLEITZ';
+  CALC_BASIS_FESTSCHICHT constant varchar2(20 char) := 'FESTZ';
+  CALC_BASIS_GLEITZEIT   constant varchar2(20 char) := 'GLEITZ';
 
   -----------------------------------------------------------------------------------------------
   -- Record-Typ: Bewertungskonfiguration
   -- Enthält alle Parameter, die die Bewertung beeinflussen
   -----------------------------------------------------------------------------------------------
-    type t_bewertung_config is record (
+  type t_bewertung_config is record (
     -- Zeitraster
-            raster_minuten       number,          -- Rundungsraster in Minuten (z.B. 15, 5, 1)
-            gleitz_runden        boolean,         -- Soll bei Gleitzeit gerundet werden?
+    raster_minuten       number,          -- Rundungsraster in Minuten (z.B. 15, 5, 1)
+    gleitz_runden        boolean,         -- Soll bei Gleitzeit gerundet werden?
 
     -- Gutschriften (in Minuten)
-            beginn_gutschr_min   number,          -- Gutschrift am Schichtbeginn
-            ende_gutschr_min     number,          -- Gutschrift am Schichtende
+    beginn_gutschr_min   number,          -- Gutschrift am Schichtbeginn
+    ende_gutschr_min     number,          -- Gutschrift am Schichtende
 
     -- Kappung
-            kappung_schicht_ende boolean,         -- Überstunden am Schichtende kappen?
+    kappung_schicht_ende boolean,         -- Überstunden am Schichtende kappen?
 
     -- Schichtart-Spezifika
-            calc_basis           varchar2(20 char), -- 'FESTZ' oder 'GLEITZ'
-            sa_ende_nachlauf_min number,          -- Nachlaufzeit (Feierabend-Puffer)
-            sa_bewertung_beginn  number           -- 0 = Schichtanfang, 1 = Schichtende
-    );
+    calc_basis           varchar2(20 char), -- 'FESTZ' oder 'GLEITZ'
+    sa_ende_nachlauf_min number,          -- Nachlaufzeit (Feierabend-Puffer)
+    sa_bewertung_beginn  number           -- 0 = Schichtanfang, 1 = Schichtende
+  );
 
   -----------------------------------------------------------------------------------------------
   -- Record-Typ: Schichtzeiten
   -- Enthält die Soll-Zeiten der Schicht
   -----------------------------------------------------------------------------------------------
-    type t_schicht_zeiten is record (
-            schicht_tag      date,
-            sa_kurzname      varchar2(10 char),
-            sa_beginn        date,                 -- Schichtbeginn (absolut)
-            sa_ende          date,                 -- Schichtende (absolut)
-            sa_ende_effektiv date,                -- Schichtende für Nachtschichten korrigiert
-            sa_std_pro_tag   number
-    );
+  type t_schicht_zeiten is record (
+    schicht_tag     date,
+    sa_kurzname     varchar2(10 char),
+    sa_beginn       date,                 -- Schichtbeginn (absolut)
+    sa_ende         date,                 -- Schichtende (absolut)
+    sa_ende_effektiv date,                -- Schichtende für Nachtschichten korrigiert
+    sa_std_pro_tag  number
+  );
 
   -----------------------------------------------------------------------------------------------
   -- Record-Typ: Bewertungsergebnis
   -----------------------------------------------------------------------------------------------
-    type t_bewertung_result is record (
-            calc_ist_start date,                 -- Berechnete Startzeit
-            calc_ist_ende  date,                 -- Berechnete Endzeit
-            ze_std         number,               -- Berechnete Stunden
-            schicht_tag    date,                 -- Ermittelter Schichttag
-            sa_kurzname    varchar2(10 char)     -- Ermittelte Schichtart
-    );
+  type t_bewertung_result is record (
+    calc_ist_start  date,                 -- Berechnete Startzeit
+    calc_ist_ende   date,                 -- Berechnete Endzeit
+    ze_std          number,               -- Berechnete Stunden
+    schicht_tag     date,                 -- Ermittelter Schichttag
+    sa_kurzname     varchar2(10 char)     -- Ermittelte Schichtart
+  );
 
   -----------------------------------------------------------------------------------------------
   -- ÖFFENTLICHE API
@@ -94,17 +95,17 @@ create or replace package dirkspzm32.pzm_p_zeit_bewertung is
    * @param in_is_erster_eintrag Ist dies der erste Eintrag des Schichttags? (für Beginn-Gutschrift)
    * @return                     Bewertungsergebnis mit berechneten Zeiten
    */
-    function bewerte_ist_zeiten (
-        in_pers_nr           in number,
-        in_ist_start         in date,
-        in_ist_ende          in date,
-        in_ze_status         in number,
-        in_calc_ist_start    in date default null,
-        in_calc_ist_ende     in date default null,
-        in_schicht_tag       in date default null,
-        in_sa_kurzname       in varchar2 default null,
-        in_is_erster_eintrag in boolean default false
-    ) return t_bewertung_result;
+  function bewerte_ist_zeiten(
+    in_pers_nr           in number,
+    in_ist_start         in date,
+    in_ist_ende          in date,
+    in_ze_status         in number,
+    in_calc_ist_start    in date     default null,
+    in_calc_ist_ende     in date     default null,
+    in_schicht_tag       in date     default null,
+    in_sa_kurzname       in varchar2 default null,
+    in_is_erster_eintrag in boolean  default false
+  ) return t_bewertung_result;
 
   /**
    * Hilfsfunktion: Lädt die Bewertungskonfiguration für einen Mitarbeiter
@@ -114,14 +115,15 @@ create or replace package dirkspzm32.pzm_p_zeit_bewertung is
    * @param in_schichtart  Schichtart-Record
    * @return               Bewertungskonfiguration
    */
-    function load_bewertung_config (
-        in_pers_nr     in number,
-        in_schicht_tag in date,
-        in_schichtart  in pzm_schichtarten%rowtype
-    ) return t_bewertung_config;
+  function load_bewertung_config(
+    in_pers_nr     in number,
+    in_schicht_tag in date,
+    in_schichtart  in pzm_schichtarten%rowtype
+  ) return t_bewertung_config;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"efac553ea0efa25278e28892bfaf0d8f27571086","type":"PACKAGE_SPEC","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"331aa2df827dd06ef9b54f6c26d60d07102ac456","type":"PACKAGE_SPEC","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

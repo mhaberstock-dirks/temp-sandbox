@@ -1,14 +1,18 @@
-create or replace editionable trigger dirkspzm32.tr_isi_res_lte_gen_list_bui before
-    insert or update on dirkspzm32.isi_res_lte_gen_list
-    for each row
-declare begin
-    if :new.job_nr is null then
-        :new.job_nr := 0;
-    end if;
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_LTE_GEN_LIST_BUI" 
+  before  Insert  or  Update  on DIRKSPZM32.ISI_RES_LTE_GEN_LIST
+  for each row
+declare
+
+begin
+  if :new.job_nr is NULL
+  then
+    :new.job_nr := 0;
+  end if;
 end;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_LTE_GEN_LIST_BUI" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_res_lte_gen_list_bui enable;
 
-
--- sqlcl_snapshot {"hash":"c9923277925f7981259511b8d1963fb405ff44cb","type":"TRIGGER","name":"TR_ISI_RES_LTE_GEN_LIST_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b8f24d141f03467076e7d4c6aa7b712d2cf17747","type":"TRIGGER","name":"TR_ISI_RES_LTE_GEN_LIST_BUI","schemaName":"DIRKSPZM32","sxml":""}

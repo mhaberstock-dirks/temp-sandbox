@@ -1,29 +1,13 @@
-comment on table dirkspzm32.isi_res_prozess_data_cfg is
-    'Beschreibung der Prozessparameter Bedeutung';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.created_login_id is
-    'login id of the user creating this dataset';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.daten_faktor is
-    'Umrechnungsfaktor Datenempfang ';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.einheit is
-    'Einheit z.B. Nm Kg U/Min...';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.id is
-    'Unique Identifier';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.last_change_login_id is
-    'login id of the user changing this dataset';
-
-comment on column dirkspzm32.isi_res_prozess_data_cfg.res_id is
-    'resource id of the magazine';
+comment on table DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG is 'Beschreibung der Prozessparameter Bedeutung';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."CREATED_LOGIN_ID" is 'login id of the user creating this dataset';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."DATEN_FAKTOR" is 'Umrechnungsfaktor Datenempfang ';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."EINHEIT" is 'Einheit z.B. Nm Kg U/Min...';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."ID" is 'Unique Identifier';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."LAST_CHANGE_LOGIN_ID" is 'login id of the user changing this dataset';
+comment on column DIRKSPZM32.ISI_RES_PROZESS_DATA_CFG."RES_ID" is 'resource id of the magazine';
 
 
--- sqlcl_snapshot {"hash":"2cd4804348636eebe6852202ca2db9b150034e78","type":"COMMENT","name":"isi_res_prozess_data_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"14027d5fd5f71718c4be290d6b453f77541b1d33","type":"COMMENT","name":"isi_res_prozess_data_cfg","schemaName":"dirkspzm32","sxml":""}

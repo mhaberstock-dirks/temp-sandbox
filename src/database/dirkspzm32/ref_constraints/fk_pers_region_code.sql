@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_personal
-    add constraint fk_pers_region_code
-        foreign key ( pers_region_code )
-            references dirkspzm32.isi_land_region ( code )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PERSONAL" ADD CONSTRAINT "FK_PERS_REGION_CODE" FOREIGN KEY ("PERS_REGION_CODE")
+	  REFERENCES "DIRKSPZM32"."ISI_LAND_REGION" ("CODE") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"a316ac337b00d2b84e5d2d543a67824c823eff0a","type":"REF_CONSTRAINT","name":"FK_PERS_REGION_CODE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6b50e7c35c42c862c03ec2c019fe1761329b7b88","type":"REF_CONSTRAINT","name":"FK_PERS_REGION_CODE","schemaName":"DIRKSPZM32","sxml":""}

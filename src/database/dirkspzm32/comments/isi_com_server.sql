@@ -1,47 +1,19 @@
-comment on table dirkspzm32.isi_com_server is
-    'Adressen der COM Server für das ISI Servermodul';
-
-comment on column dirkspzm32.isi_com_server.com_adress is
-    'TCP-IP Adresse';
-
-comment on column dirkspzm32.isi_com_server.com_computername is
-    'Name für direkten Bezug (Daten werden hier benötigt)';
-
-comment on column dirkspzm32.isi_com_server.com_connect is
-    'Soll eine Conection aufgebaut werden';
-
-comment on column dirkspzm32.isi_com_server.com_connected is
-    'Aktuell Connected T = True, F = False';
-
-comment on column dirkspzm32.isi_com_server.com_geraet_name is
-    'Gerätenamen des an diesen angeschlossenen Geräts';
-
-comment on column dirkspzm32.isi_com_server.com_geraet_typ is
-    'Gerätetyp des an diesen angeschlossenen Geräts (SCANNER, TOR, ...)';
-
-comment on column dirkspzm32.isi_com_server.com_name is
-    'Name für Adressenauflösung';
-
-comment on column dirkspzm32.isi_com_server.com_ort_beschr is
-    'Ortsbeschreibung wo sich dieser ComServer befindet';
-
-comment on column dirkspzm32.isi_com_server.com_port is
-    'Port Service';
-
-comment on column dirkspzm32.isi_com_server.com_sendto is
-    'Timeout (Wird nicht benutzt)';
-
-comment on column dirkspzm32.isi_com_server.com_text is
-    'Beschreibung';
-
-comment on column dirkspzm32.isi_com_server.com_visuname is
-    'Name in der Visu im ISIPlus';
-
-comment on column dirkspzm32.isi_com_server.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.isi_com_server.sid is
-    'Datenbank für Konsolidierung';
+comment on table DIRKSPZM32.ISI_COM_SERVER is 'Adressen der COM Server für das ISI Servermodul';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_ADRESS" is 'TCP-IP Adresse';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_COMPUTERNAME" is 'Name für direkten Bezug (Daten werden hier benötigt)';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_CONNECT" is 'Soll eine Conection aufgebaut werden';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_CONNECTED" is 'Aktuell Connected T = True, F = False';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_GERAET_NAME" is 'Gerätenamen des an diesen angeschlossenen Geräts';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_GERAET_TYP" is 'Gerätetyp des an diesen angeschlossenen Geräts (SCANNER, TOR, ...)';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_NAME" is 'Name für Adressenauflösung';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_ORT_BESCHR" is 'Ortsbeschreibung wo sich dieser ComServer befindet';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_PORT" is 'Port Service';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_SENDTO" is 'Timeout (Wird nicht benutzt)';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_TEXT" is 'Beschreibung';
+comment on column DIRKSPZM32.ISI_COM_SERVER."COM_VISUNAME" is 'Name in der Visu im ISIPlus';
+comment on column DIRKSPZM32.ISI_COM_SERVER."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.ISI_COM_SERVER."SID" is 'Datenbank für Konsolidierung';
 
 
--- sqlcl_snapshot {"hash":"46d7ba2f58c37f624a994ec51c09d3895fb48e86","type":"COMMENT","name":"isi_com_server","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"7d6d9a086a0bf64f32d6e248b75e0eea75e78f76","type":"COMMENT","name":"isi_com_server","schemaName":"dirkspzm32","sxml":""}

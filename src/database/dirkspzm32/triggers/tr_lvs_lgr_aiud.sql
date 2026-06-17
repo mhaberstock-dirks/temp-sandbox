@@ -1,17 +1,19 @@
-create or replace editionable trigger dirkspzm32.tr_lvs_lgr_aiud after
-    insert or update on dirkspzm32.lvs_lgr
-    for each row
-declare begin
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LGR_AIUD" 
+  after insert or update on DIRKSPZM32.LVS_LGR
+  for each row
+declare
+begin
 --  if INSERTING then
 --    dbms_alert.SIGNAL('LVS_LGR_INSERT', to_char(:new.lgr_Platz));
 --  elsif UPDATING then
 --    dbms_alert.SIGNAL('LVS_LGR_UPDATE', to_char(:new.lgr_Platz));
 --  end if;
-    null;
-end tr_lvs_lgr_aiud;
+NULL;
+end Tr_lvs_lgr_AIUD;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LGR_AIUD" ENABLE;
 
-alter trigger dirkspzm32.tr_lvs_lgr_aiud enable;
 
-
--- sqlcl_snapshot {"hash":"be959df11a1d6501a7936cabc80904ea8cbfb0da","type":"TRIGGER","name":"TR_LVS_LGR_AIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0b4c7940a329e3c1bd7eae208f93f5fe84596fdd","type":"TRIGGER","name":"TR_LVS_LGR_AIUD","schemaName":"DIRKSPZM32","sxml":""}

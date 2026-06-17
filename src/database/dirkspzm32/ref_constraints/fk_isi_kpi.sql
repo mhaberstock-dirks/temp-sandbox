@@ -1,12 +1,6 @@
-alter table dirkspzm32.isi_kpi
-    add constraint fk_isi_kpi
-        foreign key ( kpi_name,
-                      firma_nr,
-                      sid )
-            references dirkspzm32.isi_kpi_cfg ( kpi_name,
-                                                firma_nr,
-                                                sid )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_KPI" ADD CONSTRAINT "FK_ISI_KPI" FOREIGN KEY ("KPI_NAME", "FIRMA_NR", "SID")
+	  REFERENCES "DIRKSPZM32"."ISI_KPI_CFG" ("KPI_NAME", "FIRMA_NR", "SID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"09e7ac0f717a38f4c09b10405723f19ef8b12fb8","type":"REF_CONSTRAINT","name":"FK_ISI_KPI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"17b58e094dd7f87c4791c17e3a9892982a31f281","type":"REF_CONSTRAINT","name":"FK_ISI_KPI","schemaName":"DIRKSPZM32","sxml":""}

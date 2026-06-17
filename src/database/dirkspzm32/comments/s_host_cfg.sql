@@ -1,8 +1,6 @@
-comment on column dirkspzm32.s_host_cfg.cfg_name is
-    'Name, um unterschiedliche Konfigurationen zu unterscheiden';
-
-comment on column dirkspzm32.s_host_cfg.host_typ is
-    'SAP, ...';
+comment on column DIRKSPZM32.S_HOST_CFG."CFG_NAME" is 'Name, um unterschiedliche Konfigurationen zu unterscheiden';
+comment on column DIRKSPZM32.S_HOST_CFG."HOST_TYP" is 'SAP, ...';
 
 
--- sqlcl_snapshot {"hash":"a28c09088fe3d1134035d13c9f36ef7550323a79","type":"COMMENT","name":"s_host_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"352e28a2e9a2bf2ce609f6f34d5076e66dcdc43f","type":"COMMENT","name":"s_host_cfg","schemaName":"dirkspzm32","sxml":""}

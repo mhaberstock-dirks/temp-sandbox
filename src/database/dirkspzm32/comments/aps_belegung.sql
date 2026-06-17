@@ -1,65 +1,25 @@
-comment on table dirkspzm32.aps_belegung is
-    'Belegung - Maschinen und Resourcen';
-
-comment on column dirkspzm32.aps_belegung.belegungsende is
-    'geplantes Ende der Belegung';
-
-comment on column dirkspzm32.aps_belegung.belegungsstart is
-    'geplanter Start der Belegung';
-
-comment on column dirkspzm32.aps_belegung.belegungstyp is
-    'Identifikation des Belegungstyps';
-
-comment on column dirkspzm32.aps_belegung.belegungstypbeschreibung is
-    'Belegungstyp textuell';
-
-comment on column dirkspzm32.aps_belegung.ergebnisnr is
-    'Identifikation des Optimierungsergebnisses';
-
-comment on column dirkspzm32.aps_belegung.fakopfinfo1 is
-    'freier FA-Eintrag 1';
-
-comment on column dirkspzm32.aps_belegung.fakopfinfo2 is
-    'freier FA-Eintrag 2';
-
-comment on column dirkspzm32.aps_belegung.fakopfinfo3 is
-    'freier FA-Eintrag 3';
-
-comment on column dirkspzm32.aps_belegung.fakopfnr is
-    'FA.LEITZAHL Identifikation des Fertigungsauftrags';
-
-comment on column dirkspzm32.aps_belegung.favorgangsalternative is
-    'Identifikation der Alternative des Vorgangs';
-
-comment on column dirkspzm32.aps_belegung.favorgangsnr is
-    'FA.AF_AG Identifikation des Vorgangs des Fertigungsauftrags';
-
-comment on column dirkspzm32.aps_belegung.favorgangspositionsinfo is
-    'Benutzerdefinierte Vorgangspositionsinformation';
-
-comment on column dirkspzm32.aps_belegung.favorgangspositionsnr is
-    '1 = Rüsten, 2 = Fertigen Identifikation der Position der Alternative';
-
-comment on column dirkspzm32.aps_belegung.favorgangssplittnr is
-    'FA.FA_UPOS SplittID des Vorgangs';
-
-comment on column dirkspzm32.aps_belegung.plannr is
-    'Identifikation der Planung';
-
-comment on column dirkspzm32.aps_belegung.ressourcenbezeichnung is
-    'Bezeichnung der Ressource';
-
-comment on column dirkspzm32.aps_belegung.ressourceninfo is
-    'Benutzerdefinierte Ressourceninformation';
-
-comment on column dirkspzm32.aps_belegung.ressourcennr is
-    'Identifikation der Ressource';
-
-comment on column dirkspzm32.aps_belegung.ressourcentyp is
-    'Identifikation des Ressourcentyps';
-
-comment on column dirkspzm32.aps_belegung.ressourcentypbeschreibung is
-    'Ressourcentyp textuell';
+comment on table DIRKSPZM32.APS_BELEGUNG is 'Belegung - Maschinen und Resourcen';
+comment on column DIRKSPZM32.APS_BELEGUNG."BELEGUNGSENDE" is 'geplantes Ende der Belegung';
+comment on column DIRKSPZM32.APS_BELEGUNG."BELEGUNGSSTART" is 'geplanter Start der Belegung';
+comment on column DIRKSPZM32.APS_BELEGUNG."BELEGUNGSTYP" is 'Identifikation des Belegungstyps';
+comment on column DIRKSPZM32.APS_BELEGUNG."BELEGUNGSTYPBESCHREIBUNG" is 'Belegungstyp textuell';
+comment on column DIRKSPZM32.APS_BELEGUNG."ERGEBNISNR" is 'Identifikation des Optimierungsergebnisses';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAKOPFINFO1" is 'freier FA-Eintrag 1';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAKOPFINFO2" is 'freier FA-Eintrag 2';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAKOPFINFO3" is 'freier FA-Eintrag 3';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAKOPFNR" is 'FA.LEITZAHL Identifikation des Fertigungsauftrags';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAVORGANGSALTERNATIVE" is 'Identifikation der Alternative des Vorgangs';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAVORGANGSNR" is 'FA.AF_AG Identifikation des Vorgangs des Fertigungsauftrags';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAVORGANGSPOSITIONSINFO" is 'Benutzerdefinierte Vorgangspositionsinformation';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAVORGANGSPOSITIONSNR" is '1 = Rüsten, 2 = Fertigen Identifikation der Position der Alternative';
+comment on column DIRKSPZM32.APS_BELEGUNG."FAVORGANGSSPLITTNR" is 'FA.FA_UPOS SplittID des Vorgangs';
+comment on column DIRKSPZM32.APS_BELEGUNG."PLANNR" is 'Identifikation der Planung';
+comment on column DIRKSPZM32.APS_BELEGUNG."RESSOURCENBEZEICHNUNG" is 'Bezeichnung der Ressource';
+comment on column DIRKSPZM32.APS_BELEGUNG."RESSOURCENINFO" is 'Benutzerdefinierte Ressourceninformation';
+comment on column DIRKSPZM32.APS_BELEGUNG."RESSOURCENNR" is 'Identifikation der Ressource';
+comment on column DIRKSPZM32.APS_BELEGUNG."RESSOURCENTYP" is 'Identifikation des Ressourcentyps';
+comment on column DIRKSPZM32.APS_BELEGUNG."RESSOURCENTYPBESCHREIBUNG" is 'Ressourcentyp textuell';
 
 
--- sqlcl_snapshot {"hash":"26a837a0473d2b7bd0a82525985b43b25019207c","type":"COMMENT","name":"aps_belegung","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"1411ba149703df7169d6c466bd7b87f79ff17a68","type":"COMMENT","name":"aps_belegung","schemaName":"dirkspzm32","sxml":""}

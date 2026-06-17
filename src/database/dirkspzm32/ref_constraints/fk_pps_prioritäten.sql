@@ -1,8 +1,6 @@
-alter table dirkspzm32.pps_prioritaetskurve
-    add constraint "FK_PPS_PRIORITÄTEN"
-        foreign key ( prio_id )
-            references dirkspzm32.pps_prioritaeten ( prio_id )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PPS_PRIORITAETSKURVE" ADD CONSTRAINT "FK_PPS_PRIORITÄTEN" FOREIGN KEY ("PRIO_ID")
+	  REFERENCES "DIRKSPZM32"."PPS_PRIORITAETEN" ("PRIO_ID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7d51e1d43e72f6573381444838081e291e0ec31d","type":"REF_CONSTRAINT","name":"FK_PPS_PRIORITÄTEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bfd79afa87d575b6343d27fb76114b1b4fd0977a","type":"REF_CONSTRAINT","name":"FK_PPS_PRIORITÄTEN","schemaName":"DIRKSPZM32","sxml":""}

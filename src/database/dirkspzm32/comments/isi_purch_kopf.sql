@@ -1,91 +1,33 @@
-comment on column dirkspzm32.isi_purch_kopf.aend_datum is
-    'Datum Datensatz geändert ';
-
-comment on column dirkspzm32.isi_purch_kopf.aend_login_id is
-    'geändert von';
-
-comment on column dirkspzm32.isi_purch_kopf.ein_lieferant_erlaubt is
-    'Bestellung erlaubt mehrere, bzw. nur einen Lieferanten.';
-
-comment on column dirkspzm32.isi_purch_kopf.erz_datum is
-    'Datum Datensatz erzeugt';
-
-comment on column dirkspzm32.isi_purch_kopf.erz_login_id is
-    'erzeugt von';
-
-comment on column dirkspzm32.isi_purch_kopf.firma_nr is
-    'Firma Nr.';
-
-comment on column dirkspzm32.isi_purch_kopf.freitext_ab is
-    'Freitext pro Auftrag für die Auftragsbestätigung';
-
-comment on column dirkspzm32.isi_purch_kopf.freitext_liefs is
-    'Freitext pro Auftrag für den Lieferschein';
-
-comment on column dirkspzm32.isi_purch_kopf.freitext_rechnung is
-    'Freitext pro Auftrag für die Rechnung';
-
-comment on column dirkspzm32.isi_purch_kopf.gruss_text_ab is
-    'Grußformel / -text für die Auftragsbestätigung (wird auf der ersten Seite vor der Auflistung ausgegeben)';
-
-comment on column dirkspzm32.isi_purch_kopf.id is
-    'Unique Identifier';
-
-comment on column dirkspzm32.isi_purch_kopf.info is
-    'Auf den Formularen wird erst INFO und dann der TEXT_ANHANG gelistet';
-
-comment on column dirkspzm32.isi_purch_kopf.kunden_auftrags_nr is
-    'Kunden-Auftragsnummer dieser Order';
-
-comment on column dirkspzm32.isi_purch_kopf.kunde_contact_id is
-    'Kunde Ansprechpartner -> ISI_CONTACT.CONTACT_ID';
-
-comment on column dirkspzm32.isi_purch_kopf.kunde_id is
-    'Kunde  isi_adresse.Adress_ID';
-
-comment on column dirkspzm32.isi_purch_kopf.lieferant_id is
-    'Lieferant_ID = 0 ist Kopf  -> ISI_ADRESSEN.ADRESS_ID';
-
-comment on column dirkspzm32.isi_purch_kopf.lieferschein_datum is
-    'Lieferschein-Datum';
-
-comment on column dirkspzm32.isi_purch_kopf.lieferschein_nr is
-    'Lieferschein-Nummer';
-
-comment on column dirkspzm32.isi_purch_kopf.liefer_datum is
-    'geplantes Lieferdatum';
-
-comment on column dirkspzm32.isi_purch_kopf.lief_contact_id is
-    'Lieferant Login ID  -> ISI_CONTACT.CONTACT_ID';
-
-comment on column dirkspzm32.isi_purch_kopf.login_id is
-    'Besteller, Creator -> ISI_USER';
-
-comment on column dirkspzm32.isi_purch_kopf.max_pos_nr is
-    'max Pos-Nr. dieses Auftrags bei nicht fortlaufenden Positionsnummern';
-
-comment on column dirkspzm32.isi_purch_kopf.project_nr is
-    '-> ISI_PROJECT.PROJECT_NR';
-
-comment on column dirkspzm32.isi_purch_kopf.pro_forma_rech_nr is
-    'Pro-forma Rechnungsnummer (auch für Vorkasse verwendet)';
-
-comment on column dirkspzm32.isi_purch_kopf.rechnungs_nr is
-    'Rechnungsnummer';
-
-comment on column dirkspzm32.isi_purch_kopf.sid is
-    'SID';
-
-comment on column dirkspzm32.isi_purch_kopf.status is
-    '''N''=neu angelegt, ''B''=in Bearbeitung , ''G''=gelöscht, ''F''=fertig, ''E''=Abschluss durchgeführt ende';
-
-comment on column dirkspzm32.isi_purch_kopf.text_anhang is
-    'Freier Text (z.B. Grußformel) auf der Bestellung, Rechnung , ... Auf den Formularen wird erst INFO und dann der TEXT_ANHANG ausgegeben'
-    ;
-
-comment on column dirkspzm32.isi_purch_kopf.vorg_typ is
-    '''BE''=Bestellung, ''RE''=Rechnung, ''ANG''=Angebot, ''KALK''=Kalkulation, ''AUFTR''=Auftrag, ''GUTS''=Gutschrift, ''LIEF''=Lieferschein'
-    ;
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."AEND_DATUM" is 'Datum Datensatz geändert ';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."AEND_LOGIN_ID" is 'geändert von';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."EIN_LIEFERANT_ERLAUBT" is 'Bestellung erlaubt mehrere, bzw. nur einen Lieferanten.';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."ERZ_DATUM" is 'Datum Datensatz erzeugt';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."ERZ_LOGIN_ID" is 'erzeugt von';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."FIRMA_NR" is 'Firma Nr.';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."FREITEXT_AB" is 'Freitext pro Auftrag für die Auftragsbestätigung';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."FREITEXT_LIEFS" is 'Freitext pro Auftrag für den Lieferschein';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."FREITEXT_RECHNUNG" is 'Freitext pro Auftrag für die Rechnung';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."GRUSS_TEXT_AB" is 'Grußformel / -text für die Auftragsbestätigung (wird auf der ersten Seite vor der Auflistung ausgegeben)';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."ID" is 'Unique Identifier';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."INFO" is 'Auf den Formularen wird erst INFO und dann der TEXT_ANHANG gelistet';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."KUNDEN_AUFTRAGS_NR" is 'Kunden-Auftragsnummer dieser Order';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."KUNDE_CONTACT_ID" is 'Kunde Ansprechpartner -> ISI_CONTACT.CONTACT_ID';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."KUNDE_ID" is 'Kunde  isi_adresse.Adress_ID';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LIEFERANT_ID" is 'Lieferant_ID = 0 ist Kopf  -> ISI_ADRESSEN.ADRESS_ID';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LIEFERSCHEIN_DATUM" is 'Lieferschein-Datum';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LIEFERSCHEIN_NR" is 'Lieferschein-Nummer';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LIEFER_DATUM" is 'geplantes Lieferdatum';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LIEF_CONTACT_ID" is 'Lieferant Login ID  -> ISI_CONTACT.CONTACT_ID';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."LOGIN_ID" is 'Besteller, Creator -> ISI_USER';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."MAX_POS_NR" is 'max Pos-Nr. dieses Auftrags bei nicht fortlaufenden Positionsnummern';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."PROJECT_NR" is '-> ISI_PROJECT.PROJECT_NR';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."PRO_FORMA_RECH_NR" is 'Pro-forma Rechnungsnummer (auch für Vorkasse verwendet)';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."RECHNUNGS_NR" is 'Rechnungsnummer';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."SID" is 'SID';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."STATUS" is '''N''=neu angelegt, ''B''=in Bearbeitung , ''G''=gelöscht, ''F''=fertig, ''E''=Abschluss durchgeführt ende';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."TEXT_ANHANG" is 'Freier Text (z.B. Grußformel) auf der Bestellung, Rechnung , ... Auf den Formularen wird erst INFO und dann der TEXT_ANHANG ausgegeben';
+comment on column DIRKSPZM32.ISI_PURCH_KOPF."VORG_TYP" is '''BE''=Bestellung, ''RE''=Rechnung, ''ANG''=Angebot, ''KALK''=Kalkulation, ''AUFTR''=Auftrag, ''GUTS''=Gutschrift, ''LIEF''=Lieferschein';
 
 
--- sqlcl_snapshot {"hash":"491a346b8cab31457945495e02dcb151b5a1109b","type":"COMMENT","name":"isi_purch_kopf","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f5f3db6f9caaa52126de6beeb3b56e4b80c461f8","type":"COMMENT","name":"isi_purch_kopf","schemaName":"dirkspzm32","sxml":""}

@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.z_seaquist_druck is
+create or replace 
+package DIRKSPZM32.z_seaquist_druck is
 
   /*
   __________________________________________________
@@ -37,20 +38,19 @@ create or replace package dirkspzm32.z_seaquist_druck is
 -- Result: Liste der zu druckenden Parameter, muss noch mit der Druck-Template-Datei zusammengeführt werden.
 ------------------------------------------------------------------------------
 
-    function vda_etikett_vers_krt (
-        in_sid      in isi_sid.sid%type,
-        in_firma_nr in isi_firma.firma_nr%type,
-        in_id       in lvs_lhm.lhm_id%type
-    ) return varchar2;
+  function vda_etikett_vers_krt(in_sid         in isi_sid.sid%type,
+                                in_firma_nr    in isi_firma.firma_nr%type,
+                                in_id          in lvs_lhm.lhm_id%type)
+                                return varchar2;
 
-    function ccg_etikett_vers_lte (
-        in_sid      in isi_sid.sid%type,
-        in_firma_nr in isi_firma.firma_nr%type,
-        in_id       in lvs_lhm.lhm_id%type
-    ) return varchar2;
+  function ccg_etikett_vers_lte(in_sid         in isi_sid.sid%type,
+                                in_firma_nr    in isi_firma.firma_nr%type,
+                                in_id          in lvs_lhm.lhm_id%type)
+                                return varchar2;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"c5b913337c042aa2012fecc981143be8665cbd4c","type":"PACKAGE_SPEC","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"e6d6bf897fefaf76d8789b5b1c08028e90997108","type":"PACKAGE_SPEC","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

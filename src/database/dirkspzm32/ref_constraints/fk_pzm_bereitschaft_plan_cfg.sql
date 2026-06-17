@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_bereitschaft_plan
-    add constraint fk_pzm_bereitschaft_plan_cfg
-        foreign key ( bereitschaft_cfg )
-            references dirkspzm32.pzm_bereitschaft_cfg ( bereitschaft_cfg )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_BEREITSCHAFT_PLAN" ADD CONSTRAINT "FK_PZM_BEREITSCHAFT_PLAN_CFG" FOREIGN KEY ("BEREITSCHAFT_CFG")
+	  REFERENCES "DIRKSPZM32"."PZM_BEREITSCHAFT_CFG" ("BEREITSCHAFT_CFG") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f9fcaa55a9556ca3a8fa4116edcde19feb78c83e","type":"REF_CONSTRAINT","name":"FK_PZM_BEREITSCHAFT_PLAN_CFG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d2ec57b63cee719e1e632c547b4a38effccf4006","type":"REF_CONSTRAINT","name":"FK_PZM_BEREITSCHAFT_PLAN_CFG","schemaName":"DIRKSPZM32","sxml":""}

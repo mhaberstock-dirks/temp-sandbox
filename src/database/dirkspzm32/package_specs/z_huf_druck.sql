@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.z_huf_druck is
+create or replace 
+package DIRKSPZM32.z_huf_druck is
 
   /*
   __________________________________________________
@@ -17,16 +18,16 @@ create or replace package dirkspzm32.z_huf_druck is
   */
 
    -- Public Funktions und Prozedur-Deklaration
-    function vda_etikett (
-        in_sid        in isi_sid.sid%type,
-        in_firma_nr   in isi_firma.firma_nr%type,
-        in_id         in lvs_lte.lte_id%type,
-        in_waren_typ  in lvs_lte.waren_typ%type,
-        in_artikel_id in lvs_lam.artikel_id%type
-    ) return varchar2;
+  function vda_etikett(in_sid         in isi_sid.sid%type,
+                       in_firma_nr    in isi_firma.firma_nr%type,
+                       in_id          in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type,
+                       in_artikel_id  in lvs_lam.artikel_id%type)
+                        return varchar2;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"60b22419a59e2c9bbfb6afd0d98b47a3bead4312","type":"PACKAGE_SPEC","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"3392a11abfa5206c79991d30058acf7c46ab80c7","type":"PACKAGE_SPEC","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

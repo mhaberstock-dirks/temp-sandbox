@@ -1,10 +1,6 @@
-alter table dirkspzm32.lvs_packschema_kopf
-    add constraint fk_lvs_packschema_kopf_lhmname
-        foreign key ( lhm_name,
-                      sid )
-            references dirkspzm32.lvs_lhm_cfg ( lhm_name,
-                                                sid )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."LVS_PACKSCHEMA_KOPF" ADD CONSTRAINT "FK_LVS_PACKSCHEMA_KOPF_LHMNAME" FOREIGN KEY ("LHM_NAME", "SID")
+	  REFERENCES "DIRKSPZM32"."LVS_LHM_CFG" ("LHM_NAME", "SID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3297d64dcff05a35acc4bf7b9459d42b13d05721","type":"REF_CONSTRAINT","name":"FK_LVS_PACKSCHEMA_KOPF_LHMNAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4f70ed222ed18df264257d5089a63a7c61967e67","type":"REF_CONSTRAINT","name":"FK_LVS_PACKSCHEMA_KOPF_LHMNAME","schemaName":"DIRKSPZM32","sxml":""}

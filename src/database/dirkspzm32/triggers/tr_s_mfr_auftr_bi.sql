@@ -1,22 +1,22 @@
-create or replace editionable trigger dirkspzm32.tr_s_mfr_auftr_bi before
-    insert or update on dirkspzm32.s_mfr_rcv_auftr
-    for each row
-declare begin
-    if inserting then
-        if :new.auf_id is null then
-            select
-                seq_s_auftr.nextval
-            into :new.auf_id
-            from
-                dual;
 
-        end if;
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_MFR_AUFTR_BI" 
+  before insert or update on DIRKSPZM32.s_mfr_rcv_auftr
+  for each row
+declare
 
+begin
+
+  if inserting then
+    if :new.auf_id is NULL
+    then
+      select SEQ_S_AUFTR.NEXTVAL into :new.auf_id from dual;
     end if;
-end tr_s_diaf_rcv_auftr_biu;
+  end if;
+
+end TR_S_DIAF_RCV_AUFTR_BIU;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_S_MFR_AUFTR_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_s_mfr_auftr_bi enable;
 
-
--- sqlcl_snapshot {"hash":"84cbfddeaf8b95b0a7b38b787fbfa3399ddc4e21","type":"TRIGGER","name":"TR_S_MFR_AUFTR_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2aada75c14cb504a9030d21e464bd7fcbf94ccbd","type":"TRIGGER","name":"TR_S_MFR_AUFTR_BI","schemaName":"DIRKSPZM32","sxml":""}

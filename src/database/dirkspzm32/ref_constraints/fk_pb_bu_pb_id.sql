@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_produktionsbereiche_bu
-    add constraint fk_pb_bu_pb_id
-        foreign key ( pb_id )
-            references dirkspzm32.pzm_produktionsbereiche ( pb_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PRODUKTIONSBEREICHE_BU" ADD CONSTRAINT "FK_PB_BU_PB_ID" FOREIGN KEY ("PB_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_PRODUKTIONSBEREICHE" ("PB_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"2a31a86c1f81309c9f304715dec3d65623f26936","type":"REF_CONSTRAINT","name":"FK_PB_BU_PB_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"beb5b8b54ee008d0256e565a42594ff8e1fd6ff0","type":"REF_CONSTRAINT","name":"FK_PB_BU_PB_ID","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,59 +1,53 @@
-create or replace editionable trigger dirkspzm32.tr_isi_res_parallel_biud before
-    insert or update or delete on dirkspzm32.isi_res_parallel
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_PARALLEL_BIUD" 
+  before insert or update or delete on DIRKSPZM32.ISI_RES_PARALLEL
+  for each row
 declare
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
-    v_error exception;                 --
-    v_err_nr   number;
-    v_err_text varchar2(255);
+  v_error     EXCEPTION;                 --
+  v_err_nr    number;
+  v_err_text  varchar2(255);
+
 begin
   -- Init Fehlervariablen
-    v_err_nr := null;
-    v_err_text := null;
-    if inserting then
-        :new.created_date := sysdate;
-    elsif updating then
-        :new.last_change_date := sysdate;
-    end if;
+  v_err_nr := NULL;
+  v_err_text := NULL;
+
+  if inserting
+  then
+    :new.created_date := sysdate;
+  elsif updating
+  then
+    :new.last_change_date := sysdate;
+  end if;
 
 exception
     -- Im Fehlerfall is der Fehlertext bereits gesetzt.
-    when v_error then  -- Update 2011 show Exception Source Line
-        v_err_text := v_err_text
-                      || chr(13)
-                      || chr(10)
-                      || dbms_utility.format_error_backtrace;
+  when v_error then  -- Update 2011 show Exception Source Line
+    v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+    RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    raise;
+  when others then
+    if v_err_nr is not NULL then
+      v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+      RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    else
+      v_err_text := DBMS_UTILITY.format_error_backtrace;
+      if v_err_text not like 'ORA-%ORA-%'
+      then
+        v_err_text := LC.ec(LC.O_TXT_DB_ERROR) || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+        RAISE_APPLICATION_ERROR(-20000, v_err_text, true);
+      end if;
+      raise;
+    end if;
 
-        raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        raise;
-    when others then
-        if v_err_nr is not null then
-            v_err_text := v_err_text
-                          || chr(13)
-                          || chr(10)
-                          || dbms_utility.format_error_backtrace;
+end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
-            raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        else
-            v_err_text := dbms_utility.format_error_backtrace;
-            if v_err_text not like 'ORA-%ORA-%' then
-                v_err_text := lc.ec(lc.o_txt_db_error)
-                              || chr(13)
-                              || chr(10)
-                              || dbms_utility.format_error_backtrace;
-
-                raise_application_error(-20000, v_err_text, true);
-            end if;
-
-            raise;
-        end if;
-end tr_lvs_inventur_job_kopf_biud;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_PARALLEL_BIUD" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_res_parallel_biud enable;
 
-
--- sqlcl_snapshot {"hash":"24ed1d5dc0b9d6a113b3803cbde6d24f0064fcef","type":"TRIGGER","name":"TR_ISI_RES_PARALLEL_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cd59b17a639522ecf6a5af6ce8064c5c922a1eba","type":"TRIGGER","name":"TR_ISI_RES_PARALLEL_BIUD","schemaName":"DIRKSPZM32","sxml":""}

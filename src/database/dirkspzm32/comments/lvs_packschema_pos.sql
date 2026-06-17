@@ -1,47 +1,19 @@
-comment on table dirkspzm32.lvs_packschema_pos is
-    'Packschema Beschreibung Positionen';
-
-comment on column dirkspzm32.lvs_packschema_pos.change_date is
-    'Datum letzte Änderung';
-
-comment on column dirkspzm32.lvs_packschema_pos.change_login_id is
-    'Login ID letzte Änderung';
-
-comment on column dirkspzm32.lvs_packschema_pos.create_date is
-    'Datum Datensatz erzeugt';
-
-comment on column dirkspzm32.lvs_packschema_pos.create_login_id is
-    'Login ID Erzeuger';
-
-comment on column dirkspzm32.lvs_packschema_pos.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.lvs_packschema_pos.packschema_kopf_id is
-    'ID / Name des packschemas';
-
-comment on column dirkspzm32.lvs_packschema_pos.packschema_pos_nr is
-    'Nummer (Reihenfolge)';
-
-comment on column dirkspzm32.lvs_packschema_pos.pos_x is
-    'X Position in mm';
-
-comment on column dirkspzm32.lvs_packschema_pos.pos_y is
-    'Y Position in mm';
-
-comment on column dirkspzm32.lvs_packschema_pos.print_lhm_eti_pos is
-    '(N=Kein Etikett, V=Vorne, H=Hinten, R=Rechts, L=Links)';
-
-comment on column dirkspzm32.lvs_packschema_pos.print_lte_eti_pos is
-    '(N=Kein Etikett, V=Vorne, H=Hinten, R=Rechts, L=Links)';
-
-comment on column dirkspzm32.lvs_packschema_pos.rot_xy is
-    'Rotation in Grad (0 keine Drehung)';
-
-comment on column dirkspzm32.lvs_packschema_pos.rot_zx is
-    'Rotation in Grad (0 keine Drehung)';
-
-comment on column dirkspzm32.lvs_packschema_pos.sid is
-    'Datenbank für Konsolidierung';
+comment on table DIRKSPZM32.LVS_PACKSCHEMA_POS is 'Packschema Beschreibung Positionen';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."CHANGE_DATE" is 'Datum letzte Änderung';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."CHANGE_LOGIN_ID" is 'Login ID letzte Änderung';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."CREATE_DATE" is 'Datum Datensatz erzeugt';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."CREATE_LOGIN_ID" is 'Login ID Erzeuger';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."PACKSCHEMA_KOPF_ID" is 'ID / Name des packschemas';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."PACKSCHEMA_POS_NR" is 'Nummer (Reihenfolge)';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."POS_X" is 'X Position in mm';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."POS_Y" is 'Y Position in mm';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."PRINT_LHM_ETI_POS" is '(N=Kein Etikett, V=Vorne, H=Hinten, R=Rechts, L=Links)';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."PRINT_LTE_ETI_POS" is '(N=Kein Etikett, V=Vorne, H=Hinten, R=Rechts, L=Links)';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."ROT_XY" is 'Rotation in Grad (0 keine Drehung)';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."ROT_ZX" is 'Rotation in Grad (0 keine Drehung)';
+comment on column DIRKSPZM32.LVS_PACKSCHEMA_POS."SID" is 'Datenbank für Konsolidierung';
 
 
--- sqlcl_snapshot {"hash":"570e5366fe0bcb2bdb01bf4059063d5efea9c656","type":"COMMENT","name":"lvs_packschema_pos","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ff3c1cad31fe17cdc2966d5e8251de407c694e5b","type":"COMMENT","name":"lvs_packschema_pos","schemaName":"dirkspzm32","sxml":""}

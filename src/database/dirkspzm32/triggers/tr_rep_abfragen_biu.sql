@@ -1,21 +1,17 @@
-create or replace editionable trigger dirkspzm32.tr_rep_abfragen_biu before
-    insert or update on dirkspzm32.rep_abfragen
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN_BIU" 
+  before insert or update on DIRKSPZM32.rep_abfragen
+  for each row
 declare
   -- local variables here
- begin
-    if inserting then
-        select
-            seq_rep_id.nextval
-        into :new.rep_id
-        from
-            dual;
+begin
+  if INSERTING then
+    SELECT seq_rep_id.nextval INTO :new.rep_id FROM dual;
+  end if;
+end TR_REP_ABFRAGEN_BIU;
 
-    end if;
-end tr_rep_abfragen_biu;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN_BIU" ENABLE;
 
-alter trigger dirkspzm32.tr_rep_abfragen_biu enable;
 
-
--- sqlcl_snapshot {"hash":"18ef74a68b832e0d31c480e0d317b643e0083d02","type":"TRIGGER","name":"TR_REP_ABFRAGEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2a074d4ce3b7d435506b91244fdf8f609a6bbb2a","type":"TRIGGER","name":"TR_REP_ABFRAGEN_BIU","schemaName":"DIRKSPZM32","sxml":""}

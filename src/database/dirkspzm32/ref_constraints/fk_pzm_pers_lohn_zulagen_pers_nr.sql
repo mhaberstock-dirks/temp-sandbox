@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_pers_lohn_zulagen
-    add constraint fk_pzm_pers_lohn_zulagen_pers_nr
-        foreign key ( pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete cascade
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PERS_LOHN_ZULAGEN" ADD CONSTRAINT "FK_PZM_PERS_LOHN_ZULAGEN_PERS_NR" FOREIGN KEY ("PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE CASCADE DISABLE;
 
 
--- sqlcl_snapshot {"hash":"4062b849992ee00826d6225d55eefb97de7202aa","type":"REF_CONSTRAINT","name":"FK_PZM_PERS_LOHN_ZULAGEN_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b87ecc4ea1ba895422492fe0b4b57d2eadd061b1","type":"REF_CONSTRAINT","name":"FK_PZM_PERS_LOHN_ZULAGEN_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

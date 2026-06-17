@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_personal
-    add constraint fk_pers_vertragsart
-        foreign key ( pers_vertragsart )
-            references dirkspzm32.pzm_vertragsarten ( va_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PERSONAL" ADD CONSTRAINT "FK_PERS_VERTRAGSART" FOREIGN KEY ("PERS_VERTRAGSART")
+	  REFERENCES "DIRKSPZM32"."PZM_VERTRAGSARTEN" ("VA_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6631ec17e83bbf4ade7302e43c32dbc2c99639ea","type":"REF_CONSTRAINT","name":"FK_PERS_VERTRAGSART","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"51cbde69db1a54fd1e05dd6199e25e6e869dda48","type":"REF_CONSTRAINT","name":"FK_PERS_VERTRAGSART","schemaName":"DIRKSPZM32","sxml":""}

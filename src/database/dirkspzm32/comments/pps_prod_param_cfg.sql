@@ -1,71 +1,27 @@
-comment on table dirkspzm32.pps_prod_param_cfg is
-    'verwendete Prod. Parameter ';
-
-comment on column dirkspzm32.pps_prod_param_cfg.beschreibung is
-    'Beschreibung des Parameters';
-
-comment on column dirkspzm32.pps_prod_param_cfg.bezugspunkt is
-    'ABSOLUT, Mittellinie , Achsmitte , Aussenkante ';
-
-comment on column dirkspzm32.pps_prod_param_cfg.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.pps_prod_param_cfg.created_login_id is
-    'login ID of the user creating this dataset';
-
-comment on column dirkspzm32.pps_prod_param_cfg.editor is
-    'MaskEdit, SpinEdit, ComboBox,CheckBox,CheckComboBox, LookupComboBox';
-
-comment on column dirkspzm32.pps_prod_param_cfg.einheit is
-    '''mm'',''Grad'',...';
-
-comment on column dirkspzm32.pps_prod_param_cfg.firma_nr is
-    'Firma_Nr';
-
-comment on column dirkspzm32.pps_prod_param_cfg.format is
-    'Maskierung ';
-
-comment on column dirkspzm32.pps_prod_param_cfg.gruppe is
-    'Gruppe des Parameters';
-
-comment on column dirkspzm32.pps_prod_param_cfg.ist_variable is
-    'T= dieser PArameter ist variabel, F = Dieser Parameter ist konstant';
-
-comment on column dirkspzm32.pps_prod_param_cfg.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.pps_prod_param_cfg.last_change_login_id is
-    'login ID of the user changing this dataset';
-
-comment on column dirkspzm32.pps_prod_param_cfg.lookuplist is
-    'Liste der Nachschlageparameter mit CR/LF getrennt';
-
-comment on column dirkspzm32.pps_prod_param_cfg.lookupreport is
-    'LookupReport ';
-
-comment on column dirkspzm32.pps_prod_param_cfg.maxvalue is
-    'grösster Wert';
-
-comment on column dirkspzm32.pps_prod_param_cfg.minvalue is
-    'kleinster Wert';
-
-comment on column dirkspzm32.pps_prod_param_cfg.param_id is
-    'Unique ID';
-
-comment on column dirkspzm32.pps_prod_param_cfg.param_name is
-    'Kurzname wird in Prod_Params eingetragen';
-
-comment on column dirkspzm32.pps_prod_param_cfg.quelle is
-    'HOST = aus Schnittstelle zum Host, DLG = manuelle Dialogeingabe, SCRIPT = Script holt und setzt Daten';
-
-comment on column dirkspzm32.pps_prod_param_cfg.sid is
-    'sid';
-
-comment on column dirkspzm32.pps_prod_param_cfg.wert_typ is
-    '1=ganze Zahl, 2=realzahl, 3=Datum + Uhrzeit, 4=string  ';
-
-comment on column dirkspzm32.pps_prod_param_cfg.ziel is
-    'Zielschnittstelle, an die der Parameter gesendet werden soll (insbesondere für Customizing geeignet)';
+comment on table DIRKSPZM32.PPS_PROD_PARAM_CFG is 'verwendete Prod. Parameter ';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."BESCHREIBUNG" is 'Beschreibung des Parameters';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."BEZUGSPUNKT" is 'ABSOLUT, Mittellinie , Achsmitte , Aussenkante ';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."CREATED_LOGIN_ID" is 'login ID of the user creating this dataset';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."EDITOR" is 'MaskEdit, SpinEdit, ComboBox,CheckBox,CheckComboBox, LookupComboBox';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."EINHEIT" is '''mm'',''Grad'',...';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."FIRMA_NR" is 'Firma_Nr';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."FORMAT" is 'Maskierung ';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."GRUPPE" is 'Gruppe des Parameters';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."IST_VARIABLE" is 'T= dieser PArameter ist variabel, F = Dieser Parameter ist konstant';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."LAST_CHANGE_LOGIN_ID" is 'login ID of the user changing this dataset';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."LOOKUPLIST" is 'Liste der Nachschlageparameter mit CR/LF getrennt';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."LOOKUPREPORT" is 'LookupReport ';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."MAXVALUE" is 'grösster Wert';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."MINVALUE" is 'kleinster Wert';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."PARAM_ID" is 'Unique ID';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."PARAM_NAME" is 'Kurzname wird in Prod_Params eingetragen';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."QUELLE" is 'HOST = aus Schnittstelle zum Host, DLG = manuelle Dialogeingabe, SCRIPT = Script holt und setzt Daten';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."SID" is 'sid';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."WERT_TYP" is '1=ganze Zahl, 2=realzahl, 3=Datum + Uhrzeit, 4=string  ';
+comment on column DIRKSPZM32.PPS_PROD_PARAM_CFG."ZIEL" is 'Zielschnittstelle, an die der Parameter gesendet werden soll (insbesondere für Customizing geeignet)';
 
 
--- sqlcl_snapshot {"hash":"91f507a39f5c7fb9bd0187d205935d8969a2edd3","type":"COMMENT","name":"pps_prod_param_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"4be1e787eddcc738982790ce3e57b60a0171acd7","type":"COMMENT","name":"pps_prod_param_cfg","schemaName":"dirkspzm32","sxml":""}

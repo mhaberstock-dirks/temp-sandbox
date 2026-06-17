@@ -1,5 +1,5 @@
-create sequence dirkspzm32.seq_tms_order_li_nr minvalue 0 maxvalue 99999999999 increment by 1 /* start with n */ nocache order nocycle
-nokeep noscale global;
+
+   CREATE SEQUENCE  "DIRKSPZM32"."SEQ_TMS_ORDER_LI_NR"  MINVALUE 0 MAXVALUE 99999999999 INCREMENT BY 1 /* start with n */ NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 
--- sqlcl_snapshot {"hash":"5fb52fc97e33d5db50e891a502dbefc628acdafa","type":"SEQUENCE","name":"SEQ_TMS_ORDER_LI_NR","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_TMS_ORDER_LI_NR</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}
+-- sqlcl_snapshot {"hash":"b1fc6b5684d1bc7828dea8dbac0010e7518f7c7d","type":"SEQUENCE","name":"SEQ_TMS_ORDER_LI_NR","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_TMS_ORDER_LI_NR</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}

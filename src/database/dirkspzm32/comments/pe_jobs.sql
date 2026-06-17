@@ -1,17 +1,9 @@
-comment on table dirkspzm32.pe_jobs is
-    'Druckjobs für die Print Engine';
-
-comment on column dirkspzm32.pe_jobs.anzahl is
-    'Anzahl der Ausdrucke';
-
-comment on column dirkspzm32.pe_jobs.job_daten_typ is
-    'PV-LIST (Param-Value [TStrings]); SQL; REP';
-
-comment on column dirkspzm32.pe_jobs.status is
-    'N (neu); D (am drucken); OK (erledigt); ERR (Fehler);';
-
-comment on column dirkspzm32.pe_jobs.status_text is
-    'Zusatzinformation zum Status als Klartext';
+comment on table DIRKSPZM32.PE_JOBS is 'Druckjobs für die Print Engine';
+comment on column DIRKSPZM32.PE_JOBS."ANZAHL" is 'Anzahl der Ausdrucke';
+comment on column DIRKSPZM32.PE_JOBS."JOB_DATEN_TYP" is 'PV-LIST (Param-Value [TStrings]); SQL; REP';
+comment on column DIRKSPZM32.PE_JOBS."STATUS" is 'N (neu); D (am drucken); OK (erledigt); ERR (Fehler);';
+comment on column DIRKSPZM32.PE_JOBS."STATUS_TEXT" is 'Zusatzinformation zum Status als Klartext';
 
 
--- sqlcl_snapshot {"hash":"a9036b6a94986ceb95e23c3f528825c621499039","type":"COMMENT","name":"pe_jobs","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"87124cde669359158ac883daa740d416aa627373","type":"COMMENT","name":"pe_jobs","schemaName":"dirkspzm32","sxml":""}

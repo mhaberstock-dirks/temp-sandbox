@@ -1,53 +1,21 @@
-comment on column dirkspzm32.pzm_abteilungen.abt_adress_id is
-    'Adress-ID der Abteilung (Zur Findung Bundesland, Land etc. z.B. für die Zuordnung der korrekten Feiertage)';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_id is
-    'Abteilung-ID (Primary Key)';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_info is
-    'Beschreibung zur Abteilung';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_kst_id is
-    'Kostenstelle der Abteilung (Foreign-Key PZM_LZ_KST)';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_kurz_name is
-    'Kurzname der Abteilung';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_name is
-    'Name der Abteilung';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_parent_abt_id is
-    'Übergeordnete Abteilung';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_pb_id is
-    'Produktionsbereich (Foreign-Key PZM_PRODUKTIONSBEREICHE)';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_personal_abt_id is
-    'Zugehörige Personalabteilung';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_pzm_bde_typ_continue is
-    'F = Normal mit täglicher Anmeldung des Fertigungs- Serviceauftrags, T = Der angemeldete Auftrag läuft am Folgetag weiter';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_standard_sm_name is
-    'Standard-Schichtmodellname';
-
-comment on column dirkspzm32.pzm_abteilungen.abt_typ is
-    'Typ der Organisationseinheit (Abteilung, Team, etc.) - Combobox mit festen Werte - Enum';
-
-comment on column dirkspzm32.pzm_abteilungen.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_abteilungen.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_abteilungen.last_change_date is
-    'Datum der letzten Änderung';
-
-comment on column dirkspzm32.pzm_abteilungen.last_change_login_id is
-    'User-ID - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_abteilungen.tarif_name is
-    'Zugeordneter Tarif';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_ADRESS_ID" is 'Adress-ID der Abteilung (Zur Findung Bundesland, Land etc. z.B. für die Zuordnung der korrekten Feiertage)';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_ID" is 'Abteilung-ID (Primary Key)';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_INFO" is 'Beschreibung zur Abteilung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_KST_ID" is 'Kostenstelle der Abteilung (Foreign-Key PZM_LZ_KST)';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_KURZ_NAME" is 'Kurzname der Abteilung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_NAME" is 'Name der Abteilung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_PARENT_ABT_ID" is 'Übergeordnete Abteilung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_PB_ID" is 'Produktionsbereich (Foreign-Key PZM_PRODUKTIONSBEREICHE)';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_PERSONAL_ABT_ID" is 'Zugehörige Personalabteilung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_PZM_BDE_TYP_CONTINUE" is 'F = Normal mit täglicher Anmeldung des Fertigungs- Serviceauftrags, T = Der angemeldete Auftrag läuft am Folgetag weiter';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_STANDARD_SM_NAME" is 'Standard-Schichtmodellname';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."ABT_TYP" is 'Typ der Organisationseinheit (Abteilung, Team, etc.) - Combobox mit festen Werte - Enum';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."LAST_CHANGE_DATE" is 'Datum der letzten Änderung';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."LAST_CHANGE_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_ABTEILUNGEN."TARIF_NAME" is 'Zugeordneter Tarif';
 
 
--- sqlcl_snapshot {"hash":"397da3c19483e62d970f4865b755a15dad84bf39","type":"COMMENT","name":"pzm_abteilungen","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"77b62daa71a50c785046975b9d740a596f46da91","type":"COMMENT","name":"pzm_abteilungen","schemaName":"dirkspzm32","sxml":""}

@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.isi_p_license is
+create or replace 
+package DIRKSPZM32.isi_p_license is
 
   /*
   __________________________________________________
@@ -15,24 +16,25 @@ create or replace package dirkspzm32.isi_p_license is
   27.11.2009   3.5.0.1     (-BW-)   Minor Release
   */
 
-    v_version_str constant varchar2(20) := '3.5.0.1 / 27.11.2009';
-    function get_version return varchar2;
+
+  v_version_str    constant  varchar2(20) := '3.5.0.1 / 27.11.2009';
+  function get_version return varchar2;
 
   -- Public Funktions und Prozedur-Deklaration
-    procedure get_app_license_ticket (
-        in_sid                in isi_sid.sid%type,
-        in_firma_nr           in isi_firma.firma_nr%type,
-        in_license_type       in varchar2,
-        in_app_exe_filename   in varchar2,
-        in_hostname           in varchar2,
-        in_os_username        in varchar2,
-        out_license_ts        out date,
-        out_license_valid_sek out number,
-        out_license_ticket_id out number
-    );
+  procedure get_app_license_ticket(in_sid in isi_sid.sid%type,
+                                   in_firma_nr in isi_firma.firma_nr%type,
+                                   in_license_type in varchar2,
+                                   in_app_exe_filename in varchar2,
+                                   in_hostname in varchar2,
+                                   in_os_username in varchar2,
+                                   out_license_ts out date,
+                                   out_license_valid_sek out number,
+                                   out_license_ticket_id out number
+                                  );
 
 end isi_p_license;
 /
 
 
--- sqlcl_snapshot {"hash":"34008cb5c660cf52a1975af679b0db58d8b9110e","type":"PACKAGE_SPEC","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"933947a9ee67c3e6e97c0bd2a5a9caef32e0e8da","type":"PACKAGE_SPEC","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}

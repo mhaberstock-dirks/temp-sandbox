@@ -1,29 +1,26 @@
-create or replace function dirkspzm32.get_pers_name (
-    p_pers_nr in number
-) return varchar2 is
+create or replace 
+function DIRKSPZM32.GET_PERS_NAME(p_pers_nr in number) return varchar2 is
+  Result varchar2(255);
 
-    result varchar2(255);
-    cursor c_persname is
-    select
-        pers_nname
-        || ', '
-        || pers_vname
-    from
-        pzm_personal
-    where
-        pers_nr = p_pers_nr;
-
+  CURSOR c_PersName IS
+     SELECT pers_nname||', '||pers_vname from pzm_personal WHERE pers_nr = p_pers_nr;
 begin
-    result := '';
-    open c_persname;
-    fetch c_persname into result;
-    if c_persname%notfound then
-        result := '';
-    end if;
-    close c_persname;
-    return ( result );
-end get_pers_name;
+  Result := '';
+
+  OPEN c_PersName;
+
+  FETCH c_PersName INTO Result;
+
+  if c_PersName%NOTFOUND then
+     Result := '';
+  end if;
+
+  CLOSE c_PersName;
+
+  return(Result);
+end GET_PERS_NAME;
 /
 
 
--- sqlcl_snapshot {"hash":"d68f81e6e99208d0bf39e9df97ed30be38a5ea1d","type":"FUNCTION","name":"GET_PERS_NAME","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"3ca956f3e532354229a741ba9ef3d3fe52d6cf75","type":"FUNCTION","name":"GET_PERS_NAME","schemaName":"DIRKSPZM32","sxml":""}

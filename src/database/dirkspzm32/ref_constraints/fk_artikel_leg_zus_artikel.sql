@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_artikel
-    add constraint fk_artikel_leg_zus_artikel
-        foreign key ( leg_zuschlag_artikel_id )
-            references dirkspzm32.isi_artikel ( artikel_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_ARTIKEL" ADD CONSTRAINT "FK_ARTIKEL_LEG_ZUS_ARTIKEL" FOREIGN KEY ("LEG_ZUSCHLAG_ARTIKEL_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_ARTIKEL" ("ARTIKEL_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"99318987f0f7c813dbce0f21bb105760b61a91a3","type":"REF_CONSTRAINT","name":"FK_ARTIKEL_LEG_ZUS_ARTIKEL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"61c33eabcf215340a9d159ba57ef268ddce40f53","type":"REF_CONSTRAINT","name":"FK_ARTIKEL_LEG_ZUS_ARTIKEL","schemaName":"DIRKSPZM32","sxml":""}

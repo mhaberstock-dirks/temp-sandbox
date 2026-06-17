@@ -1,23 +1,11 @@
-comment on column dirkspzm32.sec_groups.default_group is
-    'Wenn ''T'', dann wird diese Gruppe automatisch beim Anlegen eines Benutzers diesem zugewiesen';
-
-comment on column dirkspzm32.sec_groups.full_name is
-    'Ausführlicher Name der Gruppe';
-
-comment on column dirkspzm32.sec_groups.info is
-    'Frei formulierte Info';
-
-comment on column dirkspzm32.sec_groups.kst is
-    'Kostenstelle der Gruppe (dient nur zur Information)';
-
-comment on column dirkspzm32.sec_groups.mgr_login_id is
-    'Wer verwaltet diese Gruppe (ausser dem Admin)';
-
-comment on column dirkspzm32.sec_groups.name is
-    'Name der Gruppe';
-
-comment on column dirkspzm32.sec_groups.security_level is
-    'Sicherheitsstufe dieser Gruppe';
+comment on column DIRKSPZM32.SEC_GROUPS."DEFAULT_GROUP" is 'Wenn ''T'', dann wird diese Gruppe automatisch beim Anlegen eines Benutzers diesem zugewiesen';
+comment on column DIRKSPZM32.SEC_GROUPS."FULL_NAME" is 'Ausführlicher Name der Gruppe';
+comment on column DIRKSPZM32.SEC_GROUPS."INFO" is 'Frei formulierte Info';
+comment on column DIRKSPZM32.SEC_GROUPS."KST" is 'Kostenstelle der Gruppe (dient nur zur Information)';
+comment on column DIRKSPZM32.SEC_GROUPS."MGR_LOGIN_ID" is 'Wer verwaltet diese Gruppe (ausser dem Admin)';
+comment on column DIRKSPZM32.SEC_GROUPS."NAME" is 'Name der Gruppe';
+comment on column DIRKSPZM32.SEC_GROUPS."SECURITY_LEVEL" is 'Sicherheitsstufe dieser Gruppe';
 
 
--- sqlcl_snapshot {"hash":"9fac71e3663a31e672ad313eabea0e50a581d09a","type":"COMMENT","name":"sec_groups","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"4177db8ab9831cfb742fe179fff15028df84b472","type":"COMMENT","name":"sec_groups","schemaName":"dirkspzm32","sxml":""}

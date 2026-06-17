@@ -1,6 +1,7 @@
-create or replace type dirkspzm32.pzm_schichtperiode_ct as
-    table of pzm_schichtperiode_t
+create or replace 
+TYPE DIRKSPZM32."PZM_SCHICHTPERIODE_CT" as table of PZM_SchichtPeriode_t
 /
 
 
--- sqlcl_snapshot {"hash":"3941bde3bfd25697bafe8be637143c8fbaf8131a","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_CT","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"89ecf21f322128bec56ce45dc20be465dfe13cd7","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_CT","schemaName":"DIRKSPZM32","sxml":""}

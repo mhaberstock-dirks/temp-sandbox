@@ -1,28 +1,25 @@
-create or replace editionable trigger dirkspzm32.tr_abwesenheitsmeld_biu before
-    insert or update on dirkspzm32.pzm_abwesenheitsmeldungen
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ABWESENHEITSMELD_BIU" 
+  before insert or update on DIRKSPZM32."PZM_ABWESENHEITSMELDUNGEN"
+  for each row
 declare
   -- local variables here
- begin
-    if inserting then
-        select
-            seq_km_id.nextval
-        into :new.km_id
-        from
-            dual;
+begin
+  if INSERTING then
+    SELECT seq_km_id.nextval INTO :new.km_id FROM dual;
+    :new.erz_datum := SYSDATE;
+  end if;
 
-        :new.erz_datum := sysdate;
-    end if;
+  if UPDATING then
+    :new.aend_datum := SYSDATE;
+  end if;
 
-    if updating then
-        :new.aend_datum := sysdate;
-    end if;
-    :new.anz_tage := ( trunc(:new.ende) - trunc(:new.beginn) ) + 1;
+  :new.anz_tage := (TRUNC(:new.ende) - TRUNC(:new.beginn)) + 1;
+end TR_KRANKMELD_BI;
 
-end tr_krankmeld_bi;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ABWESENHEITSMELD_BIU" ENABLE;
 
-alter trigger dirkspzm32.tr_abwesenheitsmeld_biu enable;
 
-
--- sqlcl_snapshot {"hash":"30eef55c660e529ccd3ccd42dafd23d9a81d6fef","type":"TRIGGER","name":"TR_ABWESENHEITSMELD_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1c96f3baa4162a5683d8e889d092274ed0e24b3b","type":"TRIGGER","name":"TR_ABWESENHEITSMELD_BIU","schemaName":"DIRKSPZM32","sxml":""}

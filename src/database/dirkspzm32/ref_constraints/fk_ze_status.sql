@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_zeiterfassung
-    add constraint fk_ze_status
-        foreign key ( ze_status )
-            references dirkspzm32.pzm_ze_statusinfo ( stat_id )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZEITERFASSUNG" ADD CONSTRAINT "FK_ZE_STATUS" FOREIGN KEY ("ZE_STATUS")
+	  REFERENCES "DIRKSPZM32"."PZM_ZE_STATUSINFO" ("STAT_ID") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"b062e6dfacdf44d95be6b0489bdc05bec46d3cd0","type":"REF_CONSTRAINT","name":"FK_ZE_STATUS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3870e27aacf6768d9b4be2b8c64a82ddbecb1f60","type":"REF_CONSTRAINT","name":"FK_ZE_STATUS","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,73 +1,30 @@
-comment on table dirkspzm32.pzm_ze_loa_exp_ext_gutsch is
-    'Stunden/Lohnarten zur Abrechnung - Gutschriften Personaldienstleister';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.created_user is
-    'User - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.datum is
-    'Datum
+comment on table DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH is 'Stunden/Lohnarten zur Abrechnung - Gutschriften Personaldienstleister';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."CREATED_USER" is 'User - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."DATUM" is 'Datum
 für die Abrechnung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.err_text is
-    'Returncode aus Übertragung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.konten_bh_id_korr is
-    'Buchungs-ID der Korrektur';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.konto_nr_korr is
-    'Konto für Korrekturen z.B. Flex bei Kappung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.konto_val_korr is
-    'Konto ist um diesen Wert in der monatsaberechnung korrigiert';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.last_change_date is
-    'Datum der letzten Änderung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.last_change_login_id is
-    'User-ID - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.last_change_user is
-    'User - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.loa_value is
-    'Stunden
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."ERR_TEXT" is 'Returncode aus Übertragung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."KONTEN_BH_ID_KORR" is 'Buchungs-ID der Korrektur';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."KONTO_NR_KORR" is 'Konto für Korrekturen z.B. Flex bei Kappung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."KONTO_VAL_KORR" is 'Konto ist um diesen Wert in der monatsaberechnung korrigiert';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."LAST_CHANGE_DATE" is 'Datum der letzten Änderung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."LAST_CHANGE_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."LAST_CHANGE_USER" is 'User - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."LOA_VALUE" is 'Stunden
 / Tage - LOA-Wert';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.lohnart is
-    'Lohnart
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."LOHNART" is 'Lohnart
 ';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.pb_id is
-    'Mandant z.B. 01
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."PB_ID" is 'Mandant z.B. 01
 ';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.pers_nr is
-    'zeaw = ZE Auswertung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.ret_code is
-    'Returncode aus Übertragung';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.status is
-    'N = Neu, im HOST noch nicht Übernommen U = Ist in übertragung, UE = HOST hat den Satz übernommen, ERR = Fehler, D = Delete -> ISIPlus kann den Eintrag Löschen'
-    ;
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.ts_ende_zeit is
-    'Endezeit Tagessatz';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.ts_pause_zeit is
-    'Pausenzeit in Stunden';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.ts_start_zeit is
-    'Startzeit Tagessatz';
-
-comment on column dirkspzm32.pzm_ze_loa_exp_ext_gutsch.ze_stempelzeiten is
-    'Alle Stempelzeiten aus der Zeiterfassung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."PERS_NR" is 'zeaw = ZE Auswertung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."RET_CODE" is 'Returncode aus Übertragung';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."STATUS" is 'N = Neu, im HOST noch nicht Übernommen U = Ist in übertragung, UE = HOST hat den Satz übernommen, ERR = Fehler, D = Delete -> ISIPlus kann den Eintrag Löschen';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."TS_ENDE_ZEIT" is 'Endezeit Tagessatz';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."TS_PAUSE_ZEIT" is 'Pausenzeit in Stunden';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."TS_START_ZEIT" is 'Startzeit Tagessatz';
+comment on column DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH."ZE_STEMPELZEITEN" is 'Alle Stempelzeiten aus der Zeiterfassung';
 
 
--- sqlcl_snapshot {"hash":"a07b0602a90bda5c53e839c63fd225e6aff8de23","type":"COMMENT","name":"pzm_ze_loa_exp_ext_gutsch","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f1209e71ae0c4d47f08a9ba4e4907fe2efcf7a64","type":"COMMENT","name":"pzm_ze_loa_exp_ext_gutsch","schemaName":"dirkspzm32","sxml":""}

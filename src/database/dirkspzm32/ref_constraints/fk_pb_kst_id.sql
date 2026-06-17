@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_produktionsbereiche
-    add constraint fk_pb_kst_id
-        foreign key ( pb_kst_id )
-            references dirkspzm32.isi_kostenstellen ( kst_nr )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PRODUKTIONSBEREICHE" ADD CONSTRAINT "FK_PB_KST_ID" FOREIGN KEY ("PB_KST_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_KOSTENSTELLEN" ("KST_NR") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"469098fd04a7eb2e5ed995fd85be2c4b434f1aa1","type":"REF_CONSTRAINT","name":"FK_PB_KST_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"06a6af9e8e9c8193f4b9e686103290bfa3fcae0c","type":"REF_CONSTRAINT","name":"FK_PB_KST_ID","schemaName":"DIRKSPZM32","sxml":""}

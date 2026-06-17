@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_zeiterfassung_eintraege
-    add constraint fk_pzm_zeiterfassung_eintraege_ze_id
-        foreign key ( ze_id )
-            references dirkspzm32.pzm_zeiterfassung ( ze_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZEITERFASSUNG_EINTRAEGE" ADD CONSTRAINT "FK_PZM_ZEITERFASSUNG_EINTRAEGE_ZE_ID" FOREIGN KEY ("ZE_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_ZEITERFASSUNG" ("ZE_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"053d3961cfee5580714522ba2d35347391957df3","type":"REF_CONSTRAINT","name":"FK_PZM_ZEITERFASSUNG_EINTRAEGE_ZE_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"85540b61536b0e7fbdb37362168f15e7511e99b5","type":"REF_CONSTRAINT","name":"FK_PZM_ZEITERFASSUNG_EINTRAEGE_ZE_ID","schemaName":"DIRKSPZM32","sxml":""}

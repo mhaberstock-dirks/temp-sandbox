@@ -1,11 +1,7 @@
-comment on column dirkspzm32.pzm_fam_stand_info.fsi_bemerkungen is
-    'Bemerkung zum Familienstand';
-
-comment on column dirkspzm32.pzm_fam_stand_info.fsi_id is
-    'Familienstands-ID';
-
-comment on column dirkspzm32.pzm_fam_stand_info.fsi_name is
-    'Bezeichnung des Familienstands';
+comment on column DIRKSPZM32.PZM_FAM_STAND_INFO."FSI_BEMERKUNGEN" is 'Bemerkung zum Familienstand';
+comment on column DIRKSPZM32.PZM_FAM_STAND_INFO."FSI_ID" is 'Familienstands-ID';
+comment on column DIRKSPZM32.PZM_FAM_STAND_INFO."FSI_NAME" is 'Bezeichnung des Familienstands';
 
 
--- sqlcl_snapshot {"hash":"992caa15b76aaf23d9eddd21192fbd47df8a3f0c","type":"COMMENT","name":"pzm_fam_stand_info","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"c38841b5b5c5bf8298d80e87e61131c2c6b6ddd2","type":"COMMENT","name":"pzm_fam_stand_info","schemaName":"dirkspzm32","sxml":""}

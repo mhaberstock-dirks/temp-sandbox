@@ -1,42 +1,40 @@
-create or replace package dirkspzm32.sqlcl_lb_capture authid current_user is
-    function sxmltoddl11 (
-        sxml  in clob,
-        otype in varchar2
-    ) return clob;
-
-    function get_deps (
-        oname in varchar2,
-        otype in varchar2
-    ) return varchar2;
-
-    function getsequence return number;
-
-    function capture_object_type (
-        p_rank                 in number,
-        p_otype                varchar2,
-        p_body                 varchar2 default 'on',
-        p_constraints          varchar2 default 'on',
-        p_constraints_as_alter varchar2 default 'on',
-        p_force                varchar2 default 'on',
-        p_inherit              varchar2 default 'on',
-        p_inserts              varchar2 default 'on',
-        p_partitioning         varchar2 default 'on',
-        p_pretty               varchar2 default 'on',
-        p_ref_constraints      varchar2 default 'on',
-        p_segments             varchar2 default 'on',
-        p_size_byte_keyword    varchar2 default 'on',
-        p_specification        varchar2 default 'on',
-        p_sqlterminator        varchar2 default 'on',
-        p_storage              varchar2 default 'on',
-        p_tablespace           varchar2 default 'on',
-        p_lb_table_name        varchar2 default 'DATABASECHANGELOG',
-        p_filter               varchar2 default null
-    ) return varchar2;
-
-    procedure sortcapturedobjects;
-
-end;
+create or replace 
+PACKAGE DIRKSPZM32.sqlcl_lb_capture
+AUTHID CURRENT_USER IS
+    FUNCTION sxmltoddl11 (
+        sxml  IN CLOB,
+        otype IN VARCHAR2
+    ) RETURN CLOB;
+ FUNCTION get_deps (
+        oname IN VARCHAR2,
+        otype IN VARCHAR2
+    ) RETURN VARCHAR2;
+    FUNCTION getsequence RETURN NUMBER;
+   FUNCTION capture_object_type (
+         p_rank                 IN NUMBER,
+         p_otype                VARCHAR2,
+         p_body                 VARCHAR2 DEFAULT 'on',
+         p_constraints          VARCHAR2 DEFAULT 'on',
+        p_constraints_as_alter VARCHAR2 DEFAULT 'on',
+         p_force                VARCHAR2 DEFAULT 'on',
+         p_inherit              VARCHAR2 DEFAULT 'on',
+         p_inserts              VARCHAR2 DEFAULT 'on',
+        p_partitioning         VARCHAR2 DEFAULT 'on',
+        p_pretty               VARCHAR2 DEFAULT 'on',
+        p_ref_constraints      VARCHAR2 DEFAULT 'on',
+        p_segments             VARCHAR2 DEFAULT 'on',
+        p_size_byte_keyword    VARCHAR2 DEFAULT 'on',
+        p_specification        VARCHAR2 DEFAULT 'on',
+        p_sqlterminator        VARCHAR2 DEFAULT 'on',
+        p_storage              VARCHAR2 DEFAULT 'on',
+        p_tablespace           VARCHAR2 DEFAULT 'on',
+        p_lb_table_name        VARCHAR2 DEFAULT 'DATABASECHANGELOG',
+        p_filter               VARCHAR2 DEFAULT NULL
+    ) RETURN VARCHAR2;
+    PROCEDURE SORTCAPTUREDOBJECTS;
+end;                
 /
 
 
--- sqlcl_snapshot {"hash":"10bf1d871b438f70436af5f7eacac28399472e22","type":"PACKAGE_SPEC","name":"SQLCL_LB_CAPTURE","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f5bdd927350797b683eaa5072c3f285e3cf04f96","type":"PACKAGE_SPEC","name":"SQLCL_LB_CAPTURE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,14 +1,13 @@
-create or replace procedure dirkspzm32.delete_krankmeldung (
-    p_km_id in number
-) is
+create or replace 
+procedure DIRKSPZM32.DELETE_KRANKMELDUNG(p_km_id in number) is
 begin
-    delete from pzm_abwesenheitsmeldungen
-    where
-        km_id = p_km_id;
+  DELETE FROM pzm_abwesenheitsmeldungen
+   WHERE km_id = p_km_id;
 
-    commit;
-end delete_krankmeldung;
+  COMMIT;
+end DELETE_KRANKMELDUNG;
 /
 
 
--- sqlcl_snapshot {"hash":"1ef776199c373465b2a44bc42f4841ca7f1966db","type":"PROCEDURE","name":"DELETE_KRANKMELDUNG","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"07247e010b4771b091557376764150bfaded26f0","type":"PROCEDURE","name":"DELETE_KRANKMELDUNG","schemaName":"DIRKSPZM32","sxml":""}

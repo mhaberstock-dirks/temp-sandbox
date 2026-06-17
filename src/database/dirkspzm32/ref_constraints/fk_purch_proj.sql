@@ -1,8 +1,6 @@
-alter table dirkspzm32.isi_purch_kopf
-    add constraint fk_purch_proj
-        foreign key ( project_nr )
-            references dirkspzm32.isi_project ( project_nr )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_PURCH_KOPF" ADD CONSTRAINT "FK_PURCH_PROJ" FOREIGN KEY ("PROJECT_NR")
+	  REFERENCES "DIRKSPZM32"."ISI_PROJECT" ("PROJECT_NR") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d31ecc128e0beba346cc1caa78dab8871062ed01","type":"REF_CONSTRAINT","name":"FK_PURCH_PROJ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d190c6d83c915befe8d4335b4d350f6ea8d58ecd","type":"REF_CONSTRAINT","name":"FK_PURCH_PROJ","schemaName":"DIRKSPZM32","sxml":""}

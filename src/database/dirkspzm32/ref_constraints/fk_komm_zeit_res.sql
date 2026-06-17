@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_komm_zeit
-    add constraint fk_komm_zeit_res
-        foreign key ( bearb_res_id )
-            references dirkspzm32.isi_resource ( res_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_KOMM_ZEIT" ADD CONSTRAINT "FK_KOMM_ZEIT_RES" FOREIGN KEY ("BEARB_RES_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_RESOURCE" ("RES_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"b67153ecc453d26ebdfd21a87bfa37ca9a56333d","type":"REF_CONSTRAINT","name":"FK_KOMM_ZEIT_RES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c1d1242a7940b3e3b61d4305413de71056cc1c9e","type":"REF_CONSTRAINT","name":"FK_KOMM_ZEIT_RES","schemaName":"DIRKSPZM32","sxml":""}

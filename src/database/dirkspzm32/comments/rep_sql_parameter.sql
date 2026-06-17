@@ -1,30 +1,13 @@
-comment on column dirkspzm32.rep_sql_parameter.dlg_caption is
-    'Anzeige Text im Parameingabedialog';
-
-comment on column dirkspzm32.rep_sql_parameter.dlg_gruppe_nr is
-    'Gruppe nummer für zusammengehörigen von bis Eingaben';
-
-comment on column dirkspzm32.rep_sql_parameter.dlg_input_check is
-    '0 = Keine Eingabe notwendig, 1= mind. ein Parameter in Gruppe gesetzt  2=Zwangseingabe';
-
-comment on column dirkspzm32.rep_sql_parameter.dlg_spalte_nr is
-    'Anzeige Dialog in Spalte 1..max 3';
-
-comment on column dirkspzm32.rep_sql_parameter.lookup_rep_name is
-    'Name der Nachschlage SQL für diesen Parameter';
-
-comment on column dirkspzm32.rep_sql_parameter.order_index is
-    'Für die Sortierung der Parameterreihenfolge';
-
-comment on column dirkspzm32.rep_sql_parameter.param_name is
-    'Parametername der SQL';
-
-comment on column dirkspzm32.rep_sql_parameter.param_typ is
-    '''S'' = String, ''AM''= AnzeigeMaske,  ''DM= DatenMaske , ''CB'' Comboauswahl, ''N'' = Number (Double), ''D'' = Date, ''DV'' =Datum von ''DB'', Datum Bis ''SD'', SDV, SDB, ''LU'' DB Lookup'
-    ;
-
-comment on column dirkspzm32.rep_sql_parameter.wert_maske is
-    'z.B. für Datumseingaben (Benutzung mit TMaskEdit)';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."DLG_CAPTION" is 'Anzeige Text im Parameingabedialog';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."DLG_GRUPPE_NR" is 'Gruppe nummer für zusammengehörigen von bis Eingaben';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."DLG_INPUT_CHECK" is '0 = Keine Eingabe notwendig, 1= mind. ein Parameter in Gruppe gesetzt  2=Zwangseingabe';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."DLG_SPALTE_NR" is 'Anzeige Dialog in Spalte 1..max 3';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."LOOKUP_REP_NAME" is 'Name der Nachschlage SQL für diesen Parameter';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."ORDER_INDEX" is 'Für die Sortierung der Parameterreihenfolge';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."PARAM_NAME" is 'Parametername der SQL';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."PARAM_TYP" is '''S'' = String, ''AM''= AnzeigeMaske,  ''DM= DatenMaske , ''CB'' Comboauswahl, ''N'' = Number (Double), ''D'' = Date, ''DV'' =Datum von ''DB'', Datum Bis ''SD'', SDV, SDB, ''LU'' DB Lookup';
+comment on column DIRKSPZM32.REP_SQL_PARAMETER."WERT_MASKE" is 'z.B. für Datumseingaben (Benutzung mit TMaskEdit)';
 
 
--- sqlcl_snapshot {"hash":"10814cc35b4a19f807530c83ba4eaa710d278b83","type":"COMMENT","name":"rep_sql_parameter","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ec1a4b0a7b8b72d4ad3dfc2e0ae8f6bdfc7f1cf5","type":"COMMENT","name":"rep_sql_parameter","schemaName":"dirkspzm32","sxml":""}

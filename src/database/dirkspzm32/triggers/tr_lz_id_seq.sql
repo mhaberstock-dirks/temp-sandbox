@@ -1,21 +1,18 @@
-create or replace editionable trigger dirkspzm32.tr_lz_id_seq before
-    insert on dirkspzm32.pzm_lohnarten
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LZ_ID_SEQ" 
+  before insert on DIRKSPZM32."PZM_LOHNARTEN"
+  for each row
 declare
   -- local variables here
- begin
-    if :new.lz_id is null then
-        select
-            seq_lz_id.nextval
-        into :new.lz_id
-        from
-            dual;
-
-    end if;
+begin
+  if :new.lz_id is NULL then
+     select seq_lz_id.nextval into :new.lz_id from dual;
+  end if;
 end tr_lz_id_seq;
+
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_LZ_ID_SEQ" ENABLE;
 
-alter trigger dirkspzm32.tr_lz_id_seq enable;
 
-
--- sqlcl_snapshot {"hash":"892d5ebfbd096ea4bda4ee68ab1045c913050b76","type":"TRIGGER","name":"TR_LZ_ID_SEQ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"02ee471fe96cd6e4ae4c30587aa5cbb7ddac69a1","type":"TRIGGER","name":"TR_LZ_ID_SEQ","schemaName":"DIRKSPZM32","sxml":""}

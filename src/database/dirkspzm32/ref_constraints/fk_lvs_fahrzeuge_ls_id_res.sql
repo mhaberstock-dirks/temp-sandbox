@@ -1,8 +1,6 @@
-alter table dirkspzm32.lvs_fahrzeuge_ls_id
-    add constraint fk_lvs_fahrzeuge_ls_id_res
-        foreign key ( res_id )
-            references dirkspzm32.lvs_fahrzeuge ( res_id )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."LVS_FAHRZEUGE_LS_ID" ADD CONSTRAINT "FK_LVS_FAHRZEUGE_LS_ID_RES" FOREIGN KEY ("RES_ID")
+	  REFERENCES "DIRKSPZM32"."LVS_FAHRZEUGE" ("RES_ID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"8115337ae66e13f494ee7c091eae0935943abfd5","type":"REF_CONSTRAINT","name":"FK_LVS_FAHRZEUGE_LS_ID_RES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"63052ed94205b3ad1487649d6f2a921f57fde0bf","type":"REF_CONSTRAINT","name":"FK_LVS_FAHRZEUGE_LS_ID_RES","schemaName":"DIRKSPZM32","sxml":""}

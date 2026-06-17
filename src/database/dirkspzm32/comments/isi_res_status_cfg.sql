@@ -1,32 +1,14 @@
-comment on column dirkspzm32.isi_res_status_cfg.ausfallzeit is
-    'Ausfallzeit einer Resource in Stunden';
-
-comment on column dirkspzm32.isi_res_status_cfg.fehler_schluessel is
-    'Fehlerschlüssel der Resource für Gruppierung der Fehlerstati';
-
-comment on column dirkspzm32.isi_res_status_cfg.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.isi_res_status_cfg.res_st_id is
-    'ID der Statusgrunds (0 = Produktion läuft)';
-
-comment on column dirkspzm32.isi_res_status_cfg.res_typ is
-    'MG=MaschGruppe, MS=Maschine, WKZ=Werkzeug, ST = Stapler, LI = Linie';
-
-comment on column dirkspzm32.isi_res_status_cfg.sid is
-    'Datenbank für Konsolidierung';
-
-comment on column dirkspzm32.isi_res_status_cfg.st_bg_color is
-    'Hintergrundfarbe der Störung';
-
-comment on column dirkspzm32.isi_res_status_cfg.st_fg_color is
-    'Fordergrundfarbe der Störung';
-
-comment on column dirkspzm32.isi_res_status_cfg.st_gruppe is
-    '(M/E/P/R) Mechanisch, Elektrisch, Produktionsbedingt oder Rüsten';
-
-comment on column dirkspzm32.isi_res_status_cfg.st_text is
-    'Bezeichnung der Störung (Hauptgruppe)';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."AUSFALLZEIT" is 'Ausfallzeit einer Resource in Stunden';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."FEHLER_SCHLUESSEL" is 'Fehlerschlüssel der Resource für Gruppierung der Fehlerstati';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."RES_ST_ID" is 'ID der Statusgrunds (0 = Produktion läuft)';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."RES_TYP" is 'MG=MaschGruppe, MS=Maschine, WKZ=Werkzeug, ST = Stapler, LI = Linie';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."SID" is 'Datenbank für Konsolidierung';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."ST_BG_COLOR" is 'Hintergrundfarbe der Störung';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."ST_FG_COLOR" is 'Fordergrundfarbe der Störung';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."ST_GRUPPE" is '(M/E/P/R) Mechanisch, Elektrisch, Produktionsbedingt oder Rüsten';
+comment on column DIRKSPZM32.ISI_RES_STATUS_CFG."ST_TEXT" is 'Bezeichnung der Störung (Hauptgruppe)';
 
 
--- sqlcl_snapshot {"hash":"8603f4da7ca5b1c115dfca87907e6a81f6b8eb29","type":"COMMENT","name":"isi_res_status_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"555eabf9cd55615d85b570b3c4961d783e3fe04b","type":"COMMENT","name":"isi_res_status_cfg","schemaName":"dirkspzm32","sxml":""}

@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_resource
-    add constraint fk_res_lager_roh
-        foreign key ( lager_roh )
-            references dirkspzm32.lvs_lgr ( lgr_platz )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_RESOURCE" ADD CONSTRAINT "FK_RES_LAGER_ROH" FOREIGN KEY ("LAGER_ROH")
+	  REFERENCES "DIRKSPZM32"."LVS_LGR" ("LGR_PLATZ") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"182600e9bd0c81f765648c72cfa66383e0d23b39","type":"REF_CONSTRAINT","name":"FK_RES_LAGER_ROH","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3da2e7d496f6f6c4752220a77bbfe7fcd06023c3","type":"REF_CONSTRAINT","name":"FK_RES_LAGER_ROH","schemaName":"DIRKSPZM32","sxml":""}

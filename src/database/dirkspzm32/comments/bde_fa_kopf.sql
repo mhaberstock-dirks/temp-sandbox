@@ -1,133 +1,47 @@
-comment on table dirkspzm32.bde_fa_kopf is
-    'Kopf eine Fertigungsauftrags';
-
-comment on column dirkspzm32.bde_fa_kopf.adress_id is
-    'Verlängerte Werkbank, Eigetümer der Rohstoffe und Fertigware';
-
-comment on column dirkspzm32.bde_fa_kopf.aend_datum is
-    'wann wurde der Datensatz verändert';
-
-comment on column dirkspzm32.bde_fa_kopf.aend_login_id is
-    'von wem wurde der Datensatz verändert';
-
-comment on column dirkspzm32.bde_fa_kopf.arb_plan_id is
-    'Mit welchem Arbeitsplan soll dieser Auftrag produziert werden';
-
-comment on column dirkspzm32.bde_fa_kopf.artikel_id is
-    '(Artikel_ID) der FertigungsMaterialNr -> Artikel_ID ';
-
-comment on column dirkspzm32.bde_fa_kopf.erzeuger is
-    'ISI = in ISIPlus (intern) erzeugt, HOST = über eine Schnittstelle angelegt';
-
-comment on column dirkspzm32.bde_fa_kopf.erz_datum is
-    'wann wurde der Datensatz erzeugt';
-
-comment on column dirkspzm32.bde_fa_kopf.erz_login_id is
-    'von wem wurde der Datensatz erzeugt';
-
-comment on column dirkspzm32.bde_fa_kopf.fa_gruppe is
-    'Gruppierungsmerkmal / -schlüssel um Fertigungsaufträge gruppieren zu können';
-
-comment on column dirkspzm32.bde_fa_kopf.fa_nr is
-    'eindeutige Nummer, Fertigungsauftrags-Nr. (LEITZAHL in AG) ISIPlus PPS';
-
-comment on column dirkspzm32.bde_fa_kopf.fa_nr_ext is
-    'Optional: eindeutige Nummer aus einem externen System (z.B. Fertigungsauftrags-Nr. SAP)';
-
-comment on column dirkspzm32.bde_fa_kopf.firma_nr is
-    'Firma-Nr.';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_art_nr is
-    'Artikel-Nr. des Kunden';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_best_nr is
-    'Bestell-Nr. des Kunden';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_best_pos is
-    'Positions-Nr. der Kunden-Bestellung';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_best_text1 is
-    'Text der Kunden-Bestellung';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_best_text2 is
-    'Text der Kunden-Bestellung';
-
-comment on column dirkspzm32.bde_fa_kopf.kd_best_text3 is
-    'Text der Kunden-Bestellung';
-
-comment on column dirkspzm32.bde_fa_kopf.kunden_nr is
-    'Kunden-Nr.';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel1 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel10 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel2 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel3 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel4 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel5 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel6 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel7 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel8 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lam_sel9 is
-    'Parameter zusätzliche Selectionsparameter für Endprodukt';
-
-comment on column dirkspzm32.bde_fa_kopf.lohn_arbeit is
-    'Ist der Auftrag Lohnarbeit ''T''=True, ''F''=False  -> verlängerte Werkbank, soll beforzugt KONSI-Bestände des Kunden verwenden '
-    ;
-
-comment on column dirkspzm32.bde_fa_kopf.menge is
-    'Artikel-Menge';
-
-comment on column dirkspzm32.bde_fa_kopf.prod_params is
-    'Prod Parameter mit Semikolon getrennt, Beispiel TL=1;TH=5;STW=2;';
-
-comment on column dirkspzm32.bde_fa_kopf.serie_auto_inc is
-    '"T" = Serien ID automatisch inkrementieren, "F" = nur SERIE_ID übernehmen';
-
-comment on column dirkspzm32.bde_fa_kopf.serie_id is
-    'Seriennummer für die nächste Fertigungseinheit';
-
-comment on column dirkspzm32.bde_fa_kopf.sid is
-    'SID';
-
-comment on column dirkspzm32.bde_fa_kopf.soll_betriebsart is
-    'NULL = nicht relevant, ''A'' = Automatik, ''M'' = Manuell, ''TESTA'' = Testmodus-Automatik, ''TESTM'' = Testmodus-Manuell, ''TEACH'' = Teachmodus'
-    ;
-
-comment on column dirkspzm32.bde_fa_kopf.status is
-    'N = Neu, ''B''=Auftrag im BDE begonnen,  F = Auftrag fertig, FH = Auftrag fertig und an Host übertragen';
-
-comment on column dirkspzm32.bde_fa_kopf.termin_ende is
-    'fester End-Termin';
-
-comment on column dirkspzm32.bde_fa_kopf.termin_soll_start is
-    'geplanter Start-Termin';
-
-comment on column dirkspzm32.bde_fa_kopf.unique_hash is
-    'Unikatsschlüssel für Fertigungsaufträge mit gleichem Inhalt (zur Definition von gleichen Fertigartikeln)';
-
-comment on column dirkspzm32.bde_fa_kopf.zeichnung is
-    'Zeichnungs-Nr.';
-
-comment on column dirkspzm32.bde_fa_kopf.zeichnung_index is
-    'Zeichnungs-Index';
+comment on table DIRKSPZM32.BDE_FA_KOPF is 'Kopf eine Fertigungsauftrags';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ADRESS_ID" is 'Verlängerte Werkbank, Eigetümer der Rohstoffe und Fertigware';
+comment on column DIRKSPZM32.BDE_FA_KOPF."AEND_DATUM" is 'wann wurde der Datensatz verändert';
+comment on column DIRKSPZM32.BDE_FA_KOPF."AEND_LOGIN_ID" is 'von wem wurde der Datensatz verändert';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ARB_PLAN_ID" is 'Mit welchem Arbeitsplan soll dieser Auftrag produziert werden';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ARTIKEL_ID" is '(Artikel_ID) der FertigungsMaterialNr -> Artikel_ID ';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ERZEUGER" is 'ISI = in ISIPlus (intern) erzeugt, HOST = über eine Schnittstelle angelegt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ERZ_DATUM" is 'wann wurde der Datensatz erzeugt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ERZ_LOGIN_ID" is 'von wem wurde der Datensatz erzeugt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."FA_GRUPPE" is 'Gruppierungsmerkmal / -schlüssel um Fertigungsaufträge gruppieren zu können';
+comment on column DIRKSPZM32.BDE_FA_KOPF."FA_NR" is 'eindeutige Nummer, Fertigungsauftrags-Nr. (LEITZAHL in AG) ISIPlus PPS';
+comment on column DIRKSPZM32.BDE_FA_KOPF."FA_NR_EXT" is 'Optional: eindeutige Nummer aus einem externen System (z.B. Fertigungsauftrags-Nr. SAP)';
+comment on column DIRKSPZM32.BDE_FA_KOPF."FIRMA_NR" is 'Firma-Nr.';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_ART_NR" is 'Artikel-Nr. des Kunden';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_BEST_NR" is 'Bestell-Nr. des Kunden';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_BEST_POS" is 'Positions-Nr. der Kunden-Bestellung';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_BEST_TEXT1" is 'Text der Kunden-Bestellung';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_BEST_TEXT2" is 'Text der Kunden-Bestellung';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KD_BEST_TEXT3" is 'Text der Kunden-Bestellung';
+comment on column DIRKSPZM32.BDE_FA_KOPF."KUNDEN_NR" is 'Kunden-Nr.';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL1" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL10" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL2" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL3" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL4" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL5" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL6" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL7" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL8" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LAM_SEL9" is 'Parameter zusätzliche Selectionsparameter für Endprodukt';
+comment on column DIRKSPZM32.BDE_FA_KOPF."LOHN_ARBEIT" is 'Ist der Auftrag Lohnarbeit ''T''=True, ''F''=False  -> verlängerte Werkbank, soll beforzugt KONSI-Bestände des Kunden verwenden ';
+comment on column DIRKSPZM32.BDE_FA_KOPF."MENGE" is 'Artikel-Menge';
+comment on column DIRKSPZM32.BDE_FA_KOPF."PROD_PARAMS" is 'Prod Parameter mit Semikolon getrennt, Beispiel TL=1;TH=5;STW=2;';
+comment on column DIRKSPZM32.BDE_FA_KOPF."SERIE_AUTO_INC" is '"T" = Serien ID automatisch inkrementieren, "F" = nur SERIE_ID übernehmen';
+comment on column DIRKSPZM32.BDE_FA_KOPF."SERIE_ID" is 'Seriennummer für die nächste Fertigungseinheit';
+comment on column DIRKSPZM32.BDE_FA_KOPF."SID" is 'SID';
+comment on column DIRKSPZM32.BDE_FA_KOPF."SOLL_BETRIEBSART" is 'NULL = nicht relevant, ''A'' = Automatik, ''M'' = Manuell, ''TESTA'' = Testmodus-Automatik, ''TESTM'' = Testmodus-Manuell, ''TEACH'' = Teachmodus';
+comment on column DIRKSPZM32.BDE_FA_KOPF."STATUS" is 'N = Neu, ''B''=Auftrag im BDE begonnen,  F = Auftrag fertig, FH = Auftrag fertig und an Host übertragen';
+comment on column DIRKSPZM32.BDE_FA_KOPF."TERMIN_ENDE" is 'fester End-Termin';
+comment on column DIRKSPZM32.BDE_FA_KOPF."TERMIN_SOLL_START" is 'geplanter Start-Termin';
+comment on column DIRKSPZM32.BDE_FA_KOPF."UNIQUE_HASH" is 'Unikatsschlüssel für Fertigungsaufträge mit gleichem Inhalt (zur Definition von gleichen Fertigartikeln)';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ZEICHNUNG" is 'Zeichnungs-Nr.';
+comment on column DIRKSPZM32.BDE_FA_KOPF."ZEICHNUNG_INDEX" is 'Zeichnungs-Index';
 
 
--- sqlcl_snapshot {"hash":"45543a52428dc23a8058c58ff923e713de10c39a","type":"COMMENT","name":"bde_fa_kopf","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"a33664ee5a9538f552a6c9bfdd5ab2075840e447","type":"COMMENT","name":"bde_fa_kopf","schemaName":"dirkspzm32","sxml":""}

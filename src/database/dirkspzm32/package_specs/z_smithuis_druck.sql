@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.z_smithuis_druck is
+create or replace 
+package DIRKSPZM32.z_smithuis_druck is
   /*
   __________________________________________________
   Author
@@ -15,6 +16,7 @@ create or replace package dirkspzm32.z_smithuis_druck is
   27.11.2009   3.5.0.1     (-BW-)   Minor Release
   */
 
+
   -- Public type declarations
   --type <TypeName> is <Datatype>;
 
@@ -25,17 +27,15 @@ create or replace package dirkspzm32.z_smithuis_druck is
   --<VariableName> <Datatype>;
 
   -- Public function and procedure declarations
-    function ccg_etikett (
-        in_lte_id    in lvs_lte.lte_id%type,
-        in_waren_typ in lvs_lte.waren_typ%type
-    ) return varchar2;
+  function ccg_etikett(in_lte_id      in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type)
+                                      return varchar2;
 
-    function format_artikel (
-        in_str in varchar2
-    ) return varchar2;
+  function FORMAT_ARTIKEL(in_str in varchar2) return varchar2;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"61259e6c3e901f612ed4931b50cc2b9e24a642de","type":"PACKAGE_SPEC","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"c4e0ff61aff3a93cd8e37dbcf231fe3b9f41e6ce","type":"PACKAGE_SPEC","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

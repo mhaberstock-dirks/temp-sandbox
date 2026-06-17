@@ -1,11 +1,6 @@
-alter table dirkspzm32.sec_group_modules
-    add constraint fk_sec_gm_group_id
-        foreign key ( sid,
-                      group_id )
-            references dirkspzm32.sec_groups ( sid,
-                                               group_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."SEC_GROUP_MODULES" ADD CONSTRAINT "FK_SEC_GM_GROUP_ID" FOREIGN KEY ("SID", "GROUP_ID")
+	  REFERENCES "DIRKSPZM32"."SEC_GROUPS" ("SID", "GROUP_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"076a71ef0b5d3092b589a105cce54e30dca64b00","type":"REF_CONSTRAINT","name":"FK_SEC_GM_GROUP_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"33caab567112c6266e5c89ab2c5bb10a40684026","type":"REF_CONSTRAINT","name":"FK_SEC_GM_GROUP_ID","schemaName":"DIRKSPZM32","sxml":""}

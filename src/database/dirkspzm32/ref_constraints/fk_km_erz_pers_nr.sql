@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_abwesenheitsmeldungen
-    add constraint fk_km_erz_pers_nr
-        foreign key ( erz_pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ABWESENHEITSMELDUNGEN" ADD CONSTRAINT "FK_KM_ERZ_PERS_NR" FOREIGN KEY ("ERZ_PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"aaa0f08a6838791bc78f7088bc43562ad8d541eb","type":"REF_CONSTRAINT","name":"FK_KM_ERZ_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"67de130450ac2fbe6518cbec04abb2de5c7d1b8e","type":"REF_CONSTRAINT","name":"FK_KM_ERZ_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,51 +1,43 @@
-create or replace editionable trigger dirkspzm32.trg_db_ddl_log
-    after ddl on schema declare
-        l_sql ora_name_list_t;
-        l_id  number(10, 0);
-    begin
-        if ora_dict_obj_name not like 'DB_DDL_LOG%' then  -- diese lässt sich nicht ändern wenn hier geloggt wird
-            select
-                db_ddl_log_id.nextval
-            into l_id
-            from
-                dual;
 
-            insert into db_ddl_log (
-                event_id,
-                event_date,
-                user_id,
-                object_name,
-                owner,
-                object_type,
-                system_event,
-                machine,
-                program
-            )
-                (
-                    select
-                        l_id,
-                        sysdate,
-                        ora_login_user,
-                        ora_dict_obj_name,
-                        ora_dict_obj_owner,
-                        ora_dict_obj_type,
-                        ora_sysevent,
-                        upper(sys_context('USERENV', 'TERMINAL')),
-                        sys_context('USERENV', 'MODULE')
-                    from
-                        dual
-                );
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TRG_DB_DDL_LOG" 
+ AFTER DDL
+ ON SCHEMA
+DECLARE
+  l_sql ora_name_list_t;
+  l_id NUMBER (10, 0);
+BEGIN
+  if ora_dict_obj_name not like 'DB_DDL_LOG%' then  -- diese lässt sich nicht ändern wenn hier geloggt wird
+    SELECT db_ddl_log_id.NEXTVAL INTO l_id FROM DUAL;
 
-        end if;
+    INSERT INTO db_ddl_log (event_id,
+      event_date,
+      user_id,
+      object_name,
+      owner,
+      object_type,
+      system_event,
+      machine,
+      program)
+     (SELECT l_id,
+          SYSDATE,
+          ora_login_user,
+          ora_dict_obj_name,
+          ora_dict_obj_owner,
+          ora_dict_obj_type,
+          ora_sysevent,
+          UPPER (SYS_CONTEXT ('USERENV', 'TERMINAL')),
+          SYS_CONTEXT ('USERENV', 'MODULE')
+       FROM DUAL);
+  end if;
 --FOR l IN 1 .. ora_sql_txt (l_sql)
 --  LOOP
 --    INSERT INTO DB_ddl_log_sql (event_id, sqlline, sqltext)
 --      VALUES (l_id, l, l_sql (l));
 --  END LOOP;
-    end;
+END;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TRG_DB_DDL_LOG" ENABLE;
 
-alter trigger dirkspzm32.trg_db_ddl_log enable;
 
-
--- sqlcl_snapshot {"hash":"198316f6026ff717aaf6983e4dd7e9804ddc3558","type":"TRIGGER","name":"TRG_DB_DDL_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6d698397f0a4e6f9534c2a4e00ee1017f0765e36","type":"TRIGGER","name":"TRG_DB_DDL_LOG","schemaName":"DIRKSPZM32","sxml":""}

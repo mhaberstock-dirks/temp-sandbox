@@ -1,8 +1,6 @@
-comment on table dirkspzm32.pzm_lz_sa is
-    'Die Schichtarten, die den Lohnzulagen zugewiesen werden';
-
-comment on column dirkspzm32.pzm_lz_sa.lzsa_gueltig is
-    'Ist dieser Lohnzuschlag für diese Schichtart gültig?';
+comment on table DIRKSPZM32.PZM_LZ_SA is 'Die Schichtarten, die den Lohnzulagen zugewiesen werden';
+comment on column DIRKSPZM32.PZM_LZ_SA."LZSA_GUELTIG" is 'Ist dieser Lohnzuschlag für diese Schichtart gültig?';
 
 
--- sqlcl_snapshot {"hash":"18afd0b0df7d5c959f065627709bed4035901298","type":"COMMENT","name":"pzm_lz_sa","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"6cc3b1b1b8cbfbb2f3562c42f43ec028af127056","type":"COMMENT","name":"pzm_lz_sa","schemaName":"dirkspzm32","sxml":""}

@@ -1,10 +1,6 @@
-alter table dirkspzm32.lvs_packschema_kopf
-    add constraint fk_lvs_packschema_kopf_ltename
-        foreign key ( lte_name,
-                      sid )
-            references dirkspzm32.lvs_lte_cfg ( lte_name,
-                                                sid )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."LVS_PACKSCHEMA_KOPF" ADD CONSTRAINT "FK_LVS_PACKSCHEMA_KOPF_LTENAME" FOREIGN KEY ("LTE_NAME", "SID")
+	  REFERENCES "DIRKSPZM32"."LVS_LTE_CFG" ("LTE_NAME", "SID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d9c160b8a93b8c93c59e2c8274e8b6ed2a0d1ed8","type":"REF_CONSTRAINT","name":"FK_LVS_PACKSCHEMA_KOPF_LTENAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5baa039076ca97633b2bce064132c06d250e2628","type":"REF_CONSTRAINT","name":"FK_LVS_PACKSCHEMA_KOPF_LTENAME","schemaName":"DIRKSPZM32","sxml":""}

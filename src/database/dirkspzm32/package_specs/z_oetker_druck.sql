@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.z_oetker_druck is
+create or replace 
+package DIRKSPZM32.z_oetker_druck is
 
   /*
   __________________________________________________
@@ -16,6 +17,7 @@ create or replace package dirkspzm32.z_oetker_druck is
   27.11.2009   3.5.0.1     (-BW-)   Minor Release
   */
 
+
   -- Public type declarations
   --type <TypeName> is <Datatype>;
 
@@ -26,17 +28,15 @@ create or replace package dirkspzm32.z_oetker_druck is
   --<VariableName> <Datatype>;
 
   -- Public function and procedure declarations
-    function ccg_etikett (
-        in_lte_id    in lvs_lte.lte_id%type,
-        in_waren_typ in lvs_lte.waren_typ%type
-    ) return varchar2;
+  function ccg_etikett(in_lte_id      in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type)
+                                      return varchar2;
 
-    function format_artikel (
-        in_str in varchar2
-    ) return varchar2;
+  function FORMAT_ARTIKEL(in_str in varchar2) return varchar2;
 
 end;
 /
 
 
--- sqlcl_snapshot {"hash":"14197555f8468252d404ca5b0b648ddde54b3632","type":"PACKAGE_SPEC","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"620973229f31aeb1fa0ce436d12aca3657fc28ea","type":"PACKAGE_SPEC","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

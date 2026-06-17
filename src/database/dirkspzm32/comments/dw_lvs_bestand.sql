@@ -1,71 +1,27 @@
-comment on table dirkspzm32.dw_lvs_bestand is
-    'Data-Warehouse Lager-Bestand';
-
-comment on column dirkspzm32.dw_lvs_bestand.anz_lam is
-    'Anzahl der Behälter';
-
-comment on column dirkspzm32.dw_lvs_bestand.anz_lte is
-    'Anzahl der LTEs. Bei Mischpal. z.B. zwei Artikel auf einer LTE SUM_LTE = 0,5';
-
-comment on column dirkspzm32.dw_lvs_bestand.artikel_id is
-    'Artikel';
-
-comment on column dirkspzm32.dw_lvs_bestand.basis_lte_name is
-    'Basistyp der LTE';
-
-comment on column dirkspzm32.dw_lvs_bestand.charge_id is
-    'Chargen-Nr.';
-
-comment on column dirkspzm32.dw_lvs_bestand.dw_stat_id is
-    'Laufende Nummer';
-
-comment on column dirkspzm32.dw_lvs_bestand.erfasst_am is
-    'Zeitpunkt der Erfassung';
-
-comment on column dirkspzm32.dw_lvs_bestand.fa_ag is
-    'Arbeitsgang';
-
-comment on column dirkspzm32.dw_lvs_bestand.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.dw_lvs_bestand.labor_status is
-    'Laborstatus';
-
-comment on column dirkspzm32.dw_lvs_bestand.leitzahl is
-    'Leitzahl';
-
-comment on column dirkspzm32.dw_lvs_bestand.lgr_ort is
-    'Lagerort';
-
-comment on column dirkspzm32.dw_lvs_bestand.lte_name is
-    'Beschreibung / Text der LTE';
-
-comment on column dirkspzm32.dw_lvs_bestand.lte_status is
-    'Status der LTE (z.B. LF)';
-
-comment on column dirkspzm32.dw_lvs_bestand.mengeneinheit_basis is
-    'Mengeneinheit aus Menge Basis z.B. MENGENEINHEIT oder Name der LHM oder LTE';
-
-comment on column dirkspzm32.dw_lvs_bestand.menge_basis is
-    'LKE = Kleinste Einheit, LHM = Name LHM, LTE = Name Transporteinheit';
-
-comment on column dirkspzm32.dw_lvs_bestand.mhd is
-    'Mindest-Haltbarkeits-Datum';
-
-comment on column dirkspzm32.dw_lvs_bestand.sid is
-    'Datenbank für Konsolidierung';
-
-comment on column dirkspzm32.dw_lvs_bestand.stat_name is
-    'Name der Statistik z.B. HUF_DW_STATISITIK';
-
-comment on column dirkspzm32.dw_lvs_bestand.sum_menge is
-    'Anzahl der Teile';
-
-comment on column dirkspzm32.dw_lvs_bestand.wert_datum is
-    'Wert Datum nicht verwechseln mit Erfasst_am';
-
-comment on column dirkspzm32.dw_lvs_bestand.wert_datum_ende is
-    'Wert Datum ende falls eine Zeitraum von Buchungen gemeint sind';
+comment on table DIRKSPZM32.DW_LVS_BESTAND is 'Data-Warehouse Lager-Bestand';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."ANZ_LAM" is 'Anzahl der Behälter';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."ANZ_LTE" is 'Anzahl der LTEs. Bei Mischpal. z.B. zwei Artikel auf einer LTE SUM_LTE = 0,5';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."ARTIKEL_ID" is 'Artikel';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."BASIS_LTE_NAME" is 'Basistyp der LTE';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."CHARGE_ID" is 'Chargen-Nr.';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."DW_STAT_ID" is 'Laufende Nummer';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."ERFASST_AM" is 'Zeitpunkt der Erfassung';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."FA_AG" is 'Arbeitsgang';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."LABOR_STATUS" is 'Laborstatus';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."LEITZAHL" is 'Leitzahl';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."LGR_ORT" is 'Lagerort';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."LTE_NAME" is 'Beschreibung / Text der LTE';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."LTE_STATUS" is 'Status der LTE (z.B. LF)';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."MENGENEINHEIT_BASIS" is 'Mengeneinheit aus Menge Basis z.B. MENGENEINHEIT oder Name der LHM oder LTE';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."MENGE_BASIS" is 'LKE = Kleinste Einheit, LHM = Name LHM, LTE = Name Transporteinheit';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."MHD" is 'Mindest-Haltbarkeits-Datum';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."SID" is 'Datenbank für Konsolidierung';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."STAT_NAME" is 'Name der Statistik z.B. HUF_DW_STATISITIK';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."SUM_MENGE" is 'Anzahl der Teile';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."WERT_DATUM" is 'Wert Datum nicht verwechseln mit Erfasst_am';
+comment on column DIRKSPZM32.DW_LVS_BESTAND."WERT_DATUM_ENDE" is 'Wert Datum ende falls eine Zeitraum von Buchungen gemeint sind';
 
 
--- sqlcl_snapshot {"hash":"e28eb36a3dd799f03820425adae1d6cdc8de4988","type":"COMMENT","name":"dw_lvs_bestand","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"95a68aa1b9b382268dba6da0c90173ee757eb992","type":"COMMENT","name":"dw_lvs_bestand","schemaName":"dirkspzm32","sxml":""}

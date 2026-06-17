@@ -1,24 +1,30 @@
-create or replace type dirkspzm32.string_agg_cr_type as object (
-        total         varchar2(4000),
-        def_delimiter varchar2(1),
-        static function odciaggregateinitialize (
-               sctx in out string_agg_cr_type
-           ) return number,
-        member function odciaggregateiterate (
-               self  in out string_agg_cr_type,
-               value in varchar2
-           ) return number,
-        member function odciaggregateterminate (
-               self        in string_agg_cr_type,
-               returnvalue out varchar2,
-               flags       in number
-           ) return number,
-        member function odciaggregatemerge (
-               self in out string_agg_cr_type,
-               ctx2 in string_agg_cr_type
-           ) return number
+create or replace 
+TYPE DIRKSPZM32."STRING_AGG_CR_TYPE" as object
+(
+   total varchar2(4000),
+   def_delimiter varchar2(1),
+
+   static function
+        ODCIAggregateInitialize(sctx IN OUT string_agg_cr_type )
+        return number,
+
+   member function
+        ODCIAggregateIterate(self IN OUT string_agg_cr_type ,
+                             value IN varchar2)
+        return number,
+
+   member function
+        ODCIAggregateTerminate(self IN string_agg_cr_type,
+                               returnValue OUT  varchar2,
+                               flags IN number)
+        return number,
+
+   member function
+        ODCIAggregateMerge(self IN OUT string_agg_cr_type,
+                           ctx2 IN string_agg_cr_type)
+        return number
 );
 /
 
 
--- sqlcl_snapshot {"hash":"0537b2df328153433303ad762a713237e12365c6","type":"TYPE_SPEC","name":"STRING_AGG_CR_TYPE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36e4417accbb682e27b7fa33dc1fd6a3705b812d","type":"TYPE_SPEC","name":"STRING_AGG_CR_TYPE","schemaName":"DIRKSPZM32","sxml":""}

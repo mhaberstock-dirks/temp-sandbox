@@ -1,32 +1,14 @@
-comment on table dirkspzm32.lvs_lgr_cfg is
-    'LVS_LGR_CFG  dient als Vorgabe für die Lagerplatz - Konfiguration';
-
-comment on column dirkspzm32.lvs_lgr_cfg.created_date is
-    'Erstellungsdatum';
-
-comment on column dirkspzm32.lvs_lgr_cfg.created_login_id is
-    'Ersteller ID';
-
-comment on column dirkspzm32.lvs_lgr_cfg.firma_nr is
-    'Firmennummer (Ist auch die ADR_NR in der Adressentabelle)';
-
-comment on column dirkspzm32.lvs_lgr_cfg.last_change_date is
-    'Änderungsdatum';
-
-comment on column dirkspzm32.lvs_lgr_cfg.last_change_login_id is
-    'ID der den Datensatz geändert hat';
-
-comment on column dirkspzm32.lvs_lgr_cfg.lgr_platz is
-    'Lagerplatz ID gebildet aus Vorgabe im Lagerort';
-
-comment on column dirkspzm32.lvs_lgr_cfg.lgr_platz_cfg_param is
-    'Parametername';
-
-comment on column dirkspzm32.lvs_lgr_cfg.lgr_platz_cfg_param_wert is
-    'Parameterwert';
-
-comment on column dirkspzm32.lvs_lgr_cfg.sid is
-    'Datenbank dieser Firma';
+comment on table DIRKSPZM32.LVS_LGR_CFG is 'LVS_LGR_CFG  dient als Vorgabe für die Lagerplatz - Konfiguration';
+comment on column DIRKSPZM32.LVS_LGR_CFG."CREATED_DATE" is 'Erstellungsdatum';
+comment on column DIRKSPZM32.LVS_LGR_CFG."CREATED_LOGIN_ID" is 'Ersteller ID';
+comment on column DIRKSPZM32.LVS_LGR_CFG."FIRMA_NR" is 'Firmennummer (Ist auch die ADR_NR in der Adressentabelle)';
+comment on column DIRKSPZM32.LVS_LGR_CFG."LAST_CHANGE_DATE" is 'Änderungsdatum';
+comment on column DIRKSPZM32.LVS_LGR_CFG."LAST_CHANGE_LOGIN_ID" is 'ID der den Datensatz geändert hat';
+comment on column DIRKSPZM32.LVS_LGR_CFG."LGR_PLATZ" is 'Lagerplatz ID gebildet aus Vorgabe im Lagerort';
+comment on column DIRKSPZM32.LVS_LGR_CFG."LGR_PLATZ_CFG_PARAM" is 'Parametername';
+comment on column DIRKSPZM32.LVS_LGR_CFG."LGR_PLATZ_CFG_PARAM_WERT" is 'Parameterwert';
+comment on column DIRKSPZM32.LVS_LGR_CFG."SID" is 'Datenbank dieser Firma';
 
 
--- sqlcl_snapshot {"hash":"f684d38c90d5c45d767465a693c27a81e012060c","type":"COMMENT","name":"lvs_lgr_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"84953a236db468685fdaa283ecaade8949e29511","type":"COMMENT","name":"lvs_lgr_cfg","schemaName":"dirkspzm32","sxml":""}

@@ -1,45 +1,44 @@
-create or replace editionable trigger dirkspzm32.tr_s_mfr_send_offl_biud before
-    insert or update or delete on dirkspzm32.s_mfr_send_offline
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_MFR_SEND_OFFL_BIUD" 
+  before insert or update or delete on DIRKSPZM32.s_mfr_send_offline
+  for each row
 declare
   -- local variables here
- begin
-    if inserting then
-        select
-            seq_s_send_bew_id.nextval
-        into :new.offline_id
-        from
-            dual;
+begin
+  if inserting then
+    select seq_s_send_bew_id.nextval into :new.offline_id from dual;
+  elsif updating then
+      NULL;
 
-    elsif updating then
-        null;
-    elsif deleting then
-        null;
-    end if;
+  elsif deleting then
+      NULL;
 
-    if deleting then
-        begin
-            insert into s_mfr_send_offline_hist values ( :old.firma_nr,
-                                                         :old.offline_id,
-                                                         :old.auf_id,
-                                                         :old.satzart,
-                                                         :old.funktion,
-                                                         :old.auftrag,
-                                                         :old.lte_id,
-                                                         :old.gen_datum,
-                                                         :old.quelle,
-                                                         :old.ziel,
-                                                         :old.telegramm,
-                                                         :old.gruppe );
+  end if;
 
-        end;
 
-    end if;
+ if Deleting then
+   begin
+     insert into S_MFR_SEND_OFFLINE_HIST
+          values (
+                  :Old.FIRMA_NR,
+                  :Old.OFFLINE_ID,
+                  :Old.AUF_ID,
+                  :Old.SATZART,
+                  :Old.FUNKTION,
+                  :Old.AUFTRAG,
+                  :Old.LTE_ID,
+                  :Old.GEN_DATUM,
+                  :Old.QUELLE,
+                  :Old.ZIEL,
+                  :Old.TELEGRAMM,
+                  :Old.GRUPPE);
+   end;
+ end if;
 
-end tr_s_mfr_send_offl_biud;
+end TR_S_MFR_SEND_OFFL_BIUD;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_S_MFR_SEND_OFFL_BIUD" ENABLE;
 
-alter trigger dirkspzm32.tr_s_mfr_send_offl_biud enable;
 
-
--- sqlcl_snapshot {"hash":"fd507a96378531695cfb179f997037a31e38ebdb","type":"TRIGGER","name":"TR_S_MFR_SEND_OFFL_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c755a31729147b44fba1ffeeb4a6c152e94ebddb","type":"TRIGGER","name":"TR_S_MFR_SEND_OFFL_BIUD","schemaName":"DIRKSPZM32","sxml":""}

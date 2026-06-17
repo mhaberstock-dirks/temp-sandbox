@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_schicht_perioden
-    add constraint fk_sp_sa_wot_mo
-        foreign key ( sp_sa_wot_mo )
-            references dirkspzm32.pzm_schichtarten ( sa_kurzname )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_SCHICHT_PERIODEN" ADD CONSTRAINT "FK_SP_SA_WOT_MO" FOREIGN KEY ("SP_SA_WOT_MO")
+	  REFERENCES "DIRKSPZM32"."PZM_SCHICHTARTEN" ("SA_KURZNAME") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"83e5b48a0e97df432b3023552bb4435bf9c132c5","type":"REF_CONSTRAINT","name":"FK_SP_SA_WOT_MO","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fe2ed6f15b85a493ffb37fff1c5bb76c2df5d958","type":"REF_CONSTRAINT","name":"FK_SP_SA_WOT_MO","schemaName":"DIRKSPZM32","sxml":""}

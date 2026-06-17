@@ -1,21 +1,18 @@
-create or replace editionable trigger dirkspzm32.tr_bde_fa_auftrag_stl_bi before
-    insert on dirkspzm32.bde_fa_auftrag_stl
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_FA_AUFTRAG_STL_BI" 
+  before insert on DIRKSPZM32.bde_fa_auftrag_stl
+  for each row
 declare
   -- local variables here
- begin
-    if :new.fa_ag_stl_id is null then
-        select
-            seq_fa_ag_stl_id.nextval
-        into :new.fa_ag_stl_id
-        from
-            dual;
+begin
+  if :new.fa_ag_stl_id is null
+  then
+    select seq_fa_ag_stl_id.nextval into :new.fa_ag_stl_id from dual;
+  end if;
+end TR_BDE_FA_AUFTRAG_STL_BI;
 
-    end if;
-end tr_bde_fa_auftrag_stl_bi;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_BDE_FA_AUFTRAG_STL_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_bde_fa_auftrag_stl_bi enable;
 
-
--- sqlcl_snapshot {"hash":"96bc0e444c782ef65140fb9fb89a8962118f7c31","type":"TRIGGER","name":"TR_BDE_FA_AUFTRAG_STL_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"54765ba0b7bfc6a6654a77009dd8a36beee5a6f8","type":"TRIGGER","name":"TR_BDE_FA_AUFTRAG_STL_BI","schemaName":"DIRKSPZM32","sxml":""}

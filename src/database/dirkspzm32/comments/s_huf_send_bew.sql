@@ -1,5 +1,5 @@
-comment on table dirkspzm32.s_huf_send_bew is
-    'Schnittstellentabelle zur Übertragung zum HOST (Nur für Huf)';
+comment on table DIRKSPZM32.S_HUF_SEND_BEW is 'Schnittstellentabelle zur Übertragung zum HOST (Nur für Huf)';
 
 
--- sqlcl_snapshot {"hash":"22ca9fc9fd09dd40589492098a4f0b08827545fe","type":"COMMENT","name":"s_huf_send_bew","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"5766395ad633301729eee580995317d217be96ef","type":"COMMENT","name":"s_huf_send_bew","schemaName":"dirkspzm32","sxml":""}

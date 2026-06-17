@@ -1,38 +1,16 @@
-comment on table dirkspzm32.pzm_pers_lohn_zulagen is
-    'Personal Zeiterfassung Zulagen oder Zuschläge - Lohnarten';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.created_user is
-    'User - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.gueltig_datum_bis is
-    'Lohnart Gültig bis diesem Datum  (NULL = Immer)';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.gueltig_datum_von is
-    'Lohnart Gültig ab diesem Datum (NULL = Immer)';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.last_change_date is
-    'Datum der letzten Änderung';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.last_change_login_id is
-    'User-ID - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.last_change_user is
-    'User - er hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.lz_id is
-    'ID Der Lohnart. Diese ID ist die referenz in der Lohnbuchhaltung ';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.pers_lz_seq is
-    'Sequenz als PK (Primay-Key)';
-
-comment on column dirkspzm32.pzm_pers_lohn_zulagen.pers_nr is
-    'Personal-ID ';
+comment on table DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN is 'Personal Zeiterfassung Zulagen oder Zuschläge - Lohnarten';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."CREATED_USER" is 'User - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."GUELTIG_DATUM_BIS" is 'Lohnart Gültig bis diesem Datum  (NULL = Immer)';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."GUELTIG_DATUM_VON" is 'Lohnart Gültig ab diesem Datum (NULL = Immer)';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."LAST_CHANGE_DATE" is 'Datum der letzten Änderung';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."LAST_CHANGE_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."LAST_CHANGE_USER" is 'User - er hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."LZ_ID" is 'ID Der Lohnart. Diese ID ist die referenz in der Lohnbuchhaltung ';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."PERS_LZ_SEQ" is 'Sequenz als PK (Primay-Key)';
+comment on column DIRKSPZM32.PZM_PERS_LOHN_ZULAGEN."PERS_NR" is 'Personal-ID ';
 
 
--- sqlcl_snapshot {"hash":"347abd4ed8b478423b69198619a196d9af186007","type":"COMMENT","name":"pzm_pers_lohn_zulagen","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"228e5376d8f6edf42bde264b99b083f2e8becce8","type":"COMMENT","name":"pzm_pers_lohn_zulagen","schemaName":"dirkspzm32","sxml":""}

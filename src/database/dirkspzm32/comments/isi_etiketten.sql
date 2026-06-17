@@ -1,17 +1,9 @@
-comment on table dirkspzm32.isi_etiketten is
-    'Verfügbare Etiketten';
-
-comment on column dirkspzm32.isi_etiketten.etiketten_name is
-    'Name des Etiketts Bsp. (VDA, CCG, VDA_EUSCHER, ...)';
-
-comment on column dirkspzm32.isi_etiketten.etiketten_programm is
-    'Programm für Etikett';
-
-comment on column dirkspzm32.isi_etiketten.rave_datei is
-    'Ravereport-Date mit den Report-Designs';
-
-comment on column dirkspzm32.isi_etiketten.rave_report is
-    'Name des entsprechenden Reports';
+comment on table DIRKSPZM32.ISI_ETIKETTEN is 'Verfügbare Etiketten';
+comment on column DIRKSPZM32.ISI_ETIKETTEN."ETIKETTEN_NAME" is 'Name des Etiketts Bsp. (VDA, CCG, VDA_EUSCHER, ...)';
+comment on column DIRKSPZM32.ISI_ETIKETTEN."ETIKETTEN_PROGRAMM" is 'Programm für Etikett';
+comment on column DIRKSPZM32.ISI_ETIKETTEN."RAVE_DATEI" is 'Ravereport-Date mit den Report-Designs';
+comment on column DIRKSPZM32.ISI_ETIKETTEN."RAVE_REPORT" is 'Name des entsprechenden Reports';
 
 
--- sqlcl_snapshot {"hash":"449cdfa46d73d4e5e364b4d1202fd47a3e047440","type":"COMMENT","name":"isi_etiketten","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"afd09e2af40e891ae4ad9628ae535836f69d19a8","type":"COMMENT","name":"isi_etiketten","schemaName":"dirkspzm32","sxml":""}

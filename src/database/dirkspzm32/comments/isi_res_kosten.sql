@@ -1,32 +1,14 @@
-comment on table dirkspzm32.isi_res_kosten is
-    'Stores the current configuration for resource pan data';
-
-comment on column dirkspzm32.isi_res_kosten.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_kosten.created_login_id is
-    'login id of the user creating this dataset';
-
-comment on column dirkspzm32.isi_res_kosten.fertigen is
-    '[€/h] -> Kosten für die Bearbeitung auf der Maschine';
-
-comment on column dirkspzm32.isi_res_kosten.gilt_ab is
-    'Datum, ab wann dieses Material mit dem Arbeitsplan hergestellt werden kann';
-
-comment on column dirkspzm32.isi_res_kosten.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_kosten.last_change_login_id is
-    'login id of the user changing this dataset';
-
-comment on column dirkspzm32.isi_res_kosten.res_id is
-    'resource id of the magazine';
-
-comment on column dirkspzm32.isi_res_kosten.ruesten is
-    '[€/h] -> Kosten für die Rüstung der Maschine';
-
-comment on column dirkspzm32.isi_res_kosten.stillstand is
-    '[€/h] -> Stillstandskosten des Arbeitsplatzes';
+comment on table DIRKSPZM32.ISI_RES_KOSTEN is 'Stores the current configuration for resource pan data';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."CREATED_LOGIN_ID" is 'login id of the user creating this dataset';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."FERTIGEN" is '[€/h] -> Kosten für die Bearbeitung auf der Maschine';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."GILT_AB" is 'Datum, ab wann dieses Material mit dem Arbeitsplan hergestellt werden kann';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."LAST_CHANGE_LOGIN_ID" is 'login id of the user changing this dataset';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."RES_ID" is 'resource id of the magazine';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."RUESTEN" is '[€/h] -> Kosten für die Rüstung der Maschine';
+comment on column DIRKSPZM32.ISI_RES_KOSTEN."STILLSTAND" is '[€/h] -> Stillstandskosten des Arbeitsplatzes';
 
 
--- sqlcl_snapshot {"hash":"86d0a333833456317c99ded83287a4cec46e2759","type":"COMMENT","name":"isi_res_kosten","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"2915994d058cf4d3fd8f9cdb7ef3a749ae92c35f","type":"COMMENT","name":"isi_res_kosten","schemaName":"dirkspzm32","sxml":""}

@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_abwesenheitsarten
-    add constraint fk_aa_lz_id
-        foreign key ( lz_id )
-            references dirkspzm32.pzm_lohnarten ( lz_id )
-                on delete set null
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ABWESENHEITSARTEN" ADD CONSTRAINT "FK_AA_LZ_ID" FOREIGN KEY ("LZ_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_LOHNARTEN" ("LZ_ID") ON DELETE SET NULL DISABLE;
 
 
--- sqlcl_snapshot {"hash":"018e014cc84ca314250d0d679cc48467ce976505","type":"REF_CONSTRAINT","name":"FK_AA_LZ_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"62e6078fd605125c34adf5d0f7cd10a27a28908f","type":"REF_CONSTRAINT","name":"FK_AA_LZ_ID","schemaName":"DIRKSPZM32","sxml":""}

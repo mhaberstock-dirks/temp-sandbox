@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_ze_loa_13w_schnitt
-    add constraint fk_pzm_ze_loa_13w_pers_nr
-        foreign key ( pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete cascade
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZE_LOA_13W_SCHNITT" ADD CONSTRAINT "FK_PZM_ZE_LOA_13W_PERS_NR" FOREIGN KEY ("PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE CASCADE DISABLE;
 
 
--- sqlcl_snapshot {"hash":"ebb7d79b1d5fc42607edba1497a750a3656d1305","type":"REF_CONSTRAINT","name":"FK_PZM_ZE_LOA_13W_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4574586f494155f6f551619606061f64f25780d5","type":"REF_CONSTRAINT","name":"FK_PZM_ZE_LOA_13W_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

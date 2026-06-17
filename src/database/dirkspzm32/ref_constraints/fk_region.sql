@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_land_sprache
-    add constraint fk_region
-        foreign key ( region_id )
-            references dirkspzm32.isi_land_region ( region_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_LAND_SPRACHE" ADD CONSTRAINT "FK_REGION" FOREIGN KEY ("REGION_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_LAND_REGION" ("REGION_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"486998399915ff52de2ca6229d98167be2b85ffe","type":"REF_CONSTRAINT","name":"FK_REGION","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7cbb202f9fae5638b02f9f97dbebc743b27cfd42","type":"REF_CONSTRAINT","name":"FK_REGION","schemaName":"DIRKSPZM32","sxml":""}

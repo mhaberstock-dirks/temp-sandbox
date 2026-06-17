@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_hersteller
-    add constraint fk_isi_hersteller_adr
-        foreign key ( adress_id )
-            references dirkspzm32.isi_adressen ( adress_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_HERSTELLER" ADD CONSTRAINT "FK_ISI_HERSTELLER_ADR" FOREIGN KEY ("ADRESS_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_ADRESSEN" ("ADRESS_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3d970ecb34d2a44c81481f46d95e7b372c14aad1","type":"REF_CONSTRAINT","name":"FK_ISI_HERSTELLER_ADR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"97b223da2da6940b1cb0da5afaf5aa03631ac817","type":"REF_CONSTRAINT","name":"FK_ISI_HERSTELLER_ADR","schemaName":"DIRKSPZM32","sxml":""}

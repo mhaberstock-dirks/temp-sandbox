@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_zeiterfassung
-    add constraint fk_ze_abt_id
-        foreign key ( ze_abt_id )
-            references dirkspzm32.pzm_abteilungen ( abt_id )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZEITERFASSUNG" ADD CONSTRAINT "FK_ZE_ABT_ID" FOREIGN KEY ("ZE_ABT_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_ABTEILUNGEN" ("ABT_ID") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"f904c8c1fbf3d3816ac046aef7bb5cc07a9d151f","type":"REF_CONSTRAINT","name":"FK_ZE_ABT_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"12426ca9d114c3b42b2d91b3d08242d3becbaa5a","type":"REF_CONSTRAINT","name":"FK_ZE_ABT_ID","schemaName":"DIRKSPZM32","sxml":""}
