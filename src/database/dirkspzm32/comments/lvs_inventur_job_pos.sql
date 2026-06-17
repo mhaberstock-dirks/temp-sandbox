@@ -1,35 +1,15 @@
-comment on table dirkspzm32.lvs_inventur_job_pos is
-    'Inventur Positionen Tabelle';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.firma_nr is
-    'Firmennummer';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.inventur_id is
-    'Inventurid aus Inventurkopf';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.inventur_pk_id is
-    'Eiendeutige Nummer für PK';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.ist_menge is
-    'Gezählte Menge';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.lam_id is
-    'Lam ID aus LVS_LAM';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.letzte_menge_lam is
-    'Letzte Menge in LAM';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.lgr_platz is
-    'Lagerplatz';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.pruef_datum is
-    'Prüfdatum für Trigger zum Zurücksetzen in der LVS_LAM';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.pruef_login_id is
-    'Login ID der Erfasseres';
-
-comment on column dirkspzm32.lvs_inventur_job_pos.sid is
-    'Sid aus ISI_SID';
+comment on table DIRKSPZM32.LVS_INVENTUR_JOB_POS is 'Inventur Positionen Tabelle';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."FIRMA_NR" is 'Firmennummer';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."INVENTUR_ID" is 'Inventurid aus Inventurkopf';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."INVENTUR_PK_ID" is 'Eiendeutige Nummer für PK';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."IST_MENGE" is 'Gezählte Menge';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."LAM_ID" is 'Lam ID aus LVS_LAM';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."LETZTE_MENGE_LAM" is 'Letzte Menge in LAM';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."LGR_PLATZ" is 'Lagerplatz';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."PRUEF_DATUM" is 'Prüfdatum für Trigger zum Zurücksetzen in der LVS_LAM';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."PRUEF_LOGIN_ID" is 'Login ID der Erfasseres';
+comment on column DIRKSPZM32.LVS_INVENTUR_JOB_POS."SID" is 'Sid aus ISI_SID';
 
 
--- sqlcl_snapshot {"hash":"7947ed694ceccb1d336aa3b463800045e20d53dc","type":"COMMENT","name":"lvs_inventur_job_pos","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"57f18aef82861feac32d8b6b90823b65f66b56cc","type":"COMMENT","name":"lvs_inventur_job_pos","schemaName":"dirkspzm32","sxml":""}

@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_abt_leitung
-    add constraint fk_abt_l_pers_nr
-        foreign key ( abt_l_pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete cascade
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ABT_LEITUNG" ADD CONSTRAINT "FK_ABT_L_PERS_NR" FOREIGN KEY ("ABT_L_PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE CASCADE DISABLE;
 
 
--- sqlcl_snapshot {"hash":"54f38566356a94ae3264ec2d6f96304cc2dea922","type":"REF_CONSTRAINT","name":"FK_ABT_L_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e67cbfb90a1d3b1fb0583c686b966bf37f6eaf01","type":"REF_CONSTRAINT","name":"FK_ABT_L_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

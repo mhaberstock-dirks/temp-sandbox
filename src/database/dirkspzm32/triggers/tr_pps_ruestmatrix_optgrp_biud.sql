@@ -1,59 +1,53 @@
-create or replace editionable trigger dirkspzm32.tr_pps_ruestmatrix_optgrp_biud before
-    insert or update or delete on dirkspzm32.pps_ruestmatrix_opt_grp
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_RUESTMATRIX_OPTGRP_BIUD" 
+  before insert or update or delete on DIRKSPZM32.pps_ruestmatrix_opt_grp
+  for each row
 declare
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
-    v_error exception;                 --
-    v_err_nr   number;
-    v_err_text varchar2(255);
+  v_error     EXCEPTION;                 --
+  v_err_nr    number;
+  v_err_text  varchar2(255);
+
 begin
   -- Init Fehlervariablen
-    v_err_nr := null;
-    v_err_text := null;
-    if inserting then
-        :new.created_date := sysdate;
-    elsif updating then
-        :new.last_change_date := sysdate;
-    end if;
+  v_err_nr := NULL;
+  v_err_text := NULL;
+  
+  if inserting
+  then
+    :new.created_date := sysdate;
+  elsif updating
+  then
+    :new.last_change_date := sysdate;
+  end if;
 
 exception
     -- Im Fehlerfall is der Fehlertext bereits gesetzt.
-    when v_error then  -- Update 2011 show Exception Source Line
-        v_err_text := v_err_text
-                      || chr(13)
-                      || chr(10)
-                      || dbms_utility.format_error_backtrace;
+  when v_error then  -- Update 2011 show Exception Source Line
+    v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace; 
+    RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    raise;
+  when others then
+    if v_err_nr is not NULL then
+      v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace; 
+      RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    else
+      v_err_text := DBMS_UTILITY.format_error_backtrace;
+      if v_err_text not like 'ORA-%ORA-%'
+      then
+        v_err_text := LC.ec(LC.O_TXT_DB_ERROR) || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace; 
+        RAISE_APPLICATION_ERROR(-20000, v_err_text, true);
+      end if;
+      raise;
+    end if;     
 
-        raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        raise;
-    when others then
-        if v_err_nr is not null then
-            v_err_text := v_err_text
-                          || chr(13)
-                          || chr(10)
-                          || dbms_utility.format_error_backtrace;
+end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
-            raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        else
-            v_err_text := dbms_utility.format_error_backtrace;
-            if v_err_text not like 'ORA-%ORA-%' then
-                v_err_text := lc.ec(lc.o_txt_db_error)
-                              || chr(13)
-                              || chr(10)
-                              || dbms_utility.format_error_backtrace;
-
-                raise_application_error(-20000, v_err_text, true);
-            end if;
-
-            raise;
-        end if;
-end tr_lvs_inventur_job_kopf_biud;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_PPS_RUESTMATRIX_OPTGRP_BIUD" ENABLE;
 
-alter trigger dirkspzm32.tr_pps_ruestmatrix_optgrp_biud enable;
 
-
--- sqlcl_snapshot {"hash":"d3eb4537b730d9e34f181486dadeb477caf60c30","type":"TRIGGER","name":"TR_PPS_RUESTMATRIX_OPTGRP_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"422d2900d6353d986daa7b58c4cf7f5dda094287","type":"TRIGGER","name":"TR_PPS_RUESTMATRIX_OPTGRP_BIUD","schemaName":"DIRKSPZM32","sxml":""}

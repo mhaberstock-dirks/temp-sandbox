@@ -1,35 +1,15 @@
-comment on table dirkspzm32.pps_stueckliste is
-    'PPS Stückliste Kopfsatz';
-
-comment on column dirkspzm32.pps_stueckliste.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.pps_stueckliste.created_login_id is
-    'login ID of the user creating this dataset';
-
-comment on column dirkspzm32.pps_stueckliste.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.pps_stueckliste.last_change_login_id is
-    'login ID of the user changing this dataset';
-
-comment on column dirkspzm32.pps_stueckliste.sl_alternative is
-    'Vorgang Alternative Leer = Standard';
-
-comment on column dirkspzm32.pps_stueckliste.stueckliste_id is
-    'Eindeutige Sequenz der Stückliste ';
-
-comment on column dirkspzm32.pps_stueckliste.stueckliste_name is
-    'Name für die Stückliste';
-
-comment on column dirkspzm32.pps_stueckliste.text1 is
-    'freie Beschreibung';
-
-comment on column dirkspzm32.pps_stueckliste.text2 is
-    'freie Beschreibung';
-
-comment on column dirkspzm32.pps_stueckliste.text3 is
-    'freie Beschreibung';
+comment on table DIRKSPZM32.PPS_STUECKLISTE is 'PPS Stückliste Kopfsatz';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."CREATED_LOGIN_ID" is 'login ID of the user creating this dataset';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."LAST_CHANGE_LOGIN_ID" is 'login ID of the user changing this dataset';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."SL_ALTERNATIVE" is 'Vorgang Alternative Leer = Standard';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."STUECKLISTE_ID" is 'Eindeutige Sequenz der Stückliste ';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."STUECKLISTE_NAME" is 'Name für die Stückliste';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."TEXT1" is 'freie Beschreibung';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."TEXT2" is 'freie Beschreibung';
+comment on column DIRKSPZM32.PPS_STUECKLISTE."TEXT3" is 'freie Beschreibung';
 
 
--- sqlcl_snapshot {"hash":"f752cc73afc1e7ba4ae0420b78b3cfe03e87b12a","type":"COMMENT","name":"pps_stueckliste","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f2190c7ad578733f1c387dcfd236be22ac59d11c","type":"COMMENT","name":"pps_stueckliste","schemaName":"dirkspzm32","sxml":""}

@@ -1,9 +1,6 @@
-alter table dirkspzm32.rep_security_cfg
-    add constraint fk3_rep_security_cfg
-        foreign key ( rep_id )
-            references dirkspzm32.rep_abfragen ( rep_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."REP_SECURITY_CFG" ADD CONSTRAINT "FK3_REP_SECURITY_CFG" FOREIGN KEY ("REP_ID")
+	  REFERENCES "DIRKSPZM32"."REP_ABFRAGEN" ("REP_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c8776f22218bc69b0ea3aa5158e2c90f891ff44a","type":"REF_CONSTRAINT","name":"FK3_REP_SECURITY_CFG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"52ff149ce019824a2a96e85e82fa19a8451161b4","type":"REF_CONSTRAINT","name":"FK3_REP_SECURITY_CFG","schemaName":"DIRKSPZM32","sxml":""}

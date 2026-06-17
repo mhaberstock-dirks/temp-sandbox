@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_zeiterfassung
-    add constraint fk_ze_korr_pers_nr
-        foreign key ( ze_korr_pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZEITERFASSUNG" ADD CONSTRAINT "FK_ZE_KORR_PERS_NR" FOREIGN KEY ("ZE_KORR_PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"bfe4434eefb21a0249009f10b31fbd9088f42f73","type":"REF_CONSTRAINT","name":"FK_ZE_KORR_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4554dafa1ee018de7858032f5b37385cc987a4be","type":"REF_CONSTRAINT","name":"FK_ZE_KORR_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,12 +1,13 @@
-create table dirkspzm32.pzm_vorgangsqual_einsatz_plan (
-    plan_vorgangsqualifikation varchar2(50 char) not null enable,
-    plan_datum                 date not null enable,
-    plan_schicht               number(*, 0) not null enable,
-    pers_nr                    number(*, 0) not null enable,
-    plan_von_zeit              date,
-    plan_bis_zeit              date,
-    plan_einsatz_wert          number(*, 2) default 1 not null enable
-);
+
+  CREATE TABLE "DIRKSPZM32"."PZM_VORGANGSQUAL_EINSATZ_PLAN" 
+   (	"PLAN_VORGANGSQUALIFIKATION" VARCHAR2(50 CHAR) NOT NULL ENABLE, 
+	"PLAN_DATUM" DATE NOT NULL ENABLE, 
+	"PLAN_SCHICHT" NUMBER(*,0) NOT NULL ENABLE, 
+	"PERS_NR" NUMBER(*,0) NOT NULL ENABLE, 
+	"PLAN_VON_ZEIT" DATE, 
+	"PLAN_BIS_ZEIT" DATE, 
+	"PLAN_EINSATZ_WERT" NUMBER(*,2) DEFAULT 1 NOT NULL ENABLE
+   ) ;
 
 
--- sqlcl_snapshot {"hash":"704345e8e7a151715cd1990cfe410c88cf170691","type":"TABLE","name":"PZM_VORGANGSQUAL_EINSATZ_PLAN","schemaName":"DIRKSPZM32","sxml":"\n  <TABLE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>PZM_VORGANGSQUAL_EINSATZ_PLAN</NAME>\n   <RELATIONAL_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_VORGANGSQUALIFIKATION</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>50</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_DATUM</NAME>\n            <DATATYPE>DATE</DATATYPE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_SCHICHT</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PERS_NR</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_VON_ZEIT</NAME>\n            <DATATYPE>DATE</DATATYPE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_BIS_ZEIT</NAME>\n            <DATATYPE>DATE</DATATYPE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_EINSATZ_WERT</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>2</SCALE>\n            <DEFAULT>1</DEFAULT>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n      <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>\n      <PHYSICAL_PROPERTIES>\n         <HEAP_TABLE></HEAP_TABLE>\n      </PHYSICAL_PROPERTIES>\n   </RELATIONAL_TABLE>\n</TABLE>"}
+-- sqlcl_snapshot {"hash":"43d7cb0320e442f836614022b43e27e3d672d2df","type":"TABLE","name":"PZM_VORGANGSQUAL_EINSATZ_PLAN","schemaName":"DIRKSPZM32","sxml":"\n  <TABLE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>PZM_VORGANGSQUAL_EINSATZ_PLAN</NAME>\n   <RELATIONAL_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_VORGANGSQUALIFIKATION</NAME>\n            <DATATYPE>VARCHAR2</DATATYPE>\n            <LENGTH>50</LENGTH>\n            <CHAR_SEMANTICS></CHAR_SEMANTICS>\n            <COLLATE_NAME>USING_NLS_COMP</COLLATE_NAME>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_DATUM</NAME>\n            <DATATYPE>DATE</DATATYPE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_SCHICHT</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PERS_NR</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>0</SCALE>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_VON_ZEIT</NAME>\n            <DATATYPE>DATE</DATATYPE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_BIS_ZEIT</NAME>\n            <DATATYPE>DATE</DATATYPE>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>PLAN_EINSATZ_WERT</NAME>\n            <DATATYPE>NUMBER</DATATYPE>\n            <SCALE>2</SCALE>\n            <DEFAULT>1</DEFAULT>\n            <NOT_NULL></NOT_NULL>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n      <DEFAULT_COLLATION>USING_NLS_COMP</DEFAULT_COLLATION>\n      <PHYSICAL_PROPERTIES>\n         <HEAP_TABLE></HEAP_TABLE>\n      </PHYSICAL_PROPERTIES>\n   </RELATIONAL_TABLE>\n</TABLE>"}

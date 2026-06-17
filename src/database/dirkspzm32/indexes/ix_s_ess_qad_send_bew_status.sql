@@ -1,7 +1,6 @@
-create index dirkspzm32.ix_s_ess_qad_send_bew_status on
-    dirkspzm32.s_essex_qad_send_bew (
-        status
-    );
+
+  CREATE INDEX "DIRKSPZM32"."IX_S_ESS_QAD_SEND_BEW_STATUS" ON "DIRKSPZM32"."S_ESSEX_QAD_SEND_BEW" ("STATUS") 
+  ;
 
 
--- sqlcl_snapshot {"hash":"8a59c9c59ffc05116e35021564fa5991f88a7f61","type":"INDEX","name":"IX_S_ESS_QAD_SEND_BEW_STATUS","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_S_ESS_QAD_SEND_BEW_STATUS</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>S_ESSEX_QAD_SEND_BEW</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>STATUS</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}
+-- sqlcl_snapshot {"hash":"d0255df5b69ce89c3e0a04e108f0ab84e46db23c","type":"INDEX","name":"IX_S_ESS_QAD_SEND_BEW_STATUS","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_S_ESS_QAD_SEND_BEW_STATUS</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>S_ESSEX_QAD_SEND_BEW</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>STATUS</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}

@@ -1,62 +1,24 @@
-comment on column dirkspzm32.isi_resource_var.artkel_id is
-    'Wenn die Resource im Artkelstamm geführt wird, kann hier eine Referenz hinterlegt werden';
-
-comment on column dirkspzm32.isi_resource_var.datum_bis is
-    'Gültig bis Datum';
-
-comment on column dirkspzm32.isi_resource_var.datum_von is
-    'Gültig ab Datum';
-
-comment on column dirkspzm32.isi_resource_var.firma_nr is
-    'Firmanummer';
-
-comment on column dirkspzm32.isi_resource_var.im_bestand_seit is
-    'Im Bestand seit Datum';
-
-comment on column dirkspzm32.isi_resource_var.inspektion_info is
-    'Kurzbeschreibung der Inspektion dieser Resource';
-
-comment on column dirkspzm32.isi_resource_var.letzte_wartg_am is
-    'Datum der letzten Wartung / Inspektion';
-
-comment on column dirkspzm32.isi_resource_var.letzte_wartg_zykl_ges is
-    'Zyklus-Stand bei der letzten Wartung der Resource';
-
-comment on column dirkspzm32.isi_resource_var.lgr_platz is
-    'Resource befindet sich auf diesem Lagerplatz';
-
-comment on column dirkspzm32.isi_resource_var.menge_in_container is
-    'Anzahl Teile von dieser Rescource in dem Container';
-
-comment on column dirkspzm32.isi_resource_var.res_container is
-    'Ist ein Container für diese Resource';
-
-comment on column dirkspzm32.isi_resource_var.res_id is
-    'Resource ID';
-
-comment on column dirkspzm32.isi_resource_var.sid is
-    'Datenbank für Konsolidierung';
-
-comment on column dirkspzm32.isi_resource_var.status is
-    'Status der Resource';
-
-comment on column dirkspzm32.isi_resource_var.std_prod_ges is
-    'Gesamt Produktionsstunden';
-
-comment on column dirkspzm32.isi_resource_var.std_prod_res is
-    'Produktionsstunden in der akt. Resource';
-
-comment on column dirkspzm32.isi_resource_var.variante is
-    'Variante der Resource';
-
-comment on column dirkspzm32.isi_resource_var.zyklus_typ is
-    'Welche art von Zyklen werden gezählt (Hübe, Meter, Minuten) abh. von Resourcentyp';
-
-comment on column dirkspzm32.isi_resource_var.zyk_prod_ges is
-    'Gesamt Produktionszyklen';
-
-comment on column dirkspzm32.isi_resource_var.zyk_prod_res is
-    'Produktionszyklen in der akt. Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."ARTKEL_ID" is 'Wenn die Resource im Artkelstamm geführt wird, kann hier eine Referenz hinterlegt werden';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."DATUM_BIS" is 'Gültig bis Datum';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."DATUM_VON" is 'Gültig ab Datum';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."FIRMA_NR" is 'Firmanummer';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."IM_BESTAND_SEIT" is 'Im Bestand seit Datum';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."INSPEKTION_INFO" is 'Kurzbeschreibung der Inspektion dieser Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."LETZTE_WARTG_AM" is 'Datum der letzten Wartung / Inspektion';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."LETZTE_WARTG_ZYKL_GES" is 'Zyklus-Stand bei der letzten Wartung der Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."LGR_PLATZ" is 'Resource befindet sich auf diesem Lagerplatz';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."MENGE_IN_CONTAINER" is 'Anzahl Teile von dieser Rescource in dem Container';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."RES_CONTAINER" is 'Ist ein Container für diese Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."RES_ID" is 'Resource ID';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."SID" is 'Datenbank für Konsolidierung';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."STATUS" is 'Status der Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."STD_PROD_GES" is 'Gesamt Produktionsstunden';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."STD_PROD_RES" is 'Produktionsstunden in der akt. Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."VARIANTE" is 'Variante der Resource';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."ZYKLUS_TYP" is 'Welche art von Zyklen werden gezählt (Hübe, Meter, Minuten) abh. von Resourcentyp';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."ZYK_PROD_GES" is 'Gesamt Produktionszyklen';
+comment on column DIRKSPZM32.ISI_RESOURCE_VAR."ZYK_PROD_RES" is 'Produktionszyklen in der akt. Resource';
 
 
--- sqlcl_snapshot {"hash":"1c2201024b3158aa8eda85fe3eb48cb0d45e323d","type":"COMMENT","name":"isi_resource_var","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ef970db741d755760f2c4ee5c7fdac449cf502f3","type":"COMMENT","name":"isi_resource_var","schemaName":"dirkspzm32","sxml":""}

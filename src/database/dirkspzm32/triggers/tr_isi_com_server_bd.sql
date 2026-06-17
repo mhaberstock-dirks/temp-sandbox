@@ -1,23 +1,18 @@
-create or replace editionable trigger dirkspzm32.tr_isi_com_server_bd before
-    delete on dirkspzm32.isi_com_server
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_COM_SERVER_BD" 
+  before delete on DIRKSPZM32.isi_com_server
+  for each row
 declare
   -- local variables here
- begin
-    if :old.com_geraet_name is not null then
-        raise_application_error(-20000,
-                                'Eintrag nicht zu löschen. Eintrag noch noch im '
-                                || :old.com_geraet_typ
-                                || ' '
-                                || :old.com_geraet_name
-                                || ' eingetragen',
-                                true);
+begin
+  if :old.com_geraet_name is not null then
+   RAISE_APPLICATION_ERROR(-20000,'Eintrag nicht zu löschen. Eintrag noch noch im ' || :old.com_geraet_typ || ' ' || :old.com_geraet_name || ' eingetragen', true);
+  end if;
 
-    end if;
-end tr_isi_com_server_bd;
+end TR_ISI_COM_SERVER_BD;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_COM_SERVER_BD" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_com_server_bd enable;
 
-
--- sqlcl_snapshot {"hash":"14e403baf44e786768ae42c936ee7489cf292230","type":"TRIGGER","name":"TR_ISI_COM_SERVER_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"15b69ff91ad28a1b2b070fb908dd44eadc3bc255","type":"TRIGGER","name":"TR_ISI_COM_SERVER_BD","schemaName":"DIRKSPZM32","sxml":""}

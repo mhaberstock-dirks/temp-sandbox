@@ -1,4 +1,5 @@
-create or replace function dirkspzm32.bde_c_barcode_buch
+create or replace 
+function DIRKSPZM32.bde_c_barcode_buch
 /*
   Zu einem Barcode werden Arbeitsgaenge etc. gebucht.
   Die Funktion fuehrt ein Commit durch
@@ -20,8 +21,8 @@ create or replace function dirkspzm32.bde_c_barcode_buch
   @param out_fa_ag
   @param out_fa_upos
   @return 0 Im Fehlerfall
-*/ (
-    in_sid             in isi_sid.sid%type,
+*/
+(   in_sid             in isi_sid.sid%type,
     in_firma_nr        in isi_firma.firma_nr%type,
     in_barcode         in lvs_lte.lte_id%type,
     in_res_id          in isi_resource.res_id%type,
@@ -35,17 +36,31 @@ create or replace function dirkspzm32.bde_c_barcode_buch
     out_leitzahl       out bde_fa_auftrag.leitzahl%type,
     out_fa_ag          out bde_fa_auftrag.fa_ag%type,
     out_fa_upos        out bde_fa_auftrag.fa_upos%type
-) return number is
-    v_result number;
-begin
-    v_result := bde_barcode_buch(in_sid, in_firma_nr, in_barcode, in_res_id, in_ls_login_id,
-                                 in_menge_a, in_menge_b, in_schrott, in_aufgabe, in_fae_id,
-                                 in_fae_id_position, out_leitzahl, out_fa_ag, out_fa_upos);
+)
+return number is
 
-    commit;
-    return ( v_result );
+  v_result  number;
+
+begin
+  v_result := bde_barcode_buch(in_sid,
+                               in_firma_nr,
+                               in_barcode,
+                               in_res_id,
+                               in_ls_login_id,
+                               in_menge_a,
+                               in_menge_b,
+                               in_schrott,
+                               in_aufgabe,
+                               in_fae_id,
+                               in_fae_id_position,
+                               out_leitzahl,
+                               out_fa_ag,
+                               out_fa_upos);
+  commit;
+  return(v_result);
 end bde_c_barcode_buch;
 /
 
 
--- sqlcl_snapshot {"hash":"dcd8b8fb77b496b13d1fe33c1bdb9fa0df7921c0","type":"FUNCTION","name":"BDE_C_BARCODE_BUCH","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"4535a719e8e3e039bdca1ef62e8f8e37fd922ca3","type":"FUNCTION","name":"BDE_C_BARCODE_BUCH","schemaName":"DIRKSPZM32","sxml":""}

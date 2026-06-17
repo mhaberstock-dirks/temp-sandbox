@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_ze_loa_ausw
-    add constraint fk_zeaw_lz_id
-        foreign key ( zeaw_lz_id )
-            references dirkspzm32.pzm_lohnarten ( lz_id )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZE_LOA_AUSW" ADD CONSTRAINT "FK_ZEAW_LZ_ID" FOREIGN KEY ("ZEAW_LZ_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_LOHNARTEN" ("LZ_ID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"2588cfe5a3378475d399f1c17839d11e01d70ccc","type":"REF_CONSTRAINT","name":"FK_ZEAW_LZ_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6b6daaf35f637924cfd6da0034ee4c99040180b4","type":"REF_CONSTRAINT","name":"FK_ZEAW_LZ_ID","schemaName":"DIRKSPZM32","sxml":""}

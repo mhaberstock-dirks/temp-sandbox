@@ -1,29 +1,13 @@
-comment on table dirkspzm32.isi_security_cfg is
-    'Stell Benutzergruppen bezogene Konfigurationen zur Verfügung';
-
-comment on column dirkspzm32.isi_security_cfg.group_id is
-    'Die Sicherheitsgruppe, für die dieser Parameter gilt';
-
-comment on column dirkspzm32.isi_security_cfg.kategorie is
-    'Worum geht es';
-
-comment on column dirkspzm32.isi_security_cfg.kategorie_ix is
-    'Kategorie IX z.b Schnittstelle Nr 1 ..n';
-
-comment on column dirkspzm32.isi_security_cfg.module_name is
-    'Für welches Modul gilt der Parameter: LVS,Order,... ISI = Allgemein';
-
-comment on column dirkspzm32.isi_security_cfg.parameter_name is
-    'z.B. Baudrate';
-
-comment on column dirkspzm32.isi_security_cfg.parameter_typ is
-    'STRING ,INTEGER, BOOLEAN';
-
-comment on column dirkspzm32.isi_security_cfg.parameter_wert is
-    'z.B. 9600';
-
-comment on column dirkspzm32.isi_security_cfg.security_cfg_id is
-    'Eindeutige Nummer';
+comment on table DIRKSPZM32.ISI_SECURITY_CFG is 'Stell Benutzergruppen bezogene Konfigurationen zur Verfügung';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."GROUP_ID" is 'Die Sicherheitsgruppe, für die dieser Parameter gilt';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."KATEGORIE" is 'Worum geht es';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."KATEGORIE_IX" is 'Kategorie IX z.b Schnittstelle Nr 1 ..n';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."MODULE_NAME" is 'Für welches Modul gilt der Parameter: LVS,Order,... ISI = Allgemein';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."PARAMETER_NAME" is 'z.B. Baudrate';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."PARAMETER_TYP" is 'STRING ,INTEGER, BOOLEAN';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."PARAMETER_WERT" is 'z.B. 9600';
+comment on column DIRKSPZM32.ISI_SECURITY_CFG."SECURITY_CFG_ID" is 'Eindeutige Nummer';
 
 
--- sqlcl_snapshot {"hash":"7ddc8203c7d58319f00deed74564a3656dea78a5","type":"COMMENT","name":"isi_security_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"b82ee370d1d445d76db3e99b5179c12294454187","type":"COMMENT","name":"isi_security_cfg","schemaName":"dirkspzm32","sxml":""}

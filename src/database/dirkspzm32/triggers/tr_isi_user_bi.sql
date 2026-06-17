@@ -1,52 +1,46 @@
-create or replace editionable trigger dirkspzm32.tr_isi_user_bi before
-    insert on dirkspzm32.isi_user
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_USER_BI" 
+  before insert on DIRKSPZM32.isi_user
+  for each row
 declare
   -- local variables here
-    v_group_id sec_groups.group_id%type;
-    cursor c_groups is
-    select
-        group_id
-    from
-        sec_groups
-    where
-            default_group = 'T'
-        and sid = :new.sid;
+  v_group_id sec_groups.group_id%TYPE;
 
+  CURSOR c_groups IS
+    SELECT group_id
+      FROM sec_groups
+     WHERE default_group = 'T'
+           AND sid = :new.sid;
 begin
-    if :new.sid is null then
-        :new.sid := '01';
-    end if;
+  if :new.sid is NULL then
+    :new.sid := '01';
+  end if;
 
-    if :new.firma_nr is null then
-        :new.firma_nr := 1;
-    end if;
+  if :new.firma_nr is NULL then
+    :new.firma_nr := 1;
+  end if;
 
-    if :new.login_id is null then
-        select
-            seq_login_id.nextval
-        into :new.login_id
-        from
-            dual;
+  if :new.login_id is NULL then
+    SELECT seq_login_id.nextval INTO :new.login_id FROM dual;
+  end if;
 
-    end if;
+  OPEN c_groups;
 
-    open c_groups;
-    loop
-        fetch c_groups into v_group_id;
-        exit when c_groups%notfound;
-        insert into sec_user_groups values ( :new.sid,
-                                             :new.login_id,
-                                             v_group_id,
-                                             :new.firma_nr );
+  loop
+    FETCH c_groups INTO v_group_id;
+    EXIT WHEN c_groups%NOTFOUND;
+    INSERT INTO sec_user_groups VALUES (
+                :new.sid,
+                :new.login_id,
+                v_group_id,
+                :new.firma_nr);
+  end loop;
+  CLOSE c_groups;
 
-    end loop;
+end TR_ISI_USER_BI;
 
-    close c_groups;
-end tr_isi_user_bi;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_USER_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_user_bi enable;
 
-
--- sqlcl_snapshot {"hash":"4fe6c6b8ada2b658df85cb391a9fcaca937f4c83","type":"TRIGGER","name":"TR_ISI_USER_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1e6aad945fec767f0149bfd97061d0c8ea757231","type":"TRIGGER","name":"TR_ISI_USER_BI","schemaName":"DIRKSPZM32","sxml":""}

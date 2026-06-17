@@ -1,8 +1,6 @@
-create index dirkspzm32.ix_lam_bh_artikel_buch_dat on
-    dirkspzm32.lvs_lam_bh_hist (
-        artikel_id,
-        buch_datum
-    );
+
+  CREATE INDEX "DIRKSPZM32"."IX_LAM_BH_ARTIKEL_BUCH_DAT" ON "DIRKSPZM32"."LVS_LAM_BH_HIST" ("ARTIKEL_ID", "BUCH_DATUM") 
+  ;
 
 
--- sqlcl_snapshot {"hash":"a6d6001e732ab47dd1b8a754f0ea1387aa0ccde9","type":"INDEX","name":"IX_LAM_BH_ARTIKEL_BUCH_DAT","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_LAM_BH_ARTIKEL_BUCH_DAT</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>LVS_LAM_BH_HIST</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_ID</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>BUCH_DATUM</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}
+-- sqlcl_snapshot {"hash":"3868a58df86419cc12cd0e00a69c8aaf0eba5bb2","type":"INDEX","name":"IX_LAM_BH_ARTIKEL_BUCH_DAT","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_LAM_BH_ARTIKEL_BUCH_DAT</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>LVS_LAM_BH_HIST</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_ID</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>BUCH_DATUM</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}

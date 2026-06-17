@@ -1,9 +1,6 @@
-create index dirkspzm32.ix_lvs_artikel_status_ix1 on
-    dirkspzm32.lvs_artikel_status (
-        letzte_inventur_datum,
-        artikel_id,
-        artikel_status_id
-    );
+
+  CREATE INDEX "DIRKSPZM32"."IX_LVS_ARTIKEL_STATUS_IX1" ON "DIRKSPZM32"."LVS_ARTIKEL_STATUS" ("LETZTE_INVENTUR_DATUM", "ARTIKEL_ID", "ARTIKEL_STATUS_ID") 
+  ;
 
 
--- sqlcl_snapshot {"hash":"275ee52b5f45fe73ab3d3d48ec0c52979d7f2e0c","type":"INDEX","name":"IX_LVS_ARTIKEL_STATUS_IX1","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_LVS_ARTIKEL_STATUS_IX1</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>LVS_ARTIKEL_STATUS</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>LETZTE_INVENTUR_DATUM</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_ID</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_STATUS_ID</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}
+-- sqlcl_snapshot {"hash":"c19bc7db6668fd1fa61d12297004f45e2d1e8cc3","type":"INDEX","name":"IX_LVS_ARTIKEL_STATUS_IX1","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_LVS_ARTIKEL_STATUS_IX1</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>LVS_ARTIKEL_STATUS</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>LETZTE_INVENTUR_DATUM</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_ID</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>ARTIKEL_STATUS_ID</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}

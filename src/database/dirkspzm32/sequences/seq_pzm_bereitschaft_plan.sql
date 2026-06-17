@@ -1,5 +1,5 @@
-create sequence dirkspzm32.seq_pzm_bereitschaft_plan minvalue 0 maxvalue 99999999999999 increment by 1 /* start with n */ nocache noorder
-nocycle nokeep noscale global;
+
+   CREATE SEQUENCE  "DIRKSPZM32"."SEQ_PZM_BEREITSCHAFT_PLAN"  MINVALUE 0 MAXVALUE 99999999999999 INCREMENT BY 1 /* start with n */ NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 
--- sqlcl_snapshot {"hash":"9f78d0e3f2ab0022d039bf5abcbb66ff6ee37a44","type":"SEQUENCE","name":"SEQ_PZM_BEREITSCHAFT_PLAN","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_PZM_BEREITSCHAFT_PLAN</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}
+-- sqlcl_snapshot {"hash":"af597b3d8316d570b118e8d8e40423b17abd8712","type":"SEQUENCE","name":"SEQ_PZM_BEREITSCHAFT_PLAN","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_PZM_BEREITSCHAFT_PLAN</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}

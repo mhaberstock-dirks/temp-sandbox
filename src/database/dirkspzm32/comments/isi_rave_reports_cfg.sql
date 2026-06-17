@@ -1,5 +1,5 @@
-comment on column dirkspzm32.isi_rave_reports_cfg.datenquelle is
-    'K = Keine; PA = Params; DV = DataView';
+comment on column DIRKSPZM32.ISI_RAVE_REPORTS_CFG."DATENQUELLE" is 'K = Keine; PA = Params; DV = DataView';
 
 
--- sqlcl_snapshot {"hash":"9704a555f5abb66ed84447048581064f49245fc6","type":"COMMENT","name":"isi_rave_reports_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"0fdf1e9409645f2cfbaf665b820a58362dd15fe2","type":"COMMENT","name":"isi_rave_reports_cfg","schemaName":"dirkspzm32","sxml":""}

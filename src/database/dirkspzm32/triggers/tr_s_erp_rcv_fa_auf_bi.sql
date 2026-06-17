@@ -1,14 +1,15 @@
-create or replace editionable trigger dirkspzm32.tr_s_erp_rcv_fa_auf_bi before
-    insert on dirkspzm32.s_erp_rcv_fa_auf
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_FA_AUF_BI" 
+  before insert on DIRKSPZM32.S_ERP_RCV_FA_AUF  
+  for each row
 declare
   -- local variables here
- begin
-    :new.tsc := sysdate;
-end tr_s_erp_rcv_fa_auf_bi;
+begin
+  :new.tsc := sysdate;
+end tr_s_ERP_rcv_fa_auf_bi;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_FA_AUF_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_s_erp_rcv_fa_auf_bi enable;
 
-
--- sqlcl_snapshot {"hash":"22b880263e2db3e5b78ba46ef93f129b507632e2","type":"TRIGGER","name":"TR_S_ERP_RCV_FA_AUF_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"344cdfc87492439583e1a60a9891c0a1da9cd32a","type":"TRIGGER","name":"TR_S_ERP_RCV_FA_AUF_BI","schemaName":"DIRKSPZM32","sxml":""}

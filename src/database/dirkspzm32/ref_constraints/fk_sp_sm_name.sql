@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_schicht_perioden
-    add constraint fk_sp_sm_name
-        foreign key ( sp_sm_name )
-            references dirkspzm32.pzm_schicht_modelle ( sm_name )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_SCHICHT_PERIODEN" ADD CONSTRAINT "FK_SP_SM_NAME" FOREIGN KEY ("SP_SM_NAME")
+	  REFERENCES "DIRKSPZM32"."PZM_SCHICHT_MODELLE" ("SM_NAME") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"dee8124ffd4e999b1a869b4097f4a00d85b02f57","type":"REF_CONSTRAINT","name":"FK_SP_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"617e92fad8ed46dabeed9a36099cc911d08685e8","type":"REF_CONSTRAINT","name":"FK_SP_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}

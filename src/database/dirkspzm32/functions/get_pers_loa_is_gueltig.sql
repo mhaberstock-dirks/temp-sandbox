@@ -2,10 +2,11 @@ create or replace function dirkspzm32.get_pers_loa_is_gueltig (
     in_pers_nr     in pzm_personal.pers_nr%type,
     in_lz_id       in pzm_lohnarten.lz_id%type,
     in_sa_kurzname in pzm_schichtarten.sa_kurzname%type
-) return boolean is
+) return number is
 
     v_gueltig        boolean;
     v_gueltigx       boolean;
+    v_gueltig_ret    number;
     v_tarif_name     pzm_tarifmodelle.tarif_name%type;
     v_kst_id         pzm_personal.pers_kst_id%type;
     v_pzm_lz_tarif   pzm_lz_tarifmodelle%rowtype;
@@ -216,9 +217,14 @@ begin
 
     end if;
 
-    return v_gueltig;
+    if v_gueltig then
+        v_gueltig_ret := 1;
+    else
+        v_gueltig_ret := 0;
+    end if;
+    return v_gueltig_ret;
 end get_pers_loa_is_gueltig;
 /
 
 
--- sqlcl_snapshot {"hash":"a0ae211bf44673672ee6d3886191f53d7853bcd6","type":"FUNCTION","name":"GET_PERS_LOA_IS_GUELTIG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"66f7bc6ac50c3685de6793b1ceac04c45d7d8ee1","type":"FUNCTION","name":"GET_PERS_LOA_IS_GUELTIG","schemaName":"DIRKSPZM32","sxml":""}

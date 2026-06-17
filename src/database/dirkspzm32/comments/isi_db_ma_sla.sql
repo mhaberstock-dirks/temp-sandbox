@@ -1,8 +1,6 @@
-comment on column dirkspzm32.isi_db_ma_sla.db_funktion is
-    'MASTER SLAVE';
-
-comment on column dirkspzm32.isi_db_ma_sla.db_last_change is
-    'Uhrzeit der letzten Änderung';
+comment on column DIRKSPZM32.ISI_DB_MA_SLA."DB_FUNKTION" is 'MASTER SLAVE';
+comment on column DIRKSPZM32.ISI_DB_MA_SLA."DB_LAST_CHANGE" is 'Uhrzeit der letzten Änderung';
 
 
--- sqlcl_snapshot {"hash":"908cb829f6fa65a24b8681180fbd8ae5615fc67b","type":"COMMENT","name":"isi_db_ma_sla","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"26e855d8c29d85f2bc7126fac24ae632018f77dc","type":"COMMENT","name":"isi_db_ma_sla","schemaName":"dirkspzm32","sxml":""}

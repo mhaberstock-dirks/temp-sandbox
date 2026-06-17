@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_ze_azk_urlaub
-    add constraint fk_pzm_ze_azk_urlaub_kst
-        foreign key ( pers_kst_id )
-            references dirkspzm32.isi_kostenstellen ( kst_nr )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_ZE_AZK_URLAUB" ADD CONSTRAINT "FK_PZM_ZE_AZK_URLAUB_KST" FOREIGN KEY ("PERS_KST_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_KOSTENSTELLEN" ("KST_NR") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"ec1a55a26d551e4362cfe697b5bcf9e113078647","type":"REF_CONSTRAINT","name":"FK_PZM_ZE_AZK_URLAUB_KST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"eb9345ed5e4749dd9dce1c7bab3e132860030318","type":"REF_CONSTRAINT","name":"FK_PZM_ZE_AZK_URLAUB_KST","schemaName":"DIRKSPZM32","sxml":""}

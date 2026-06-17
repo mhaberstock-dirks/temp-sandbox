@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_personal
-    add constraint fk_pers_tarif_name
-        foreign key ( tarif_name )
-            references dirkspzm32.pzm_tarifmodelle ( tarif_name )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PERSONAL" ADD CONSTRAINT "FK_PERS_TARIF_NAME" FOREIGN KEY ("TARIF_NAME")
+	  REFERENCES "DIRKSPZM32"."PZM_TARIFMODELLE" ("TARIF_NAME") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1e88d938ad99d5291eef1e6667c51f0fefa67cf8","type":"REF_CONSTRAINT","name":"FK_PERS_TARIF_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"82c071a6482aa9ee4e7eadb1e1a398c486200f4e","type":"REF_CONSTRAINT","name":"FK_PERS_TARIF_NAME","schemaName":"DIRKSPZM32","sxml":""}

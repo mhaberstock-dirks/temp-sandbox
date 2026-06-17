@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.reports is
+create or replace 
+package DIRKSPZM32.REPORTS is
 
   /*
   __________________________________________________
@@ -15,8 +16,8 @@ create or replace package dirkspzm32.reports is
   27.11.2009   3.5.0.1     (-BW-)   Minor Release
   */
 
-    v_version_str constant varchar2(20) := '3.5.0.1 / 27.11.2009';
-    function get_version return varchar2;
+  v_version_str    constant  varchar2(20) := '3.5.0.1 / 27.11.2009';
+  function get_version return varchar2;
   /*
 	*  Versionsverlauf
 	*     Date         Ver.     Comment
@@ -34,73 +35,59 @@ create or replace package dirkspzm32.reports is
   */
 
  -- (-TS-) obsolete: replaced by SET_REP_USER_TOP_PARAMS
-    procedure c_abfrage_ausgefuehrt (
-        in_sid      in isi_user.sid%type,
-        in_firma_nr in isi_user.firma_nr%type,
-        in_login_id in isi_user.login_id%type,
-        in_rep_id   in rep_abfragen.rep_id%type
-    );
+  procedure C_ABFRAGE_AUSGEFUEHRT(in_sid in isi_user.sid%TYPE,
+                                  in_firma_nr in isi_user.firma_nr%TYPE,
+                                  in_login_id in isi_user.login_id%TYPE,
+                                  in_rep_id in rep_abfragen.rep_id%TYPE);
 
   -- (-TS-) new: SET_REP_USER_TOP_PARAMS (Reportlaufzeit, benutzte Parameter, Ausführungszeitpunkt) TS20061108
-    procedure c_set_rep_user_top_params (
-        in_sid              in isi_user.sid%type,
-        in_firma_nr         in isi_user.firma_nr%type,
-        in_login_id         in isi_user.login_id%type,
-        in_rep_id           in rep_abfragen.rep_id%type,
-        in_exec_ms_last     in integer,
-        in_exec_params_last in clob
-    );
+  procedure C_SET_REP_USER_TOP_PARAMS(in_sid in isi_user.sid%TYPE,
+                                      in_firma_nr in isi_user.firma_nr%TYPE,
+                                      in_login_id in isi_user.login_id%TYPE,
+                                      in_rep_id in rep_abfragen.rep_id%TYPE,
+                                      in_exec_ms_last in integer,
+                                      in_exec_params_last in clob);
 
   -- (-TS-) new: GET_REP_USER_TOP_PARAMS (Reportlaufzeit, benutzte Parameter, Ausführungszeitpunkt) TS20061109
-    procedure get_rep_user_top_params (
-        in_sid               in isi_user.sid%type,
-        in_firma_nr          in isi_user.firma_nr%type,
-        in_login_id          in isi_user.login_id%type,
-        in_rep_id            in rep_abfragen.rep_id%type,
-        out_counter          out integer,
-        out_exec_ms_min      out integer,
-        out_exec_ms_max      out integer,
-        out_exec_ms_last     out integer,
-        out_exec_date_min    out date,
-        out_exec_date_max    out date,
-        out_exec_date_last   out date,
-        out_exec_params_min  out clob,
-        out_exec_params_max  out clob,
-        out_exec_params_last out clob
-    );
+  procedure GET_REP_USER_TOP_PARAMS(in_sid in isi_user.sid%TYPE,
+                                  in_firma_nr in isi_user.firma_nr%TYPE,
+                                  in_login_id in isi_user.login_id%TYPE,
+                                  in_rep_id in rep_abfragen.rep_id%TYPE,
+                                  out_counter out integer,
+                                  out_exec_ms_min out integer,
+                                  out_exec_ms_max out integer,
+                                  out_exec_ms_last out integer,
+                                  out_exec_date_min out date,
+                                  out_exec_date_max out date,
+                                  out_exec_date_last out date,
+                                  out_exec_params_min out clob,
+                                  out_exec_params_max out clob,
+                                  out_exec_params_last out clob);
 
-    procedure get_report_gruppen (
-        in_sid                in isi_sid.sid%type,
-        in_firma_nr           in isi_firma.firma_nr%type,
-        in_isi_module_cs      in varchar2,
-        in_security_level     in integer,
-        out_report_gruppen_cs out varchar2
-    );
 
-    procedure get_report_liste (
-        out_report_liste out clob
-    );
 
-    procedure get_report_liste (
-        in_gruppe        in varchar2,
-        out_report_liste out clob
-    );
+  procedure GET_REPORT_GRUPPEN(in_sid in isi_sid.sid%TYPE,
+                               in_firma_nr in isi_firma.firma_nr%TYPE,
+                               in_isi_module_cs in varchar2,
+                               in_security_level in integer,
+                               out_report_gruppen_cs out varchar2);
 
-    procedure execute_report (
-        in_report_id         in rep_abfragen.rep_id%type,
-        in_report_parameters in varchar2,
-        out_result           out clob
-    );
+  procedure GET_REPORT_LISTE(out_report_liste out clob);
 
-    function get_report_data (
-        in_report_name           in varchar2,
-        in_report_gruppe         in varchar2,
-        out_abfrage_daten        out rep_abfragen%rowtype,
-        out_abfrage_parameter_cs out varchar2
-    ) return boolean;
+  procedure GET_REPORT_LISTE(in_gruppe in varchar2,
+                             out_report_liste out clob);
 
-end reports;
+  procedure EXECUTE_REPORT(in_report_id in rep_abfragen.rep_id%TYPE,
+                           in_report_parameters in varchar2,
+                           out_result out clob);
+
+  function GET_REPORT_DATA(in_report_name in varchar2,
+                           in_report_gruppe in varchar2,
+                           out_abfrage_daten out rep_abfragen%rowtype,
+                           out_abfrage_parameter_cs out varchar2) return boolean;
+end REPORTS;
 /
 
 
--- sqlcl_snapshot {"hash":"15ce40da575ccee10776d95ac987b197799e5aa1","type":"PACKAGE_SPEC","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"006126c00e7d3d45dddd3e12210ef668117086e8","type":"PACKAGE_SPEC","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}

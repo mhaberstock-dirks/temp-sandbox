@@ -1,53 +1,21 @@
-comment on column dirkspzm32.pps_plan_auftrag_stl.artikel_id is
-    'Artikel ID für die Stücklistenposition';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.created_login_id is
-    'login ID of the user creating this dataset';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.firma_nr is
-    'Firma Nr.';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.last_change_login_id is
-    'login ID of the user changing this dataset';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.menge is
-    'Menge für diesen Auftrag';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.menge_einheit is
-    'Mengeneinheit (Wenn NULL dann aus dem Artikel)';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.plan_auf_id is
-    'PLan_AUF_ID aus PPS_PLAN_AUFTRAG (FA-Auftrag)';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.plan_auf_stl_id is
-    'Eindeutige Nummer der Stücklistenposition (PLAN_AUF_ID * xx + POS_NR)';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.pos_nr is
-    'Stücklistenposition';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.prod_menge_p_einheit is
-    'Menge je Einheit als Abs. Multiplikator oder Divisor. Bedarfsmenge zum AG';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.prod_menge_p_einheit_op is
-    '''ABS'' = Absolute -> Immer genau diese Menge ''MUL'' = Multiplizieren, ''DIV'' = Dividieren';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.prod_params is
-    'Produktionsparameter für diese Stücklistenposition für diesen Auftrag';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.sid is
-    'SID';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.zeichnung is
-    'Zeichnungsnummer für diesen Auftrag';
-
-comment on column dirkspzm32.pps_plan_auftrag_stl.zeichnung_index is
-    'Zeichnungsindex für diesen Auftrag';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."ARTIKEL_ID" is 'Artikel ID für die Stücklistenposition';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."CREATED_LOGIN_ID" is 'login ID of the user creating this dataset';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."FIRMA_NR" is 'Firma Nr.';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."LAST_CHANGE_LOGIN_ID" is 'login ID of the user changing this dataset';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."MENGE" is 'Menge für diesen Auftrag';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."MENGE_EINHEIT" is 'Mengeneinheit (Wenn NULL dann aus dem Artikel)';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."PLAN_AUF_ID" is 'PLan_AUF_ID aus PPS_PLAN_AUFTRAG (FA-Auftrag)';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."PLAN_AUF_STL_ID" is 'Eindeutige Nummer der Stücklistenposition (PLAN_AUF_ID * xx + POS_NR)';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."POS_NR" is 'Stücklistenposition';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."PROD_MENGE_P_EINHEIT" is 'Menge je Einheit als Abs. Multiplikator oder Divisor. Bedarfsmenge zum AG';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."PROD_MENGE_P_EINHEIT_OP" is '''ABS'' = Absolute -> Immer genau diese Menge ''MUL'' = Multiplizieren, ''DIV'' = Dividieren';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."PROD_PARAMS" is 'Produktionsparameter für diese Stücklistenposition für diesen Auftrag';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."SID" is 'SID';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."ZEICHNUNG" is 'Zeichnungsnummer für diesen Auftrag';
+comment on column DIRKSPZM32.PPS_PLAN_AUFTRAG_STL."ZEICHNUNG_INDEX" is 'Zeichnungsindex für diesen Auftrag';
 
 
--- sqlcl_snapshot {"hash":"e8ccb92f3da7dbfe70d314acbd790dc620bff1f9","type":"COMMENT","name":"pps_plan_auftrag_stl","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"865926e907766b3ea072625816a8ee09d62fc5bc","type":"COMMENT","name":"pps_plan_auftrag_stl","schemaName":"dirkspzm32","sxml":""}

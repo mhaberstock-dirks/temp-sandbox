@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_personal
-    add constraint fk_pers_pb_id
-        foreign key ( pers_pb_id )
-            references dirkspzm32.pzm_produktionsbereiche ( pb_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_PERSONAL" ADD CONSTRAINT "FK_PERS_PB_ID" FOREIGN KEY ("PERS_PB_ID")
+	  REFERENCES "DIRKSPZM32"."PZM_PRODUKTIONSBEREICHE" ("PB_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4efecc40aa013189d205caadc5128fc0b7805e4e","type":"REF_CONSTRAINT","name":"FK_PERS_PB_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dc2df1e4f95c25e46906d8bb054ee330b27b33bc","type":"REF_CONSTRAINT","name":"FK_PERS_PB_ID","schemaName":"DIRKSPZM32","sxml":""}

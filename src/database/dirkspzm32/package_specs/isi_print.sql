@@ -1,4 +1,5 @@
-create or replace package dirkspzm32.isi_print is
+create or replace 
+package DIRKSPZM32.ISI_PRINT is
 
   /*
   __________________________________________________
@@ -16,10 +17,11 @@ create or replace package dirkspzm32.isi_print is
   27.11.2009   3.5.0.1     (-BW-)   Minor Release
   */
 
-    type t_hag_ausg_zeile is
-        table of varchar2(100) index by binary_integer;
-    v_hag_ausg_zeile t_hag_ausg_zeile;
-    v_hag_ausg_zeile_empty t_hag_ausg_zeile;
+  type t_hag_ausg_zeile is table of varchar2(100)
+      index by binary_integer;
+
+  v_hag_ausg_zeile                 t_hag_ausg_zeile;
+  v_hag_ausg_zeile_empty           t_hag_ausg_zeile;
 
   -- Public type declarations
   --type <TypeName> is <Datatype>;
@@ -31,40 +33,35 @@ create or replace package dirkspzm32.isi_print is
   --<VariableName> <Datatype>;
 
   -- Public function and procedure declarations
-    function vda_etikett (
-        in_sid       in isi_sid.sid%type,
-        in_firma_nr  in isi_firma.firma_nr%type,
-        in_id        in lvs_lte.lte_id%type,
-        in_waren_typ in lvs_lte.waren_typ%type
-    ) return varchar2;
+  function vda_etikett(in_sid         in isi_sid.sid%type,
+                       in_firma_nr    in isi_firma.firma_nr%type,
+                       in_id          in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type)
+                        return varchar2;
 
-    function ccg_etikett (
-        in_lte_id    in lvs_lte.lte_id%type,
-        in_waren_typ in lvs_lte.waren_typ%type
-    ) return varchar2;
 
-    function std_etikett (
-        in_sid                 in isi_sid.sid%type,
-        in_firma_nr            in isi_firma.firma_nr%type,
-        in_id                  in lvs_lte.lte_id%type,
-        in_waren_typ           in lvs_lte.waren_typ%type,
-        in_format_spez_barcode in isi_adressen.lte_etiketten_spez_barcode%type
-    ) return varchar2;
+  function ccg_etikett(in_lte_id      in lvs_lte.lte_id%type,
+                       in_waren_typ   in lvs_lte.waren_typ%type)
+                                      return varchar2;
 
-    procedure c_test_etikett (
-        in_sid      in isi_sid.sid%type,
-        in_firma_nr in isi_firma.firma_nr%type,
-        in_drucker  in pe_drucker_cfg.drucker_name%type
-    );
+  function std_etikett(in_sid                 in isi_sid.sid%type,
+                       in_firma_nr            in isi_firma.firma_nr%type,
+                       in_id                  in lvs_lte.lte_id%type,
+                       in_waren_typ           in lvs_lte.waren_typ%type,
+                       in_format_spez_barcode in isi_adressen.lte_etiketten_spez_barcode%type)
+                       return varchar2;
 
-    function format_artikel (
-        in_sid      in isi_sid.sid%type,
-        in_firma_nr in isi_firma.firma_nr%type,
-        in_str      in varchar2
-    ) return varchar2;
+  procedure c_test_etikett(in_sid                 in isi_sid.sid%type,
+                           in_firma_nr            in isi_firma.firma_nr%type,
+                           in_drucker in pe_drucker_cfg.drucker_name%type);
+
+  function FORMAT_ARTIKEL(in_sid      in isi_sid.sid%type,
+                          in_firma_nr in isi_firma.firma_nr%type,
+                          in_str      in varchar2) return varchar2;
 
 end isi_print;
 /
 
 
--- sqlcl_snapshot {"hash":"89e55adce6581c0a4cac2b9cc61d8b394acc5897","type":"PACKAGE_SPEC","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"506566367f3a3099304db66bdb6abde1759a54ca","type":"PACKAGE_SPEC","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}

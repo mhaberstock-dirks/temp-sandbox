@@ -1,62 +1,24 @@
-comment on table dirkspzm32.pzm_konten_bh is
-    'Buchungshistorie der PZM Konten';
-
-comment on column dirkspzm32.pzm_konten_bh.abt_id is
-    'ID der Abteilung';
-
-comment on column dirkspzm32.pzm_konten_bh.buch_datum is
-    'Datum der Buchung';
-
-comment on column dirkspzm32.pzm_konten_bh.bus is
-    'Buchungsschlüssel (1 = Zugang [haben], 2 = Abgang [soll], 3 = Zugang storniert, 4 = Abgang storniert)';
-
-comment on column dirkspzm32.pzm_konten_bh.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_konten_bh.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_konten_bh.created_user is
-    'User - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_konten_bh.einheit is
-    'Einheit der Buchung (HH24 =Stunden , DD= Tage)';
-
-comment on column dirkspzm32.pzm_konten_bh.firma_nr is
-    'Firmennummer standortsbezogen z.B. Standort1 = 1, Standort2 = 2 (Primary-Key)';
-
-comment on column dirkspzm32.pzm_konten_bh.info is
-    'Infotext';
-
-comment on column dirkspzm32.pzm_konten_bh.konten_bh_id is
-    'Buchungs-ID';
-
-comment on column dirkspzm32.pzm_konten_bh.konto_nr is
-    'Kontonummer für künftige Referenzen (Primary-Key)';
-
-comment on column dirkspzm32.pzm_konten_bh.kst_id is
-    'Kostenstelle';
-
-comment on column dirkspzm32.pzm_konten_bh.pers_nr is
-    'Personal-ID (PZM_PERSONAL !!! Nicht als Foreign-Key definiert !!!)';
-
-comment on column dirkspzm32.pzm_konten_bh.sid is
-    'ID (Primary-Key)';
-
-comment on column dirkspzm32.pzm_konten_bh.storno_konten_bh_id is
-    'Buchungs ID, die Storniert wurde';
-
-comment on column dirkspzm32.pzm_konten_bh.typ is
-    'B = normale Buchung, S = Stornobuchung (Buchung rückgängig), G = manuelle Gutschrift, K = Korrektur';
-
-comment on column dirkspzm32.pzm_konten_bh.wert is
-    'Wert dessen Einheit sich auf EINHEIT bezieht';
-
-comment on column dirkspzm32.pzm_konten_bh.zk_aa_id is
-    'Abwesenheitsart-ID (PZM_ABWESENHEITSARTEN !!! Nicht als Foreign-Key definiert !!!)';
-
-comment on column dirkspzm32.pzm_konten_bh.zk_start is
-    'Start der Abwesenheit im Bezug auf die Abwesenheitsart';
+comment on table DIRKSPZM32.PZM_KONTEN_BH is 'Buchungshistorie der PZM Konten';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."ABT_ID" is 'ID der Abteilung';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."BUCH_DATUM" is 'Datum der Buchung';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."BUS" is 'Buchungsschlüssel (1 = Zugang [haben], 2 = Abgang [soll], 3 = Zugang storniert, 4 = Abgang storniert)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."CREATED_USER" is 'User - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."EINHEIT" is 'Einheit der Buchung (HH24 =Stunden , DD= Tage)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."FIRMA_NR" is 'Firmennummer standortsbezogen z.B. Standort1 = 1, Standort2 = 2 (Primary-Key)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."INFO" is 'Infotext';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."KONTEN_BH_ID" is 'Buchungs-ID';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."KONTO_NR" is 'Kontonummer für künftige Referenzen (Primary-Key)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."KST_ID" is 'Kostenstelle';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."PERS_NR" is 'Personal-ID (PZM_PERSONAL !!! Nicht als Foreign-Key definiert !!!)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."SID" is 'ID (Primary-Key)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."STORNO_KONTEN_BH_ID" is 'Buchungs ID, die Storniert wurde';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."TYP" is 'B = normale Buchung, S = Stornobuchung (Buchung rückgängig), G = manuelle Gutschrift, K = Korrektur';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."WERT" is 'Wert dessen Einheit sich auf EINHEIT bezieht';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."ZK_AA_ID" is 'Abwesenheitsart-ID (PZM_ABWESENHEITSARTEN !!! Nicht als Foreign-Key definiert !!!)';
+comment on column DIRKSPZM32.PZM_KONTEN_BH."ZK_START" is 'Start der Abwesenheit im Bezug auf die Abwesenheitsart';
 
 
--- sqlcl_snapshot {"hash":"78ae050b74e4d61bbbb68d0019b2c972117296f5","type":"COMMENT","name":"pzm_konten_bh","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"4baf1f855137e222276989ec7976ab7a0e93837d","type":"COMMENT","name":"pzm_konten_bh","schemaName":"dirkspzm32","sxml":""}

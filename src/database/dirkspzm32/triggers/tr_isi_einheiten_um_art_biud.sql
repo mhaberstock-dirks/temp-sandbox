@@ -1,59 +1,53 @@
-create or replace editionable trigger dirkspzm32.tr_isi_einheiten_um_art_biud before
-    insert or update or delete on dirkspzm32.isi_einheiten_umrechnungen_art
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_EINHEITEN_UM_ART_BIUD" 
+  before insert or update or delete on DIRKSPZM32.ISI_EINHEITEN_UMRECHNUNGEN_ART
+  for each row
 declare
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
-    v_error exception;                 --
-    v_err_nr   number;
-    v_err_text varchar2(255);
+  v_error     EXCEPTION;                 --
+  v_err_nr    number;
+  v_err_text  varchar2(255);
+
 begin
   -- Init Fehlervariablen
-    v_err_nr := null;
-    v_err_text := null;
-    if inserting then
-        :new.created_date := sysdate;
-    elsif updating then
-        :new.last_change_date := sysdate;
-    end if;
+  v_err_nr := NULL;
+  v_err_text := NULL;
+
+  if inserting
+  then
+    :new.created_date := sysdate;
+  elsif updating
+  then
+    :new.last_change_date := sysdate;
+  end if;
 
 exception
     -- Im Fehlerfall is der Fehlertext bereits gesetzt.
-    when v_error then  -- Update 2011 show Exception Source Line
-        v_err_text := v_err_text
-                      || chr(13)
-                      || chr(10)
-                      || dbms_utility.format_error_backtrace;
+  when v_error then  -- Update 2011 show Exception Source Line
+    v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+    RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    raise;
+  when others then
+    if v_err_nr is not NULL then
+      v_err_text := v_err_text  || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+      RAISE_APPLICATION_ERROR(-20000 - v_err_nr, v_err_text, true);
+    else
+      v_err_text := DBMS_UTILITY.format_error_backtrace;
+      if v_err_text not like 'ORA-%ORA-%'
+      then
+        v_err_text := LC.ec(LC.O_TXT_DB_ERROR) || CHR(13) || CHR(10) || DBMS_UTILITY.format_error_backtrace;
+        RAISE_APPLICATION_ERROR(-20000, v_err_text, true);
+      end if;
+      raise;
+    end if;
 
-        raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        raise;
-    when others then
-        if v_err_nr is not null then
-            v_err_text := v_err_text
-                          || chr(13)
-                          || chr(10)
-                          || dbms_utility.format_error_backtrace;
+end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
-            raise_application_error(-20000 - v_err_nr, v_err_text, true);
-        else
-            v_err_text := dbms_utility.format_error_backtrace;
-            if v_err_text not like 'ORA-%ORA-%' then
-                v_err_text := lc.ec(lc.o_txt_db_error)
-                              || chr(13)
-                              || chr(10)
-                              || dbms_utility.format_error_backtrace;
-
-                raise_application_error(-20000, v_err_text, true);
-            end if;
-
-            raise;
-        end if;
-end tr_lvs_inventur_job_kopf_biud;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_EINHEITEN_UM_ART_BIUD" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_einheiten_um_art_biud enable;
 
-
--- sqlcl_snapshot {"hash":"3442205d9c2945a20f5808d2f2a8ecc94d4252eb","type":"TRIGGER","name":"TR_ISI_EINHEITEN_UM_ART_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7cc8192cdc3b2c736074c5cf1ad2ac93f4537ee7","type":"TRIGGER","name":"TR_ISI_EINHEITEN_UM_ART_BIUD","schemaName":"DIRKSPZM32","sxml":""}

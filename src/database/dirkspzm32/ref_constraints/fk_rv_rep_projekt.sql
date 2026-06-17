@@ -1,15 +1,6 @@
-alter table dirkspzm32.isi_rave_reports_cfg
-    add constraint fk_rv_rep_projekt
-        foreign key ( sid,
-                      firma_nr,
-                      kategorie,
-                      rave_projekt )
-            references dirkspzm32.isi_rave_projekte_cfg ( sid,
-                                                          firma_nr,
-                                                          kategorie,
-                                                          rave_projekt )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_RAVE_REPORTS_CFG" ADD CONSTRAINT "FK_RV_REP_PROJEKT" FOREIGN KEY ("SID", "FIRMA_NR", "KATEGORIE", "RAVE_PROJEKT")
+	  REFERENCES "DIRKSPZM32"."ISI_RAVE_PROJEKTE_CFG" ("SID", "FIRMA_NR", "KATEGORIE", "RAVE_PROJEKT") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"46b3ce3089ccddce3cabe8e5436dc6dfe7f76324","type":"REF_CONSTRAINT","name":"FK_RV_REP_PROJEKT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d18cf30551173beb7cbd719fe6201eb73acf7740","type":"REF_CONSTRAINT","name":"FK_RV_REP_PROJEKT","schemaName":"DIRKSPZM32","sxml":""}

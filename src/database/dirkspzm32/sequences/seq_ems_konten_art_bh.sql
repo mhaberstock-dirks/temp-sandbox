@@ -1,5 +1,5 @@
-create sequence dirkspzm32.seq_ems_konten_art_bh minvalue 0 maxvalue 99999999 increment by 1 /* start with n */ nocache order nocycle
-nokeep noscale global;
+
+   CREATE SEQUENCE  "DIRKSPZM32"."SEQ_EMS_KONTEN_ART_BH"  MINVALUE 0 MAXVALUE 99999999 INCREMENT BY 1 /* start with n */ NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 
--- sqlcl_snapshot {"hash":"0207c2345e68503c42a00646af1014f653c91a11","type":"SEQUENCE","name":"SEQ_EMS_KONTEN_ART_BH","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_EMS_KONTEN_ART_BH</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}
+-- sqlcl_snapshot {"hash":"d962473a8d8d8941efa9771ca42a5919642512a9","type":"SEQUENCE","name":"SEQ_EMS_KONTEN_ART_BH","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_EMS_KONTEN_ART_BH</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>99999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}

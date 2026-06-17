@@ -1,11 +1,13 @@
-create or replace type dirkspzm32.pzm_schichtperiode_t as object (
-        schichtmodellname  varchar2(30),
-        wochenr            integer,
-        name               varchar2(30),
-        wochentag          integer,
-        gesamtstundenwoche integer
+create or replace 
+TYPE DIRKSPZM32."PZM_SCHICHTPERIODE_T" as object(
+  schichtmodellname varchar2(30),
+  wochenr   integer,
+  name      varchar2(30),
+  wochentag integer,
+  gesamtstundenWoche integer
+
 );
 /
 
 
--- sqlcl_snapshot {"hash":"b21e0b6c8a5112277d32e6e3147e27f3ef879644","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_T","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f102c1800ecf9932281937fc56da0ddfb3b7651d","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_T","schemaName":"DIRKSPZM32","sxml":""}

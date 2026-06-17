@@ -1,12 +1,6 @@
-alter table dirkspzm32.bde_fa_auftrag_log
-    add constraint fk_leitzahl
-        foreign key ( leitzahl,
-                      fa_ag,
-                      fa_upos )
-            references dirkspzm32.bde_fa_auftrag ( leitzahl,
-                                                   fa_ag,
-                                                   fa_upos )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."BDE_FA_AUFTRAG_LOG" ADD CONSTRAINT "FK_LEITZAHL" FOREIGN KEY ("LEITZAHL", "FA_AG", "FA_UPOS")
+	  REFERENCES "DIRKSPZM32"."BDE_FA_AUFTRAG" ("LEITZAHL", "FA_AG", "FA_UPOS") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d6bee8ff6a51d7bdfbf86ef0d19abd636542ba24","type":"REF_CONSTRAINT","name":"FK_LEITZAHL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d5f37c31d5cc0c362ad203fdf9af743e07409139","type":"REF_CONSTRAINT","name":"FK_LEITZAHL","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,8 +1,6 @@
-alter table dirkspzm32.cal_res_appointment_types
-    add constraint fk_cal_resource_id
-        foreign key ( cal_resource_id )
-            references dirkspzm32.cal_resources ( id )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."CAL_RES_APPOINTMENT_TYPES" ADD CONSTRAINT "FK_CAL_RESOURCE_ID" FOREIGN KEY ("CAL_RESOURCE_ID")
+	  REFERENCES "DIRKSPZM32"."CAL_RESOURCES" ("ID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"9c90f95cbf3270979371fb2f7663dce5d56f68ba","type":"REF_CONSTRAINT","name":"FK_CAL_RESOURCE_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aa74174836dc6b6d100b348947b9ca5c77be3a33","type":"REF_CONSTRAINT","name":"FK_CAL_RESOURCE_ID","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,4 +1,5 @@
-create or replace procedure dirkspzm32.bde_pd_prod_r_ag_b
+create or replace 
+procedure DIRKSPZM32.bde_pd_prod_r_ag_b
 /*
 Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Produktionsgruppe zum Rüsten an (Deckel für zur Abwärtskompatiblität). 
 --------------------------------------------------------------------------------------------------------------------
@@ -22,28 +23,28 @@ Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Prod
 @param in_ls_login_id     in isi_user.login_id                 Login_ID des angemeldeten USER
 
 @see bde_pd_prod_r_ag_b_f Implementation der Funktionalität
-*/ (
-    in_sid         in isi_sid.sid%type,
-    in_firma_nr    in isi_firma.firma_nr%type,
-    in_leitzahl    in bde_fa_auftrag.leitzahl%type,
-    in_fa_ag       in bde_fa_auftrag.fa_ag%type,
-    in_fa_upos     in bde_fa_auftrag.fa_upos%type,
-    in_res_id      in isi_resource.res_id%type,
-    in_ls_login_id in isi_user.login_id%type
-) is
-    v_vorg_id bde_pd_prod.vorg_id%type; --  ID des Vorgangs
+*/
+(in_sid         in isi_sid.sid%type,
+ in_firma_nr    in isi_firma.firma_nr%type,
+ in_leitzahl    in bde_fa_auftrag.leitzahl%type,
+ in_fa_ag       in bde_fa_auftrag.fa_ag%type,
+ in_fa_upos     in bde_fa_auftrag.fa_upos%type,
+ in_res_id  in isi_resource.res_id%type,
+ in_ls_login_id in isi_user.login_id%type) is
+	v_vorg_id bde_pd_prod.vorg_id%type; --  ID des Vorgangs
 begin
-    v_vorg_id := bde_pd_prod_r_ag_b_f(in_sid,        -- in isi_sid.sid%type,
-     in_firma_nr,   -- in isi_firma.firma_nr%type,
-     in_leitzahl,   -- in bde_fa_auftrag.leitzahl%type,
-     in_fa_ag,      -- in bde_fa_auftrag.fa_ag%type,
-     in_fa_upos,    -- in bde_fa_auftrag.fa_upos%type,
-                                      in_res_id,     -- in isi_resource.res_id%type,
-                                       in_ls_login_id);--in isi_user.login_id%type)
-    commit;
-    return;
+   v_vorg_id := bde_pd_prod_r_ag_b_f(in_sid,        -- in isi_sid.sid%type,
+                                     in_firma_nr,   -- in isi_firma.firma_nr%type,
+                                     in_leitzahl,   -- in bde_fa_auftrag.leitzahl%type,
+                                     in_fa_ag,      -- in bde_fa_auftrag.fa_ag%type,
+                                     in_fa_upos,    -- in bde_fa_auftrag.fa_upos%type,
+                                     in_res_id,     -- in isi_resource.res_id%type,
+                                     in_ls_login_id);--in isi_user.login_id%type)
+  commit;
+	return;
 end bde_pd_prod_r_ag_b;
 /
 
 
--- sqlcl_snapshot {"hash":"324b58620c11744c7dff77338542b8f1e8a85b27","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_B","schemaName":"DIRKSPZM32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"cdda5c532fc417e940ec44512d36a23b92b91bc8","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_B","schemaName":"DIRKSPZM32","sxml":""}

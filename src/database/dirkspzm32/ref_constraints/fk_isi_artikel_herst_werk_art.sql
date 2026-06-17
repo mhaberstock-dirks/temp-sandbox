@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_artikel_hersteller_werk
-    add constraint fk_isi_artikel_herst_werk_art
-        foreign key ( artikel_id )
-            references dirkspzm32.isi_artikel ( artikel_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_ARTIKEL_HERSTELLER_WERK" ADD CONSTRAINT "FK_ISI_ARTIKEL_HERST_WERK_ART" FOREIGN KEY ("ARTIKEL_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_ARTIKEL" ("ARTIKEL_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"b910aaefedc16332fd1ef4cbed1db3716d957a30","type":"REF_CONSTRAINT","name":"FK_ISI_ARTIKEL_HERST_WERK_ART","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"37e3c0048e0cb704f749d2d28c07606da10d4e8c","type":"REF_CONSTRAINT","name":"FK_ISI_ARTIKEL_HERST_WERK_ART","schemaName":"DIRKSPZM32","sxml":""}

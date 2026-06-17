@@ -1,8 +1,6 @@
-alter table dirkspzm32.isi_adressen
-    add constraint fk_region_code
-        foreign key ( region_code )
-            references dirkspzm32.isi_land_region ( code )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_ADRESSEN" ADD CONSTRAINT "FK_REGION_CODE" FOREIGN KEY ("REGION_CODE")
+	  REFERENCES "DIRKSPZM32"."ISI_LAND_REGION" ("CODE") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"51dfc1fe4f287d3c108ed2fb759169435981f3fa","type":"REF_CONSTRAINT","name":"FK_REGION_CODE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"56b9e5b3e379bf08cc39d0aeccbb69d2f3b63b52","type":"REF_CONSTRAINT","name":"FK_REGION_CODE","schemaName":"DIRKSPZM32","sxml":""}

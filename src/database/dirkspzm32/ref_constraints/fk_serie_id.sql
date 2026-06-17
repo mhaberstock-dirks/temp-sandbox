@@ -1,9 +1,6 @@
-alter table dirkspzm32.lvs_serie_id_pos
-    add constraint fk_serie_id
-        foreign key ( serie_id )
-            references dirkspzm32.lvs_serie_id_kopf ( serie_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."LVS_SERIE_ID_POS" ADD CONSTRAINT "FK_SERIE_ID" FOREIGN KEY ("SERIE_ID")
+	  REFERENCES "DIRKSPZM32"."LVS_SERIE_ID_KOPF" ("SERIE_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a9cc271dc6206e1e8811135685f6475036c32982","type":"REF_CONSTRAINT","name":"FK_SERIE_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f8cfd1e7a1001ae41a01ecd89844ff4ad460cdcc","type":"REF_CONSTRAINT","name":"FK_SERIE_ID","schemaName":"DIRKSPZM32","sxml":""}

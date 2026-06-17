@@ -1,5 +1,5 @@
-create sequence dirkspzm32.seq_fa_ag_stl_id minvalue 1 maxvalue 99999999999999999 increment by 1 /* start with n */ nocache noorder nocycle
-nokeep noscale global;
+
+   CREATE SEQUENCE  "DIRKSPZM32"."SEQ_FA_AG_STL_ID"  MINVALUE 1 MAXVALUE 99999999999999999 INCREMENT BY 1 /* start with n */ NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 
--- sqlcl_snapshot {"hash":"ad763b8cd643a276ea3f737bc624fdd29b572265","type":"SEQUENCE","name":"SEQ_FA_AG_STL_ID","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_FA_AG_STL_ID</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>1</MINVALUE>\n   <MAXVALUE>99999999999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}
+-- sqlcl_snapshot {"hash":"02988978fb2ab0bb2d6a36ddd85c2c05393e7f25","type":"SEQUENCE","name":"SEQ_FA_AG_STL_ID","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_FA_AG_STL_ID</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>1</MINVALUE>\n   <MAXVALUE>99999999999999999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}

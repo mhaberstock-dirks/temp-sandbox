@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_lz_sa
-    add constraint fk_lzsa_sa_kurzname
-        foreign key ( lzsa_sa_kurzname )
-            references dirkspzm32.pzm_schichtarten ( sa_kurzname )
-        disable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_LZ_SA" ADD CONSTRAINT "FK_LZSA_SA_KURZNAME" FOREIGN KEY ("LZSA_SA_KURZNAME")
+	  REFERENCES "DIRKSPZM32"."PZM_SCHICHTARTEN" ("SA_KURZNAME") DISABLE;
 
 
--- sqlcl_snapshot {"hash":"0ca0b2fe30dce436d4b154fd1744ca1ce4b5515d","type":"REF_CONSTRAINT","name":"FK_LZSA_SA_KURZNAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8021380105ae865b9633eaf2a90111900488d8b7","type":"REF_CONSTRAINT","name":"FK_LZSA_SA_KURZNAME","schemaName":"DIRKSPZM32","sxml":""}

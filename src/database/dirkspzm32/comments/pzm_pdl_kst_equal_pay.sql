@@ -1,48 +1,22 @@
-comment on table dirkspzm32.pzm_pdl_kst_equal_pay is
-    'Stunden/Lohnarten zur Abrechnung - Gutschriften Personaldienstleister';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.created_user is
-    'User - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.datum is
-    'Datum
+comment on table DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY is 'Stunden/Lohnarten zur Abrechnung - Gutschriften Personaldienstleister';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."CREATED_USER" is 'User - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."DATUM" is 'Datum
 für die Abrechnung';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.kst_anteil is
-    'Anteil LOA-Value für den Abrechnungszeitraum';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.kst_nr is
-    'Kostenstelle-ID';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.last_change_date is
-    'Datum der letzten Änderung';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.last_change_login_id is
-    'User-ID - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.last_change_user is
-    'User - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.loa_value is
-    'Stunden
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."KST_ANTEIL" is 'Anteil LOA-Value für den Abrechnungszeitraum';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."KST_NR" is 'Kostenstelle-ID';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."LAST_CHANGE_DATE" is 'Datum der letzten Änderung';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."LAST_CHANGE_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."LAST_CHANGE_USER" is 'User - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."LOA_VALUE" is 'Stunden
 / Tage - LOA-Wert';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.lohnart is
-    'Lohnart
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."LOHNART" is 'Lohnart
 ';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.pb_id is
-    'Mandant z.B. 01
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."PB_ID" is 'Mandant z.B. 01
 ';
-
-comment on column dirkspzm32.pzm_pdl_kst_equal_pay.pers_nr is
-    'zeaw = ZE Auswertung';
+comment on column DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY."PERS_NR" is 'zeaw = ZE Auswertung';
 
 
--- sqlcl_snapshot {"hash":"d9f38832f993c0f4069b83a70a0e09b601a666c9","type":"COMMENT","name":"pzm_pdl_kst_equal_pay","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"c1be9a2ac87458b298c8183a322356224554b808","type":"COMMENT","name":"pzm_pdl_kst_equal_pay","schemaName":"dirkspzm32","sxml":""}

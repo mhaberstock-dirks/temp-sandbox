@@ -1,60 +1,11 @@
-create or replace force editionable view dirkspzm32.lvs_v_lhm (
-    sid,
-    firma_nr,
-    lhm_id,
-    lte_id,
-    lhm_name,
-    lgr_platz,
-    lhm_vol_hoehe,
-    lhm_vol_breite,
-    lhm_vol_tiefe,
-    lhm_vol,
-    lhm_akt_kg,
-    lhm_letzte_buchung,
-    lhm_eti_druck_status,
-    komm_quell_lte_id,
-    komm_quell_lgr_platz,
-    komm_neu_lhm_name
-) as
-    select
-        lhm.sid,
-        lhm.firma_nr,
-        lhm.lhm_id,
-        lhm.lte_id,
-        lhm.lhm_name,
-        lhm.lgr_platz,
-        lhm.lhm_vol_hoehe,
-        lhm.lhm_vol_breite,
-        lhm.lhm_vol_tiefe,
-        lhm.lhm_vol,
-        lhm.lhm_akt_kg,
-        lhm.lhm_letzte_buchung,
-        lhm.lhm_eti_druck_status,
-        lhm.komm_quell_lte_id,
-        lhm.komm_quell_lgr_platz,
-        lhm.komm_neu_lhm_name
-    from
-        lvs_lhm lhm
-    union
-    select
-        lhm_hist.sid,
-        lhm_hist.firma_nr,
-        lhm_hist.lhm_id,
-        lhm_hist.lte_id,
-        lhm_hist.lhm_name,
-        lhm_hist.lgr_platz,
-        lhm_hist.lhm_vol_hoehe,
-        lhm_hist.lhm_vol_breite,
-        lhm_hist.lhm_vol_tiefe,
-        lhm_hist.lhm_vol,
-        lhm_hist.lhm_akt_kg,
-        lhm_hist.lhm_letzte_buchung,
-        lhm_hist.lhm_eti_druck_status,
-        lhm_hist.komm_quell_lte_id,
-        lhm_hist.komm_quell_lgr_platz,
-        lhm_hist.komm_neu_lhm_name
-    from
-        lvs_lhm_hist lhm_hist;
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_V_LHM" ("SID", "FIRMA_NR", "LHM_ID", "LTE_ID", "LHM_NAME", "LGR_PLATZ", "LHM_VOL_HOEHE", "LHM_VOL_BREITE", "LHM_VOL_TIEFE", "LHM_VOL", "LHM_AKT_KG", "LHM_LETZTE_BUCHUNG", "LHM_ETI_DRUCK_STATUS", "KOMM_QUELL_LTE_ID", "KOMM_QUELL_LGR_PLATZ", "KOMM_NEU_LHM_NAME") AS 
+  select lhm."SID",lhm."FIRMA_NR",lhm."LHM_ID",lhm."LTE_ID",lhm."LHM_NAME",lhm."LGR_PLATZ",lhm."LHM_VOL_HOEHE",lhm."LHM_VOL_BREITE",lhm."LHM_VOL_TIEFE",lhm."LHM_VOL",lhm."LHM_AKT_KG",lhm."LHM_LETZTE_BUCHUNG",lhm."LHM_ETI_DRUCK_STATUS",lhm."KOMM_QUELL_LTE_ID",lhm."KOMM_QUELL_LGR_PLATZ",lhm."KOMM_NEU_LHM_NAME"
+  from lvs_lhm lhm
+union
+select lhm_hist."SID",lhm_hist."FIRMA_NR",lhm_hist."LHM_ID",lhm_hist."LTE_ID",lhm_hist."LHM_NAME",lhm_hist."LGR_PLATZ",lhm_hist."LHM_VOL_HOEHE",lhm_hist."LHM_VOL_BREITE",lhm_hist."LHM_VOL_TIEFE",lhm_hist."LHM_VOL",lhm_hist."LHM_AKT_KG",lhm_hist."LHM_LETZTE_BUCHUNG",lhm_hist."LHM_ETI_DRUCK_STATUS",lhm_hist."KOMM_QUELL_LTE_ID",lhm_hist."KOMM_QUELL_LGR_PLATZ",lhm_hist."KOMM_NEU_LHM_NAME"
+  from lvs_lhm_hist lhm_hist
+;
 
 
--- sqlcl_snapshot {"hash":"56036c18964f5b44a4002e927ea32714a438097d","type":"VIEW","name":"LVS_V_LHM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b5866dfae9f670f0f3c577416361a2bd1fbf77b4","type":"VIEW","name":"LVS_V_LHM","schemaName":"DIRKSPZM32","sxml":""}

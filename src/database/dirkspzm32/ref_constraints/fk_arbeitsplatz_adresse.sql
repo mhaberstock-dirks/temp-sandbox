@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_arbeitsplatz
-    add constraint fk_arbeitsplatz_adresse
-        foreign key ( adress_id )
-            references dirkspzm32.isi_adressen ( adress_id )
-                on delete set null
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_ARBEITSPLATZ" ADD CONSTRAINT "FK_ARBEITSPLATZ_ADRESSE" FOREIGN KEY ("ADRESS_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_ADRESSEN" ("ADRESS_ID") ON DELETE SET NULL ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3e9b066763cfc152fb2740582b5b5724787257d8","type":"REF_CONSTRAINT","name":"FK_ARBEITSPLATZ_ADRESSE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5dc0a2c0f20d9c47d4f709eb635fd2b14b67e8c5","type":"REF_CONSTRAINT","name":"FK_ARBEITSPLATZ_ADRESSE","schemaName":"DIRKSPZM32","sxml":""}

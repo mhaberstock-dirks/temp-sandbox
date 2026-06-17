@@ -1,41 +1,17 @@
-comment on column dirkspzm32.ctl_service_io.aend_datum is
-    'Bearbeitungsdatum, zuletzt bearbeitet am';
-
-comment on column dirkspzm32.ctl_service_io.aend_login_id is
-    'ID des Bearbeiters';
-
-comment on column dirkspzm32.ctl_service_io.client_command is
-    'Befehl vom Client z.B. PL';
-
-comment on column dirkspzm32.ctl_service_io.erz_datum is
-    'Erstellungsdatum, erstellt am';
-
-comment on column dirkspzm32.ctl_service_io.erz_login_id is
-    'ID des Erstellers';
-
-comment on column dirkspzm32.ctl_service_io.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.ctl_service_io.info_debug is
-    'internes Informationsfeld';
-
-comment on column dirkspzm32.ctl_service_io.interval_sec is
-    'Service Interval ';
-
-comment on column dirkspzm32.ctl_service_io.message_code is
-    'Message Return Code';
-
-comment on column dirkspzm32.ctl_service_io.message_text is
-    'Message text';
-
-comment on column dirkspzm32.ctl_service_io.service_name is
-    'Name des Services';
-
-comment on column dirkspzm32.ctl_service_io.sid is
-    'Datenbank für Konsolidierung';
-
-comment on column dirkspzm32.ctl_service_io.status is
-    'Status der Logik z.B. für Anzeige im Client';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."AEND_DATUM" is 'Bearbeitungsdatum, zuletzt bearbeitet am';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."AEND_LOGIN_ID" is 'ID des Bearbeiters';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."CLIENT_COMMAND" is 'Befehl vom Client z.B. PL';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."ERZ_DATUM" is 'Erstellungsdatum, erstellt am';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."ERZ_LOGIN_ID" is 'ID des Erstellers';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."INFO_DEBUG" is 'internes Informationsfeld';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."INTERVAL_SEC" is 'Service Interval ';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."MESSAGE_CODE" is 'Message Return Code';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."MESSAGE_TEXT" is 'Message text';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."SERVICE_NAME" is 'Name des Services';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."SID" is 'Datenbank für Konsolidierung';
+comment on column DIRKSPZM32.CTL_SERVICE_IO."STATUS" is 'Status der Logik z.B. für Anzeige im Client';
 
 
--- sqlcl_snapshot {"hash":"3db5ec051cc9353dd1584547408fd82f0808f991","type":"COMMENT","name":"ctl_service_io","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"f784cbc978a69ba9c86a14fc04e58dfee1701095","type":"COMMENT","name":"ctl_service_io","schemaName":"dirkspzm32","sxml":""}

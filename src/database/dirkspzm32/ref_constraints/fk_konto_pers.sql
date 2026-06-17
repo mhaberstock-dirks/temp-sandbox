@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_konten
-    add constraint fk_konto_pers
-        foreign key ( pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_KONTEN" ADD CONSTRAINT "FK_KONTO_PERS" FOREIGN KEY ("PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7b608ab7058333594117bcdb18306a2183823080","type":"REF_CONSTRAINT","name":"FK_KONTO_PERS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7821b55a20a1d80296644ea8c4052061611ad044","type":"REF_CONSTRAINT","name":"FK_KONTO_PERS","schemaName":"DIRKSPZM32","sxml":""}

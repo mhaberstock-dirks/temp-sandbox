@@ -1,71 +1,27 @@
-comment on column dirkspzm32.isi_script_cfg.aend_datum is
-    'Änderungs-Datum';
-
-comment on column dirkspzm32.isi_script_cfg.aend_login_id is
-    'Login ID des Änderers';
-
-comment on column dirkspzm32.isi_script_cfg.debug_input_data is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.debug_output_data is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.edit_security_level is
-    'Security Level für Editing';
-
-comment on column dirkspzm32.isi_script_cfg.enabled is
-    'Enabled T / F';
-
-comment on column dirkspzm32.isi_script_cfg.erz_datum is
-    'Erzeugungs-Datum';
-
-comment on column dirkspzm32.isi_script_cfg.erz_login_id is
-    'Login ID des Erzeugers';
-
-comment on column dirkspzm32.isi_script_cfg.exec_order is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.firma_nr is
-    'Firma Nr.';
-
-comment on column dirkspzm32.isi_script_cfg.last_debug is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.last_execution is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.last_exec_duration_ms is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.last_var_result_list is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.script_context is
-    'Script Context ID, muß mit Context im Script übereinstimmen';
-
-comment on column dirkspzm32.isi_script_cfg.script_id is
-    'ID des Scripts';
-
-comment on column dirkspzm32.isi_script_cfg.script_info is
-    'Beschreibung des Scripts';
-
-comment on column dirkspzm32.isi_script_cfg.script_internal is
-    'Script nur intern T / F';
-
-comment on column dirkspzm32.isi_script_cfg.script_name is
-    'Name des Scripts';
-
-comment on column dirkspzm32.isi_script_cfg.script_pre_comp_b64 is
-    'unbenutzt';
-
-comment on column dirkspzm32.isi_script_cfg.script_source is
-    'Quelltext';
-
-comment on column dirkspzm32.isi_script_cfg.script_source_type is
-    'Typ des Quelltextes (PascalScript)';
-
-comment on column dirkspzm32.isi_script_cfg.sid is
-    'SID';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."AEND_DATUM" is 'Änderungs-Datum';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."AEND_LOGIN_ID" is 'Login ID des Änderers';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."DEBUG_INPUT_DATA" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."DEBUG_OUTPUT_DATA" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."EDIT_SECURITY_LEVEL" is 'Security Level für Editing';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."ENABLED" is 'Enabled T / F';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."ERZ_DATUM" is 'Erzeugungs-Datum';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."ERZ_LOGIN_ID" is 'Login ID des Erzeugers';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."EXEC_ORDER" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."FIRMA_NR" is 'Firma Nr.';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."LAST_DEBUG" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."LAST_EXECUTION" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."LAST_EXEC_DURATION_MS" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."LAST_VAR_RESULT_LIST" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_CONTEXT" is 'Script Context ID, muß mit Context im Script übereinstimmen';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_ID" is 'ID des Scripts';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_INFO" is 'Beschreibung des Scripts';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_INTERNAL" is 'Script nur intern T / F';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_NAME" is 'Name des Scripts';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_PRE_COMP_B64" is 'unbenutzt';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_SOURCE" is 'Quelltext';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SCRIPT_SOURCE_TYPE" is 'Typ des Quelltextes (PascalScript)';
+comment on column DIRKSPZM32.ISI_SCRIPT_CFG."SID" is 'SID';
 
 
--- sqlcl_snapshot {"hash":"e15d7a1efb3f82458d2cbdf48890082cc3ba2626","type":"COMMENT","name":"isi_script_cfg","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"0c0c3f1a807b115fc1a4e94f52c1f2c4e98c2d9e","type":"COMMENT","name":"isi_script_cfg","schemaName":"dirkspzm32","sxml":""}

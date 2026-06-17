@@ -1,8 +1,6 @@
-alter table dirkspzm32.pzm_bereitschaft_cfg
-    add constraint pk_pzm_bereitschaft_cfg_loa_so
-        foreign key ( loa_id_so )
-            references dirkspzm32.pzm_lohnarten ( lz_id )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_BEREITSCHAFT_CFG" ADD CONSTRAINT "PK_PZM_BEREITSCHAFT_CFG_LOA_SO" FOREIGN KEY ("LOA_ID_SO")
+	  REFERENCES "DIRKSPZM32"."PZM_LOHNARTEN" ("LZ_ID") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"067ea0399826d7fb86da82e66d17e4fa2be04fdd","type":"REF_CONSTRAINT","name":"PK_PZM_BEREITSCHAFT_CFG_LOA_SO","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a13211f43deec0de1387838541d25823a63f97f6","type":"REF_CONSTRAINT","name":"PK_PZM_BEREITSCHAFT_CFG_LOA_SO","schemaName":"DIRKSPZM32","sxml":""}

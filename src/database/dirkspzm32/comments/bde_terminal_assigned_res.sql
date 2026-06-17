@@ -1,14 +1,8 @@
-comment on table dirkspzm32.bde_terminal_assigned_res is
-    'Terminal resource assignment';
-
-comment on column dirkspzm32.bde_terminal_assigned_res.display_sequence is
-    'Display sequence within machine status buttons';
-
-comment on column dirkspzm32.bde_terminal_assigned_res.res_id is
-    'ID of resource to show in PDTerminal';
-
-comment on column dirkspzm32.bde_terminal_assigned_res.terminal_hostname is
-    'Unique terminal hostname (computername)';
+comment on table DIRKSPZM32.BDE_TERMINAL_ASSIGNED_RES is 'Terminal resource assignment';
+comment on column DIRKSPZM32.BDE_TERMINAL_ASSIGNED_RES."DISPLAY_SEQUENCE" is 'Display sequence within machine status buttons';
+comment on column DIRKSPZM32.BDE_TERMINAL_ASSIGNED_RES."RES_ID" is 'ID of resource to show in PDTerminal';
+comment on column DIRKSPZM32.BDE_TERMINAL_ASSIGNED_RES."TERMINAL_HOSTNAME" is 'Unique terminal hostname (computername)';
 
 
--- sqlcl_snapshot {"hash":"4ad5bbb3d449513f96dd6f54b35511694bd3fb47","type":"COMMENT","name":"bde_terminal_assigned_res","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"2372e58db2206d0ee08b06e4fe4cbc435794d06d","type":"COMMENT","name":"bde_terminal_assigned_res","schemaName":"dirkspzm32","sxml":""}

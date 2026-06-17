@@ -1,8 +1,5 @@
-comment on table dirkspzm32.edi_vda4987_vehicle is
-    'VDA4987 Vehicle Reference Data / Fahrzeugreferenzdaten';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.code_qualifier1 is
-    'Object Id Code Qualifiers:
+comment on table DIRKSPZM32.EDI_VDA4987_VEHICLE is 'VDA4987 Vehicle Reference Data / Fahrzeugreferenzdaten';
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."CODE_QUALIFIER1" is 'Object Id Code Qualifiers:
 VV Vehicle identity number
 AN Manufacturing reference number
 XB Model year
@@ -23,9 +20,7 @@ XQ Exception status identifier
 
 Related identification numbers / Zusammengehörige Identifikationsnummern
 ';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.code_qualifier2 is
-    '"Object Id Code Qualifiers:
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."CODE_QUALIFIER2" is '"Object Id Code Qualifiers:
 VV Vehicle identity number
 AN Manufacturing reference number
 XB Model year
@@ -46,9 +41,7 @@ XQ Exception status identifier
 
 Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.code_qualifier3 is
-    '"Object Id Code Qualifiers:
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."CODE_QUALIFIER3" is '"Object Id Code Qualifiers:
 VV Vehicle identity number
 AN Manufacturing reference number
 XB Model year
@@ -69,9 +62,7 @@ XQ Exception status identifier
 
 Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.code_qualifier4 is
-    '"Object Id Code Qualifiers:
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."CODE_QUALIFIER4" is '"Object Id Code Qualifiers:
 VV Vehicle identity number
 AN Manufacturing reference number
 XB Model year
@@ -92,9 +83,7 @@ XQ Exception status identifier
 
 Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.code_qualifier5 is
-    '"Object Id Code Qualifiers:
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."CODE_QUALIFIER5" is '"Object Id Code Qualifiers:
 VV Vehicle identity number
 AN Manufacturing reference number
 XB Model year
@@ -115,38 +104,21 @@ XQ Exception status identifier
 
 Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.document_id is
-    'Unique Identifier of VDA4987 document; Master (FK)';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.object_id1 is
-    'Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."DOCUMENT_ID" is 'Unique Identifier of VDA4987 document; Master (FK)';
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."OBJECT_ID1" is 'Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
 ';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.object_id2 is
-    '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."OBJECT_ID2" is '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.object_id3 is
-    '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."OBJECT_ID3" is '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.object_id4 is
-    '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."OBJECT_ID4" is '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.object_id5 is
-    '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."OBJECT_ID5" is '"Object Identifier (an..35); Related identification numbers / Zusammengehörige Identifikationsnummern
 "';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.pack_item_id is
-    'Unique Identifier of Packaging Item; Part of Primary Key (FK)';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.pos is
-    'Position number; Part of Primary Key (4)';
-
-comment on column dirkspzm32.edi_vda4987_vehicle.sequence_date is
-    'Sequence DateTime; Sequence date/time / Datum/-zeit der Sequenzposition';
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."PACK_ITEM_ID" is 'Unique Identifier of Packaging Item; Part of Primary Key (FK)';
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."POS" is 'Position number; Part of Primary Key (4)';
+comment on column DIRKSPZM32.EDI_VDA4987_VEHICLE."SEQUENCE_DATE" is 'Sequence DateTime; Sequence date/time / Datum/-zeit der Sequenzposition';
 
 
--- sqlcl_snapshot {"hash":"af2c3d95ccb1e2d53927531ad6cfc6c0b9435b1d","type":"COMMENT","name":"edi_vda4987_vehicle","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ab5cbe8537f3ce74d4a38bd3782e66e165cf0958","type":"COMMENT","name":"edi_vda4987_vehicle","schemaName":"dirkspzm32","sxml":""}

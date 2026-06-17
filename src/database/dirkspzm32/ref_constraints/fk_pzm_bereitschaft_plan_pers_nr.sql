@@ -1,9 +1,6 @@
-alter table dirkspzm32.pzm_bereitschaft_plan
-    add constraint fk_pzm_bereitschaft_plan_pers_nr
-        foreign key ( pers_nr )
-            references dirkspzm32.pzm_personal ( pers_nr )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."PZM_BEREITSCHAFT_PLAN" ADD CONSTRAINT "FK_PZM_BEREITSCHAFT_PLAN_PERS_NR" FOREIGN KEY ("PERS_NR")
+	  REFERENCES "DIRKSPZM32"."PZM_PERSONAL" ("PERS_NR") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"b94c8ca1017084cb37557e9ff03f145d6e82835d","type":"REF_CONSTRAINT","name":"FK_PZM_BEREITSCHAFT_PLAN_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fa2c56484cf737372e8917778e368b68c469be87","type":"REF_CONSTRAINT","name":"FK_PZM_BEREITSCHAFT_PLAN_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

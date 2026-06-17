@@ -1,53 +1,21 @@
-comment on table dirkspzm32.ems_konten_art is
-    'Konto Salden und Informationen zu Leergutartikeln';
-
-comment on column dirkspzm32.ems_konten_art.abschluss_datum is
-    'Abschlusszeitpunkt';
-
-comment on column dirkspzm32.ems_konten_art.abschluss_login_id is
-    'LoginID des Benutzers, der den Abschluss ausführt';
-
-comment on column dirkspzm32.ems_konten_art.abschluss_saldo is
-    'Abschlusssaldo';
-
-comment on column dirkspzm32.ems_konten_art.aend_datum is
-    'Datum, an dem dieser Datensatz zuletzt geändert wurde';
-
-comment on column dirkspzm32.ems_konten_art.aend_login_id is
-    'LoginID des Benutzers, der diesen Datensatz zuletzt geändert hat';
-
-comment on column dirkspzm32.ems_konten_art.buch_einheit is
-    'je nach Kontotyp: STK, HH24, DD, EUR, USD';
-
-comment on column dirkspzm32.ems_konten_art.ems_art_name is
-    'Referenz auf Leergutartikel (EMS_ARTIKEL)';
-
-comment on column dirkspzm32.ems_konten_art.ems_konto_nr is
-    'Referenz auf Kontonummer (EMS_KONTEN)';
-
-comment on column dirkspzm32.ems_konten_art.erz_datum is
-    'Datum, an dem dieser Datensatz angelegt wurde';
-
-comment on column dirkspzm32.ems_konten_art.erz_login_id is
-    'LoginID des Benutzers, der diesen Datensatz angelegt hat';
-
-comment on column dirkspzm32.ems_konten_art.id is
-    'Unique Identifier (PK)';
-
-comment on column dirkspzm32.ems_konten_art.info is
-    'freier Text';
-
-comment on column dirkspzm32.ems_konten_art.letzte_buchung is
-    'Zeitpunkt der letzten Buchung';
-
-comment on column dirkspzm32.ems_konten_art.max_saldo is
-    'ggf. Maximal Kontostand';
-
-comment on column dirkspzm32.ems_konten_art.min_saldo is
-    'ggf. Minimal Kontostand';
-
-comment on column dirkspzm32.ems_konten_art.saldo is
-    'Kontostand';
+comment on table DIRKSPZM32.EMS_KONTEN_ART is 'Konto Salden und Informationen zu Leergutartikeln';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ABSCHLUSS_DATUM" is 'Abschlusszeitpunkt';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ABSCHLUSS_LOGIN_ID" is 'LoginID des Benutzers, der den Abschluss ausführt';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ABSCHLUSS_SALDO" is 'Abschlusssaldo';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."AEND_DATUM" is 'Datum, an dem dieser Datensatz zuletzt geändert wurde';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."AEND_LOGIN_ID" is 'LoginID des Benutzers, der diesen Datensatz zuletzt geändert hat';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."BUCH_EINHEIT" is 'je nach Kontotyp: STK, HH24, DD, EUR, USD';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."EMS_ART_NAME" is 'Referenz auf Leergutartikel (EMS_ARTIKEL)';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."EMS_KONTO_NR" is 'Referenz auf Kontonummer (EMS_KONTEN)';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ERZ_DATUM" is 'Datum, an dem dieser Datensatz angelegt wurde';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ERZ_LOGIN_ID" is 'LoginID des Benutzers, der diesen Datensatz angelegt hat';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."ID" is 'Unique Identifier (PK)';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."INFO" is 'freier Text';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."LETZTE_BUCHUNG" is 'Zeitpunkt der letzten Buchung';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."MAX_SALDO" is 'ggf. Maximal Kontostand';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."MIN_SALDO" is 'ggf. Minimal Kontostand';
+comment on column DIRKSPZM32.EMS_KONTEN_ART."SALDO" is 'Kontostand';
 
 
--- sqlcl_snapshot {"hash":"d60b412486dca874c8d3adbf2e40892c4d578812","type":"COMMENT","name":"ems_konten_art","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ca57df70249d68f518e79e30d95884210ccd5aae","type":"COMMENT","name":"ems_konten_art","schemaName":"dirkspzm32","sxml":""}

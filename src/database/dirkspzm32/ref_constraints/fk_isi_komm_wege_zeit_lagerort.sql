@@ -1,8 +1,6 @@
-alter table dirkspzm32.isi_komm_wege_zeit
-    add constraint fk_isi_komm_wege_zeit_lagerort
-        foreign key ( lgr_ort_quelle )
-            references dirkspzm32.lvs_lgr_ort ( lgr_ort )
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_KOMM_WEGE_ZEIT" ADD CONSTRAINT "FK_ISI_KOMM_WEGE_ZEIT_LAGERORT" FOREIGN KEY ("LGR_ORT_QUELLE")
+	  REFERENCES "DIRKSPZM32"."LVS_LGR_ORT" ("LGR_ORT") ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a11eb4c149ade845c64e07839ffc527018984221","type":"REF_CONSTRAINT","name":"FK_ISI_KOMM_WEGE_ZEIT_LAGERORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c100578b5a8d781621e9f0c2d494dcd4492f8c28","type":"REF_CONSTRAINT","name":"FK_ISI_KOMM_WEGE_ZEIT_LAGERORT","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,44 +1,18 @@
-comment on table dirkspzm32.s_rcv_pack_vorschr_gew is
-    'Pack Vorschriften (Gewichte)';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.artikel is
-    'Artikelnummer';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.created_login_id is
-    'login id of the user creating this dataset';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.firma_nr is
-    'Firmennummer in der Datenbank';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.gew_nr is
-    'LFD_NR';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.kunden_nr is
-    'Kundennummer';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.last_change_login_id is
-    'login id of the user changing this dataset';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.lhm_artikel is
-    'Artikel Nr. LHM ';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.lhm_gew_abw_pal is
-    'Max Abweichung LHM je Palette';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.lhm_gew_max is
-    'Max Gewicht LHM';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.lhm_gew_min is
-    'Min Gewicht LHM';
-
-comment on column dirkspzm32.s_rcv_pack_vorschr_gew.lhm_gew_nom is
-    'Nominalgewicht';
+comment on table DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW is 'Pack Vorschriften (Gewichte)';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."ARTIKEL" is 'Artikelnummer';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."CREATED_LOGIN_ID" is 'login id of the user creating this dataset';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."FIRMA_NR" is 'Firmennummer in der Datenbank';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."GEW_NR" is 'LFD_NR';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."KUNDEN_NR" is 'Kundennummer';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LAST_CHANGE_LOGIN_ID" is 'login id of the user changing this dataset';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LHM_ARTIKEL" is 'Artikel Nr. LHM ';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LHM_GEW_ABW_PAL" is 'Max Abweichung LHM je Palette';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LHM_GEW_MAX" is 'Max Gewicht LHM';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LHM_GEW_MIN" is 'Min Gewicht LHM';
+comment on column DIRKSPZM32.S_RCV_PACK_VORSCHR_GEW."LHM_GEW_NOM" is 'Nominalgewicht';
 
 
--- sqlcl_snapshot {"hash":"29220db1007ba984a9a1d6f133215dcc90a5d044","type":"COMMENT","name":"s_rcv_pack_vorschr_gew","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"077917a739beaf68fda76d27e98fed0089e4b7e1","type":"COMMENT","name":"s_rcv_pack_vorschr_gew","schemaName":"dirkspzm32","sxml":""}

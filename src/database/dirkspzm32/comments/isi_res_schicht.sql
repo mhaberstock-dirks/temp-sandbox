@@ -1,56 +1,22 @@
-comment on table dirkspzm32.isi_res_schicht is
-    'Schicht einer Produktionslinie';
-
-comment on column dirkspzm32.isi_res_schicht.abzug_produktions_zeit_sek is
-    'Anzahl Sekunden, die von der Produktionszeit abgezogen werden.';
-
-comment on column dirkspzm32.isi_res_schicht.created_date is
-    'creation date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_schicht.created_login_id is
-    'login ID of the user creating this dataset';
-
-comment on column dirkspzm32.isi_res_schicht.ende_date_time is
-    'Ende der  Schicht, Pause';
-
-comment on column dirkspzm32.isi_res_schicht.last_change_date is
-    'change date+time of this dataset';
-
-comment on column dirkspzm32.isi_res_schicht.last_change_login_id is
-    'login ID of the user changing this dataset';
-
-comment on column dirkspzm32.isi_res_schicht.parent_id is
-    'Bei Schicht_type ''P'' mit Schicht_id der Schicht besetzt. Bei ''S'' mit  Schicht_id besetzt';
-
-comment on column dirkspzm32.isi_res_schicht.prod_takt_id is
-    '->ISI_RES_PROD_TAKT.PROD_TAKT_ID verweiss auf die Taktvariante';
-
-comment on column dirkspzm32.isi_res_schicht.res_id is
-    '[->ISI_RESOURCE.RES_ID] Schicht gilt für Produktionslinie ';
-
-comment on column dirkspzm32.isi_res_schicht.schicht_ende_variabel is
-    '(T) )= Schichtende kann überzogen werden, wenn keine Folgeschicht folgt. (F''= Letzte Takt muss in Schicht passen.!';
-
-comment on column dirkspzm32.isi_res_schicht.schicht_id is
-    '[PK]';
-
-comment on column dirkspzm32.isi_res_schicht.schicht_name is
-    'Name der Schicht, Pause';
-
-comment on column dirkspzm32.isi_res_schicht.schicht_type is
-    '(''S'' = Schicht , ''P'' = Pause';
-
-comment on column dirkspzm32.isi_res_schicht.soll_takte_pro_schicht is
-    'Takte einer Schicht nach Abzug aller Pausen und ABZUG_PRODUKTIONS_ZEIT_SEK';
-
-comment on column dirkspzm32.isi_res_schicht.start_date_time is
-    'Begin der  Schicht, Pause';
-
-comment on column dirkspzm32.isi_res_schicht.status is
-    '''N''eu , ''U''  Ubertragen in SPS , ''B''egonnen. ''F'' ertig';
-
-comment on column dirkspzm32.isi_res_schicht.takt_zeit_sek is
-    'TaktZeit in  Sekunden <> 0';
+comment on table DIRKSPZM32.ISI_RES_SCHICHT is 'Schicht einer Produktionslinie';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."ABZUG_PRODUKTIONS_ZEIT_SEK" is 'Anzahl Sekunden, die von der Produktionszeit abgezogen werden.';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."CREATED_DATE" is 'creation date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."CREATED_LOGIN_ID" is 'login ID of the user creating this dataset';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."ENDE_DATE_TIME" is 'Ende der  Schicht, Pause';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."LAST_CHANGE_DATE" is 'change date+time of this dataset';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."LAST_CHANGE_LOGIN_ID" is 'login ID of the user changing this dataset';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."PARENT_ID" is 'Bei Schicht_type ''P'' mit Schicht_id der Schicht besetzt. Bei ''S'' mit  Schicht_id besetzt';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."PROD_TAKT_ID" is '->ISI_RES_PROD_TAKT.PROD_TAKT_ID verweiss auf die Taktvariante';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."RES_ID" is '[->ISI_RESOURCE.RES_ID] Schicht gilt für Produktionslinie ';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."SCHICHT_ENDE_VARIABEL" is '(T) )= Schichtende kann überzogen werden, wenn keine Folgeschicht folgt. (F''= Letzte Takt muss in Schicht passen.!';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."SCHICHT_ID" is '[PK]';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."SCHICHT_NAME" is 'Name der Schicht, Pause';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."SCHICHT_TYPE" is '(''S'' = Schicht , ''P'' = Pause';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."SOLL_TAKTE_PRO_SCHICHT" is 'Takte einer Schicht nach Abzug aller Pausen und ABZUG_PRODUKTIONS_ZEIT_SEK';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."START_DATE_TIME" is 'Begin der  Schicht, Pause';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."STATUS" is '''N''eu , ''U''  Ubertragen in SPS , ''B''egonnen. ''F'' ertig';
+comment on column DIRKSPZM32.ISI_RES_SCHICHT."TAKT_ZEIT_SEK" is 'TaktZeit in  Sekunden <> 0';
 
 
--- sqlcl_snapshot {"hash":"e515ad5478866c3226247eb7f4b685a062acde99","type":"COMMENT","name":"isi_res_schicht","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"56e7eaf4d3dd44707268328686cce6bdc89a81bd","type":"COMMENT","name":"isi_res_schicht","schemaName":"dirkspzm32","sxml":""}

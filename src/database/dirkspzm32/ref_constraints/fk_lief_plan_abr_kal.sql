@@ -1,9 +1,6 @@
-alter table dirkspzm32.isi_purch_lief_plan_abr_kal
-    add constraint fk_lief_plan_abr_kal
-        foreign key ( lief_plan_abruf_id )
-            references dirkspzm32.isi_purch_lief_plan_abruf ( lief_plan_abruf_id )
-                on delete cascade
-        enable;
+
+  ALTER TABLE "DIRKSPZM32"."ISI_PURCH_LIEF_PLAN_ABR_KAL" ADD CONSTRAINT "FK_LIEF_PLAN_ABR_KAL" FOREIGN KEY ("LIEF_PLAN_ABRUF_ID")
+	  REFERENCES "DIRKSPZM32"."ISI_PURCH_LIEF_PLAN_ABRUF" ("LIEF_PLAN_ABRUF_ID") ON DELETE CASCADE ENABLE;
 
 
--- sqlcl_snapshot {"hash":"0edb9434ec21915bb2f93f9a6c94eade82d8aee0","type":"REF_CONSTRAINT","name":"FK_LIEF_PLAN_ABR_KAL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fc30680b9e4ea7a0a5711c2377ee831f722971d0","type":"REF_CONSTRAINT","name":"FK_LIEF_PLAN_ABR_KAL","schemaName":"DIRKSPZM32","sxml":""}

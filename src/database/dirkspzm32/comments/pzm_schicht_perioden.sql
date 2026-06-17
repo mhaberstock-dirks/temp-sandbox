@@ -1,47 +1,19 @@
-comment on table dirkspzm32.pzm_schicht_perioden is
-    'Die Schichtperioden stellen die Verbindung von den Schichtmodelle zu den Schichtarten da';
-
-comment on column dirkspzm32.pzm_schicht_perioden.created_date is
-    'Datum Erstellt';
-
-comment on column dirkspzm32.pzm_schicht_perioden.created_login_id is
-    'User-ID - Wer hat diesen Eintrag Erstellt';
-
-comment on column dirkspzm32.pzm_schicht_perioden.last_change_date is
-    'Datum der letzten Änderung';
-
-comment on column dirkspzm32.pzm_schicht_perioden.last_change_login_id is
-    'User-ID - Wer hat diesen Eintrag zuletzt geändert';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_ges_std_pro_wo is
-    'Gestammtstunden pro Woche';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_di is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_do is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_fr is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_mi is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_mo is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_sa is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sa_wot_so is
-    'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_sm_name is
-    'Schichtperiode Name (Primary-Key)';
-
-comment on column dirkspzm32.pzm_schicht_perioden.sp_woche_nr is
-    'Schichtperiode-ID (Primary-Key)';
+comment on table DIRKSPZM32.PZM_SCHICHT_PERIODEN is 'Die Schichtperioden stellen die Verbindung von den Schichtmodelle zu den Schichtarten da';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."CREATED_DATE" is 'Datum Erstellt';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."CREATED_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag Erstellt';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."LAST_CHANGE_DATE" is 'Datum der letzten Änderung';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."LAST_CHANGE_LOGIN_ID" is 'User-ID - Wer hat diesen Eintrag zuletzt geändert';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_GES_STD_PRO_WO" is 'Gestammtstunden pro Woche';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_DI" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_DO" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_FR" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_MI" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_MO" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_SA" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SA_WOT_SO" is 'Verlinkung welche Schichtart für diesen Tag gilt (Foreign-Key PZM_SCHICHTARTEN)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_SM_NAME" is 'Schichtperiode Name (Primary-Key)';
+comment on column DIRKSPZM32.PZM_SCHICHT_PERIODEN."SP_WOCHE_NR" is 'Schichtperiode-ID (Primary-Key)';
 
 
--- sqlcl_snapshot {"hash":"de4ca7dcd9058f060fe10920b825e19cf395ba91","type":"COMMENT","name":"pzm_schicht_perioden","schemaName":"dirkspzm32","sxml":""}
+
+-- sqlcl_snapshot {"hash":"ad8db54fe1946876873b8bcc45c5bf1681fb1357","type":"COMMENT","name":"pzm_schicht_perioden","schemaName":"dirkspzm32","sxml":""}

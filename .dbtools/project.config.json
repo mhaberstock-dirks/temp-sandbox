@@ -3,13 +3,13 @@
   "sqlcl" : {
     "connectionName" : "",
     "autoConnect" : false,
-    "version" : "26.1.1.0"
+    "version" : "26.1.2.0"
   },
   "schemas" : [ "DIRKSPZM32" ],
   "lastReleaseVersion" : "",
   "export" : {
     "format" : {
-      "enable" : true
+      "enable" : false
     },
     "setTransform" : {
       "collationClause" : "NEVER",
@@ -45,7 +45,7 @@
   },
   "stage" : {
     "excludeObjects" : [ "ALL.user" ],
-    "generatedFormat" : "liquibase",
+    "generatedFormat" : "sql",
     "softObjectIsolation" : "change",
     "substituteSchemas" : false
   }

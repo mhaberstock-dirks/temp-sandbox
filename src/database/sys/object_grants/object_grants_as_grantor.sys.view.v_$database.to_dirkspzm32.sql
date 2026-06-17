@@ -1,6 +1,6 @@
-grant select on sys.v_$database to dirkspzm32;
+grant SELECT on SYS.V_$DATABASE to DIRKSPZM32;
 
 
 
 
--- sqlcl_snapshot {"hash":"da4075ce6147c741e722e7888e630ff60dc0eab7","type":"OBJECT_GRANT","name":"object_grants_as_grantor.SYS.VIEW.V_$DATABASE.to_DIRKSPZM32","schemaName":"SYS","sxml":""}
+-- sqlcl_snapshot {"hash":"f4aeaa1aa6729c328d5f0cba7929d3282765b270","type":"OBJECT_GRANT","name":"object_grants_as_grantor.SYS.VIEW.V_$DATABASE.to_DIRKSPZM32","schemaName":"SYS","sxml":""}

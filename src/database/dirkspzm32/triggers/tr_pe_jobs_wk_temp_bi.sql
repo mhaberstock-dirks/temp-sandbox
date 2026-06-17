@@ -1,16 +1,18 @@
-create or replace editionable trigger dirkspzm32.tr_pe_jobs_wk_temp_bi before
-    insert on dirkspzm32.pe_jobs
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PE_JOBS_WK_TEMP_BI" 
+  before insert on DIRKSPZM32.pe_jobs
+  for each row
 declare
   -- local variables here
- begin
-    if :new.drucker_name = 'Zebra L7+8' then
-        :new.anzahl := 1;
-    end if;
+begin
+  if :new.drucker_name = 'Zebra L7+8'
+  then
+    :new.anzahl := 1;
+  end if;
 end;
+
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_PE_JOBS_WK_TEMP_BI" ENABLE;
 
-alter trigger dirkspzm32.tr_pe_jobs_wk_temp_bi enable;
 
-
--- sqlcl_snapshot {"hash":"bbd5938c1eedb93928fc7f8cd13a7d7a55d4bf0f","type":"TRIGGER","name":"TR_PE_JOBS_WK_TEMP_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"62f587c8eee9353340fa71720eaad730f1c1edc0","type":"TRIGGER","name":"TR_PE_JOBS_WK_TEMP_BI","schemaName":"DIRKSPZM32","sxml":""}

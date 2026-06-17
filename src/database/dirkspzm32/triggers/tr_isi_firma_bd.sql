@@ -1,17 +1,16 @@
-create or replace editionable trigger dirkspzm32.tr_isi_firma_bd before
-    delete on dirkspzm32.isi_firma
-    for each row
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_FIRMA_BD" 
+  before delete on DIRKSPZM32.isi_firma
+  for each row
 declare
   -- local variables here
- begin
-    delete isi_adressen
-    where
-        adress_id = :old.adress_id;
+begin
+  delete isi_adressen
+  where adress_id = :old.adress_id;
+end TR_ISI_FIRMA_BD;
 
-end tr_isi_firma_bd;
 /
+ALTER TRIGGER "DIRKSPZM32"."TR_ISI_FIRMA_BD" ENABLE;
 
-alter trigger dirkspzm32.tr_isi_firma_bd enable;
 
-
--- sqlcl_snapshot {"hash":"8f490bb3a24fa4b8b18286da95e5960adb883846","type":"TRIGGER","name":"TR_ISI_FIRMA_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"82f86b32408d2777fc9c7fbab67a5cebbc391f9e","type":"TRIGGER","name":"TR_ISI_FIRMA_BD","schemaName":"DIRKSPZM32","sxml":""}
