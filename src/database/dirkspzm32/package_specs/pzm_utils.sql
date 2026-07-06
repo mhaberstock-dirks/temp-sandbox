@@ -206,9 +206,15 @@ package DIRKSPZM32.PZM_UTILS is
                         
   function pb_GET_PERS_KST_ID(in_pers_nr in  pzm_personal.pers_nr%type
                           ) return number;                      
+
+  function is_pb_for_pers_multi_kst(in_pers_nr                        in  pzm_personal.pers_nr%type,
+                                    in_persistieren_in_pzm_cfg        in varchar2
+                          ) return boolean;                      
+
+
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"9b552d2695647b1fd12f2f1297a2d489d81a5f61","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"977af467f5812fd1c1ea6acdfc1da5681b109978","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

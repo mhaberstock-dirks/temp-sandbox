@@ -3,6 +3,7 @@
   before insert or update or delete
   on DIRKSPZM32.PZM_VERTRAGSARTEN
   for each row
+  FOLLOWS TR_VA_ID_SEQ --muss angegeben werden, damit der Sequenztrigger vorher zuendet
 declare
   v_action_type     varchar2(1);
 begin
@@ -34,4 +35,4 @@ end;
 ALTER TRIGGER "DIRKSPZM32"."TR_Z_PZM_VERTRAGSARTEN_TO_INFOR_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"af168dc04afb76e5737256e8647ccfd09565f282","type":"TRIGGER","name":"TR_Z_PZM_VERTRAGSARTEN_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ac41f0d2901df16199a8f933ef4760744aa0759c","type":"TRIGGER","name":"TR_Z_PZM_VERTRAGSARTEN_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}

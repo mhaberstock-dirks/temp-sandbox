@@ -195,7 +195,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
 
     dbms_output.put_line('gelöscht!');
     v_pers_nr := 0; -- INIT
-
+    
     OPEN c_z_stempel_zeiten_abw;
     LOOP
       FETCH c_z_stempel_zeiten_abw into v_stempel_zeiten;

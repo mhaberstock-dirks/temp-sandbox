@@ -373,6 +373,22 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     return v_count = 0;
   end;
 
+  function is_erster_anwesend_eintrag(
+    in_pers_nr     in pzm_personal.pers_nr%type,
+    in_schicht_tag in pzm_zeiterfassung.ze_schicht_tag%type
+  ) return boolean is
+    v_count number;
+  begin
+    select count(*)
+      into v_count
+      from pzm_zeiterfassung t
+     where t.ze_pers_nr = in_pers_nr
+       and t.ze_schicht_tag = in_schicht_tag
+       and t.ze_ist_start is not null
+       and t.ze_status = STATUS_ANWESEND;
+    return v_count = 0;
+  end;
+
   -----------------------------------------------------------------------------------------------
   -- Diese Prozedur delegiert an das Package pzm_p_zeit_bewertung.
   -- Die komplette Bewertungslogik (Festschicht, Gleitzeit, Rundung, Kappung) ist
@@ -388,6 +404,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   begin
     -- Pr?fen ob dies der erste Anwesend-Eintrag des Schichttags ist
     v_is_erster := is_erster_anwesend_eintrag(io_ze_context);
+    
+    -- Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.
+    if io_ze_context.ze_typ = TYP_COSTCENTER then
+      return;
+    end if;
 
     -- Bewertung an das spezialisierte Package delegieren
     v_result := pzm_p_zeit_bewertung.bewerte_ist_zeiten(
@@ -514,6 +535,13 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
           ', PersNr=' || v_ze.ze_pers_nr || ', SchichtTag=' || to_char(v_ze.ze_schicht_tag, 'DD.MM.YYYY'),
           pzm_p_log.CAT_ZEITERFASSUNG,
           'close_eintrag');
+    end if;
+    
+    if v_ze.ze_calc_ist_start is not NULL
+    and v_ze.ze_calc_ist_ende is NULL
+    then
+      v_context.calc_ist_start := v_ze.ze_calc_ist_start;
+      v_context.ze_std := round((v_context.calc_ist_ende - v_context.calc_ist_start) * 24, 3);
     end if;
 
     update pzm_zeiterfassung t
@@ -1451,13 +1479,17 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context.calc_ist_start := v_ze.ze_calc_ist_start;
     v_context.calc_ist_ende := v_ze.ze_calc_ist_ende;
     v_context.ze_std := v_ze.ze_std;
+    v_context.ze_typ := v_ze.ze_typ;
     -- TODO: v_context.timezone_name := null;
     -- TODO: in_ende_timezone_name
 
-    -- Neuberechnung erzwingen
-    v_context.calc_ist_start := null;
-    v_context.calc_ist_ende := null;
-    v_context.ze_std := null;
+    -- Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.
+    if v_context.ze_typ != TYP_COSTCENTER then
+      -- Neuberechnung erzwingen
+      v_context.calc_ist_start := null;
+      v_context.calc_ist_ende := null;
+      v_context.ze_std := null;
+    end if;
 
     ze_ist_zeiten_bewerten(v_context,
       nvl(v_ze.ze_ist_start, v_ze.ze_calc_ist_start),
@@ -1606,6 +1638,161 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_loeschen',
         null, null, in_ze_id);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_loeschen');
+  end;
+
+  /**
+   * Erzeugt einen Kostenstellenwechsel für die Personalnummer.
+   */
+  procedure c_change_ze_pers_kst_id(
+    in_pers_nr     in number,
+    in_kst_id      in isi_kostenstellen.kst_nr%type,
+    in_schicht_tag in  date,
+    in_quelle      in varchar2,
+    in_persistieren_in_pzm_cfg in varchar2,
+    in_change_time in date) is
+    
+    v_ze_id              pzm_zeiterfassung.ze_id%type;
+    v_pzm_zeiterfassunug pzm_zeiterfassung%rowtype;
+    v_schicht_tag        pzm_ze_tagessatz.ts_datum%type;
+    v_count              integer;
+    
+  begin
+    if in_schicht_tag is not NULL
+    then
+      v_schicht_tag := in_schicht_tag;
+    else
+      v_schicht_tag := get_schicht_tag_fuer_zeit(in_pers_nr, in_change_time);
+    end if;
+    
+    pzm_p_log.log_data(
+    p_level       => pzm_p_log.LEVEL_DEBUG,
+    p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr,
+    p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
+    p_module      => 'c_change_ze_pers_kst_id',
+    p_pers_nr     => in_pers_nr,
+    p_schicht_tag => v_schicht_tag,
+    p_quelle      => in_quelle
+    );
+    
+    if not pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg)
+    then
+      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
+        'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.', 
+        in_pers_nr, NULL, v_schicht_tag);
+      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
+      return;
+    end if;
+    v_ze_id := find_offener_eintrag_id(in_pers_nr => in_pers_nr, in_schicht_tag => v_schicht_tag);
+    if v_ze_id is not NULL then
+      v_pzm_zeiterfassunug := get_ze(v_ze_id, 'c_change_ze_pers_kst_id');
+    end if;
+    if v_pzm_zeiterfassunug.ze_aa_status is not NULL
+    or v_ze_id is NULL
+    then
+      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
+        'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er Abwesend ist.', 
+        in_pers_nr, NULL, v_schicht_tag);
+      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
+      return;
+    end if;
+    
+    select count(*)
+      into v_count
+      from isi_kostenstellen t
+     where t.kst_nr = in_kst_id;
+    
+    -- Prüfen der Kostenstelle
+    if v_count = 0 then
+      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
+        'Die Kostenstelle ' || in_kst_id || ' ist nicht vorhanden.', 
+        in_pers_nr, NULL, v_schicht_tag);
+      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
+      return;
+    end if;
+    close_ze_eintrag(v_ze_id, in_change_time);
+    v_pzm_zeiterfassunug := get_ze(v_ze_id, 'c_change_ze_pers_kst_id');
+    -- Schichtzeitpunkt ist noch nicht begonnen, daher nur den aktuell offenen Eintrag mit der neuen KST updaten
+    if v_pzm_zeiterfassunug.ze_calc_ist_start > in_change_time
+    then
+      update pzm_zeiterfassung t
+         set t.ze_ist_ende = NULL,
+             t.ze_calc_ist_start = NULL,
+             t.ze_calc_ist_ende = NULL,
+             t.ze_std = NULL,
+             t.ze_kst_id = in_kst_id,
+             t.last_change_date = sysdate,
+             t.last_change_login_id = current_isi_user_login_id()
+       where t.ze_id = v_ze_id;
+      commit;
+      return;
+    end if;
+
+    select count(*)
+      into v_count
+      from pzm_zeiterfassung t
+     where t.ze_pers_nr = v_pzm_zeiterfassunug.ze_pers_nr
+       and t.ze_schicht_tag = v_pzm_zeiterfassunug.ze_schicht_tag
+       and t.ze_ist_start is not null
+       and t.ze_status = STATUS_ANWESEND;
+       
+    
+    if v_count = 1 -- Erster Eintrag
+    then
+      update pzm_zeiterfassung t
+         set t.ze_calc_ist_ende = in_change_time,
+             t.ze_std = round((in_change_time - t.ze_calc_ist_start) * 24, 3),
+             t.ze_typ = TYP_COSTCENTER,
+             t.last_change_date = sysdate,
+             t.last_change_login_id = current_isi_user_login_id()
+       where t.ze_id = v_ze_id;
+    else   
+      update pzm_zeiterfassung t
+         set t.ze_calc_ist_start = t.ze_ist_start,
+             t.ze_calc_ist_ende = in_change_time,
+             t.ze_std = round((in_change_time - t.ze_ist_start) * 24, 3),
+             t.ze_typ = TYP_COSTCENTER,
+             t.last_change_date = sysdate,
+             t.last_change_login_id = current_isi_user_login_id()
+       where t.ze_id = v_ze_id;
+    end if;
+     
+    insert into pzm_zeiterfassung
+           (ze_pers_nr, 
+            ze_ist_start,
+            ze_calc_ist_start, 
+            ze_kst_id, 
+            ze_status,
+            ze_sa_kurzname, 
+            ze_typ, 
+            ze_schicht_tag, 
+            ze_abt_id, 
+            ze_pb_id, 
+            ze_sm_name, 
+            ze_work_location)
+            values
+           (v_pzm_zeiterfassunug.ze_pers_nr, 
+            in_change_time, 
+            in_change_time, 
+            in_kst_id, 
+            v_pzm_zeiterfassunug.ze_status, 
+            v_pzm_zeiterfassunug.ze_sa_kurzname, 
+            TYP_COSTCENTER,
+            v_pzm_zeiterfassunug.ze_schicht_tag, 
+            v_pzm_zeiterfassunug.ze_abt_id, 
+            v_pzm_zeiterfassunug.ze_pb_id, 
+            v_pzm_zeiterfassunug.ze_sm_name, 
+            v_pzm_zeiterfassunug.ze_work_location);
+                                 
+    pzm_p_log.log_data(
+    p_level       => pzm_p_log.LEVEL_DEBUG,
+    p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr || ' abgeschlossen.',
+    p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
+    p_module      => 'c_change_ze_pers_kst_id',
+    p_pers_nr     => in_pers_nr,
+    p_schicht_tag => v_schicht_tag,
+    p_quelle      => in_quelle
+    );
+    commit;
   end;
 
   function c_abwesenheit_anlegen(
@@ -2094,4 +2281,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"90aadb30548082e7313c8894d8a6fffd0517373b","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"496282d22b92c621b7e130ea65976584755b3b30","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

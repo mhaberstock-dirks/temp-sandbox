@@ -1162,7 +1162,7 @@ package body DIRKSPZM32.PZM_P_SCHICHT_TAG as
           end if;
 
           if v_status = pzm_p_zeiterfassung.STATUS_ABWESEND then
-            if pzm_p_base.get_abwesenheitsart(v_abwesenheits_antr.au_abwes_art, v_abwes_art)
+            if pzm_p_base.get_abwesenheitsart(v_abwesenheitsmeldungen.aa_id, v_abwes_art)
             -- -AG- 2026.06.01 - Fehler bei beantragten Abwesebheiten mit Lohnart (Stundenlohn), also eigendlich anwesend
             --                   Bsp Schulungen extern
             and v_abwes_art.lz_id is not NULL  -- LOA vorhanden
@@ -1453,4 +1453,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f774af32b5cceb3e6d9727b5be306400d1e3a66f","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"db1d43c1d59ef4e83086d0dde55a4cc0d3706886","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}

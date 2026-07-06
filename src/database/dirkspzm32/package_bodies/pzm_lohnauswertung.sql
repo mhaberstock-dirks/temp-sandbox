@@ -6076,6 +6076,24 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       c_pdl_equal_pay(in_pers_nr, v_ende_datum);
     end if;
 
+    -- 20260701 -AG- Bei der Zwischenabrechnung müssen Monatsabschlussbuchungen geloescht werden, damit Kontostände fuer den Monat wieder korrekt sind
+    if trunc(sysdate) <= v_bis_datum
+    and nvl(v_personal.pers_austrittdatum, sysdate) < trunc(sysdate)
+    then
+      begin
+        delete pzm_konten_bh t
+          where t.konto_nr = v_loa_kumuliert.konto_nr_korr
+            and (  t.info = 'pers_LOA_ME_KORR Flexistunden Saldo'
+                or t.info = 'pers_LOA_ME_KORR_TARIF Flexistunden Saldo'
+                or t.info = 'pers_LOA_AUSZ_AUSTRITT Flexistunden Saldo')
+            and t.pers_nr = in_pers_nr
+            and (t.zk_start >= v_start_datum and t.zk_start <= v_ende_datum);
+      exception
+        when others then
+          v_result := '(E199) Korrektur für Konto ' || to_char(v_loa_kumuliert.konto_nr_korr) || ' Nicht möglich.'; -- Konto nicht mehr da?
+      end;
+    end if;
+    
     if v_vertragsart.va_bis_monat_ende_sim = 'T'
     and trunc(sysdate) <= v_bis_datum
     then
@@ -6404,4 +6422,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"59b76a1a6eadccebd145bbdcc9ff71e1934919e5","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"47140ba3da4b528ad46d12b90a6f3d8d8c3c22a9","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

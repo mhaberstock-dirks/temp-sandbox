@@ -347,6 +347,9 @@ begin
       end if;
     end if;
 
+    -- beim ersten Eintrag ... (not v_Found -> vorher noch nichts gefunden)
+    v_DayCalcAnwStart := null;
+    v_DayCalcAnwEnde := null;
     if pzm_p_base.get_abwesenheitsart(v_aa_status, v_abwes_art) is null           -- MWe Add P70460-15
     then                                                                          -- MWe Add P70460-15
        v_aa_status := null;                                                       -- MWe Add P70460-15
@@ -362,6 +365,8 @@ begin
         and v_lohnart.lz_operator = 'ARBSTD' -- Durch den lz_operator "ARBSTD" wird eine Abwesenheit als Arbeitszeit deklariert.
         then
           v_DayAnwStd := v_DayAnwStd + v_Std; -- Anpassung, da ansonsten bspw. Arztbesuchzeit die Arbeitszeit ueberschreibt. (ABa W24120-465)
+          v_DayCalcAnwStart := nvl(v_DayCalcAnwStart, v_CalcStart);
+          v_DayCalcAnwEnde := nvl(v_DayCalcAnwEnde, v_CalcEnde);
           v_Std := 0;
           -- -AG- Bei einer Abwesenheit die Arbeitszeit ist, darf keine Pause abgezogen werden
           /*
@@ -384,9 +389,6 @@ begin
     end if;
     if not v_Found
     then -- 1. Runde ...
-      -- beim ersten Eintrag ... (not v_Found -> vorher noch nichts gefunden)
-      v_DayCalcAnwStart := null;
-      v_DayCalcAnwEnde := null;
 
       v_DayCalcStart := v_CalcStart;
       v_DayCalcEnde := v_CalcEnde;
@@ -833,4 +835,4 @@ end update_pers_ze_tag;
 
 
 
--- sqlcl_snapshot {"hash":"3bd950937ba084e981a8d224088fb6435eefbe7f","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"05e16f76116fd8fe7c2d231769be364f3cb314aa","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}

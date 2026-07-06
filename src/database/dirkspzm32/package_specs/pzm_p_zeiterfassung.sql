@@ -61,6 +61,7 @@ package DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   TYP_LIVE          constant varchar2(10 char) := 'L';    -- Live-Stempeln (App)
   TYP_OFFLINE       constant varchar2(10 char) := 'O';    -- Offline-Buchung (App)
   TYP_SYSTEM        constant varchar2(10 char) := 'S';    -- System-generiert
+  TYP_COSTCENTER    constant varchar2(10 char) := 'C';    -- ZE-Daten mit unterschiedlichen Mostenstellen in einem Tag (pzm_zeiterfassung)
 
   -----------------------------------------------------------------------------------------------
   -- Konstanten: Aktionen der Zeiterfassung (aus Terminal-Eintraegen oder Live-Stempeln)
@@ -349,6 +350,17 @@ package DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   );
 
   /**
+   * Erzeugt einen Kostenstellenwechsel für die Personalnummer.
+   */
+  procedure c_change_ze_pers_kst_id(
+    in_pers_nr     in number,
+    in_kst_id      in isi_kostenstellen.kst_nr%type,
+    in_schicht_tag in  date,
+    in_quelle      in varchar2,
+    in_persistieren_in_pzm_cfg in varchar2,
+    in_change_time in date);
+
+  /**
    * Spezieller Handler fuer das Anlegen von Abwesenheitszeiten (z.B. Urlaub, Krankheit).
    * Erstellt neue Einträge mit vollstaendigen Daten.
    *
@@ -539,4 +551,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"43ac7c36d9b4ac1e21e011ef2c7b96194f38f372","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"62b28415a5ac4c3cc4ae46269b46a8463a4f14e0","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

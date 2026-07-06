@@ -3,6 +3,7 @@
   before insert or update
   on DIRKSPZM32.ISI_USER
   for each row
+  follows TR_ISI_USER_BI  
 begin
   begin
     if inserting 
@@ -29,9 +30,8 @@ begin
     when others then NULL;
   end;
 end;
-
 /
 ALTER TRIGGER "DIRKSPZM32"."TR_Z_ISI_USER_TO_INFOR_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e0615efaba1c70b7d1e6121a6fcea420ae10898a","type":"TRIGGER","name":"TR_Z_ISI_USER_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8975345f9d1a3fa95d96290a17ee57809b80b501","type":"TRIGGER","name":"TR_Z_ISI_USER_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
