@@ -3,7 +3,7 @@ set serverout on feedback off
 
 prompt Checking SQLcl version...
 whenever sqlerror exit
-version -check %CURRENT_VERSION%
+version -check 26.1.2.0
 
 -- prompt Checking minimum database version...
 -- declare

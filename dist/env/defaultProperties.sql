@@ -1,0 +1,3 @@
+SET CONCAT OFF;
+SET DEFINE &;
+DEFINE dirkspzm32=dirkspzm32;
