@@ -326,6 +326,9 @@ begin
 
   v_kenz_urlaub := false;
   open c_ZETag;
+    -- beim ersten Eintrag ... (not v_Found -> vorher noch nichts gefunden)
+  v_DayCalcAnwStart := null;
+  v_DayCalcAnwEnde := null;
   loop
     -- Eintraege aus der Zeiterfassung holen
     fetch c_ZETag into v_ID, v_Start, v_Ende, v_Status, v_aa_status, v_CalcStart, v_CalcEnde,
@@ -347,9 +350,6 @@ begin
       end if;
     end if;
 
-    -- beim ersten Eintrag ... (not v_Found -> vorher noch nichts gefunden)
-    v_DayCalcAnwStart := null;
-    v_DayCalcAnwEnde := null;
     if pzm_p_base.get_abwesenheitsart(v_aa_status, v_abwes_art) is null           -- MWe Add P70460-15
     then                                                                          -- MWe Add P70460-15
        v_aa_status := null;                                                       -- MWe Add P70460-15
@@ -409,7 +409,7 @@ begin
             or v_status = STATUS_PAUSE
       then
         v_DayAnwStd := v_Std;
-        v_DayCalcAnwStart := v_CalcStart;
+        v_DayCalcAnwStart := nvl(v_DayCalcAnwStart, v_CalcStart);
         v_DayCalcAnwEnde := v_CalcEnde;
 
         -- anwesenheitsdauer basierte pausen berechnen
@@ -835,4 +835,4 @@ end update_pers_ze_tag;
 
 
 
--- sqlcl_snapshot {"hash":"05e16f76116fd8fe7c2d231769be364f3cb314aa","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2e75c6bcf5aa0b039a9df10d6a80b8adcf9d48b5","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}

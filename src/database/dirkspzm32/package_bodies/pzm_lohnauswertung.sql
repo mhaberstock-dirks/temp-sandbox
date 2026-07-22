@@ -774,7 +774,11 @@ begin
               elsif v_LoaStdDiff > 0
               and   v_pause_std > 0
               then
-                v_LoaStd := (v_LoaStd + v_pause_std) - v_LoaStdDiff; -- Wenn Pause dann so rechnen
+                v_LoaStd := v_LoaStd - v_LoaStdDiff; -- Wenn Pause dann so rechnen
+                if p_arb_std - v_LoaStdDiff < v_LoaStd
+                then
+                  v_LoaStd := p_arb_std - v_LoaStdDiff;
+                end if;
               else
                 v_LoaStd  := ((p_lz_bis - p_lz_von) * 24) - v_pause_std;
               end if;
@@ -6422,4 +6426,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"47140ba3da4b528ad46d12b90a6f3d8d8c3c22a9","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2d73d72f6cb1451c64200575ae756b35abf7ba3f","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

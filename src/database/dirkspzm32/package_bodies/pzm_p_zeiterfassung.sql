@@ -569,7 +569,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   end;
 
   /**
-   * Schlie?t einen bestehenden Zeiterfassungs-Eintrag automatisch,
+   * Schließt einen bestehenden Zeiterfassungs-Eintrag automatisch,
    * indem die Ende-Zeit auf die Start-Zeit gesetzt wird.
    */
   procedure auto_close_eintrag(in_ze_id  in  number) is
@@ -1687,10 +1687,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       v_pzm_zeiterfassunug := get_ze(v_ze_id, 'c_change_ze_pers_kst_id');
     end if;
     if v_pzm_zeiterfassunug.ze_aa_status is not NULL
+    or v_pzm_zeiterfassunug.ze_calc_ist_start < in_change_time - 16/24
     or v_ze_id is NULL
     then
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
-        'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er Abwesend ist.', 
+        'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er nicht Anwesend ist.', 
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
@@ -2281,4 +2282,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"496282d22b92c621b7e130ea65976584755b3b30","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8605abeb73ff242d084db2a55a500cb31a6ecab7","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

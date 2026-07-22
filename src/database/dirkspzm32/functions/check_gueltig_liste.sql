@@ -1,7 +1,7 @@
 create or replace 
 function DIRKSPZM32.check_gueltig_liste (
     in_schluessel in varchar2,
-    in_regeln     in dirkspzm32.pzm_gueltig_regel_ct
+    in_regeln     in pzm_gueltig_regel_ct
 ) return number is
 /*
  * Generische Allow-/Blocklist-Prüfung.
@@ -35,4 +35,4 @@ end check_gueltig_liste;
 
 
 
--- sqlcl_snapshot {"hash":"a46ce9f407dbc47da4d40a41870070d299e37852","type":"FUNCTION","name":"CHECK_GUELTIG_LISTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36b8f6d75137d7c4040aecf8514687f1688d9a50","type":"FUNCTION","name":"CHECK_GUELTIG_LISTE","schemaName":"DIRKSPZM32","sxml":""}

@@ -327,7 +327,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
           end if;
           
           v_start_date := trunc(to_date(v_stempel_zeiten.kommt, 'dd.mm.yyyy hh24:mi'));
-          v_ende_date := NULL;
+          --v_ende_date := NULL;
           v_pers_nr := v_stempel_zeiten.pers_nr;
         end if;
         -- jetzt die Stempelzeit buchen
@@ -399,7 +399,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
   
   
   procedure pzm_update_pers_nr is
-    v_found                      Boolean;
+    --v_found                      Boolean;
     v_pzm_pers_nr                z_pzm_pers_nr_alt_neu%rowtype;
     
     CURSOR c_pzm_pers_nr is
@@ -507,7 +507,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
 
   procedure pzm_update_pers_nr_transponder
             is
-    v_found                      Boolean;
+    --v_found                      Boolean;
     v_pzm_pers_nr_transpponder   z_pzm_pers_nr_transponder%rowtype;
     
     CURSOR c_pzm_pers_nr_transponder is
@@ -528,6 +528,76 @@ package body DIRKSPZM32.z_pzm_startup_import is
     CLOSE c_pzm_pers_nr_transponder;
   end;
 
+  procedure pzm_update_pers_nr_xxl is
+    --v_found                      Boolean;
+    v_z_pzm_pers_nr              z_pzm_personal_import%rowtype;
+    v_personal                   pzm_personal%rowtype;
+    v_kst                        isi_kostenstellen%rowtype;
+    
+    CURSOR c_z_pzm_pers_nr is
+      select t.*
+        from z_pzm_personal_import t;
+     
+    CURSOR c_kst is
+      select * from isi_kostenstellen t
+        where t.kst_nr = v_z_pzm_pers_nr.pers_kst_id;
+    
+        
+  begin
+    OPEN c_z_pzm_pers_nr;
+    LOOP
+      FETCH c_z_pzm_pers_nr into v_z_pzm_pers_nr;
+      EXIT when c_z_pzm_pers_nr%NOTFOUND;
+      
+      dbms_output.put_line(v_z_pzm_pers_nr.pers_nr || ' -> ' || v_z_pzm_pers_nr.pers_nname || ',' || v_z_pzm_pers_nr.pers_vname);
+      
+      if v_z_pzm_pers_nr.pers_nr = 91784
+      then
+        v_z_pzm_pers_nr.pers_nr := 91784;
+      end if;
+
+      if not pzm_p_base.get_personal(v_z_pzm_pers_nr.pers_nr, v_personal)
+      then
+        update pzm_personal p
+           set p.pers_nr = v_z_pzm_pers_nr.pers_nr
+         where p.pers_nname = v_z_pzm_pers_nr.pers_nname
+           and p.pers_vname = v_z_pzm_pers_nr.pers_vname
+           and p.pers_pb_id = v_z_pzm_pers_nr.pers_pb_id;
+      end if;
+      
+      if v_z_pzm_pers_nr.pers_nr > 0
+      then
+        update pzm_personal t
+           set t.pers_kst_id = nvl(v_z_pzm_pers_nr.pers_kst_id, t.pers_kst_id),
+               t.pers_pb_id = nvl(v_z_pzm_pers_nr.pers_pb_id, t.pers_pb_id),
+               t.pers_sm_name = nvl(v_z_pzm_pers_nr.pers_sm_name, t.pers_sm_name),
+               t.pers_region_code = nvl(v_z_pzm_pers_nr.pers_region_code, t.pers_region_code)
+         where t.pers_nr = v_z_pzm_pers_nr.pers_nr;
+        
+        OPEN c_kst;
+        FETCH c_kst into v_kst;
+        if c_kst%notfound
+        then
+          insert into isi_kostenstellen
+            (kst_nr, kst_name, kst_bemerkung)
+          values
+            (v_z_pzm_pers_nr.pers_kst_id, 'Polen fehlt ' || to_char(v_z_pzm_pers_nr.pers_kst_id), 'Aus  pzm_update_pers_nr');        
+        end if;
+        CLOSE c_kst;
+
+        if v_z_pzm_pers_nr.pers_transponder is not NULL
+        then
+          update isi_user t
+             set t.transponder = lpad(v_z_pzm_pers_nr.pers_transponder, 6, '00')
+           where t.pers_nr = v_z_pzm_pers_nr.pers_nr;
+        end if;
+
+      end if; 
+    end LOOP;
+    CLOSE c_z_pzm_pers_nr;
+  end;
+
+
 begin
 
   OPEN c_sid;
@@ -545,4 +615,4 @@ end z_pzm_startup_import;
 
 
 
--- sqlcl_snapshot {"hash":"acb01adb9802a4662c35f6c60ee8639cf2b709ea","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"34a4192ced3bf362ffa5df9fb3d8559b609b3554","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}

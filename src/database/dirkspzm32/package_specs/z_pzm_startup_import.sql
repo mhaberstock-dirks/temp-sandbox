@@ -47,9 +47,11 @@ package DIRKSPZM32.z_pzm_startup_import is
   procedure pzm_update_pers_nr;
   procedure pzm_update_pers_nr_transponder;
 
+  procedure pzm_update_pers_nr_xxl;
+
 end z_pzm_startup_import;
 /
 
 
 
--- sqlcl_snapshot {"hash":"d460acd1d3cbc40d5a95223f56f5756ad38eefd6","type":"PACKAGE_SPEC","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"da7c5b3fbc679613605087751c02c9ea863a5193","type":"PACKAGE_SPEC","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}

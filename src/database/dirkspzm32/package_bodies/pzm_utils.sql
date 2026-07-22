@@ -1480,17 +1480,12 @@ package body DIRKSPZM32.PZM_UTILS is
   v_personal              pzm_personal%rowtype;
   v_allg_pzm_p_value      pzm_allg_parameter.ap_value%type;
   
-  v_firma_cfg             isi_firma_cfg%rowtype;
+  v_pzm_abteilungen       pzm_abteilungen%rowtype;
 
-  CURSOR c_firma_cfg is
+  CURSOR c_pers_abt is
     select *
-      from isi_firma_cfg t
-     where t.sid = '01'
-       and t.firma_nr = 1
-       and t.kategorie = 'PZM_PB_MULTI_KST'
-       and t.kategorie_ix = v_personal.pers_pb_id
-       and t.parameter_name = 'MULTI_KST_TRUE'
-       and t.modul_name = 'PZM';
+      from pzm_abteilungen t
+     where t.abt_id = v_personal.pers_abt_id;
     pragma autonomous_transaction;
   begin
     if not pzm_p_base.get_personal(in_pers_nr, v_personal)
@@ -1498,6 +1493,12 @@ package body DIRKSPZM32.PZM_UTILS is
       v_result := false;
     else
       v_result := null;
+      OPEN c_pers_abt;
+      FETCH c_pers_abt into v_pzm_abteilungen;
+      CLOSE c_pers_abt;
+      
+      v_personal.pers_pb_id := nvl(v_pzm_abteilungen.abt_pb_id, v_personal.pers_pb_id);
+      
       if g_pers_pb_multi_kst_cache.exists (v_personal.pers_pb_id) then
         if systimestamp - g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).cached_at < gc_pers_pb_multi_kst_ttl then
           v_Result := g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).multi_kst_true;
@@ -1523,6 +1524,8 @@ package body DIRKSPZM32.PZM_UTILS is
             values
               (v_personal.pers_pb_id, 'PZM_PB_MULTI_KST', 'F', NULL, 'T = Ja, F = Nein; Dürfen mehrere Kostenstellen in diesem Mandanten in den zeitdaten sein?', sysdate, -1);
             commit;
+          else
+            v_result := false;
           end if;
         end if;
         g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).multi_kst_true := v_result;
@@ -1541,4 +1544,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"110d9dddb051c2d86260d3afa973f184952ceb0f","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"972a05e1dc2c80363b3afcd856898945dff3359a","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

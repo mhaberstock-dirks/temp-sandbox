@@ -259,8 +259,8 @@ package body DIRKSPZM32.pzm_p_base is
       SELECT ap_value 
         FROM pzm_allg_parameter p
        WHERE LOWER(p.ap_name) = LOWER(in_param_name)
-         and nvl(p.ap_pb_id, in_pb_id) = in_pb_id
-       order by decode(p.ap_pb_id, NULL, 1,0); -- Der korrekte produktionsbereich / mandant zuerst
+         and (p.ap_pb_id = in_pb_id or p.ap_pb_id = 0)
+       order by p.ap_pb_id desc; -- Der korrekte produktionsbereich / mandant zuerst
 
   begin
     OPEN c_AllgParam;
@@ -281,4 +281,4 @@ end pzm_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"1d254c96bd5bdf4df2e620f6c211338e5d8744d8","type":"PACKAGE_BODY","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bbb1815737838004a0e4245da0994ec0c51c1a1e","type":"PACKAGE_BODY","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
