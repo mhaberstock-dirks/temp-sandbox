@@ -404,7 +404,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   begin
     -- Prüfen ob dies der erste Anwesend-Eintrag des Schichttags ist
     v_is_erster := is_erster_anwesend_eintrag(io_ze_context);
-    
+
     -- Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.
     if io_ze_context.ze_typ = TYP_COSTCENTER then
       return;
@@ -536,7 +536,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
           pzm_p_log.CAT_ZEITERFASSUNG,
           'close_eintrag');
     end if;
-    
+
     if v_ze.ze_calc_ist_start is not NULL
     and v_ze.ze_calc_ist_ende is NULL
     then
@@ -613,9 +613,14 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   /**
    * Schließt einen bestehenden Zeiterfassungs-Eintrag automatisch,
    * indem die Ende-Zeit auf die Start-Zeit gesetzt wird.
+   * Anschließend wird die Schichttags-Auswertung für den bisher offenen
+   * Schichttag aufgerufen. Der Gesamte Vorgang erfolgt in einer 
+   * autonomen Transaktion.
    */
-  procedure auto_close_eintrag(in_ze_id  in  number) is
+  procedure cat_auto_close_eintrag(in_ze_id  in  number) is
+    PRAGMA               AUTONOMOUS_TRANSACTION;
     v_ze                 pzm_zeiterfassung%rowtype;
+    
   begin
     v_ze := get_ze(in_ze_id, 'auto_close_eintrag');
 
@@ -638,9 +643,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_date = sysdate,
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = in_ze_id;
-     
+
      c_schicht_tag_auswerten ( v_ze.ZE_PERS_NR, v_ze.ZE_SCHICHT_TAG);
-     
+
   end;
 
 
@@ -935,7 +940,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
         v_max_std_offen := get_max_std_offen(v_context.pers_nr);
         if (v_context.zeitstempel - v_ze.ze_ist_start) > (v_max_std_offen / 24) then
-          auto_close_eintrag(v_offener_ze_id);
+          cat_auto_close_eintrag(v_offener_ze_id);
         elsif v_ze.ze_status = v_context.ze_status then
           pzm_p_log.log_data(
             p_level       => pzm_p_log.LEVEL_WARNING,
@@ -1111,7 +1116,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
         v_max_std_offen := get_max_std_offen(v_context.pers_nr);
         if (v_context.zeitstempel - v_ze.ze_ist_start) > (v_max_std_offen / 24) then
-          auto_close_eintrag(v_offener_ze_id);
+          cat_auto_close_eintrag(v_offener_ze_id);
         elsif v_ze.ze_status = v_context.ze_status then
           pzm_p_log.log_data(
             p_level       => pzm_p_log.LEVEL_WARNING,
@@ -1654,12 +1659,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     in_quelle      in varchar2,
     in_persistieren_in_pzm_cfg in varchar2,
     in_change_time in date) is
-    
+
     v_ze_id              pzm_zeiterfassung.ze_id%type;
     v_pzm_zeiterfassunug pzm_zeiterfassung%rowtype;
     v_schicht_tag        pzm_ze_tagessatz.ts_datum%type;
     v_count              integer;
-    
+
   begin
     if in_schicht_tag is not NULL
     then
@@ -1667,7 +1672,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     else
       v_schicht_tag := get_schicht_tag_fuer_zeit(in_pers_nr, in_change_time);
     end if;
-    
+
     pzm_p_log.log_data(
     p_level       => pzm_p_log.LEVEL_DEBUG,
     p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr,
@@ -1677,7 +1682,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     p_schicht_tag => v_schicht_tag,
     p_quelle      => in_quelle
     );
-    
+
     if not pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg)
     then
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
@@ -1700,12 +1705,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
     end if;
-    
+
     select count(*)
       into v_count
       from isi_kostenstellen t
      where t.kst_nr = in_kst_id;
-    
+
     -- Prüfen der Kostenstelle
     if v_count = 0 then
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
@@ -1739,8 +1744,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and t.ze_schicht_tag = v_pzm_zeiterfassunug.ze_schicht_tag
        and t.ze_ist_start is not null
        and t.ze_status = STATUS_ANWESEND;
-       
-    
+
+
     if v_count = 1 -- Erster Eintrag
     then
       update pzm_zeiterfassung t
@@ -1760,7 +1765,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
              t.last_change_login_id = current_isi_user_login_id()
        where t.ze_id = v_ze_id;
     end if;
-     
+
     insert into pzm_zeiterfassung
            (ze_pers_nr, 
             ze_ist_start,
@@ -1787,7 +1792,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
             v_pzm_zeiterfassunug.ze_pb_id, 
             v_pzm_zeiterfassunug.ze_sm_name, 
             v_pzm_zeiterfassunug.ze_work_location);
-                                 
+
     pzm_p_log.log_data(
     p_level       => pzm_p_log.LEVEL_DEBUG,
     p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr || ' abgeschlossen.',
@@ -2286,4 +2291,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"3f7cd411b2676774426f5cc2fa9912f113794543","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4b780db052407dca89db435f1bf9b0e7ca70008d","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
