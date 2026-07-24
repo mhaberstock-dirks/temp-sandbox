@@ -16,8 +16,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   c_max_std_offen_default constant number := 11;  -- 11 Stunden (Default Ruhezeit)
   c_max_std_nahe  constant number := 4;  -- max. Stunden seit letztem berechneten Ende fuer Kontext-Uebernahme (Pause-als-G/K)
 
-  -- Default Timezone f?r Legacy-Aufrufe ohne explizite Timezone-Angabe
-  -- TODO: Nach vollst?ndiger Client-Migration kann diese Konstante entfernt werden
+  -- Default Timezone für Legacy-Aufrufe ohne explizite Timezone-Angabe
+  -- TODO: Nach vollständiger Client-Migration kann diese Konstante entfernt werden
   c_default_timezone constant varchar2(50 char) := 'Europe/Berlin';
 
   -----------------------------------------------------------------------------------------------
@@ -85,10 +85,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
   /**
    * Liefert die RFID (bzw. Transponder-Code) des Mitarbeiters basierend auf der Personalnummer.
-   * Legacy-Note: derzeit wird f?r die Zuordnung von Transponder-Nummern auf Mitarbeiter
+   * Legacy-Note: derzeit wird für die Zuordnung von Transponder-Nummern auf Mitarbeiter
    * die Tabelle ISI_USER verwendet.
-   * In Zukunft k?nnte dies ?ber eine separate Zuordnungstabelle erfolgen,
-   * um die Abh?ngigkeit von ISI_USER zu entfernen.
+   * In Zukunft könnte dies über eine separate Zuordnungstabelle erfolgen,
+   * um die Abhängigkeit von ISI_USER zu entfernen.
    */
   function get_rfid(in_pers_nr in isi_user.pers_nr%type ) return varchar2 is
     v_transponder isi_user.transponder%type;
@@ -392,7 +392,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   -----------------------------------------------------------------------------------------------
   -- Diese Prozedur delegiert an das Package pzm_p_zeit_bewertung.
   -- Die komplette Bewertungslogik (Festschicht, Gleitzeit, Rundung, Kappung) ist
-  -- dort gekapselt und kann unabh?ngig getestet werden.
+  -- dort gekapselt und kann unabhängig getestet werden.
   -----------------------------------------------------------------------------------------------
   procedure ze_ist_zeiten_bewerten(
     io_ze_context in out t_buchung_context,
@@ -402,7 +402,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_result         pzm_p_zeit_bewertung.t_bewertung_result;
     v_is_erster      boolean;
   begin
-    -- Pr?fen ob dies der erste Anwesend-Eintrag des Schichttags ist
+    -- Prüfen ob dies der erste Anwesend-Eintrag des Schichttags ist
     v_is_erster := is_erster_anwesend_eintrag(io_ze_context);
     
     -- Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.
@@ -423,12 +423,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       in_is_erster_eintrag => v_is_erster
     );
 
-    -- Ergebnisse in den Kontext ?bernehmen
+    -- Ergebnisse in den Kontext übernehmen
     io_ze_context.calc_ist_start := v_result.calc_ist_start;
     io_ze_context.calc_ist_ende := v_result.calc_ist_ende;
     io_ze_context.ze_std := v_result.ze_std;
 
-    -- Schichtdaten nur ?bernehmen wenn ermittelt
+    -- Schichtdaten nur übernehmen wenn ermittelt
     if v_result.schicht_tag is not null then
       io_ze_context.schicht_tag := v_result.schicht_tag;
     end if;
@@ -500,7 +500,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   end;
 
   /**
-   * Schlie?t einen bestehenden Zeiterfassungs-Eintrag mit der angegebenen Ende-Zeit.
+   * Schließt einen bestehenden Zeiterfassungs-Eintrag mit der angegebenen Ende-Zeit.
    */
   procedure close_ze_eintrag(
     in_ze_id    in  number,
@@ -529,7 +529,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     ze_ist_zeiten_bewerten(v_context, v_ze.ze_ist_start, in_ist_ende);
 
     if v_context.calc_ist_ende is null or v_context.calc_ist_start is null then
-      -- TODO: -wkr- Aus meiner Sicht sollte hier ein Fehler geworfen werden, da die Bewertung fehlschl?gt.
+      -- TODO: -wkr- Aus meiner Sicht sollte hier ein Fehler geworfen werden, da die Bewertung fehlschlägt.
       pzm_p_log.warning('Bewertung (calc_ist_...) ist fehlgeschlagen! Erfasste Zeit wird trotzdem gespeichert. ZE_ID: ' || in_ze_id ||
           ', Zeit=' || to_char(in_ist_ende, 'DD.MM.YYYY HH24:MI') ||
           ', PersNr=' || v_ze.ze_pers_nr || ', SchichtTag=' || to_char(v_ze.ze_schicht_tag, 'DD.MM.YYYY'),
@@ -568,38 +568,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     );
   end;
 
-  /**
-   * Schließt einen bestehenden Zeiterfassungs-Eintrag automatisch,
-   * indem die Ende-Zeit auf die Start-Zeit gesetzt wird.
-   */
-  procedure auto_close_eintrag(in_ze_id  in  number) is
-    v_ze                 pzm_zeiterfassung%rowtype;
-  begin
-    v_ze := get_ze(in_ze_id, 'auto_close_eintrag');
-
-    pzm_p_log.log_data(
-      p_level       => pzm_p_log.LEVEL_WARNING,
-      p_message     => 'Auto-Close: Start=' || to_char(v_ze.ze_ist_start, 'YYYY-MM-DD HH24:MI') ||
-                       ', Alter=' || round((sysdate - v_ze.ze_ist_start) * 24, 1) || 'h (Eintrag war zu lange offen)',
-      p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
-      p_module      => 'auto_close_eintrag',
-      p_pers_nr     => v_ze.ze_pers_nr,
-      p_ze_id       => in_ze_id,
-      p_schicht_tag => v_ze.ze_schicht_tag
-    );
-
-    update pzm_zeiterfassung t
-       set t.ze_ist_ende = t.ze_ist_start,
-           t.ze_calc_ist_ende = t.ze_calc_ist_start,
-           t.ze_std = 0,
-           t.ze_typ = TYP_SYSTEM,
-           t.last_change_date = sysdate,
-           t.last_change_login_id = current_isi_user_login_id()
-     where t.ze_id = in_ze_id;
-  end;
-
   /** 
-   * F?hrt die Tagesauswertung/-berechnung f?r den angegebenen Schichttag durch.
+   * Führt die Tagesauswertung/-berechnung für den angegebenen Schichttag durch.
    * Es wird keine Exception geworfen! Bei Fehlern wird ins Log geschrieben.
    */
   procedure c_schicht_tag_auswerten(
@@ -640,13 +610,47 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       );
   end;
 
+  /**
+   * Schließt einen bestehenden Zeiterfassungs-Eintrag automatisch,
+   * indem die Ende-Zeit auf die Start-Zeit gesetzt wird.
+   */
+  procedure auto_close_eintrag(in_ze_id  in  number) is
+    v_ze                 pzm_zeiterfassung%rowtype;
+  begin
+    v_ze := get_ze(in_ze_id, 'auto_close_eintrag');
+
+    pzm_p_log.log_data(
+      p_level       => pzm_p_log.LEVEL_WARNING,
+      p_message     => 'Auto-Close: Start=' || to_char(v_ze.ze_ist_start, 'YYYY-MM-DD HH24:MI') ||
+                       ', Alter=' || round((sysdate - v_ze.ze_ist_start) * 24, 1) || 'h (Eintrag war zu lange offen)',
+      p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
+      p_module      => 'auto_close_eintrag',
+      p_pers_nr     => v_ze.ze_pers_nr,
+      p_ze_id       => in_ze_id,
+      p_schicht_tag => v_ze.ze_schicht_tag
+    );
+
+    update pzm_zeiterfassung t
+       set t.ze_ist_ende = t.ze_ist_start,
+           t.ze_calc_ist_ende = t.ze_calc_ist_start,
+           t.ze_std = 0,
+           t.ze_typ = TYP_SYSTEM,
+           t.last_change_date = sysdate,
+           t.last_change_login_id = current_isi_user_login_id()
+     where t.ze_id = in_ze_id;
+     
+     c_schicht_tag_auswerten ( v_ze.ZE_PERS_NR, v_ze.ZE_SCHICHT_TAG);
+     
+  end;
+
+
   -----------------------------------------------------------------------------------------------
   -- OEFFENTLICHE API: Abfrage-Funktionen
   -----------------------------------------------------------------------------------------------
 
   /**
-   * Liefert die Personalnummer des Mitarbeiters basierend auf der ?bergebenen RFID (Transponder-Code).
-   * Gibt eine Exception zur?ck, wenn kein Mitarbeiter mit der angegebenen RFID gefunden wird.
+   * Liefert die Personalnummer des Mitarbeiters basierend auf der übergebenen RFID (Transponder-Code).
+   * Gibt eine Exception zurück, wenn kein Mitarbeiter mit der angegebenen RFID gefunden wird.
    */
   function get_pers_nr_by_rfid(
     in_rfid in varchar2
@@ -813,7 +817,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   end;
 
   /**
-   * Markiert den Stempelzeit-Eintrag als erfolgreich ?bertragen.
+   * Markiert den Stempelzeit-Eintrag als erfolgreich übertragen.
    */
   procedure stempelzeit_eintrag_erlfolgreich(
     in_context in t_buchung_context
@@ -914,7 +918,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
         v_context.aktion,
         v_context.zeitstempel,
         v_context.timezone_name,
-        'L'); -- wir nehmen hier den Status 'L'(ive) damit kein Batch-Prozess versucht diesen Datensatz nochmal zu ?bertragen
+        'L'); -- wir nehmen hier den Status 'L'(ive) damit kein Batch-Prozess versucht diesen Datensatz nochmal zu übertragen
     end if;
 
     load_mitarbeiter_daten(v_context);
@@ -1001,7 +1005,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       if v_ze.ze_status in (STATUS_PAUSE, STATUS_DIENSTGANG) then
         -- wenn beim LIVE Stempeln Pause/Dienstgang geschlossen wird,
         -- wird automatisch ein neuer Eintrag mit ANWESEND erstellt
-        -- TODO: das sollte evtl. nur f?r Pause so gehandhabt werden
+        -- TODO: das sollte evtl. nur für Pause so gehandhabt werden
         v_context.ze_status := STATUS_ANWESEND;
         v_offener_ze_id := create_ze_eintrag(v_context, v_context.zeitstempel, null);
       end if;
@@ -1014,7 +1018,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
       if v_ze.ze_status = STATUS_ANWESEND then
         -- TODO: spaeter generischer Exitpunkt (Event?) fuer BDE-Integration
-        -- ACHTUNG! hier wird implizit ein 'commit' durchgef?hrt!
+        -- ACHTUNG! hier wird implizit ein 'commit' durchgeführt!
         pzm_bde_schicht_abmelden(v_ze.ze_pers_nr);
       end if;
     end if;
@@ -1563,7 +1567,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       exit when c_ze_schicht_tag%notfound;
 
       -- Jeden ZE-Eintrag einzeln korrigieren,
-      -- aber Schicht-Tag Auswertung erst am Ende f?r alle zusammen
+      -- aber Schicht-Tag Auswertung erst am Ende für alle zusammen
       c_ze_schicht_korrigieren(
         in_ze_id => v_ze_id,
         in_schicht_tag_neu => in_schicht_tag_neu,
@@ -2282,4 +2286,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"8605abeb73ff242d084db2a55a500cb31a6ecab7","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3f7cd411b2676774426f5cc2fa9912f113794543","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
