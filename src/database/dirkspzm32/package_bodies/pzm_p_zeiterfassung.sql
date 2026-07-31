@@ -32,13 +32,20 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   function get_max_std_offen(in_pers_nr in number) return number is
     v_schicht_modell pzm_schicht_modelle%rowtype;
   begin
+    
     -- Haelfte der vorgeschriebenen Ruhezeit als Karenz oben drauf
+    return case pzm_p_base.get_schicht_modell(in_pers_nr, v_schicht_modell)
+      when true then  nvl(v_schicht_modell.kappung_te_ab_flx_std, c_max_std_offen_default) + 6
+                else  c_max_std_offen_default + 6
+      end;
+    /*      
     if pzm_p_base.get_schicht_modell(in_pers_nr, v_schicht_modell) then
       return nvl(v_schicht_modell.kappung_te_ab_flx_std, c_max_std_offen_default) + 6;
     else
       return c_max_std_offen_default + 6;
     end if;
-  end;
+    */
+  end get_max_std_offen;
 
   /**
    * Liefert den Zeiterfassungs-Status basierend auf der angegebenen Aktion.
@@ -53,7 +60,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       when AKTION_SERVICE    then STATUS_SERVICE
       else STATUS_ANWESEND
     end;
-  end;
+  end get_ze_status_from_aktion;
 
   /**
    * Prueft ob die uebergebene Aktion eine Start-Aktion ist (Kommen, Pausenbeginn, Dienstgangbeginn, ...).
@@ -61,23 +68,26 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   function is_start_aktion(in_aktion in varchar2) return boolean is
   begin
     return upper(in_aktion) not in (AKTION_GEHEN);
-  end;
+  end is_start_aktion;
 
   /**
    * Liefert den Zeiterfassungs-Typ basierend auf der angegebenen Quelle.
    */
   function get_ze_typ_from_quelle(in_quelle in varchar2) return varchar2 is
   begin
-    if in_quelle = QUELLE_TERMINAL then
-      return TYP_TERMINAL;
-    elsif in_quelle = QUELLE_LIVE then
-      return TYP_LIVE;
-    elsif in_quelle = QUELLE_APP then
-      return TYP_OFFLINE;
-    else
-      return TYP_MANUELL;
-    end if;
-  end;
+    return case in_quelle 
+       when QUELLE_TERMINAL then TYP_TERMINAL
+       when QUELLE_LIVE     then TYP_LIVE
+       when QUELLE_APP      then TYP_OFFLINE
+       else                      TYP_MANUELL
+      end;
+    /*
+    if      in_quelle = QUELLE_TERMINAL then   return TYP_TERMINAL;
+      elsif in_quelle = QUELLE_LIVE     then   return TYP_LIVE;
+      elsif in_quelle = QUELLE_APP      then   return TYP_OFFLINE;
+      else                                     return TYP_MANUELL;
+    end if;*/
+  end get_ze_typ_from_quelle;
 
   -----------------------------------------------------------------------------------------------
   -- PRIVATE HILFSFUNKTIONEN: Kontext-Laden
@@ -104,7 +114,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     close c_rfid_user;
 
     return nvl(v_transponder, 'PNR_' || in_pers_nr);  -- Fallback: PNR_ + Personalnummer, um zumindest eine eindeutige Kennung zu haben
-  end;
+  end get_rfid;
 
   /**
    * Laedt die Mitarbeiter-Daten (Kostenstelle, Abteilung, Projektbereich, Arbeitsort)
@@ -116,8 +126,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     if io_ze_context.kst_id is null then
       io_ze_context.kst_id := get_pers_kst_id(io_ze_context.pers_nr);
       if io_ze_context.kst_id is null then
-        raise_application_error(-20010, 
-          'Keine Kostenstelle fuer Pers. Nr. ' || to_char(io_ze_context.pers_nr) || ' vorhanden!');
+        PZM_P_LC.raise_app_error_p(
+            PZM_P_LC.cerr_kst_id_404
+          , PZM_P_LC.O_TP1_PZM_ERROR_KST_ID_404
+          , to_char(io_ze_context.pers_nr)
+          );
       end if;
     end if;
 
@@ -132,7 +145,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     if io_ze_context.work_location is null then
       io_ze_context.work_location := get_default_work_location(io_ze_context.ze_status);
     end if;
-  end;
+  end load_mitarbeiter_daten;
 
   /**
    * Laedt Schichtdaten in den Buchungskontext.
@@ -289,34 +302,35 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
         io_ze_context.sm_name := v_schicht_modell.sm_name;
       end if;
     end if;
-  end;
+  end load_schicht_daten;
 
-  function get_ze(
-    in_ze_id  in pzm_zeiterfassung.ze_id%type,
-    in_module in varchar2
-  ) return pzm_zeiterfassung%rowtype is
-    v_ze                 pzm_zeiterfassung%rowtype;
+  /**
+   * Lädt den durch in_ze_id Zeiterfassungs-Eintrag vollständig in Rowtype-Variable
+   */
+  FUNCTION get_ze (in_ze_id IN pzm_zeiterfassung.ze_id%TYPE, in_module IN VARCHAR2)
+    RETURN pzm_zeiterfassung%ROWTYPE
+  IS
+    v_ze   pzm_zeiterfassung%ROWTYPE;
 
-    cursor c_ze is
-      select * from pzm_zeiterfassung where ze_id = in_ze_id;
-  begin
-    open c_ze;
-    fetch c_ze into v_ze;
-    if c_ze%notfound then
-      close c_ze;
-
-      pzm_p_log.warning('ZE Eintrag nicht gefunden: ' || in_ze_id,
-        pzm_p_log.CAT_ZEITERFASSUNG, in_module);
-
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_BUCHUNG,
-        pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404,
-        in_ze_id);
-    end if;
-    close c_ze;
-
-    return v_ze;
-  end;
+    CURSOR c_ze IS
+      SELECT *
+        FROM pzm_zeiterfassung
+       WHERE ze_id = in_ze_id;
+  BEGIN
+    OPEN c_ze;
+    FETCH c_ze INTO v_ze;
+    IF c_ze%NOTFOUND
+    THEN
+      CLOSE c_ze;
+      pzm_p_log.error ('ZE Eintrag nicht gefunden: ' || in_ze_id, pzm_p_log.cat_zeiterfassung, in_module);
+      pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_pzm_buchung
+        , pzm_p_lc.o_tp1_pzm_error_ze_eintrag_404
+        , in_ze_id);  
+    END IF;
+    CLOSE c_ze;
+    RETURN v_ze;
+  END get_ze;
 
   -----------------------------------------------------------------------------------------------
   -- PRIVATE HILFSFUNKTIONEN: Validierung
@@ -329,18 +343,18 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   procedure validate_ze_buchung(in_ze_context in t_buchung_context) is
   begin
     if in_ze_context.pers_nr is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_ZE_DATEN_INVALID,
+      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
         pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_PERS_NR);
     end if;
 
     if in_ze_context.zeitstempel is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_ZE_DATEN_INVALID,
+      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
         pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_TIMESTAMP);
     end if;
 
     if in_ze_context.aktion is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_ZE_DATEN_INVALID,
-        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION);
+      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
+        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION); 
     end if;
 
     -- TODO: -wkr- Zukunftszeitstempel mit Beruecksichtigung der Zeitzone pruefen?
@@ -348,7 +362,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     --   pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_ZE_DATEN_INVALID,
     --     pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_TIMESTAMP_IN_FUTURE);
     -- end if;
-  end;
+  end validate_ze_buchung;
 
   -----------------------------------------------------------------------------------------------
   -- PRIVATE KERNFUNKTION: Deterministische Zeit-Berechnung
@@ -371,7 +385,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and t.ze_ist_start is not null
        and t.ze_status = STATUS_ANWESEND;
     return v_count = 0;
-  end;
+  end is_erster_anwesend_eintrag;
 
   function is_erster_anwesend_eintrag(
     in_pers_nr     in pzm_personal.pers_nr%type,
@@ -387,7 +401,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and t.ze_ist_start is not null
        and t.ze_status = STATUS_ANWESEND;
     return v_count = 0;
-  end;
+  end is_erster_anwesend_eintrag;
 
   -----------------------------------------------------------------------------------------------
   -- Diese Prozedur delegiert an das Package pzm_p_zeit_bewertung.
@@ -436,7 +450,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     if v_result.sa_kurzname is not null then
       io_ze_context.sa_kurzname := v_result.sa_kurzname;
     end if;
-  end;
+  end ze_ist_zeiten_bewerten;
 
   -----------------------------------------------------------------------------------------------
   -- PRIVATE KERNOPERATIONEN: ZE Eintrag erstellen/schliessen (aufraeumen)
@@ -451,7 +465,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and t.ze_korr_pers_nr is null
        and t.ze_ist_start is null
        and t.ze_ist_ende is null;
-  end;
+  end clear_auto_ze_eintraege;
 
   /**
    * Erstellt einen neuen Zeiterfassungs-Eintrag mit den angegebenen Ist-Zeiten.
@@ -465,8 +479,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context            t_buchung_context := in_ze_context;
   begin
     if in_ist_start is null and in_ist_ende is not null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_ZE_DATEN_INVALID,
-        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
+      pzm_p_lc.raise_app_error(
+          pzm_p_lc.cerr_pzm_ze_daten_invalid
+        , pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
     end if;
 
     ze_ist_zeiten_bewerten(v_context, in_ist_start, in_ist_ende);
@@ -497,7 +512,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     );
 
     return v_ze_id;
-  end;
+  end create_ze_eintrag;
 
   /**
    * Schließt einen bestehenden Zeiterfassungs-Eintrag mit der angegebenen Ende-Zeit.
@@ -566,7 +581,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       p_schicht_tag => v_context.schicht_tag,
       p_ze_id       => in_ze_id
     );
-  end;
+  end close_ze_eintrag;
 
   /** 
    * Führt die Tagesauswertung/-berechnung für den angegebenen Schichttag durch.
@@ -600,21 +615,24 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     pzm_abwes_plan_vorbereiten(in_schicht_tag, in_schicht_tag, in_pers_nr);
   exception
     when others then
-      pzm_p_log.log_exception(
-        p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
-        p_module      => 'c_schicht_tag_auswerten',
-        p_context     => 'Tagesauswertung Schichttag ' || to_char(in_schicht_tag, 'YYYY-MM-DD') ||
-                         ' fuer PersNr=' || in_pers_nr,
-        p_pers_nr     => in_pers_nr,
-        p_schicht_tag => in_schicht_tag
-      );
-  end;
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(
+          p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
+          p_module      => 'c_schicht_tag_auswerten',
+          p_context     => 'Tagesauswertung Schichttag ' || to_char(in_schicht_tag, 'YYYY-MM-DD') ||
+                           ' fuer PersNr=' || in_pers_nr,
+          p_pers_nr     => in_pers_nr,
+          p_schicht_tag => in_schicht_tag
+        );
+      end if;
+      -- HM Frage: Soll die Exception nicht weiter nach außen gegeben werden?
+  end c_schicht_tag_auswerten;
 
   /**
    * Schließt einen bestehenden Zeiterfassungs-Eintrag automatisch,
    * indem die Ende-Zeit auf die Start-Zeit gesetzt wird.
    * Anschließend wird die Schichttags-Auswertung für den bisher offenen
-   * Schichttag aufgerufen. Der Gesamte Vorgang erfolgt in einer 
+   * Schichttag aufgerufen. Der gesamte Vorgang erfolgt in einer 
    * autonomen Transaktion.
    */
   procedure cat_auto_close_eintrag(in_ze_id  in  number) is
@@ -629,7 +647,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       p_message     => 'Auto-Close: Start=' || to_char(v_ze.ze_ist_start, 'YYYY-MM-DD HH24:MI') ||
                        ', Alter=' || round((sysdate - v_ze.ze_ist_start) * 24, 1) || 'h (Eintrag war zu lange offen)',
       p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
-      p_module      => 'auto_close_eintrag',
+      p_module      => 'cat_auto_close_eintrag',
       p_pers_nr     => v_ze.ze_pers_nr,
       p_ze_id       => in_ze_id,
       p_schicht_tag => v_ze.ze_schicht_tag
@@ -645,8 +663,22 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_id = in_ze_id;
 
      c_schicht_tag_auswerten ( v_ze.ZE_PERS_NR, v_ze.ZE_SCHICHT_TAG);
-
-  end;
+     commit; -- Sonst wird bei Autonomen Transaktionen eine Exception geworfen, falls bis hierhin kein Commit erfolgt ist.
+        
+  exception
+  
+    when others then
+      rollback;
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'cat_auto_close_eintrag',
+          'ze_id=' || in_ze_id ||
+          case when v_ze.ze_pers_nr is not null then '(pers_nr='||v_ze.ze_pers_nr||',ze_schicht_tag='||v_ze.ZE_SCHICHT_TAG||')' else '' end
+        );
+      end if;
+      raise;  -- wirft die aktuelle Exception weiter nach oben!
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.cat_auto_close_eintrag', sqlcode, sqlerrm);
+  
+  end cat_auto_close_eintrag;
 
 
   -----------------------------------------------------------------------------------------------
@@ -655,10 +687,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
   /**
    * Liefert die Personalnummer des Mitarbeiters basierend auf der übergebenen RFID (Transponder-Code).
-   * Gibt eine Exception zurück, wenn kein Mitarbeiter mit der angegebenen RFID gefunden wird.
+   * Wirft eine Exception, wenn kein Mitarbeiter mit der angegebenen RFID gefunden wird UND in_suppress_error <> TRUE 
    */
   function get_pers_nr_by_rfid(
-    in_rfid in varchar2
+      in_rfid in varchar2
+    , in_suppress_error in boolean default false  
   ) return pzm_personal.pers_nr%type is
     v_pers_nr isi_user.pers_nr%type;
 
@@ -671,15 +704,15 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     fetch c_rfid_pers_nr into v_pers_nr;
     close c_rfid_pers_nr;
 
-    if (v_pers_nr is null) then
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_RFID_PERS_NR_404,
-        pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404,
-        in_rfid
+    if (v_pers_nr is null and not in_suppress_error) then
+      PZM_P_LC.raise_app_error_p(
+          pzm_p_lc.cerr_PZM_RFID_PERS_NR_404
+        , pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404
+        , in_rfid
       );
     end if;
     return v_pers_nr;
-  end;
+  end get_pers_nr_by_rfid;
 
   /**
    * Liefert den Default-Arbeitsort basierend auf dem Zeiterfassungs-Status.
@@ -693,7 +726,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       -- "Betrieb" OnSite (Default fuer Anwesend in der Firma)
       return WORK_LOCATION_BETRIEB;
     end if;
-  end;
+  end get_default_work_location;
 
   /** OBSOLETE (vermutlich), da der Auruf von 'get_schicht_daten' direkt
    *  bei der Schichtermittlung benoetigt wird.
@@ -710,7 +743,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_buchung_context.zeitstempel := in_zeitstempel;
     load_schicht_daten( v_buchung_context);
     return v_buchung_context.schicht_tag;
-  end;
+  end get_schicht_tag_fuer_zeit;
 
   /**
    * Sucht nach einem offenen Zeiterfassungs-Eintrag (Kommen ohne Gehen)
@@ -738,7 +771,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     fetch c_offen into v_ze_id;
     close c_offen;
     return v_ze_id;
-  end;
+  end find_offener_eintrag_id;
 
   -----------------------------------------------------------------------------------------------
   -- OEFFENTLICHE API: Handler (Dokumentation siehe Package-Spezifikation)
@@ -757,11 +790,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_resource isi_resource%rowtype;
     v_geraet_info pzm_zeiterfassung_eintraege.ze_geraet_info%type;
 
-    cursor c_rfid_pers_nr is
-      select u.pers_nr
-        from isi_user u
-       where u.transponder = in_rfid;
-
     cursor c_resource_info is
       select r.*
         from isi_resource r
@@ -770,9 +798,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     if in_rfid like 'PNR_%' then
       v_pers_nr := substr(in_rfid, 5);
     else
-      open c_rfid_pers_nr;
-      fetch c_rfid_pers_nr into v_pers_nr;
-      close c_rfid_pers_nr;
+      v_pers_nr := get_pers_nr_by_rfid (in_rfid, false);
     end if;
 
     if v_pers_nr is null then
@@ -815,11 +841,17 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(
-        pzm_p_log.CAT_ZEITERFASSUNG, 'c_stempelzeit_eintragen', 
-        'Aktion=' || in_aktion || ', Zeit=' || to_char(in_zeitstempel, 'YYYY-MM-DD HH24:MI') || ', Timezone=' || in_timezone_name);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_stempelzeit_eintragen');
-  end;
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(
+          pzm_p_log.CAT_ZEITERFASSUNG, 'c_stempelzeit_eintragen',
+          'Aktion=' || in_aktion ||
+          ', Zeit=' || to_char(in_zeitstempel, 'YYYY-MM-DD HH24:MI')
+          || ', Timezone=' || in_timezone_name
+        );
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_stempelzeit_eintragen');
+  end c_stempelzeit_eintragen;
 
   /**
    * Markiert den Stempelzeit-Eintrag als erfolgreich übertragen.
@@ -869,6 +901,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     commit;
   end;
 
+  /**
+   *
+   */
   function c_live_stempeln(
     in_pers_nr       in  number,
     in_aktion        in  varchar2,
@@ -878,6 +913,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     in_work_location in  number   default null,
     in_frontend_name in  varchar2 default null
   ) return pzm_zeiterfassung.ze_id%type is
+  
     v_context       t_buchung_context;
     v_now           date := trunc(cast(systimestamp at time zone nvl(in_timezone_name, c_default_timezone) as date), 'MI');
     v_offener_ze_id pzm_zeiterfassung.ze_id%type;
@@ -957,11 +993,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
             p_aktion      => in_aktion,
             p_quelle      => QUELLE_LIVE
           );
-
-          pzm_p_lc.raise_app_error_p1(
-            pzm_p_lc.PZM_ERROR_ZE_BEREITS_OFFEN,
-            pzm_p_lc.O_TP1_PZM_ERROR_ZE_BEREITS_OFFEN,
-            v_offener_ze_id);
+          
+          pzm_p_lc.raise_app_error_p(
+              pzm_p_lc.cerr_pzm_ZE_BEREITS_OFFEN
+            , pzm_p_lc.O_TP1_PZM_ERROR_ZE_BEREITS_OFFEN
+            , v_offener_ze_id);
         else
           close_ze_eintrag(v_offener_ze_id, v_context.zeitstempel);
         end if;
@@ -995,9 +1031,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
           p_aktion      => in_aktion,
           p_quelle      => QUELLE_LIVE
         );
-
-        pzm_p_lc.raise_app_error_p2(
-          pzm_p_lc.PZM_ERROR_ZE_KEINE_OFFENE_VORH,
+        pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_pzm_ZE_KEINE_OFFENE_VORH,
           pzm_p_lc.O_TP2_PZM_ERROR_ZE_GEHEN_OHNE_KOMMEN,
           to_char(v_context.schicht_tag, 'YYYY-MM-DD'),
           'P:' || v_context.pers_nr);
@@ -1045,15 +1080,15 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_live_stempeln', 
-        'Aktion=' || in_aktion || ', Zeit=' || to_char(v_now, 'YYYY-MM-DD HH24:MI') || ', Timezone=' || in_timezone_name,
-        in_pers_nr);
-
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_live_stempeln',
+          'Aktion=' || in_aktion || ', Zeit=' || to_char(v_now, 'YYYY-MM-DD HH24:MI') || ', Timezone=' || in_timezone_name,
+          in_pers_nr);
+      end if;
       c_stempelzeit_eintrag_fehler(v_context, sqlerrm);
-
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_live_stempeln');
-  end;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_live_stempeln');
+  end c_live_stempeln;
 
   function c_stempelzeit_ze_sync(
     in_quelle        in  varchar2,
@@ -1134,8 +1169,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
             p_quelle      => in_quelle
           );
 
-          pzm_p_lc.raise_app_error_p1(
-            pzm_p_lc.PZM_ERROR_ZE_BEREITS_OFFEN,
+          pzm_p_lc.raise_app_error_p(
+            pzm_p_lc.cerr_pzm_ze_bereits_offen,
             pzm_p_lc.O_TP1_PZM_ERROR_ZE_BEREITS_OFFEN,
             v_offener_ze_id);
         else
@@ -1167,8 +1202,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
           p_quelle      => in_quelle
         );
 
-        pzm_p_lc.raise_app_error_p2(
-          pzm_p_lc.PZM_ERROR_ZE_GEHEN_OHNE_KOMMEN,
+        pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_PZM_ZE_GEHEN_OHNE_KOMMEN,
           pzm_p_lc.O_TP2_PZM_ERROR_ZE_GEHEN_OHNE_KOMMEN,
           to_char(v_context.schicht_tag, 'YYYY-MM-DD'),
           nvl(in_terminal_id, 'unbekannt'));
@@ -1197,11 +1232,15 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_TERMINAL, 'c_stempelzeit_ze_sync', 
-        'Aktion=' || in_aktion || ', Zeit=' || to_char(in_zeitstempel, 'YYYY-MM-DD HH24:MI') ||
-        ', Timezone=' || in_timezone_name ||
-        ', Terminal=' || nvl(in_terminal_id, 'unbekannt'), in_pers_nr);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_stempelzeit_ze_sync');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_TERMINAL, 'c_stempelzeit_ze_sync',
+          'Aktion=' || in_aktion || ', Zeit=' || to_char(in_zeitstempel, 'YYYY-MM-DD HH24:MI') ||
+          ', Timezone=' || in_timezone_name ||
+          ', Terminal=' || nvl(in_terminal_id, 'unbekannt'), in_pers_nr);
+      end if;
+      raise;
+      --pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_stempelzeit_ze_sync');
+      
   end;
 
   function c_ze_zeiten_anlegen(
@@ -1221,7 +1260,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze_id              pzm_zeiterfassung.ze_id%type;
   begin
     if in_ze_status = STATUS_ABWESEND then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_BUCHUNG,
+      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_buchung,
         'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
     end if;
 
@@ -1285,9 +1324,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zeiten_anlegen',
-        null, in_pers_nr, v_ze_id, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zeiten_anlegen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zeiten_anlegen',
+          null, in_pers_nr, v_ze_id, in_schicht_tag);
+      end if;
+      raise;
+      --pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zeiten_anlegen');
   end;
 
   procedure c_ze_zeiten_korrigieren(
@@ -1306,7 +1348,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context t_buchung_context;
   begin
     if in_ze_status = STATUS_ABWESEND then
-      pzm_p_lc.raise_app_error(pzm_p_lc.PZM_ERROR_BUCHUNG,
+      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_buchung,
         'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
     end if;
 
@@ -1356,8 +1398,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_id = v_ze.ze_id;
 
     if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_BUCHUNG,
+      pzm_p_lc.raise_app_error_p(
+        pzm_p_lc.cerr_pzm_buchung,
         pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
     end if;
 
@@ -1382,9 +1424,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zeiten_korrigieren',
-        null, null, in_ze_id, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zeiten_korrigieren');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zeiten_korrigieren',
+          null, null, in_ze_id, in_schicht_tag);
+      end if;
+      raise;
+      --pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zeiten_korrigieren');
   end;
 
   procedure c_ze_zuordnung_korrigieren(
@@ -1420,9 +1465,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_id = v_ze.ze_id;
 
     if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_BUCHUNG,
-        pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
+      pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_pzm_buchung
+        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+        , v_ze.ze_id);
     end if;
 
     pzm_p_log.log_data(
@@ -1447,9 +1493,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zuordnung_korrigieren',
-        null, null, in_ze_id);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zuordnung_korrigieren');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_zuordnung_korrigieren',
+          null, null, in_ze_id);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_zuordnung_korrigieren');
   end;
 
   procedure c_ze_schicht_korrigieren(
@@ -1515,9 +1564,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_id = v_ze.ze_id;
 
     if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_BUCHUNG,
-        pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
+      pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_pzm_buchung
+        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+        , v_ze.ze_id);
     end if;
 
     pzm_p_log.log_data(
@@ -1546,9 +1596,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_schicht_korrigieren',
-        null, null, in_ze_id);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_schicht_korrigieren');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_schicht_korrigieren',
+          null, null, in_ze_id);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_schicht_korrigieren');
   end;
 
   procedure c_ze_schicht_korrigieren_alle(
@@ -1592,9 +1645,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       if c_ze_schicht_tag%isopen then
         close c_ze_schicht_tag;
       end if;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_schicht_korrigieren_alle',
-        null, in_pers_nr, null, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_schicht_korrigieren_alle');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_schicht_korrigieren_alle',
+          null, in_pers_nr, null, in_schicht_tag);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_schicht_korrigieren_alle');
   end;
 
   procedure c_ze_loeschen(
@@ -1644,9 +1700,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_loeschen',
-        null, null, in_ze_id);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_loeschen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_ze_loeschen',
+          null, null, in_ze_id);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_ze_loeschen');
   end;
 
   /**
@@ -1685,25 +1744,31 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     if not pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg)
     then
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
+      raise PZM_P_LC.excp_PZM_zE_KST_CHANGE_DENIED;
+      /* pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
         'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.', 
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
-      return;
+      return;*/
     end if;
+
     v_ze_id := find_offener_eintrag_id(in_pers_nr => in_pers_nr, in_schicht_tag => v_schicht_tag);
     if v_ze_id is not NULL then
       v_pzm_zeiterfassunug := get_ze(v_ze_id, 'c_change_ze_pers_kst_id');
     end if;
+
     if v_pzm_zeiterfassunug.ze_aa_status is not NULL
     or v_pzm_zeiterfassunug.ze_calc_ist_start < in_change_time - 16/24
     or v_ze_id is NULL
     then
+      raise PZM_P_LC.excp_PZM_ZE_EMPLOYEE_ABSENT;
+      /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
         'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er nicht Anwesend ist.', 
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
+      */
     end if;
 
     select count(*)
@@ -1713,14 +1778,18 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     -- Prüfen der Kostenstelle
     if v_count = 0 then
+      raise PZM_P_LC.excp_kst_id_404;
+      /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
         'Die Kostenstelle ' || in_kst_id || ' ist nicht vorhanden.', 
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
+      */
     end if;
     close_ze_eintrag(v_ze_id, in_change_time);
     v_pzm_zeiterfassunug := get_ze(v_ze_id, 'c_change_ze_pers_kst_id');
+
     -- Schichtzeitpunkt ist noch nicht begonnen, daher nur den aktuell offenen Eintrag mit der neuen KST updaten
     if v_pzm_zeiterfassunug.ze_calc_ist_start > in_change_time
     then
@@ -1803,7 +1872,31 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     p_quelle      => in_quelle
     );
     commit;
-  end;
+  exception
+    when others then
+      -- Fuer die drei bekannten Business-Fehler protokolliert raise_app_error_p() bereits
+      -- VOR dem Werfen (siehe PZM_P_LC) - hier also nur echte, noch nicht protokollierte
+      -- Systemfehler zusaetzlich loggen, um Doppel-Eintraege in PZM_LOG zu vermeiden.
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(
+            p_category    => pzm_p_log.CAT_ZEITERFASSUNG
+          , p_module      => 'c_change_ze_pers_kst_id'
+          , p_pers_nr     => in_pers_nr
+          , p_ze_id       => v_ze_id
+          , p_schicht_tag => v_schicht_tag);
+      end if;
+
+      case sqlcode
+        when pzm_p_lc.cerr_pzm_ze_kst_change_denied then
+          pzm_p_lc.raise_app_error_p(sqlcode, pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED, in_pers_nr);
+        when pzm_p_lc.cerr_pzm_ze_employee_absent then
+          pzm_p_lc.raise_app_error_p(sqlcode, pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT, in_pers_nr);
+        when pzm_p_lc.cerr_kst_id_404 then
+          pzm_p_lc.raise_app_error_p(sqlcode, pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404, in_pers_nr);
+        else
+          raise; -- alles Uebrige (echte Systemfehler) unveraendert weiterreichen
+      end case;
+  end c_change_ze_pers_kst_id;
 
   function c_abwesenheit_anlegen(
     in_korr_pers_nr          in  number,
@@ -1876,9 +1969,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_abwesenheit_anlegen',
-        null, in_pers_nr, v_ze_id, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_abwesenheit_anlegen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_abwesenheit_anlegen',
+          null, in_pers_nr, v_ze_id, in_schicht_tag);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_abwesenheit_anlegen');
   end;
 
   procedure c_abwesenheit_korrigieren(
@@ -1937,9 +2033,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_id = v_ze.ze_id;
 
     if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p1(
-        pzm_p_lc.PZM_ERROR_BUCHUNG,
-        pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
+      pzm_p_lc.raise_app_error_p(
+          pzm_p_lc.cerr_pzm_buchung
+        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+        , v_ze.ze_id);
     end if;
 
     commit;
@@ -1963,9 +2060,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_abwesenheit_korrigieren',
-        null, null, in_ze_id, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_abwesenheit_korrigieren');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_abwesenheit_korrigieren',
+          null, null, in_ze_id, in_schicht_tag);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_abwesenheit_korrigieren');
   end;
 
   function c_automatische_fehlzeit_eintragen(
@@ -2057,9 +2157,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_fehlzeit_eintragen',
-        null, in_pers_nr, null, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_fehlzeit_eintragen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_fehlzeit_eintragen',
+          null, in_pers_nr, null, in_schicht_tag);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_fehlzeit_eintragen');
   end;
 
   function c_automatische_pause_eintragen(
@@ -2118,9 +2221,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_pause_eintragen',
-        null, in_pers_nr, null, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_pause_eintragen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_pause_eintragen',
+          null, in_pers_nr, null, in_schicht_tag);
+      end if;
+      raise;
+      --pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_pause_eintragen');
   end;
 
   function c_automatischen_feiertag_eintragen(
@@ -2213,9 +2319,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatischen_feiertag_eintragen',
-        null, in_pers_nr, null, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatischen_feiertag_eintragen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatischen_feiertag_eintragen',
+          null, in_pers_nr, null, in_schicht_tag);
+      end if;
+      raise;
+      --pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatischen_feiertag_eintragen');
   end;
 
   function c_automatische_anwesenheit_eintragen(
@@ -2281,9 +2390,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   exception
     when others then
       rollback;
-      pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_anwesenheit_eintragen',
-        null, in_pers_nr, null, in_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_anwesenheit_eintragen');
+      if not pzm_p_lc.is_app_code(sqlcode) then
+        pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_automatische_anwesenheit_eintragen',
+          null, in_pers_nr, null, in_schicht_tag);
+      end if;
+      raise;
+      -- pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_automatische_anwesenheit_eintragen');
   end;
 
 end;
@@ -2291,4 +2403,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"4b780db052407dca89db435f1bf9b0e7ca70008d","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4bc479349f440e2da26d96c2d565069918c63435","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
