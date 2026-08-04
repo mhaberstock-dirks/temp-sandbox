@@ -49,7 +49,7 @@ package body DIRKSPZM32.PZM_P_LC is
     if p_msg is null then
       return null;
     end if;
-    
+
     if dbms_lob.getlength(p_msg) <= c_max_length then
       -- Passt komplett rein
       v_result := dbms_lob.substr(p_msg, c_max_length, 1);
@@ -57,7 +57,7 @@ package body DIRKSPZM32.PZM_P_LC is
       -- Muss abgeschnitten werden
       v_result := dbms_lob.substr(p_msg, c_max_length, 1) || ' [...]';
     end if;
-    
+
     return v_result;
   exception
     when others then
@@ -199,7 +199,7 @@ package body DIRKSPZM32.PZM_P_LC is
     end if;
   end;
 */  
-  
+
   /*
   function create_p1(
     in_const_name in varchar2,
@@ -266,4 +266,4 @@ end pzm_p_lc;
 
 
 
--- sqlcl_snapshot {"hash":"dae8b1dfad4b9ea7131e180ed9e65fa018cc4652","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"31a482836dfd6616bd76ee169ef6f21914bbb7e2","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}

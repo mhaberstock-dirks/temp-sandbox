@@ -9,11 +9,11 @@ package DIRKSPZM32.PZM_P_LC is
   /**
    * Type-Definitionen
    */
-   
+
   -- Type für Parameter-Listen, um variable Anzahl Parameter zur ermöglichen
   type t_paramlist is table of varchar2(4000);
-  
-      
+
+
   /**---------------------------------------------------------------------------------------------
     * Exception-Definitionen
     * Je Exception werden 3-n Definitionen benötigt: 
@@ -23,35 +23,35 @@ package DIRKSPZM32.PZM_P_LC is
     * - optionale Konstanten für PZM-Fehler-Messages (ggf. mehrere Varianten)   
     * --------------------------------------------------------------------------------------------
    */
-   
+
   -- Personalnummer nicht gefunden:
   excp_pzm_pers_nr_404             EXCEPTION;  PRAGMA EXCEPTION_INIT ( 
   excp_pzm_pers_nr_404                                               , -20001);
   cerr_pzm_pers_nr_404             CONSTANT PLS_INTEGER              := -20001;  
    O_TP1_PZM_ERROR_PERS_NR_404     constant varchar2(50 char) := 
   'O_TP1_PZM_ERROR_PERS_NR_404'; -- Personalnummer <%1> nicht gefunden!
-  
+
   -- Personalnummer zur RFID nicht gefunden
   excp_pzm_rfid_pers_nr_404         EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_pzm_rfid_pers_nr_404                                           , -20002);
   cerr_pzm_rfid_pers_nr_404         CONSTANT PLS_INTEGER              := -20002;
    O_TP1_PZM_ERROR_RFID_PERS_NR_404 constant varchar2(50 char) := 
   'O_TP1_PZM_ERROR_RFID_PERS_NR_404'; -- Personalnummer zur RFID <%1> nicht gefunden!
-  
+
   -- Abteilungs-ID nicht gefunden
   excp_pzm_abt_id_404               EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_pzm_abt_id_404                                                 , -20003);
   cerr_pzm_abt_id_404               CONSTANT PLS_INTEGER              := -20003;
    O_TP1_PZM_ERROR_ABT_ID_404       constant varchar2(50 char) := 
   'O_TP1_PZM_ERROR_ABT_ID_404'; -- Abteilungs-ID <%1> nicht gefunden!
-  
+
   -- Schichtart-Kurzname nicht gefunden
   excp_sa_kurzname_404              EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_sa_kurzname_404                                                , -20004);
   cerr_sa_kurzname_404              CONSTANT PLS_INTEGER             := -20004;
    O_TP1_PZM_ERROR_SA_KURZNAME_404  constant varchar2(50 char) := 
   'O_TP1_PZM_ERROR_SA_KURZNAME_404'; -- Schichtart-Kurzname <%1> nicht gefunden
-  
+
   -- Kostenstelle nicht gefunden
   excp_kst_id_404                   EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_kst_id_404                                                     , -20005);
@@ -72,14 +72,14 @@ package DIRKSPZM32.PZM_P_LC is
   cerr_pzm_ze_keine_offene_vorh         CONSTANT PLS_INTEGER             := -20020;
    O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME constant varchar2(50 char) := 
   'O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME'; -- FEHLER: Eintrag ohne Startzeit nicht erlaubt!
-  
+
   -- Fehler beim Schliessen einer Stempelzeit, da der Status (der geschlossen werden soll) nicht uebereinstimmt. 
   excp_pzm_ze_status_mismatch    EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_pzm_ze_status_mismatch                                      , -20025);
   cerr_pzm_ze_status_mismatch    CONSTANT PLS_INTEGER             := -20025;
    O_TP2_PZM_ERROR_ZE_STATUS_MISMATCH constant varchar2(50 char) := 
   'O_TP2_PZM_ERROR_ZE_STATUS_MISMATCH'; -- FEHLER: Stempelzeit (ID: <%1>) kann nicht mit Aktion <%2> geschlossen werden!
-   
+
   -- Fehler beim (erneuten) Oeffnen einer Stempelzeit am selben Schichttag, wenn bereits eine Offene vorh. ist. 
   excp_pzm_ze_bereits_offen      EXCEPTION;  PRAGMA EXCEPTION_INIT (
   excp_pzm_ze_bereits_offen                                        , -20030);
@@ -145,7 +145,7 @@ package DIRKSPZM32.PZM_P_LC is
 
   PZM_EXCEPT_ZE_KST_CHANGE_DENIED Exception; -- Fehler, das Wechseln der Kostenstelle ist dem Benutzer nicht erlaubt 
   PZM_EXCEPT_ZE_EMPLOYEE_ABSENT   Exception; -- Fehler, Wechseln Kostenstelle nur erlaubt, wenn anwesend 
-  
+
   PRAGMA EXCEPTION_INIT (PZM_EXCEPT_PERS_NR_404         ,  -20001);
   PRAGMA EXCEPTION_INIT (PZM_EXCEPT_RFID_PERS_NR_404     , -20002); -- Personalnummer zur RFID nicht gefunden
   PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ABT_ID_404           , -20004); -- Abteilungs-ID nicht gefunden
@@ -342,4 +342,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"7463885803aff2d9acd0f35188530a75cb980698","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f45416695a289d0c66785229db36b784f5985e35","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
