@@ -6,11 +6,56 @@ package body DIRKSPZM32.PZM_P_LC is
   C_MAX_ERROR_MESSAGE_LENGTH constant pls_integer := 2000; -- Sicherheitsmarge unter dem von RAISE_APPLICATION_ERROR akzeptierten Limit (~2048 Byte)
 
 
+  -----------------------------------------------------------------------------------------------
+  -- Prueft explizit gegen die tatsaechlich in diesem Package deklarierten Fehlercodes, statt
+  -- pauschal gegen den gesamten von Oracle fuer benutzerdefinierte Fehler reservierten Bereich
+  -- (-20999..-20000) zu pruefen. Grund: Ein SQLCODE in diesem Bereich, der NICHT ueber
+  -- raise_app_error()/raise_app_error_p() geworfen wurde (z.B. aus einem Fremdpackage oder
+  -- Trigger), waere bei der Bereichspruefung faelschlich als "bereits protokolliert" erkannt
+  -- worden - und damit NIE in PZM_LOG gelandet. Bei der expliziten Liste ist der schlimmste
+  -- Fehlerfall (ein neuer Code wird hier vergessen) nur ein redundanter, doppelter Log-Eintrag -
+  -- nie ein fehlender.
+  --
+  -- Wartungshinweis: Bei jedem neuen cerr_*-Code oben MUSS der Code auch hier ergaenzt werden.
+  --
+  -- Alternative (bewusst nicht geloescht, sondern als Team-Entscheidung offengehalten):
+  -- Falls der Wartungsaufwand der expliziten Liste sich als zu hoch erweist, kann bewusst
+  -- wieder auf die generische, wartungsfreie Bereichspruefung zurueckgewechselt werden:
+  --
+  --   function is_app_code(p_code pls_integer) return boolean is
+  --   begin
+  --     return p_code between -20999 and -20000;
+  --   end;
+  -----------------------------------------------------------------------------------------------
+  -- OEFFENTLICH (siehe Package-Spec)
   function is_app_code(p_code pls_integer) return boolean is
   begin
-    return p_code between -20999 and -20000;
+    return p_code in (
+      cerr_pzm_pers_nr_404,
+      cerr_pzm_rfid_pers_nr_404,
+      cerr_pzm_abt_id_404,
+      cerr_sa_kurzname_404,
+      cerr_kst_id_404,
+      cerr_pzm_buchung,
+      cerr_pzm_ze_keine_offene_vorh,
+      cerr_pzm_ze_status_mismatch,
+      cerr_pzm_ze_bereits_offen,
+      cerr_pzm_ze_daten_invalid,
+      cerr_pzm_ze_gehen_ohne_kommen,
+      cerr_pzm_ze_tagesauswertung,
+      cerr_pzm_ze_kst_change_denied,
+      cerr_pzm_ze_employee_absent
+    );
   end;
 
+  -----------------------------------------------------------------------------------------------
+  -- NICHT AKTIV VERWENDET: Aeltere Message-/Backtrace-Aufbereitung, von keiner aktiven Routine
+  -- mehr aufgerufen (verifiziert per Referenzsuche). Vermutlich Vorlaeufer von create_p() und
+  -- log_before_raise() (das den Call-Stack heute direkt selbst per dbms_utility.format_call_stack
+  -- erfasst) - abgeloest, aber nicht entfernt. Auskommentiert statt geloescht, um die urspruengliche
+  -- Implementierung nachvollziehbar zu halten.
+  -----------------------------------------------------------------------------------------------
+  /*
   function get_backtrace return clob is
   begin
     return dbms_utility.format_error_backtrace;
@@ -64,7 +109,9 @@ package body DIRKSPZM32.PZM_P_LC is
       -- Fallback bei Konvertierungsproblemen
       return 'Error message conversion failed: ' || sqlerrm;
   end;
+  */
 
+  -- PRIVAT (nur Package-intern)
   function create_p( in_p1 in varchar2
                    , in_p2 in varchar2 default null)
                      return varchar2
@@ -75,6 +122,7 @@ package body DIRKSPZM32.PZM_P_LC is
     ']';
   end create_p;                   
 
+  -- PRIVAT (nur Package-intern)
   function create_p( in_params in t_paramlist)
                      return varchar2
   is 
@@ -94,58 +142,107 @@ package body DIRKSPZM32.PZM_P_LC is
   -- Exception aktiv (SQLCODE waere hier 0). DBMS_UTILITY.FORMAT_CALL_STACK() liefert stattdessen
   -- die aktuelle Aufrufkette bis zu dieser Stelle, unabhaengig von einer aktiven Exception.
   -----------------------------------------------------------------------------------------------
+  -- PRIVAT (nur Package-intern)
   procedure log_before_raise(
-    in_code    in pls_integer,
-    in_message in varchar2
+    in_code            in pls_integer,
+    in_message         in varchar2,
+    in_already_logged  in boolean default false
   ) is
   begin
-    pzm_p_log.log_data(
-      p_level      => pzm_p_log.LEVEL_ERROR,
-      p_message    => in_message,
-      p_error_code => in_code,
-      p_stacktrace => dbms_utility.format_call_stack
-    );
+    if not in_already_logged then
+      pzm_p_log.log_data(
+        p_level      => pzm_p_log.LEVEL_ERROR,
+        p_message    => in_message,
+        p_error_code => in_code,
+        p_stacktrace => dbms_utility.format_call_stack
+      );
+    end if;
   end log_before_raise;
 
+  -- OEFFENTLICH (siehe Package-Spec)
   procedure raise_app_error(
-    in_code     in pls_integer,
-    in_message  in varchar2
+    in_code            in pls_integer,
+    in_message         in varchar2,
+    in_already_logged  in boolean default false
   ) is
     v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
     v_message varchar2(4000 char) := substr(in_message, 1, C_MAX_ERROR_MESSAGE_LENGTH);
   begin
-    log_before_raise(v_code, v_message);
+    log_before_raise(v_code, v_message, in_already_logged);
     raise_application_error(v_code, v_message, true);
   end;
 
+  -- OEFFENTLICH (siehe Package-Spec)
   procedure raise_app_error_p(
-      in_code       in pls_integer,
-      in_const_name in varchar2,
-      in_p1         in varchar2,
-      in_p2         in varchar2 default null
+      in_code            in pls_integer,
+      in_const_name      in varchar2,
+      in_p1              in varchar2,
+      in_p2              in varchar2 default null,
+      in_already_logged  in boolean default false
     )
   is
     v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
     v_message varchar2(4000 char) := substr(in_const_name || create_p(in_p1, in_p2), 1, C_MAX_ERROR_MESSAGE_LENGTH);
   begin
-    log_before_raise(v_code, v_message);
+    log_before_raise(v_code, v_message, in_already_logged);
     raise_application_error(v_code, v_message, true);
   end raise_app_error_p;
 
+  -- OEFFENTLICH (siehe Package-Spec)
   procedure raise_app_error_p(
-    in_code       in pls_integer,
-    in_const_name in varchar2,
-    in_plist      in t_paramlist
+    in_code            in pls_integer,
+    in_const_name      in varchar2,
+    in_plist           in t_paramlist,
+    in_already_logged  in boolean default false
   ) is
     v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
     v_message varchar2(4000 char) := substr(in_const_name || create_p(in_plist), 1, C_MAX_ERROR_MESSAGE_LENGTH);
   begin
-    log_before_raise(v_code, v_message);
+    log_before_raise(v_code, v_message, in_already_logged);
     raise_application_error(v_code, v_message, true);
   end raise_app_error_p;
 
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition in boolean,
+    in_code      in pls_integer,
+    in_message   in varchar2
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error(in_code, in_message);
+    end if;
+  end assert;
 
-/*    
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition  in boolean,
+    in_code       in pls_integer,
+    in_const_name in varchar2,
+    in_p1         in varchar2,
+    in_p2         in varchar2 default null
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error_p(in_code, in_const_name, in_p1, in_p2);
+    end if;
+  end assert;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition  in boolean,
+    in_code       in pls_integer,
+    in_const_name in varchar2,
+    in_plist      in t_paramlist
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error_p(in_code, in_const_name, in_plist);
+    end if;
+  end assert;
+
+
+/*
   procedure raise_app_error_p1(
     in_code       in pls_integer,
     in_const_name in varchar2,

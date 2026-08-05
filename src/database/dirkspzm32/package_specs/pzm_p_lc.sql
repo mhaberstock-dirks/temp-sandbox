@@ -4,7 +4,18 @@ package DIRKSPZM32.PZM_P_LC is
   -- Author  : WKROEKER
   -- Created : 26.01.2026 12:25:01
   -- Purpose : PZM related language and error constants
-  
+  --
+  -- VERANTWORTUNGSTEILUNG PZM_P_LC <-> PZM_P_LOG:
+  -- PZM_P_LC ist zustaendig fuer das WIE und WANN einer Anwendungsexception: Fehlercode-/
+  -- Message-Katalog (cerr_*, O_T*-Konstanten), das Werfen (raise_app_error/raise_app_error_p/
+  -- assert) sowie die Garantie, dass dabei einmalig automatisch vorprotokolliert wird, bevor
+  -- die Exception den Aufrufer erreicht (log_before_raise -> pzm_p_log.log_data).
+  -- PZM_P_LOG ist zustaendig fuer das WIE und WO der eigentlichen Protokollierung: Schreiben in
+  -- Tabelle/Session-Puffer, Level-Filterung (g_table_log_level), sowie die vollstaendige
+  -- Aufbereitung echter (nicht ueber PZM_P_LC geworfener) Systemfehler inkl. Backtrace
+  -- (log_exception -> dbms_utility.format_error_backtrace).
+  -- PZM_P_LC persistiert selbst nichts - jeder Schreibzugriff auf PZM_LOG laeuft ueber PZM_P_LOG.
+
   
   /**
    * Type-Definitionen
@@ -16,12 +27,34 @@ package DIRKSPZM32.PZM_P_LC is
 
   /**---------------------------------------------------------------------------------------------
     * Exception-Definitionen
-    * Je Exception werden 3-n Definitionen benötigt: 
-    * - Exception,                   (für RAISE und EXCEPTION WHEN) 
-    * - Pragma Exception_Init,       (verbindet Exception mit sqlcode) 
+    * Je Exception werden 3-n Definitionen benötigt:
+    * - Exception,                   (für RAISE und EXCEPTION WHEN)
+    * - Pragma Exception_Init,       (verbindet Exception mit sqlcode)
     * - Konstante mit dem Fehlercode (für Raise_AppLication_Error)
-    * - optionale Konstanten für PZM-Fehler-Messages (ggf. mehrere Varianten)   
+    * - optionale Konstanten für PZM-Fehler-Messages (ggf. mehrere Varianten)
     * --------------------------------------------------------------------------------------------
+    *
+    * HINWEIS zu den "excp_*"-Exceptions (EXCEPTION + PRAGMA EXCEPTION_INIT):
+    * Aktuell nirgends aktiv genutzt (verifiziert per Referenzsuche im gesamten Schema) - weder per
+    * "RAISE excp_..." geworfen, noch per "WHEN excp_... THEN" gefangen. Geworfen wird ausschliesslich
+    * ueber die numerischen cerr_*-Konstanten via raise_app_error()/raise_app_error_p()/assert();
+    * is_app_code() prueft ebenfalls gegen die cerr_*-Konstanten, nicht gegen diese Exceptions.
+    *
+    * Die excp_*-Exceptions bleiben trotzdem bewusst deklariert, weil sie einen alternativen,
+    * nativen PL/SQL-Weg der Fehlerbehandlung ermoeglichen wuerden:
+    *   - Vorteil: Typsicheres Fangen einzelner Fehler ohne SQLCODE-Zahlenwerte im Code,
+    *     z.B. "WHEN excp_pzm_abt_id_404 THEN ..." oder kombiniert "WHEN excp_a OR excp_b THEN ...",
+    *     inkl. Tippfehler-Erkennung durch den Compiler statt stiller Fehlklassifikation.
+    *   - Nachteil 1: Ein blankes "RAISE excp_pzm_xxx;" traegt KEINEN eigenen, parametrisierten
+    *     Meldungstext - eine aussagekraeftige Meldung entsteht erst, wenn zuvor (z.B. ueber
+    *     raise_app_error_p()) RAISE_APPLICATION_ERROR mit Code+Text aufgerufen wurde. Die
+    *     Exceptions koennen also raise_app_error*() nicht ersetzen, sondern hoechstens ergaenzen.
+    *   - Nachteil 2: Ein per "WHEN excp_x THEN" gefangener Fehler haengt nicht automatisch am
+    *     Logging-Mechanismus (log_before_raise/is_app_code) - jeder so gebaute Handler muesste sich
+    *     wieder selbst um vollstaendige Protokollierung kuemmern, was genau die Garantie unterlaeuft,
+    *     die mit dem generischen "WHEN OTHERS"-Muster in PZM_P_ZEITERFASSUNG erreicht wurde.
+    * Dies ist daher eine bewusste, dokumentierte Entscheidung gegen die Nutzung - kein vergessenes
+    * Aufraeumen. Vor einer etwaigen Wiederverwendung sollte das Team die beiden Nachteile bewerten.
    */
 
   -- Personalnummer nicht gefunden:
@@ -203,25 +236,94 @@ package DIRKSPZM32.PZM_P_LC is
   /**
    * Wirft einen Anwendungsfehler.
    *
-   * @param in_code     Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
-   * @param in_message  Nutzer-/Domaenenfreundlicher Text
+   * @param in_code            Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_message         Nutzer-/Domaenenfreundlicher Text
+   * @param in_already_logged  Bestaetigt, dass der Aufrufer den Fehler bereits selbst (mit eigenem,
+   *                           reichhaltigerem Kontext) in PZM_LOG protokolliert hat. In diesem Fall
+   *                           unterbleibt die automatische, generische Vor-Protokollierung, um einen
+   *                           doppelten PZM_LOG-Eintrag zu vermeiden. Default FALSE: Wird der Parameter
+   *                           nicht gesetzt, greift die automatische Protokollierung wie gewohnt -
+   *                           im schlimmsten Fall entsteht dadurch ein ueberflüssiger, aber niemals ein
+   *                           fehlender Log-Eintrag.
    */
   procedure raise_app_error(
-    in_code     in pls_integer,
-    in_message  in varchar2
+    in_code            in pls_integer,
+    in_message         in varchar2,
+    in_already_logged  in boolean default false
   );
 
   /**
-   * Wirft einen Anwendungsfehler mit kombinierten 
+   * Wirft einen Anwendungsfehler mit kombinierten
    * Errorkonstante-Parameter-Text aus Errorkonstante mit 1 Parameter und optionalem zweiten Parameter
    *
-   * @param in_code         Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
-   * @param in_const_name   vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
-   * @param in_p1           Parameter, der in finalem Fehlertext ergänzt wird
-   * @param in_p2           optionaler Parameter, der in finalem Fehlertext ergänzt wird (falls gefüllt)
+   * @param in_code            Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_const_name      vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
+   * @param in_p1              Parameter, der in finalem Fehlertext ergänzt wird
+   * @param in_p2              optionaler Parameter, der in finalem Fehlertext ergänzt wird (falls gefüllt)
+   * @param in_already_logged  siehe raise_app_error()
    *
    */
   procedure raise_app_error_p(
+    in_code            in pls_integer,
+    in_const_name      in varchar2,
+    in_p1              in varchar2,
+    in_p2              in varchar2 default null,
+    in_already_logged  in boolean default false
+  );
+
+  /**
+   * Wirft einen Anwendungsfehler mit kombinierten
+   * Errorkonstante-Parameter-Text aus Errorkonstante mit 1 Parameter und optionalem zweiten Parameter
+   *
+   * @param in_code            Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_const_name      vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
+   * @param in_plist           Liste beliebig vieler Parameter, die in finalem Fehlertext ergänzt werden
+   * @param in_already_logged  siehe raise_app_error()
+   *
+   */
+  procedure raise_app_error_p(
+    in_code            in pls_integer,
+    in_const_name      in varchar2,
+    in_plist           in t_paramlist,
+    in_already_logged  in boolean default false
+  );
+
+  /**
+   * Prueft eine beliebige Bedingung und wirft bei Verletzung einen Anwendungsfehler mit einem
+   * einfachen Freitext - lesbarerer Ersatz fuer "IF NOT <Bedingung> THEN raise_app_error(...);
+   * END IF;"-Bloecke. Drei Varianten, analog zu raise_app_error()/raise_app_error_p().
+   * Deckt sowohl Eingabe-/Geschaeftsregel-Validierungen (Bedingung durch den Aufrufer verletzbar)
+   * als auch interne Zustands-Assertions (Bedingung sollte bei korrekter Programmlogik nie
+   * verletzt werden) gleichermassen ab - die Unterscheidung ergibt sich allein aus dem gewaehlten
+   * Fehlercode/der Fehlermeldung an der Aufrufstelle, nicht aus unterschiedlicher Infrastruktur.
+   *
+   * Bewusst OHNE "in_already_logged"-Parameter (anders als raise_app_error*()): Wer vor dem Fehler
+   * noch manuell reichhaltiger protokollieren will, braucht ohnehin ein eigenes IF-Konstrukt fuer
+   * den log_data()-Aufruf - dann kann direkt raise_app_error*() mit in_already_logged verwendet
+   * werden. assert() ist gerade fuer den Fall gedacht, in dem KEIN eigenes IF noetig ist.
+   *
+   * @param in_condition  Bedingung, die erfuellt sein muss. Bei FALSE wird der Fehler geworfen.
+   * @param in_code       Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_message    Nutzer-/Domaenenfreundlicher Text
+   */
+  procedure assert(
+    in_condition in boolean,
+    in_code      in pls_integer,
+    in_message   in varchar2
+  );
+
+  /**
+   * Wie assert(), aber mit kombiniertem Errorkonstante-Parameter-Text aus Errorkonstante mit
+   * 1 Parameter und optionalem zweiten Parameter (siehe raise_app_error_p()).
+   *
+   * @param in_condition   Bedingung, die erfuellt sein muss. Bei FALSE wird der Fehler geworfen.
+   * @param in_code        Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_const_name  vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
+   * @param in_p1          Parameter, der in finalem Fehlertext ergänzt wird
+   * @param in_p2          optionaler Parameter, der in finalem Fehlertext ergänzt wird (falls gefüllt)
+   */
+  procedure assert(
+    in_condition  in boolean,
     in_code       in pls_integer,
     in_const_name in varchar2,
     in_p1         in varchar2,
@@ -229,16 +331,16 @@ package DIRKSPZM32.PZM_P_LC is
   );
 
   /**
-   * Wirft einen Anwendungsfehler mit kombinierten 
-   * Errorkonstante-Parameter-Text aus Errorkonstante mit 1 Parameter und optionalem zweiten Parameter
+   * Wie assert(), aber mit kombiniertem Errorkonstante-Parameter-Text aus einer beliebig langen
+   * Parameter-Liste (siehe raise_app_error_p()).
    *
-   * @param in_code         Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
-   * @param in_const_name   vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
-   * @param in_p1           Parameter, der in finalem Fehlertext ergänzt wird
-   * @param in_p2           optionaler Parameter, der in finalem Fehlertext ergänzt wird (falls gefüllt)
-   *
+   * @param in_condition   Bedingung, die erfuellt sein muss. Bei FALSE wird der Fehler geworfen.
+   * @param in_code        Eigener Code (-20xxx). Falls NULL, wird PZM_ERROR_BUCHUNG verwendet.
+   * @param in_const_name  vordefinierter, konstanter Fehlerschlüssel (referenziert R3LangConstMapper.cs)
+   * @param in_plist       Liste beliebig vieler Parameter, die in finalem Fehlertext ergänzt werden
    */
-  procedure raise_app_error_p(
+  procedure assert(
+    in_condition  in boolean,
     in_code       in pls_integer,
     in_const_name in varchar2,
     in_plist      in t_paramlist
