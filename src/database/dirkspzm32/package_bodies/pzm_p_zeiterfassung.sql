@@ -131,13 +131,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   begin
     if io_ze_context.kst_id is null then
       io_ze_context.kst_id := get_pers_kst_id(io_ze_context.pers_nr);
-      if io_ze_context.kst_id is null then
-        PZM_P_LC.raise_app_error_p(
-            PZM_P_LC.cerr_kst_id_404
-          , PZM_P_LC.O_TP1_PZM_ERROR_KST_ID_404
-          , to_char(io_ze_context.pers_nr)
-          );
-      end if;
+      pzm_p_lc.assert(io_ze_context.kst_id is not null
+        , pzm_p_lc.cerr_kst_id_404
+        , pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
+        , to_char(io_ze_context.pers_nr));
     end if;
 
     if io_ze_context.abt_id is null then
@@ -355,20 +352,14 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   -- PRIVAT (nur Package-intern)
   procedure validate_ze_buchung(in_ze_context in t_buchung_context) is
   begin
-    if in_ze_context.pers_nr is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
-        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_PERS_NR);
-    end if;
+    pzm_p_lc.assert(in_ze_context.pers_nr is not null,
+      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_PERS_NR);
 
-    if in_ze_context.zeitstempel is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
-        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_TIMESTAMP);
-    end if;
+    pzm_p_lc.assert(in_ze_context.zeitstempel is not null,
+      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_TIMESTAMP);
 
-    if in_ze_context.aktion is null then
-      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_ze_daten_invalid,
-        pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION); 
-    end if;
+    pzm_p_lc.assert(in_ze_context.aktion is not null,
+      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION);
 
     -- TODO: -wkr- Zukunftszeitstempel mit Beruecksichtigung der Zeitzone pruefen?
     -- if in_ze_context.zeitstempel > sysdate + 1/24 then
@@ -387,22 +378,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
    */
   -- PRIVAT (nur Package-intern)
   function is_erster_anwesend_eintrag(
-    in_ze_context in t_buchung_context
-  ) return boolean is
-    v_count number;
-  begin
-    select count(*)
-      into v_count
-      from pzm_zeiterfassung t
-     where t.ze_pers_nr = in_ze_context.pers_nr
-       and t.ze_schicht_tag = in_ze_context.schicht_tag
-       and t.ze_ist_start is not null
-       and t.ze_status = STATUS_ANWESEND;
-    return v_count = 0;
-  end is_erster_anwesend_eintrag;
-
-  -- PRIVAT (nur Package-intern)
-  function is_erster_anwesend_eintrag(
     in_pers_nr     in pzm_personal.pers_nr%type,
     in_schicht_tag in pzm_zeiterfassung.ze_schicht_tag%type
   ) return boolean is
@@ -414,8 +389,17 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
      where t.ze_pers_nr = in_pers_nr
        and t.ze_schicht_tag = in_schicht_tag
        and t.ze_ist_start is not null
-       and t.ze_status = STATUS_ANWESEND;
+       and t.ze_status = STATUS_ANWESEND
+       and rownum = 1;
     return v_count = 0;
+  end is_erster_anwesend_eintrag;
+
+  -- PRIVAT (nur Package-intern)
+  function is_erster_anwesend_eintrag(
+    in_ze_context in t_buchung_context
+  ) return boolean is
+  begin
+    return is_erster_anwesend_eintrag(in_ze_context.pers_nr, in_ze_context.schicht_tag);
   end is_erster_anwesend_eintrag;
 
   -----------------------------------------------------------------------------------------------
@@ -497,11 +481,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze_id              pzm_zeiterfassung.ze_id%type;
     v_context            t_buchung_context := in_ze_context;
   begin
-    if in_ist_start is null and in_ist_ende is not null then
-      pzm_p_lc.raise_app_error(
-          pzm_p_lc.cerr_pzm_ze_daten_invalid
-        , pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
-    end if;
+    pzm_p_lc.assert(in_ist_start is not null or in_ist_ende is null
+      , pzm_p_lc.cerr_pzm_ze_daten_invalid
+      , pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
 
     ze_ist_zeiten_bewerten(v_context, in_ist_start, in_ist_ende);
 
@@ -735,13 +717,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     fetch c_rfid_pers_nr into v_pers_nr;
     close c_rfid_pers_nr;
 
-    if (v_pers_nr is null and not in_suppress_error) then
-      PZM_P_LC.raise_app_error_p(
-          pzm_p_lc.cerr_PZM_RFID_PERS_NR_404
-        , pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404
-        , in_rfid
-      );
-    end if;
+    pzm_p_lc.assert(v_pers_nr is not null or nvl(in_suppress_error, false)
+      , pzm_p_lc.cerr_PZM_RFID_PERS_NR_404
+      , pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404
+      , in_rfid);
     return v_pers_nr;
   end get_pers_nr_by_rfid;
 
@@ -1314,10 +1293,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context            t_buchung_context;
     v_ze_id              pzm_zeiterfassung.ze_id%type;
   begin
-    if in_ze_status = STATUS_ABWESEND then
-      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_buchung,
-        'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
-    end if;
+    pzm_p_lc.assert(in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+      pzm_p_lc.cerr_pzm_buchung,
+      'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_DEBUG,
@@ -1403,10 +1381,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze      pzm_zeiterfassung%rowtype;
     v_context t_buchung_context;
   begin
-    if in_ze_status = STATUS_ABWESEND then
-      pzm_p_lc.raise_app_error(pzm_p_lc.cerr_pzm_buchung,
-        'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
-    end if;
+    pzm_p_lc.assert(in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+      pzm_p_lc.cerr_pzm_buchung,
+      'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
 
     v_ze := get_ze(in_ze_id, c_module_name);
 
@@ -1453,11 +1430,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p(
-        pzm_p_lc.cerr_pzm_buchung,
-        pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
-    end if;
+    pzm_p_lc.assert(sql%rowcount != 0,
+      pzm_p_lc.cerr_pzm_buchung,
+      pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
 
     commit;
 
@@ -1522,12 +1497,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p(
-          pzm_p_lc.cerr_pzm_buchung
-        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-        , v_ze.ze_id);
-    end if;
+    pzm_p_lc.assert(sql%rowcount != 0
+      , pzm_p_lc.cerr_pzm_buchung
+      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , v_ze.ze_id);
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_INFO,
@@ -1623,12 +1596,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p(
-          pzm_p_lc.cerr_pzm_buchung
-        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-        , v_ze.ze_id);
-    end if;
+    pzm_p_lc.assert(sql%rowcount != 0
+      , pzm_p_lc.cerr_pzm_buchung
+      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , v_ze.ze_id);
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_WARNING,
@@ -1808,56 +1779,52 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     p_quelle      => in_quelle
     );
 
-    if not pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg)
-    then
-
-      pzm_p_lc.raise_app_error_p(
-          in_code       => pzm_p_lc.CERR_PZM_ZE_KST_CHANGE_DENIED
-        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED
-        , in_p1         => TO_CHAR(in_pers_nr) );
-      
+    -- nvl(...,false): is_pb_for_pers_multi_kst() liefert bei internem Fehler (WHEN OTHERS) bewusst
+    -- NULL statt TRUE/FALSE - ohne NVL wuerde "not NULL"=NULL die Pruefung stillschweigend uebergehen.
+    pzm_p_lc.assert(nvl(pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg), false)
+      , pzm_p_lc.CERR_PZM_ZE_KST_CHANGE_DENIED
+      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED
+      , TO_CHAR(in_pers_nr));
       /* pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
-        'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.', 
+        'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.',
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;*/
-    end if;
 
     v_ze_id := find_offener_eintrag_id(in_pers_nr => in_pers_nr, in_schicht_tag => v_schicht_tag);
     if v_ze_id is not NULL then
       v_pzm_zeiterfassunug := get_ze(v_ze_id, c_module_name);
     end if;
 
-    if v_pzm_zeiterfassunug.ze_aa_status is not NULL
-    or v_pzm_zeiterfassunug.ze_calc_ist_start < in_change_time - 16/24
-    or v_ze_id is NULL
-    then
-      
-      pzm_p_lc.raise_app_error_p(
-          in_code       => pzm_p_lc.CERR_PZM_ZE_EMPLOYEE_ABSENT
-        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
-        , in_p1          => in_pers_nr );
+    -- nvl(...,true) bei der Zeitvergleichs-Teilbedingung: ze_calc_ist_start kann bei einem noch
+    -- nicht bewerteten offenen Eintrag NULL sein - dann konservativ wie "zu lange her" behandeln,
+    -- statt die gesamte Bedingung (und damit die Pruefung) stillschweigend auf NULL kippen zu lassen.
+    pzm_p_lc.assert(not (v_pzm_zeiterfassunug.ze_aa_status is not NULL
+      or nvl(v_pzm_zeiterfassunug.ze_calc_ist_start < in_change_time - 16/24, true)
+      or v_ze_id is NULL)
+      , pzm_p_lc.CERR_PZM_ZE_EMPLOYEE_ABSENT
+      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
+      , in_pers_nr);
       /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
-        'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er nicht Anwesend ist.', 
+        'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er nicht Anwesend ist.',
         in_pers_nr, NULL, v_schicht_tag);
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
       */
-    end if;
 
     select count(*)
       into v_count
       from isi_kostenstellen t
-     where t.kst_nr = in_kst_id;
+     where t.kst_nr = in_kst_id
+       and rownum = 1;
 
     -- Prüfen der Kostenstelle
-    if v_count = 0 then
-      pzm_p_lc.raise_app_error_p(
-          in_code       => pzm_p_lc.CERR_PZM_RFID_PERS_NR_404
-        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
-        , in_p1         => TO_CHAR(in_pers_nr)
-        , in_p2         => TO_CHAR(in_kst_id) );
+    pzm_p_lc.assert(v_count != 0
+      , pzm_p_lc.cerr_kst_id_404
+      , pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
+      , TO_CHAR(in_pers_nr)
+      , TO_CHAR(in_kst_id));
       -- raise PZM_P_LC.excp_kst_id_404;
       /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
@@ -1866,7 +1833,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
       return;
       */
-    end if;
     close_ze_eintrag(v_ze_id, in_change_time);
     v_pzm_zeiterfassunug := get_ze(v_ze_id, c_module_name);
 
@@ -2105,12 +2071,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    if sql%rowcount = 0 then
-      pzm_p_lc.raise_app_error_p(
-          pzm_p_lc.cerr_pzm_buchung
-        , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-        , v_ze.ze_id);
-    end if;
+    pzm_p_lc.assert(sql%rowcount != 0
+      , pzm_p_lc.cerr_pzm_buchung
+      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , v_ze.ze_id);
 
     commit;
 
