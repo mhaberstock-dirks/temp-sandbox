@@ -131,10 +131,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   begin
     if io_ze_context.kst_id is null then
       io_ze_context.kst_id := get_pers_kst_id(io_ze_context.pers_nr);
-      pzm_p_lc.assert(io_ze_context.kst_id is not null
-        , pzm_p_lc.cerr_kst_id_404
-        , pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
-        , to_char(io_ze_context.pers_nr));
+      pzm_p_lc.assert(in_condition  => io_ze_context.kst_id is not null
+        , in_code       => pzm_p_lc.cerr_kst_id_404
+        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
+        , in_p1         => to_char(io_ze_context.pers_nr));
     end if;
 
     if io_ze_context.abt_id is null then
@@ -352,14 +352,14 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   -- PRIVAT (nur Package-intern)
   procedure validate_ze_buchung(in_ze_context in t_buchung_context) is
   begin
-    pzm_p_lc.assert(in_ze_context.pers_nr is not null,
-      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_PERS_NR);
+    pzm_p_lc.assert(in_condition => in_ze_context.pers_nr is not null,
+      in_code => pzm_p_lc.cerr_pzm_ze_daten_invalid, in_message => pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_PERS_NR);
 
-    pzm_p_lc.assert(in_ze_context.zeitstempel is not null,
-      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_TIMESTAMP);
+    pzm_p_lc.assert(in_condition => in_ze_context.zeitstempel is not null,
+      in_code => pzm_p_lc.cerr_pzm_ze_daten_invalid, in_message => pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_TIMESTAMP);
 
-    pzm_p_lc.assert(in_ze_context.aktion is not null,
-      pzm_p_lc.cerr_pzm_ze_daten_invalid, pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION);
+    pzm_p_lc.assert(in_condition => in_ze_context.aktion is not null,
+      in_code => pzm_p_lc.cerr_pzm_ze_daten_invalid, in_message => pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_AKTION);
 
     -- TODO: -wkr- Zukunftszeitstempel mit Beruecksichtigung der Zeitzone pruefen?
     -- if in_ze_context.zeitstempel > sysdate + 1/24 then
@@ -481,9 +481,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze_id              pzm_zeiterfassung.ze_id%type;
     v_context            t_buchung_context := in_ze_context;
   begin
-    pzm_p_lc.assert(in_ist_start is not null or in_ist_ende is null
-      , pzm_p_lc.cerr_pzm_ze_daten_invalid
-      , pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
+    pzm_p_lc.assert(in_condition => in_ist_start is not null or in_ist_ende is null
+      , in_code    => pzm_p_lc.cerr_pzm_ze_daten_invalid
+      , in_message => pzm_p_lc.O_T_PZM_ERROR_ZE_INVALID_NO_START_TIME);
 
     ze_ist_zeiten_bewerten(v_context, in_ist_start, in_ist_ende);
 
@@ -717,10 +717,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     fetch c_rfid_pers_nr into v_pers_nr;
     close c_rfid_pers_nr;
 
-    pzm_p_lc.assert(v_pers_nr is not null or nvl(in_suppress_error, false)
-      , pzm_p_lc.cerr_PZM_RFID_PERS_NR_404
-      , pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404
-      , in_rfid);
+    pzm_p_lc.assert(in_condition  => v_pers_nr is not null or nvl(in_suppress_error, false)
+      , in_code       => pzm_p_lc.cerr_PZM_RFID_PERS_NR_404
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_RFID_PERS_NR_404
+      , in_p1         => in_rfid);
     return v_pers_nr;
   end get_pers_nr_by_rfid;
 
@@ -1293,9 +1293,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context            t_buchung_context;
     v_ze_id              pzm_zeiterfassung.ze_id%type;
   begin
-    pzm_p_lc.assert(in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
-      pzm_p_lc.cerr_pzm_buchung,
-      'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
+    pzm_p_lc.assert(in_condition => in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+      in_code => pzm_p_lc.cerr_pzm_buchung,
+      in_message => 'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_DEBUG,
@@ -1381,9 +1381,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze      pzm_zeiterfassung%rowtype;
     v_context t_buchung_context;
   begin
-    pzm_p_lc.assert(in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
-      pzm_p_lc.cerr_pzm_buchung,
-      'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
+    pzm_p_lc.assert(in_condition => in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+      in_code => pzm_p_lc.cerr_pzm_buchung,
+      in_message => 'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
 
     v_ze := get_ze(in_ze_id, c_module_name);
 
@@ -1430,9 +1430,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    pzm_p_lc.assert(sql%rowcount != 0,
-      pzm_p_lc.cerr_pzm_buchung,
-      pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, v_ze.ze_id);
+    pzm_p_lc.assert(in_condition => sql%rowcount != 0,
+      in_code => pzm_p_lc.cerr_pzm_buchung,
+      in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404, in_p1 => v_ze.ze_id);
 
     commit;
 
@@ -1497,10 +1497,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    pzm_p_lc.assert(sql%rowcount != 0
-      , pzm_p_lc.cerr_pzm_buchung
-      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-      , v_ze.ze_id);
+    pzm_p_lc.assert(in_condition => sql%rowcount != 0
+      , in_code       => pzm_p_lc.cerr_pzm_buchung
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , in_p1         => v_ze.ze_id);
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_INFO,
@@ -1596,10 +1596,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    pzm_p_lc.assert(sql%rowcount != 0
-      , pzm_p_lc.cerr_pzm_buchung
-      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-      , v_ze.ze_id);
+    pzm_p_lc.assert(in_condition => sql%rowcount != 0
+      , in_code       => pzm_p_lc.cerr_pzm_buchung
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , in_p1         => v_ze.ze_id);
 
     pzm_p_log.log_data(
       p_level       => pzm_p_log.LEVEL_WARNING,
@@ -1757,9 +1757,12 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     c_module_name constant varchar2(50) := current_unit_name();
     v_ze_id              pzm_zeiterfassung.ze_id%type;
-    v_pzm_zeiterfassunug pzm_zeiterfassung%rowtype;
+    v_ze                 pzm_zeiterfassung%rowtype;
     v_schicht_tag        pzm_ze_tagessatz.ts_datum%type;
     v_count              integer;
+    v_max_std_offen      number;
+    v_context            t_buchung_context;
+    v_std                number;
 
   begin
     if in_schicht_tag is not NULL
@@ -1781,10 +1784,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     -- nvl(...,false): is_pb_for_pers_multi_kst() liefert bei internem Fehler (WHEN OTHERS) bewusst
     -- NULL statt TRUE/FALSE - ohne NVL wuerde "not NULL"=NULL die Pruefung stillschweigend uebergehen.
-    pzm_p_lc.assert(nvl(pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg), false)
-      , pzm_p_lc.CERR_PZM_ZE_KST_CHANGE_DENIED
-      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED
-      , TO_CHAR(in_pers_nr));
+    pzm_p_lc.assert(in_condition  => nvl(pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg), false)
+      , in_code       => pzm_p_lc.CERR_PZM_ZE_KST_CHANGE_DENIED
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED
+      , in_p1         => TO_CHAR(in_pers_nr));
       /* pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
         'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.',
         in_pers_nr, NULL, v_schicht_tag);
@@ -1793,18 +1796,41 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     v_ze_id := find_offener_eintrag_id(in_pers_nr => in_pers_nr, in_schicht_tag => v_schicht_tag);
     if v_ze_id is not NULL then
-      v_pzm_zeiterfassunug := get_ze(v_ze_id, c_module_name);
+      v_ze := get_ze(v_ze_id, c_module_name);
+
+      -- NEU: Analog zu c_live_stempeln()/c_stempelzeit_ze_sync() - ein offener Eintrag, der laenger
+      -- als v_max_std_offen offen ist (typischerweise vergessenes "Gehen" am Vortag), wird zunaechst
+      -- automatisch geschlossen. Ohne diese Pruefung haette ein Kostenstellenwechsel einen laengst
+      -- veralteten, nicht mehr aussagekraeftigen Eintrag aufgespalten. Nach dem Auto-Close gibt es
+      -- keinen gueltigen offenen Eintrag mehr fuer die anschliessende Pruefung unten - v_ze_id wird
+      -- daher zurueckgesetzt, sodass die nachfolgende EMPLOYEE_ABSENT-Pruefung korrekt greift, statt
+      -- mit einem inzwischen geschlossenen Eintrag weiterzuarbeiten.
+      v_max_std_offen := get_max_std_offen(in_pers_nr);
+      if (in_change_time - v_ze.ze_ist_start) > (v_max_std_offen / 24) then
+        cat_auto_close_eintrag(v_ze_id);
+        v_ze_id := NULL;
+        v_ze := NULL;
+      end if;
     end if;
 
-    -- nvl(...,true) bei der Zeitvergleichs-Teilbedingung: ze_calc_ist_start kann bei einem noch
-    -- nicht bewerteten offenen Eintrag NULL sein - dann konservativ wie "zu lange her" behandeln,
-    -- statt die gesamte Bedingung (und damit die Pruefung) stillschweigend auf NULL kippen zu lassen.
-    pzm_p_lc.assert(not (v_pzm_zeiterfassunug.ze_aa_status is not NULL
-      or nvl(v_pzm_zeiterfassunug.ze_calc_ist_start < in_change_time - 16/24, true)
+    -- NEU: ze_status = STATUS_ANWESEND ergaenzt - ein Kostenstellenwechsel ergibt fachlich nur Sinn,
+    -- wenn der Mitarbeiter gerade tatsaechlich anwesend ist (nicht z.B. in einer Pause oder einem
+    -- Dienstgang). Diese Pruefung fehlte bisher komplett; ohne sie konnte ein KST-Wechsel auch auf
+    -- einen offenen Eintrag mit anderem Status angewendet werden.
+    --
+    -- ENTFERNT: "ze_calc_ist_start < in_change_time - 16/24" - das war eine zweite, unabhaengig
+    -- entstandene und fest codierte "ist der Eintrag zu alt"-Pruefung, redundant zur oben ergaenzten
+    -- Auto-Close-Logik (get_max_std_offen(), Default 17h). Da 16h keine erkennbare eigene fachliche
+    -- Bedeutung hatte (anders als die per Schichtmodell konfigurierbare, mit "Ruhezeit" begruendete
+    -- Auto-Close-Schwelle) und je nach Schichtmodell mal wirkungslos, mal frueher als der Auto-Close
+    -- ausgeloest haette, wurde sie entfernt statt beibehalten - Staleness wird jetzt einheitlich nur
+    -- noch ueber die Auto-Close-Pruefung oben gehandhabt.
+    pzm_p_lc.assert(in_condition  => not (v_ze.ze_aa_status is not NULL
+      or nvl(v_ze.ze_status, -1) != STATUS_ANWESEND
       or v_ze_id is NULL)
-      , pzm_p_lc.CERR_PZM_ZE_EMPLOYEE_ABSENT
-      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
-      , in_pers_nr);
+      , in_code       => pzm_p_lc.CERR_PZM_ZE_EMPLOYEE_ABSENT
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
+      , in_p1         => in_pers_nr);
       /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
         'Personalnummer ' || in_pers_nr || ' kann die KST nicht wechseln, da er nicht Anwesend ist.',
@@ -1820,11 +1846,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and rownum = 1;
 
     -- Prüfen der Kostenstelle
-    pzm_p_lc.assert(v_count != 0
-      , pzm_p_lc.cerr_kst_id_404
-      , pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
-      , TO_CHAR(in_pers_nr)
-      , TO_CHAR(in_kst_id));
+    pzm_p_lc.assert(in_condition  => v_count != 0
+      , in_code       => pzm_p_lc.cerr_kst_id_404
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
+      , in_p1         => TO_CHAR(in_pers_nr)
+      , in_p2         => TO_CHAR(in_kst_id));
       -- raise PZM_P_LC.excp_kst_id_404;
       /*
       pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
@@ -1834,10 +1860,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       return;
       */
     close_ze_eintrag(v_ze_id, in_change_time);
-    v_pzm_zeiterfassunug := get_ze(v_ze_id, c_module_name);
+    v_ze := get_ze(v_ze_id, c_module_name);
 
     -- Schichtzeitpunkt ist noch nicht begonnen, daher nur den aktuell offenen Eintrag mit der neuen KST updaten
-    if v_pzm_zeiterfassunug.ze_calc_ist_start > in_change_time
+    if v_ze.ze_calc_ist_start > in_change_time
     then
       update pzm_zeiterfassung t
          set t.ze_ist_ende = NULL,
@@ -1848,6 +1874,13 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
              t.last_change_date = sysdate,
              t.last_change_login_id = current_isi_user_login_id()
        where t.ze_id = v_ze_id;
+      -- NEU: rowcount-Pruefung ergaenzt, analog zu den anderen Korrektur-Prozeduren im Package
+      -- (z.B. c_ze_zeiten_korrigieren) - ohne sie bliebe ein zwischen Lesen und Schreiben geloeschter
+      -- Eintrag unbemerkt.
+      pzm_p_lc.assert(in_condition => sql%rowcount != 0
+        , in_code       => pzm_p_lc.cerr_pzm_buchung
+        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+        , in_p1         => v_ze_id);
       commit;
       return;
     end if;
@@ -1855,58 +1888,80 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     select count(*)
       into v_count
       from pzm_zeiterfassung t
-     where t.ze_pers_nr = v_pzm_zeiterfassunug.ze_pers_nr
-       and t.ze_schicht_tag = v_pzm_zeiterfassunug.ze_schicht_tag
+     where t.ze_pers_nr = v_ze.ze_pers_nr
+       and t.ze_schicht_tag = v_ze.ze_schicht_tag
        and t.ze_ist_start is not null
        and t.ze_status = STATUS_ANWESEND;
 
 
+    -- NEU: ze_std wird jetzt vorab in PL/SQL berechnet (Design-Prinzip aus dem Package-Header:
+    -- "Alle Berechnungen ... werden deterministisch VOR dem INSERT/UPDATE ausgefuehrt"), statt wie
+    -- zuvor reaktiv als Ausdruck ueber die eigenen Spaltenwerte (t.ze_calc_ist_start/t.ze_ist_start)
+    -- direkt im SET der UPDATE-Anweisung.
     if v_count = 1 -- Erster Eintrag
     then
+      v_std := round((in_change_time - v_ze.ze_calc_ist_start) * 24, 3);
       update pzm_zeiterfassung t
          set t.ze_calc_ist_ende = in_change_time,
-             t.ze_std = round((in_change_time - t.ze_calc_ist_start) * 24, 3),
+             t.ze_std = v_std,
              t.ze_typ = TYP_COSTCENTER,
              t.last_change_date = sysdate,
              t.last_change_login_id = current_isi_user_login_id()
        where t.ze_id = v_ze_id;
-    else   
+    else
+      v_std := round((in_change_time - v_ze.ze_ist_start) * 24, 3);
       update pzm_zeiterfassung t
-         set t.ze_calc_ist_start = t.ze_ist_start,
+         set t.ze_calc_ist_start = v_ze.ze_ist_start,
              t.ze_calc_ist_ende = in_change_time,
-             t.ze_std = round((in_change_time - t.ze_ist_start) * 24, 3),
+             t.ze_std = v_std,
              t.ze_typ = TYP_COSTCENTER,
              t.last_change_date = sysdate,
              t.last_change_login_id = current_isi_user_login_id()
        where t.ze_id = v_ze_id;
     end if;
 
-    insert into pzm_zeiterfassung
-           (ze_pers_nr, 
-            ze_ist_start,
-            ze_calc_ist_start, 
-            ze_kst_id, 
-            ze_status,
-            ze_sa_kurzname, 
-            ze_typ, 
-            ze_schicht_tag, 
-            ze_abt_id, 
-            ze_pb_id, 
-            ze_sm_name, 
-            ze_work_location)
-            values
-           (v_pzm_zeiterfassunug.ze_pers_nr, 
-            in_change_time, 
-            in_change_time, 
-            in_kst_id, 
-            v_pzm_zeiterfassunug.ze_status, 
-            v_pzm_zeiterfassunug.ze_sa_kurzname, 
-            TYP_COSTCENTER,
-            v_pzm_zeiterfassunug.ze_schicht_tag, 
-            v_pzm_zeiterfassunug.ze_abt_id, 
-            v_pzm_zeiterfassunug.ze_pb_id, 
-            v_pzm_zeiterfassunug.ze_sm_name, 
-            v_pzm_zeiterfassunug.ze_work_location);
+    -- NEU: rowcount-Pruefung ergaenzt (siehe oben) - deckt beide Zweige ab, da t.ze_id = v_ze_id
+    -- in beiden Faellen dieselbe Eindeutigkeits-Bedingung ist.
+    pzm_p_lc.assert(in_condition => sql%rowcount != 0
+      , in_code       => pzm_p_lc.cerr_pzm_buchung
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , in_p1         => v_ze_id);
+
+    -- NEU: create_ze_eintrag() statt eigenem, dupliziertem INSERT - dieselbe zentrale Stelle, die
+    -- auch c_live_stempeln()/c_stempelzeit_ze_sync()/etc. fuer neue ZE-Eintraege nutzen. Kuenftige
+    -- Aenderungen an der Insert-Logik (neue Pflichtfelder, zusaetzliche Validierung) muessen so nur
+    -- noch an einer Stelle gepflegt werden.
+    -- Wichtig: create_ze_eintrag() ruft intern ze_ist_zeiten_bewerten() auf, das jedoch bei
+    -- ze_typ = TYP_COSTCENTER sofort zurueckkehrt, OHNE calc_ist_start/calc_ist_ende/ze_std neu zu
+    -- berechnen ("Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden."). Das
+    -- Verhalten ist damit identisch zum bisherigen manuellen INSERT (calc_ist_start = in_change_time,
+    -- kein Rundungs-/Bewertungs-Einfluss) - verifiziert im Code von ze_ist_zeiten_bewerten().
+    v_context.pers_nr        := v_ze.ze_pers_nr;
+    -- kst_id VORBELEGT mit dem neuen Wert, bevor load_mitarbeiter_daten() aufgerufen wird - die
+    -- Prozedur ueberschreibt kst_id nur, wenn es noch NULL ist. So bleibt die eigentliche KST-
+    -- Aenderung erhalten, waehrend abt_id/pb_id/work_location frisch aus den aktuellen Stammdaten
+    -- geladen werden - genau wie es c_live_stempeln()/c_stempelzeit_ze_sync() fuer jede Aktion tun,
+    -- nicht nur fuer "Kommen". Bisher wurden diese drei Felder stattdessen vom alten Eintrag
+    -- uebernommen - inkonsistent zum Rest des Packages und potenziell veraltet, falls sich die
+    -- Stammdaten seit Schichtbeginn geaendert haben.
+    v_context.kst_id         := in_kst_id;
+    v_context.ze_status      := v_ze.ze_status;
+    v_context.ze_typ         := TYP_COSTCENTER;
+    -- schicht_tag/sa_kurzname/sm_name bleiben VORBELEGT vom bestehenden (zu splittenden) Eintrag -
+    -- load_schicht_daten() ist dadurch fuer alle drei ein garantiertes No-Op (jeder ihrer drei
+    -- Bloecke ist einzeln durch "IS NULL"-Pruefungen abgesichert), wird aber trotzdem aufgerufen,
+    -- um strukturell identisch zu den anderen Prozeduren zu bleiben. Eine Neuermittlung waere hier
+    -- sogar riskant: load_schicht_daten()s Kontext-/Mitternachts-Logik ist fuer die Ersterkennung
+    -- eines Schichttags gedacht, nicht fuer die Fortsetzung eines bereits laufenden Abschnitts.
+    v_context.schicht_tag    := v_ze.ze_schicht_tag;
+    v_context.sa_kurzname    := v_ze.ze_sa_kurzname;
+    v_context.sm_name        := v_ze.ze_sm_name;
+    v_context.calc_ist_start := in_change_time;
+
+    load_mitarbeiter_daten(v_context);
+    load_schicht_daten(v_context);
+
+    v_ze_id := create_ze_eintrag(v_context, in_change_time, null);
 
     pzm_p_log.log_data(
     p_level       => pzm_p_log.LEVEL_DEBUG,
@@ -2071,10 +2126,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze.ze_id;
 
-    pzm_p_lc.assert(sql%rowcount != 0
-      , pzm_p_lc.cerr_pzm_buchung
-      , pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-      , v_ze.ze_id);
+    pzm_p_lc.assert(in_condition => sql%rowcount != 0
+      , in_code       => pzm_p_lc.cerr_pzm_buchung
+      , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
+      , in_p1         => v_ze.ze_id);
 
     commit;
 
