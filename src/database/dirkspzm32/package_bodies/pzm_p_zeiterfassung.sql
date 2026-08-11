@@ -45,6 +45,21 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   end get_max_std_offen;
 
   /**
+   * Prueft, ob die angegebene Kostenstelle (ISI_KOSTENSTELLEN.KST_NR) existiert.
+   */
+  -- PRIVAT (nur Package-intern)
+  function kst_id_existiert(in_kst_id in isi_kostenstellen.kst_nr%type) return boolean is
+    v_count integer;
+  begin
+    select count(*)
+      into v_count
+      from isi_kostenstellen t
+     where t.kst_nr = in_kst_id
+       and rownum = 1;
+    return v_count != 0;
+  end kst_id_existiert;
+
+  /**
    * Liefert den Zeiterfassungs-Status basierend auf der angegebenen Aktion.
    */
   -- PRIVAT (nur Package-intern)
@@ -392,6 +407,30 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   begin
     return is_erster_anwesend_eintrag(in_ze_context.pers_nr, in_ze_context.schicht_tag);
   end is_erster_anwesend_eintrag;
+
+  /**
+   * Prueft, ob es fuer Person+Schichttag genau einen (Anwesend-)Eintrag mit gestempelter
+   * Start-Zeit gibt. ACHTUNG, Unterschied zu is_erster_anwesend_eintrag(): Diese Funktion ist
+   * fuer bereits EXISTIERENDE Eintraege gedacht (der zu pruefende Satz zaehlt sich selbst mit,
+   * "= 1" statt "= 0") - waehrend is_erster_anwesend_eintrag() eine Vor-Erstellungs-Pruefung ist
+   * (noch kein Satz vorhanden, "= 0"). Nicht austauschbar, siehe Analyse in c_change_ze_pers_kst_id().
+   */
+  -- PRIVAT (nur Package-intern)
+  function ist_einziger_anwesend_eintrag(
+    in_pers_nr     in pzm_personal.pers_nr%type,
+    in_schicht_tag in pzm_zeiterfassung.ze_schicht_tag%type
+  ) return boolean is
+    v_count number;
+  begin
+    select count(*)
+      into v_count
+      from pzm_zeiterfassung t
+     where t.ze_pers_nr = in_pers_nr
+       and t.ze_schicht_tag = in_schicht_tag
+       and t.ze_ist_start is not null
+       and t.ze_status = STATUS_ANWESEND;
+    return v_count = 1;
+  end ist_einziger_anwesend_eintrag;
 
   -----------------------------------------------------------------------------------------------
   -- Diese Prozedur delegiert an das Package pzm_p_zeit_bewertung.
@@ -1744,10 +1783,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze_id              pzm_zeiterfassung.ze_id%type;
     v_ze                 pzm_zeiterfassung%rowtype;
     v_schicht_tag        pzm_ze_tagessatz.ts_datum%type;
-    v_count              integer;
     v_max_std_offen      number;
     v_context            t_buchung_context;
-    v_std                number;
 
   begin
     if in_schicht_tag is not NULL
@@ -1822,117 +1859,105 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
       , in_p1         => in_pers_nr);
 
-    select count(*)
-      into v_count
-      from isi_kostenstellen t
-     where t.kst_nr = in_kst_id
-       and rownum = 1;
+    -- NEU: Kein Kostenstellenwechsel noetig/sinnvoll, wenn in_kst_id bereits die aktuelle
+    -- Kostenstelle des offenen Eintrags ist - ohne diese Pruefung wuerde trotzdem ein Split
+    -- mit anschliessend identischer Kostenstelle erzeugt (siehe Analyse zu Fall A/B).
+    pzm_p_lc.assert(in_condition => nvl(in_kst_id, -1) != v_ze.ze_kst_id
+      , in_code    => pzm_p_lc.cerr_pzm_buchung
+      , in_message => 'Kostenstellenwechsel nicht moeglich: Personalnummer ' || to_char(in_pers_nr) ||
+                       ' ist bereits der Kostenstelle ' || to_char(in_kst_id) || ' zugeordnet.');
+
+    -- NEU: in_change_time darf nicht vor dem rohen Stempelzeitpunkt (ze_ist_start) des offenen
+    -- Eintrags liegen - sonst wuerde weiter unten (Fall B2) eine negative Dauer berechnet und
+    -- persistiert. Wird an keiner anderen Stelle im Package geprueft, daher hier explizit.
+    pzm_p_lc.assert(in_condition => in_change_time is not null and in_change_time >= v_ze.ze_ist_start
+      , in_code    => pzm_p_lc.cerr_pzm_ze_daten_invalid
+      , in_message => 'Kostenstellenwechsel-Zeitpunkt liegt vor dem Beginn des offenen Eintrags (ZE_ID=' ||
+                       to_char(v_ze_id) || ').');
 
     -- Prüfen der Kostenstelle
-    pzm_p_lc.assert(in_condition  => v_count != 0
+    pzm_p_lc.assert(in_condition  => kst_id_existiert(in_kst_id)
       , in_code       => pzm_p_lc.cerr_kst_id_404
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_KST_ID_404
       , in_p1         => TO_CHAR(in_pers_nr)
       , in_p2         => TO_CHAR(in_kst_id));
 
+    -- NEU: Umbau von "mehrere UPDATEs mit return dazwischen" auf "Werte je Fall vorab in
+    -- t_buchung_context ermitteln, dann genau EIN UPDATE" - analog zum Kontext-Muster der
+    -- uebrigen Prozeduren im Package, ohne return mitten im Ablauf, ohne dass sich mehrere
+    -- UPDATEs gegenseitig teilweise wieder rueckgaengig machen.
     close_ze_eintrag(v_ze_id, in_change_time);
     v_ze := get_ze(v_ze_id, c_module_name);
 
-    -- Schichtzeitpunkt ist noch nicht begonnen, daher nur den aktuell offenen Eintrag mit der neuen KST updaten
+    v_context.pers_nr       := v_ze.ze_pers_nr;
+    v_context.kst_id        := in_kst_id;
+    v_context.ze_status     := v_ze.ze_status;
+    v_context.sa_kurzname   := v_ze.ze_sa_kurzname;
+    v_context.schicht_tag   := v_ze.ze_schicht_tag;
+    v_context.abt_id        := v_ze.ze_abt_id;
+    v_context.pb_id         := v_ze.ze_pb_id;
+    v_context.sm_name       := v_ze.ze_sm_name;
+    v_context.work_location := v_ze.ze_work_location;
+
     if v_ze.ze_calc_ist_start > in_change_time
     then
-      update pzm_zeiterfassung t
-         set t.ze_kst_id = in_kst_id
-           , t.last_change_date = sysdate
-           , t.last_change_login_id = current_isi_user_login_id()
-           , t.ze_ist_ende = NULL
-           , t.ze_calc_ist_start = NULL
-           , t.ze_calc_ist_ende = NULL
-           , t.ze_std = NULL             
-       where t.ze_id = v_ze_id;
-      -- NEU: rowcount-Pruefung ergaenzt, analog zu den anderen Korrektur-Prozeduren im Package
-      -- (z.B. c_ze_zeiten_korrigieren) - ohne sie bliebe ein zwischen Lesen und Schreiben geloeschter
-      -- Eintrag unbemerkt.
-      pzm_p_lc.assert(in_condition => sql%rowcount != 0
-        , in_code       => pzm_p_lc.cerr_pzm_buchung
-        , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
-        , in_p1         => v_ze_id);
-      commit;
-      return;
-    end if;
-
-    select count(*)
-      into v_count
-      from pzm_zeiterfassung t
-     where t.ze_pers_nr = v_ze.ze_pers_nr
-       and t.ze_schicht_tag = v_ze.ze_schicht_tag
-       and t.ze_ist_start is not null
-       and t.ze_status = STATUS_ANWESEND;
-
-    -- NEU: ze_std wird jetzt vorab in PL/SQL berechnet (Design-Prinzip aus dem Package-Header:
-    -- "Alle Berechnungen ... werden deterministisch VOR dem INSERT/UPDATE ausgefuehrt"), statt wie
-    -- zuvor reaktiv als Ausdruck ueber die eigenen Spaltenwerte (t.ze_calc_ist_start/t.ze_ist_start)
-    -- direkt im SET der UPDATE-Anweisung.
-    if v_count = 1 -- Erster Eintrag
-    then
-      v_std := round((in_change_time - v_ze.ze_calc_ist_start) * 24, 3);
-      update pzm_zeiterfassung t
-         set t.ze_calc_ist_ende = in_change_time,
-             t.ze_std = v_std,
-             t.ze_typ = TYP_COSTCENTER,
-             t.last_change_date = sysdate,
-             t.last_change_login_id = current_isi_user_login_id()
-       where t.ze_id = v_ze_id;
+      -- Fall A: Schichtzeitpunkt noch nicht begonnen - Eintrag bleibt offen, nur die KST wechselt.
+      v_context.ze_typ         := v_ze.ze_typ;  -- unveraendert, kein Split
+      v_context.calc_ist_start := null;
+      v_context.calc_ist_ende  := null;
+      v_context.ze_std         := null;
     else
-      v_std := round((in_change_time - v_ze.ze_ist_start) * 24, 3);
-      update pzm_zeiterfassung t
-         set t.ze_calc_ist_start = v_ze.ze_ist_start,
-             t.ze_calc_ist_ende = in_change_time,
-             t.ze_std = v_std,
-             t.ze_typ = TYP_COSTCENTER,
-             t.last_change_date = sysdate,
-             t.last_change_login_id = current_isi_user_login_id()
-       where t.ze_id = v_ze_id;
+      -- Fall B: Schichtzeitpunkt bereits begonnen - Eintrag wird geschlossen, neuer Eintrag mit neuer KST
+      v_context.ze_typ         := TYP_COSTCENTER;
+      v_context.calc_ist_ende  := in_change_time;
+      v_context.calc_ist_start := case when ist_einziger_anwesend_eintrag(v_ze.ze_pers_nr, v_ze.ze_schicht_tag)
+                                        then v_ze.ze_calc_ist_start   -- Fall B1: bereits gerastert
+                                        else v_ze.ze_ist_start end;   -- Fall B2: roh, ungerastert
+      v_context.ze_std := round((in_change_time - v_context.calc_ist_start) * 24, 3);
     end if;
 
-    -- NEU: rowcount-Pruefung ergaenzt (siehe oben) - deckt beide Zweige ab, da t.ze_id = v_ze_id
-    -- in beiden Faellen dieselbe Eindeutigkeits-Bedingung ist.
+    -- Aktuellen Eintrag abschließen
+    update pzm_zeiterfassung t
+       set t.ze_kst_id            = v_context.kst_id,
+           t.ze_typ               = v_context.ze_typ,
+           t.ze_calc_ist_start    = v_context.calc_ist_start,
+           t.ze_calc_ist_ende     = v_context.calc_ist_ende,
+           t.ze_std               = v_context.ze_std,
+           t.ze_ist_ende          = case when v_context.calc_ist_start is null then null else t.ze_ist_ende end,
+           t.last_change_date     = sysdate,
+           t.last_change_login_id = current_isi_user_login_id()
+     where t.ze_id = v_ze_id;
+
     pzm_p_lc.assert(in_condition => sql%rowcount != 0
       , in_code       => pzm_p_lc.cerr_pzm_buchung
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
       , in_p1         => v_ze_id);
 
-    -- NEU: create_ze_eintrag() statt eigenem, dupliziertem INSERT - dieselbe zentrale Stelle, die
-    -- auch c_live_stempeln()/c_stempelzeit_ze_sync()/etc. fuer neue ZE-Eintraege nutzen. Kuenftige
-    -- Aenderungen an der Insert-Logik (neue Pflichtfelder, zusaetzliche Validierung) muessen so nur
-    -- noch an einer Stelle gepflegt werden.
-    -- Wichtig: create_ze_eintrag() ruft intern ze_ist_zeiten_bewerten() auf, das jedoch bei
-    -- ze_typ = TYP_COSTCENTER sofort zurueckkehrt, OHNE calc_ist_start/calc_ist_ende/ze_std neu zu
-    -- berechnen ("Bei Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden."). Das
-    -- Verhalten ist damit identisch zum bisherigen manuellen INSERT (calc_ist_start = in_change_time,
-    -- kein Rundungs-/Bewertungs-Einfluss) - verifiziert im Code von ze_ist_zeiten_bewerten().
-    v_context.pers_nr        := v_ze.ze_pers_nr;
-    v_context.kst_id         := in_kst_id;
-    v_context.ze_status      := v_ze.ze_status;
-    v_context.sa_kurzname    := v_ze.ze_sa_kurzname;
-    v_context.ze_typ         := TYP_COSTCENTER;
-    v_context.schicht_tag    := v_ze.ze_schicht_tag;
-    v_context.abt_id         := v_ze.ze_abt_id;
-    v_context.pb_id          := v_ze.ze_pb_id;
-    v_context.sm_name        := v_ze.ze_sm_name;
-    v_context.work_location  := v_ze.ze_work_location;
-    v_context.calc_ist_start := in_change_time;
-
-    v_ze_id := create_ze_eintrag(v_context, in_change_time, null);
+    if v_context.calc_ist_ende is not null then
+      -- Fall B: neuer Satz mit neuer KST erforderlich. WICHTIG: v_context wird hier fuer den NEUEN
+      -- Satz wiederverwendet - calc_ist_start/calc_ist_ende/ze_std muessen daher auf den Zustand
+      -- eines frisch eroeffneten Eintrags zurueckgesetzt werden, sonst uebernaehme create_ze_eintrag()
+      -- ungewollt die soeben geschriebenen Abschluss-Werte des alten Satzes.
+      -- create_ze_eintrag() ruft intern ze_ist_zeiten_bewerten() auf, das bei ze_typ = TYP_COSTCENTER
+      -- sofort zurueckkehrt, OHNE calc_ist_start/calc_ist_ende/ze_std neu zu berechnen ("Bei
+      -- Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.") - verifiziert im Code
+      -- von ze_ist_zeiten_bewerten().
+      v_context.calc_ist_start := in_change_time;
+      v_context.calc_ist_ende  := null;
+      v_context.ze_std         := null;
+      v_ze_id := create_ze_eintrag(in_ze_context => v_context
+        , in_ist_start => in_change_time
+        , in_ist_ende => null);
+    end if;
 
     pzm_p_log.log_data(
-    p_level       => pzm_p_log.LEVEL_DEBUG,
-    p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr || ' abgeschlossen.',
-    p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
-    p_module      => c_module_name,
-    p_pers_nr     => in_pers_nr,
-    p_schicht_tag => v_schicht_tag,
-    p_quelle      => in_quelle
+        p_level       => pzm_p_log.LEVEL_DEBUG
+      , p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr || ' abgeschlossen.'
+      , p_category    => pzm_p_log.CAT_ZEITERFASSUNG
+      , p_module      => c_module_name
+      , p_pers_nr     => in_pers_nr
+      , p_schicht_tag => v_schicht_tag
+      , p_quelle      => in_quelle
     );
     commit;
   exception
