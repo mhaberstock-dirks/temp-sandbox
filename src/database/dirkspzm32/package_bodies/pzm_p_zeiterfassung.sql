@@ -39,13 +39,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       when true then  nvl(v_schicht_modell.kappung_te_ab_flx_std, c_max_std_offen_default) + 6
                 else  c_max_std_offen_default + 6
       end;
-    /*      
-    if pzm_p_base.get_schicht_modell(in_pers_nr, v_schicht_modell) then
-      return nvl(v_schicht_modell.kappung_te_ab_flx_std, c_max_std_offen_default) + 6;
-    else
-      return c_max_std_offen_default + 6;
-    end if;
-    */
   end get_max_std_offen;
 
   /**
@@ -85,12 +78,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        when QUELLE_APP      then TYP_OFFLINE
        else                      TYP_MANUELL
       end;
-    /*
-    if      in_quelle = QUELLE_TERMINAL then   return TYP_TERMINAL;
-      elsif in_quelle = QUELLE_LIVE     then   return TYP_LIVE;
-      elsif in_quelle = QUELLE_APP      then   return TYP_OFFLINE;
-      else                                     return TYP_MANUELL;
-    end if;*/
   end get_ze_typ_from_quelle;
 
   -----------------------------------------------------------------------------------------------
@@ -730,18 +717,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   -- OEFFENTLICH (siehe Package-Spec)
   function get_default_work_location(in_ze_status in number) return number is
   begin
-  
+
     return case in_ze_status 
              when STATUS_DIENSTGANG then WORK_LOCATION_REISE_PASSIV
              else WORK_LOCATION_BETRIEB
-           end;  
-    /* if in_ze_status = STATUS_DIENSTGANG then
-      -- Reise Passiv ohne Ueberstundenprozente (Default fuer Dienstreise wenn nicht angegeben)
-      return WORK_LOCATION_REISE_PASSIV;
-    else
-      -- "Betrieb" OnSite (Default fuer Anwesend in der Firma)
-      return WORK_LOCATION_BETRIEB;
-    end if;       */
+           end;
   end get_default_work_location;
 
   /** OBSOLETE (vermutlich), da der Auruf von 'get_schicht_daten' direkt
@@ -1757,7 +1737,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     c_module_name constant varchar2(50) := current_unit_name();
     v_ze_id              pzm_zeiterfassung.ze_id%type;
-    v_ze                 pzm_zeiterfassung%rowtype;
+    v_ze pzm_zeiterfassung%rowtype;
     v_schicht_tag        pzm_ze_tagessatz.ts_datum%type;
     v_count              integer;
     v_max_std_offen      number;
@@ -1782,17 +1762,17 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     p_quelle      => in_quelle
     );
 
-    -- nvl(...,false): is_pb_for_pers_multi_kst() liefert bei internem Fehler (WHEN OTHERS) bewusst
-    -- NULL statt TRUE/FALSE - ohne NVL wuerde "not NULL"=NULL die Pruefung stillschweigend uebergehen.
-    pzm_p_lc.assert(in_condition  => nvl(pzm_utils.is_pb_for_pers_multi_kst(in_pers_nr => in_pers_nr, in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg), false)
+    -- Darf Kostenstelle für Mitarbeiter gewechselt werden?
+    pzm_p_lc.assert(
+        in_condition  => nvl( 
+           pzm_utils.is_pb_for_pers_multi_kst(
+               in_pers_nr => in_pers_nr
+             , in_persistieren_in_pzm_cfg => in_persistieren_in_pzm_cfg
+             )
+             , false)
       , in_code       => pzm_p_lc.CERR_PZM_ZE_KST_CHANGE_DENIED
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_KST_CHANGE_DENIED
       , in_p1         => TO_CHAR(in_pers_nr));
-      /* pzm_p_log.log_exception(pzm_p_log.CAT_ZEITERFASSUNG, 'c_change_ze_pers_kst_id',
-        'Personalnummer ' || in_pers_nr || ' darf die KST nicht wechseln.',
-        in_pers_nr, NULL, v_schicht_tag);
-      pzm_p_lc.catch_and_rethrow('pzm_p_zeiterfassung.c_change_ze_pers_kst_id');
-      return;*/
 
     v_ze_id := find_offener_eintrag_id(in_pers_nr => in_pers_nr, in_schicht_tag => v_schicht_tag);
     if v_ze_id is not NULL then
@@ -1818,14 +1798,11 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     -- Dienstgang). Diese Pruefung fehlte bisher komplett; ohne sie konnte ein KST-Wechsel auch auf
     -- einen offenen Eintrag mit anderem Status angewendet werden.
     --
-    -- ENTFERNT: "ze_calc_ist_start < in_change_time - 16/24" - das war eine zweite, unabhaengig
-    -- entstandene und fest codierte "ist der Eintrag zu alt"-Pruefung, redundant zur oben ergaenzten
-    -- Auto-Close-Logik (get_max_std_offen(), Default 17h). Da 16h keine erkennbare eigene fachliche
-    -- Bedeutung hatte (anders als die per Schichtmodell konfigurierbare, mit "Ruhezeit" begruendete
-    -- Auto-Close-Schwelle) und je nach Schichtmodell mal wirkungslos, mal frueher als der Auto-Close
-    -- ausgeloest haette, wurde sie entfernt statt beibehalten - Staleness wird jetzt einheitlich nur
-    -- noch ueber die Auto-Close-Pruefung oben gehandhabt.
+    -- nvl(...,true) bei der Zeitvergleichs-Teilbedingung: ze_calc_ist_start kann bei einem noch
+    -- nicht bewerteten offenen Eintrag NULL sein - dann konservativ wie "zu lange her" behandeln,
+    -- statt die gesamte Bedingung (und damit die Pruefung) stillschweigend auf NULL kippen zu lassen.
     pzm_p_lc.assert(in_condition  => not (v_ze.ze_aa_status is not NULL
+      or nvl(v_ze.ze_calc_ist_start < in_change_time - 16/24, true)
       or nvl(v_ze.ze_status, -1) != STATUS_ANWESEND
       or v_ze_id is NULL)
       , in_code       => pzm_p_lc.CERR_PZM_ZE_EMPLOYEE_ABSENT
@@ -1937,29 +1914,16 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     -- Verhalten ist damit identisch zum bisherigen manuellen INSERT (calc_ist_start = in_change_time,
     -- kein Rundungs-/Bewertungs-Einfluss) - verifiziert im Code von ze_ist_zeiten_bewerten().
     v_context.pers_nr        := v_ze.ze_pers_nr;
-    -- kst_id VORBELEGT mit dem neuen Wert, bevor load_mitarbeiter_daten() aufgerufen wird - die
-    -- Prozedur ueberschreibt kst_id nur, wenn es noch NULL ist. So bleibt die eigentliche KST-
-    -- Aenderung erhalten, waehrend abt_id/pb_id/work_location frisch aus den aktuellen Stammdaten
-    -- geladen werden - genau wie es c_live_stempeln()/c_stempelzeit_ze_sync() fuer jede Aktion tun,
-    -- nicht nur fuer "Kommen". Bisher wurden diese drei Felder stattdessen vom alten Eintrag
-    -- uebernommen - inkonsistent zum Rest des Packages und potenziell veraltet, falls sich die
-    -- Stammdaten seit Schichtbeginn geaendert haben.
     v_context.kst_id         := in_kst_id;
     v_context.ze_status      := v_ze.ze_status;
-    v_context.ze_typ         := TYP_COSTCENTER;
-    -- schicht_tag/sa_kurzname/sm_name bleiben VORBELEGT vom bestehenden (zu splittenden) Eintrag -
-    -- load_schicht_daten() ist dadurch fuer alle drei ein garantiertes No-Op (jeder ihrer drei
-    -- Bloecke ist einzeln durch "IS NULL"-Pruefungen abgesichert), wird aber trotzdem aufgerufen,
-    -- um strukturell identisch zu den anderen Prozeduren zu bleiben. Eine Neuermittlung waere hier
-    -- sogar riskant: load_schicht_daten()s Kontext-/Mitternachts-Logik ist fuer die Ersterkennung
-    -- eines Schichttags gedacht, nicht fuer die Fortsetzung eines bereits laufenden Abschnitts.
-    v_context.schicht_tag    := v_ze.ze_schicht_tag;
     v_context.sa_kurzname    := v_ze.ze_sa_kurzname;
+    v_context.ze_typ         := TYP_COSTCENTER;
+    v_context.schicht_tag    := v_ze.ze_schicht_tag;
+    v_context.abt_id         := v_ze.ze_abt_id;
+    v_context.pb_id          := v_ze.ze_pb_id;
     v_context.sm_name        := v_ze.ze_sm_name;
+    v_context.work_location  := v_ze.ze_work_location;
     v_context.calc_ist_start := in_change_time;
-
-    load_mitarbeiter_daten(v_context);
-    load_schicht_daten(v_context);
 
     v_ze_id := create_ze_eintrag(v_context, in_change_time, null);
 
@@ -2499,4 +2463,4 @@ end PZM_P_ZEITERFASSUNG;
 
 
 
--- sqlcl_snapshot {"hash":"866a641015fc742f1fa9fdff49a3b9ffea8afc2d","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ec8563445d8596fd7e656efe0ee3354c5f7a71ee","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
