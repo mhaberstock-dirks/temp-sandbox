@@ -96,7 +96,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        when QUELLE_APP      then TYP_OFFLINE
        else                      TYP_MANUELL
       end;
- 
+
   end get_ze_typ_from_quelle;
 
   -----------------------------------------------------------------------------------------------
@@ -299,7 +299,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     end if;
 
     -- Schichtart + SM nachladen, falls noch nicht aus Kontext befuellt
-    if io_ze_context.sa_kurzname is null or io_ze_context.sm_name is null then
+    if  io_ze_context.sa_kurzname is null 
+     or io_ze_context.sm_name is null 
+    then
       open c_schicht_info;
       fetch c_schicht_info into v_schicht_info;
       if c_schicht_info%found then
@@ -576,7 +578,9 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     ze_ist_zeiten_bewerten(v_context, v_ze.ze_ist_start, in_ist_ende);
 
-    if v_context.calc_ist_ende is null or v_context.calc_ist_start is null then
+    if  v_context.calc_ist_ende is null 
+     or v_context.calc_ist_start is null 
+    then
       -- TODO: -wkr- Aus meiner Sicht sollte hier ein Fehler geworfen werden, da die Bewertung fehlschlägt.
       pzm_p_log.warning(
           'Bewertung (calc_ist_...) ist fehlgeschlagen! Erfasste Zeit wird trotzdem gespeichert. ZE_ID: ' || in_ze_id ||
@@ -903,11 +907,13 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
    * Markiert den Stempelzeit-Eintrag als erfolgreich übertragen.
    */
   -- PRIVAT (nur Package-intern)
-  procedure stempelzeit_eintrag_erlfolgreich(
+  procedure stempelzeit_eintrag_erfolgreich(
     in_context in t_buchung_context
   ) is
   begin
-    if in_context.rfid is null or in_context.terminal_id is null then
+    if  in_context.rfid is null 
+     or in_context.terminal_id is null 
+    then
       return;
     end if;
 
@@ -1057,7 +1063,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       clear_auto_ze_eintraege(v_context);
       v_offener_ze_id := create_ze_eintrag(v_context, v_context.zeitstempel, null);
 
-      stempelzeit_eintrag_erlfolgreich(v_context);
+      stempelzeit_eintrag_erfolgreich(v_context);
 
       commit;
     else
@@ -1102,7 +1108,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
         v_offener_ze_id := create_ze_eintrag(v_context, v_context.zeitstempel, null);
       end if;
 
-      stempelzeit_eintrag_erlfolgreich(v_context);
+      stempelzeit_eintrag_erfolgreich(v_context);
 
       commit;
 
@@ -1317,7 +1323,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_context            t_buchung_context;
     v_ze_id              pzm_zeiterfassung.ze_id%type;
   begin
-    pzm_p_lc.assert(in_condition => in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+    pzm_p_lc.assert(in_condition => in_ze_status is not null 
+                                and in_ze_status != STATUS_ABWESEND,
       in_code => pzm_p_lc.cerr_pzm_buchung,
       in_message => 'Invalid operation! Abwesenheiten koennen hier nicht angelegt werden.');
 
@@ -1405,7 +1412,8 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze      pzm_zeiterfassung%rowtype;
     v_context t_buchung_context;
   begin
-    pzm_p_lc.assert(in_condition => in_ze_status is not null and in_ze_status != STATUS_ABWESEND,
+    pzm_p_lc.assert(in_condition => in_ze_status is not null 
+                                and in_ze_status != STATUS_ABWESEND,
       in_code => pzm_p_lc.cerr_pzm_buchung,
       in_message => 'Invalid operation! Abwesenheiten koennen hier nicht korrigiert werden.');
 
@@ -2487,4 +2495,4 @@ end PZM_P_ZEITERFASSUNG;
 
 
 
--- sqlcl_snapshot {"hash":"95a1472b17eb6f7930f1840aad1a451f255c3b5f","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"32e7a35907abbb07baf7a4769cd4651fa6a60fdb","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
