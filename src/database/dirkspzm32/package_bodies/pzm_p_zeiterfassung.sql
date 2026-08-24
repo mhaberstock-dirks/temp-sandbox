@@ -1804,7 +1804,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
     pzm_p_log.log_data(
     p_level       => pzm_p_log.LEVEL_DEBUG,
-    p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr,
+    p_message     => 'ZE Wechsel der Kostenstelle für PersNr: ' || in_pers_nr || ', KstId: ' || in_kst_id,
     p_category    => pzm_p_log.CAT_ZEITERFASSUNG,
     p_module      => c_module_name,
     p_pers_nr     => in_pers_nr,
@@ -1867,14 +1867,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT
       , in_p1         => in_pers_nr);
 
-    -- NEU: Kein Kostenstellenwechsel noetig/sinnvoll, wenn in_kst_id bereits die aktuelle
-    -- Kostenstelle des offenen Eintrags ist - ohne diese Pruefung wuerde trotzdem ein Split
-    -- mit anschliessend identischer Kostenstelle erzeugt (siehe Analyse zu Fall A/B).
-    pzm_p_lc.assert(in_condition => nvl(in_kst_id, -1) != v_ze.ze_kst_id
-      , in_code    => pzm_p_lc.cerr_pzm_buchung
-      , in_message => 'Kostenstellenwechsel nicht moeglich: Personalnummer ' || to_char(in_pers_nr) ||
-                       ' ist bereits der Kostenstelle ' || to_char(in_kst_id) || ' zugeordnet.');
-
     -- NEU: in_change_time darf nicht vor dem rohen Stempelzeitpunkt (ze_ist_start) des offenen
     -- Eintrags liegen - sonst wuerde weiter unten (Fall B2) eine negative Dauer berechnet und
     -- persistiert. Wird an keiner anderen Stelle im Package geprueft, daher hier explizit.
@@ -1882,6 +1874,14 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       , in_code    => pzm_p_lc.cerr_pzm_ze_daten_invalid
       , in_message => 'Kostenstellenwechsel-Zeitpunkt liegt vor dem Beginn des offenen Eintrags (ZE_ID=' ||
                        to_char(v_ze_id) || ').');
+
+    -- NEU: Kein Kostenstellenwechsel noetig/sinnvoll, wenn in_kst_id bereits die aktuelle
+    -- Kostenstelle des offenen Eintrags ist - ohne diese Pruefung wuerde trotzdem ein Split
+    -- mit anschliessend identischer Kostenstelle erzeugt (siehe Analyse zu Fall A/B).
+    pzm_p_lc.assert(in_condition => nvl(in_kst_id, -1) != v_ze.ze_kst_id
+      , in_code    => pzm_p_lc.cerr_pzm_buchung
+      , in_message => 'Kostenstellenwechsel nicht moeglich: Personalnummer ' || to_char(in_pers_nr) ||
+                       ' ist bereits der Kostenstelle ' || to_char(in_kst_id) || ' zugeordnet.');
 
     -- Prüfen der Kostenstelle
     pzm_p_lc.assert(in_condition  => kst_id_existiert(in_kst_id)
@@ -1898,7 +1898,6 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     v_ze := get_ze(v_ze_id, c_module_name);
 
     v_context.pers_nr       := v_ze.ze_pers_nr;
-    v_context.kst_id        := in_kst_id;
     v_context.ze_status     := v_ze.ze_status;
     v_context.sa_kurzname   := v_ze.ze_sa_kurzname;
     v_context.schicht_tag   := v_ze.ze_schicht_tag;
@@ -1910,18 +1909,43 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
     if v_ze.ze_calc_ist_start > in_change_time
     then
       -- Fall A: Schichtzeitpunkt noch nicht begonnen - Eintrag bleibt offen, nur die KST wechselt.
+      -- Kein Split, daher bekommt der EINZIGE (weiterhin offene) Eintrag direkt die neue KST.
+      v_context.kst_id         := in_kst_id;
       v_context.ze_typ         := v_ze.ze_typ;  -- unveraendert, kein Split
       v_context.calc_ist_start := null;
       v_context.calc_ist_ende  := null;
       v_context.ze_std         := null;
+      /*pzm_p_log.log_data(
+          p_level       => pzm_p_log.LEVEL_DEBUG
+        , p_message     => 'Kostenstellen-Wechsel VOR Schichtbeginn; Kein neuer Eintrag nur Wechsel' 
+        , p_category    => pzm_p_log.CAT_ZEITERFASSUNG
+        , p_module      => c_module_name
+        , p_pers_nr     => in_pers_nr
+        , p_schicht_tag => v_schicht_tag
+        , p_quelle      => in_quelle);*/
     else
-      -- Fall B: Schichtzeitpunkt bereits begonnen - Eintrag wird geschlossen, neuer Eintrag mit neuer KST
+      -- Fall B: Schichtzeitpunkt bereits begonnen - Eintrag wird geschlossen, neuer Eintrag mit neuer KST.
+      -- BUGFIX: Der geschlossene Eintrag muss die BISHERIGE KST behalten (wie im produktiven Original,
+      -- dessen Abschluss-UPDATE ze_kst_id gar nicht anfasst) - nur der separat neu angelegte Eintrag
+      -- bekommt in_kst_id. Bei der Konsolidierung auf ein einziges UPDATE wurde v_context.kst_id
+      -- versehentlich schon oben einheitlich auf in_kst_id gesetzt und dadurch faelschlich auch auf den
+      -- geschlossenen Eintrag rueckwirkend angewendet.
+      v_context.kst_id         := v_ze.ze_kst_id;
       v_context.ze_typ         := TYP_COSTCENTER;
       v_context.calc_ist_ende  := in_change_time;
       v_context.calc_ist_start := case when ist_einziger_anwesend_eintrag(v_ze.ze_pers_nr, v_ze.ze_schicht_tag)
                                         then v_ze.ze_calc_ist_start   -- Fall B1: bereits gerastert
                                         else v_ze.ze_ist_start end;   -- Fall B2: roh, ungerastert
       v_context.ze_std := round((in_change_time - v_context.calc_ist_start) * 24, 3);
+      /*pzm_p_log.log_data(
+          p_level       => pzm_p_log.LEVEL_DEBUG
+        , p_message     => 'Kostenstellen-Wechsel nach Schichtbeginn; Eintrag schließen mit calc_ist_start=''' || to_char(v_ze.ze_calc_ist_start, 'hh24:mi')|| '''' 
+        , p_category    => pzm_p_log.CAT_ZEITERFASSUNG
+        , p_module      => c_module_name
+        , p_pers_nr     => in_pers_nr
+        , p_schicht_tag => v_schicht_tag
+        , p_quelle      => in_quelle);*/
+
     end if;
 
     -- Aktuellen Eintrag abschließen
@@ -1936,6 +1960,15 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
            t.last_change_login_id = current_isi_user_login_id()
      where t.ze_id = v_ze_id;
 
+    -- HINWEIS Testbarkeit (W24120-648): Dieser Assert wurde als dynamischer Testfall bewusst NICHT
+    -- provoziert - unter Oracles Sperrmodell strukturell nicht erreichbar, da close_ze_eintrag()
+    -- (oben) bereits ein eigenes UPDATE auf dieselbe Zeile ausgefuehrt und damit deren Row-Lock
+    -- innerhalb derselben, noch offenen Transaktion erlangt hat. Eine andere Session koennte diese
+    -- Zeile also gar nicht mehr loeschen (sie wuerde blockieren, nicht die Zeile zum Verschwinden
+    -- bringen), und v_ze_id wird an keiner anderen Stelle innerhalb dieser Prozedur veraendert.
+    -- Der Assert bleibt trotzdem als Absicherung bestehen - falls kuenftige Codeaenderungen (z.B.
+    -- eine Umstellung der Sperr-/Transaktionslogik) diese Garantie unbeabsichtigt aufheben, greift
+    -- er weiterhin und verhindert ein stillschweigend nicht persistiertes Update.
     pzm_p_lc.assert(in_condition => sql%rowcount != 0
       , in_code       => pzm_p_lc.cerr_pzm_buchung
       , in_const_name => pzm_p_lc.O_TP1_PZM_ERROR_ZE_EINTRAG_404
@@ -1950,6 +1983,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
       -- sofort zurueckkehrt, OHNE calc_ist_start/calc_ist_ende/ze_std neu zu berechnen ("Bei
       -- Kostenstellen-Buchungen darf die Zeit nicht neu gerechnet werden.") - verifiziert im Code
       -- von ze_ist_zeiten_bewerten().
+      -- kst_id ebenfalls zuruecksetzen: fuer den geschlossenen Eintrag wurde oben bewusst die alte
+      -- KST (v_ze.ze_kst_id) verwendet, der neue Eintrag muss aber die tatsaechlich gewechselte KST
+      -- (in_kst_id) bekommen.
+      v_context.kst_id         := in_kst_id;
       v_context.calc_ist_start := in_change_time;
       v_context.calc_ist_ende  := null;
       v_context.ze_std         := null;
@@ -2495,4 +2532,4 @@ end PZM_P_ZEITERFASSUNG;
 
 
 
--- sqlcl_snapshot {"hash":"32e7a35907abbb07baf7a4769cd4651fa6a60fdb","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7a7c380f0cc58af9544609b66316f017308f1a19","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
