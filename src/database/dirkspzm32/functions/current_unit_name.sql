@@ -1,4 +1,4 @@
-create or replace
+create or replace 
 function DIRKSPZM32.current_unit_name return varchar2 is
   -----------------------------------------------------------------------------------------------
   -- Liefert den Namen der aufrufenden Prozedur/Funktion (ohne Package-Praefix), ermittelt zur
@@ -19,3 +19,7 @@ begin
                                        -- Modulname-Literale im Code sind aber durchgaengig kleingeschrieben.
 end current_unit_name;
 /
+
+
+
+-- sqlcl_snapshot {"hash":"af0bb426c44cdf4ccca6efae62a5b278e7a8ea45","type":"FUNCTION","name":"CURRENT_UNIT_NAME","schemaName":"DIRKSPZM32","sxml":""}

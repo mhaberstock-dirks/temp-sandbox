@@ -16,7 +16,7 @@ package DIRKSPZM32.PZM_P_LC is
   -- (log_exception -> dbms_utility.format_error_backtrace).
   -- PZM_P_LC persistiert selbst nichts - jeder Schreibzugriff auf PZM_LOG laeuft ueber PZM_P_LOG.
 
-  
+
   /**
    * Type-Definitionen
    */
@@ -160,43 +160,8 @@ package DIRKSPZM32.PZM_P_LC is
   cerr_pzm_ze_employee_absent    CONSTANT PLS_INTEGER             := -20051;
    O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT constant varchar2(50 char) := 
   'O_TP1_PZM_ERROR_ZE_EMPLOYEE_ABSENT'; -- Fehler, Wechseln Kostenstelle nur erlaubt, wenn Benutzer <%1> anwesend 
+
 /*
-  PZM_EXCEPT_PERS_NR_404          Exception;
-  PZM_EXCEPT_RFID_PERS_NR_404     Exception; -- Personalnummer zur RFID nicht gefunden
-  PZM_EXCEPT_ABT_ID_404           Exception; -- Abteilungs-ID nicht gefunden
-  PZM_EXCEPT_SA_KURZNAME_404      Exception; -- Schichtart-Kurzname nicht gefunden
-  PZM_EXCEPT_KST_ID_404           Exception; -- Kostenstelle nicht gefunden
-
-  PZM_EXCEPT_BUCHUNG              Exception; -- generischer Buchungsfehler, Fallback fuer beliebige nicht spezifische Fehler
-
-  PZM_EXCEPT_ZE_KEINE_OFFENE_VORH Exception; -- Fehler beim Schliessen einer Stempelzeit, da keine offene ZE-Buchung vorhanden ist.
-  PZM_EXCEPT_ZE_STATUS_MISMATCH   Exception; -- Fehler beim Schliessen einer Stempelzeit, da der Status (der geschlossen werden soll) nicht uebereinstimmt.
-  PZM_EXCEPT_ZE_BEREITS_OFFEN     Exception; -- Fehler beim (erneuten) Oeffnen einer Stempelzeit am selben Schichttag, wenn bereits eine Offene vorh. ist.
-  PZM_EXCEPT_ZE_DATEN_INVALID     Exception; -- Fehler beim verbuchen einer Stempelzeit, da die erforderlichen (Stamm-)Daten fehlen oder ungueltig sind.
-  PZM_EXCEPT_ZE_GEHEN_OHNE_KOMMEN Exception; -- Fehler beim Buchen einer Stempelzeit, da ein Gehen ohne vorheriges Kommen versucht wurde.
-  PZM_EXCEPT_ZE_TAGESAUSWERTUNG   Exception; -- Fehler beim Aktualisieren der Tagesauswertung nach Stempelzeitbuchung.
-
-  PZM_EXCEPT_ZE_KST_CHANGE_DENIED Exception; -- Fehler, das Wechseln der Kostenstelle ist dem Benutzer nicht erlaubt 
-  PZM_EXCEPT_ZE_EMPLOYEE_ABSENT   Exception; -- Fehler, Wechseln Kostenstelle nur erlaubt, wenn anwesend 
-
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_PERS_NR_404         ,  -20001);
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_RFID_PERS_NR_404     , -20002); -- Personalnummer zur RFID nicht gefunden
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ABT_ID_404           , -20004); -- Abteilungs-ID nicht gefunden
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_SA_KURZNAME_404      , -20005); -- Schichtart-Kurzname nicht gefunden
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_KST_ID_404           , -20006); -- Kostenstelle nicht gefunden
-
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_BUCHUNG              , -20010); -- generischer Buchungsfehler, Fallback fuer beliebige nicht spezifische Fehler
-
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_KEINE_OFFENE_VORH , -20020); -- Fehler beim Schliessen einer Stempelzeit, da keine offene ZE-Buchung vorhanden ist.
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_STATUS_MISMATCH   , -20025); -- Fehler beim Schliessen einer Stempelzeit, da der Status (der geschlossen werden soll) nicht uebereinstimmt.
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_BEREITS_OFFEN     , -20030); -- Fehler beim (erneuten) Oeffnen einer Stempelzeit am selben Schichttag, wenn bereits eine Offene vorh. ist.
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_DATEN_INVALID     , -20035); -- Fehler beim verbuchen einer Stempelzeit, da die erforderlichen (Stamm-)Daten fehlen oder ungueltig sind.
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_GEHEN_OHNE_KOMMEN , -20040); -- Fehler beim Buchen einer Stempelzeit, da ein Gehen ohne vorheriges Kommen versucht wurde.
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_TAGESAUSWERTUNG   , -20045); -- Fehler beim Aktualisieren der Tagesauswertung nach Stempelzeitbuchung.
-
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_KST_CHANGE_DENIED , -20050); -- Fehler, das Wechseln der Kostenstelle ist dem Benutzer nicht erlaubt  
-  PRAGMA EXCEPTION_INIT (PZM_EXCEPT_ZE_EMPLOYEE_ABSENT   , -20051); -- Fehler, Wechseln Kostenstelle nur erlaubt, wenn anwesend   
-
   -----------------------------------------------------------------------------------------------
   -- Konstanten: PZM-Fehler-Codes fuer das ORA-20xxx Exception-Handling
   -----------------------------------------------------------------------------------------------
@@ -444,4 +409,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f45416695a289d0c66785229db36b784f5985e35","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2f447d1797ec57d018a26edba7a400d01604971b","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
