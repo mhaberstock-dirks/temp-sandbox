@@ -3,11 +3,13 @@
   before insert or update or delete on DIRKSPZM32.pzm_ze_loa_ausw
   for each row
 declare
+  type T_CommonCursorRef is ref cursor;
+
   c_kto_bus_zugang constant number := 1;
   c_kto_bus_abgang constant number := 2;
+  CONST_UA_GENEHMIGT constant number := 1;
 
   -- local variables here
-  v_PersNr           number;
 
   v_StdDiff          number;
   v_k_bh_id          pzm_konten_bh.konten_bh_id%type;
@@ -27,12 +29,27 @@ declare
      where t.lz_lohnart = v_loa
        and t.lz_konto_bus is not null;
 
+  c_abwesenheits_antr      T_CommonCursorRef;
+  v_abwesenheits_antr      pzm_abwesenheits_antr%rowtype;
+  
+  v_schicht_datum          date;
+  v_PersNr                 pzm_personal.pers_nr%type;
+
   v_found boolean;
   v_wert number;
 
 begin
   v_sid := '01';
   v_firma_nr := 1;
+  
+  if inserting or updating
+  then
+    v_schicht_datum := :new.zeaw_datum;
+    v_PersNr := :new.zeaw_pers_nr;
+  else
+    v_schicht_datum := :old.zeaw_datum;
+    v_PersNr := :old.zeaw_pers_nr;
+  end if;
 
   if inserting
   then
@@ -56,35 +73,49 @@ begin
 
     if v_found
     then
-      v_PersNr := :new.zeaw_pers_nr;
-
+      v_wert := :new.zeaw_lz_loa_std;
       -- Es ist eine Buchungfähige LOA
       if pzm_kontoverwaltung.is_konto_vorhanden(v_sid, v_firma_nr, v_PersNr,
                                                 v_lohnarten.lz_konto_name_kurz, 'ZK', v_konto)
       then
-        v_wert := :new.zeaw_lz_loa_std;
         if v_konto.buch_einheit = 'DD'
         then
-          v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+          open c_abwesenheits_antr for
+            select t.*
+              from pzm_abwesenheits_antr t
+             where t.au_pers_nr = v_PersNr
+               and t.au_status = CONST_UA_GENEHMIGT
+               and v_schicht_datum between t.au_beginn and t.au_ende;
+          fetch c_abwesenheits_antr into v_abwesenheits_antr;
+          v_found := c_abwesenheits_antr%found;
+          close c_abwesenheits_antr;
+          if v_found
+          and (  v_abwesenheits_antr.Au_Schicht_Start = 0
+             or v_abwesenheits_antr.au_utage = 0.5
+             )
+          then
+            v_wert := 0.5; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            
+          else 
+            v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+          end if;
         end if;
 
         if v_lohnarten.lz_konto_bus = c_kto_bus_abgang
         then
           pzm_kontoverwaltung.zk_abgang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                v_wert, 'Abbuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                               :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr),v_konten_bh_id);
+                                               v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr),v_konten_bh_id);
         elsif v_lohnarten.lz_konto_bus = c_kto_bus_zugang
         then
           pzm_kontoverwaltung.zk_zugang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                v_wert, 'Zubuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                               :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                               v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
         end if;
       end if;
     end if;
   elsif updating
   then
-    v_PersNr := :new.zeaw_pers_nr;
-
     :new.zeaw_aa_id_alt := :old.aa_id;         -- Backup
 
     if :old.zeaw_korr_datum is null
@@ -131,7 +162,24 @@ begin
           v_wert := :old.zeaw_lz_loa_std;
           if v_konto.buch_einheit = 'DD'
           then
-            v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            open c_abwesenheits_antr for
+              select t.*
+                from pzm_abwesenheits_antr t
+               where t.au_pers_nr = v_PersNr
+                 and t.au_status = CONST_UA_GENEHMIGT
+                 and v_schicht_datum between t.au_beginn and t.au_ende;
+            fetch c_abwesenheits_antr into v_abwesenheits_antr;
+            v_found := c_abwesenheits_antr%found;
+            close c_abwesenheits_antr;
+            if v_found
+            and (  v_abwesenheits_antr.Au_Schicht_Start = 0
+               or v_abwesenheits_antr.au_utage = 0.5
+               )
+            then
+              v_wert := 0.5; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            else 
+              v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            end if;
           end if;
           -- vorherige LOA stunden wieder auf das Konto gegenbuchen
           if v_lohnarten.lz_konto_bus = c_kto_bus_abgang
@@ -166,18 +214,36 @@ begin
           v_wert := :new.zeaw_lz_loa_std;
           if v_konto.buch_einheit = 'DD'
           then
-            v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            open c_abwesenheits_antr for
+              select t.*
+                from pzm_abwesenheits_antr t
+               where t.au_pers_nr = v_PersNr
+                 and t.au_status = CONST_UA_GENEHMIGT
+                 and v_schicht_datum between t.au_beginn and t.au_ende;
+            fetch c_abwesenheits_antr into v_abwesenheits_antr;
+            v_found := c_abwesenheits_antr%found;
+            close c_abwesenheits_antr;
+            if v_found
+            and (  v_abwesenheits_antr.Au_Schicht_Start = 0
+               or v_abwesenheits_antr.au_utage = 0.5
+               )
+            then
+              v_wert := 0.5; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+              
+            else 
+              v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+            end if;
           end if;
           if v_lohnarten.lz_konto_bus = c_kto_bus_abgang
           then
             pzm_kontoverwaltung.zk_abgang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                  v_wert, 'Abbuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                 :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                 v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
           elsif v_lohnarten.lz_konto_bus = c_kto_bus_zugang
           then
             pzm_kontoverwaltung.zk_zugang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                  v_wert, 'Zubuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                 :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                 v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
           end if;
         end if;
       end if;
@@ -207,12 +273,12 @@ begin
               then
                 pzm_kontoverwaltung.zk_abgang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                      v_StdDiff, 'KORRIGIERT: Abbuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                     :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                     v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
               elsif v_lohnarten.lz_konto_bus = c_kto_bus_zugang
               then
                 pzm_kontoverwaltung.zk_zugang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                      v_StdDiff, 'KORRIGIERT: Zubuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                     :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                     v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
               end if;
             elsif v_StdDiff < 0
             then
@@ -221,19 +287,36 @@ begin
               then
                 pzm_kontoverwaltung.zk_zugang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                      abs(v_StdDiff), 'KORRIGIERT: Abbuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                     :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                     v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
               elsif v_lohnarten.lz_konto_bus = c_kto_bus_zugang
               then
                 pzm_kontoverwaltung.zk_abgang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                      abs(v_StdDiff), 'KORRIGIERT: Zubuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                     :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                     v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
               end if;
             end if;
           elsif v_konto.buch_einheit = 'DD' and :new.zeaw_lz_loa_std = 0
           then
             if v_konto.buch_einheit = 'DD'
             then
-              v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+              open c_abwesenheits_antr for
+                select t.*
+                  from pzm_abwesenheits_antr t
+                 where t.au_pers_nr = v_PersNr
+                   and t.au_status = CONST_UA_GENEHMIGT
+                   and v_schicht_datum between t.au_beginn and t.au_ende;
+              fetch c_abwesenheits_antr into v_abwesenheits_antr;
+              v_found := c_abwesenheits_antr%found;
+              close c_abwesenheits_antr;
+              if v_found
+              and (  v_abwesenheits_antr.Au_Schicht_Start = 0
+                 or v_abwesenheits_antr.au_utage = 0.5
+                 )
+              then
+                v_wert := 0.5; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+              else 
+                v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+              end if;
             end if;
 
             -- nur 1 Tag nach unten korrigieren
@@ -241,12 +324,12 @@ begin
             then
               pzm_kontoverwaltung.zk_zugang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                    v_wert, 'KORRIGIERT: Abbuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                   :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                   v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
             elsif v_lohnarten.lz_konto_bus = c_kto_bus_zugang
             then
               pzm_kontoverwaltung.zk_abgang_buchen(v_sid, v_firma_nr, v_konto.konto_nr, v_PersNr, get_pers_kst_id(v_PersNr),
                                                    v_wert, 'KORRIGIERT: Zubuchung nach LOA ' || :new.zeaw_lz_lohnart,
-                                                   :new.zeaw_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
+                                                   v_schicht_datum, :new.aa_id, get_pers_abt_id(v_PersNr), v_konten_bh_id);
             end if;
           end if;
         end if;
@@ -282,7 +365,24 @@ begin
         v_wert := :old.zeaw_lz_loa_std;
         if v_konto.buch_einheit = 'DD'
         then
-          v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+          open c_abwesenheits_antr for
+            select t.*
+              from pzm_abwesenheits_antr t
+             where t.au_pers_nr = v_PersNr
+               and t.au_status = CONST_UA_GENEHMIGT
+               and v_schicht_datum between t.au_beginn and t.au_ende;
+          fetch c_abwesenheits_antr into v_abwesenheits_antr;
+          v_found := c_abwesenheits_antr%found;
+          close c_abwesenheits_antr;
+          if v_found
+          and (  v_abwesenheits_antr.Au_Schicht_Start = 0
+             or v_abwesenheits_antr.au_utage = 0.5
+             )
+          then
+            v_wert := 0.5; -- nur 0.5 Tag, da die LOA immer für einen Tag gespeichert wird
+          else 
+            v_wert := 1; -- nur 1 Tag, da die LOA immer für einen Tag gespeichert wird
+          end if;
         end if;
 
         -- jeweils immer wieder das gegenteil buchen
@@ -336,4 +436,4 @@ end;
 ALTER TRIGGER "DIRKSPZM32"."TR_ZE_LOA_AUSW_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"51b78da756dafbf57f663a86d6a31add77bdd22f","type":"TRIGGER","name":"TR_ZE_LOA_AUSW_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"32da86e31283b88a75fcfbfc2cc6f61474fd6f7a","type":"TRIGGER","name":"TR_ZE_LOA_AUSW_BIUD","schemaName":"DIRKSPZM32","sxml":""}

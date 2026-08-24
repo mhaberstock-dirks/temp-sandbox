@@ -143,6 +143,89 @@ package body DIRKSPZM32.z_pzm_startup_import is
     
     CLOSE c_pzm_u_f_imp;
   end;
+  
+  procedure pzm_sonst_konten_start_import(in_del_kontobuchungen   in varchar2,
+                                         in_zk_start             in date) 
+                                         is
+    
+    v_found                          boolean;
+    
+    v_schichtmodell_day_d_std        number;
+    v_zk_std                         number;
+    v_zk_std_laenge                  number;
+    
+    v_konto_type                     pzm_konten.typ%type;
+    v_konto_name_kurz                pzm_konten.name_kurz%type;
+    v_konto_bh_id                    pzm_konten_bh.konten_bh_id%type;
+    
+    v_konto                          pzm_konten%rowtype;
+    v_pzm_s_k_imp                    z_pzm_pers_sonst_konto%rowtype;
+    
+    CURSOR c_konto is
+      select *
+        from pzm_konten k
+       where k.pers_nr = v_pzm_s_k_imp.pers_nr
+         and k.name_kurz = v_pzm_s_k_imp.konto_kurz_name;
+    
+    CURSOR c_pzm_s_k_imp is
+      select *
+        from z_pzm_pers_sonst_konto t;
+  begin
+    OPEN c_pzm_s_k_imp;
+    LOOP
+      FETCH c_pzm_s_k_imp into v_pzm_s_k_imp;
+      EXIT when c_pzm_s_k_imp%notfound;
+      
+      OPEN c_konto;
+      FETCH c_konto into v_konto;
+      v_found := c_konto%found; 
+      CLOSE c_konto;
+      
+      if v_found
+      then  
+        if in_del_kontobuchungen = 'T'
+        then
+          -- Daten gefunden, alle Konten der Personalnummer initialisieren
+          update pzm_konten_bh k_bh
+             set k_bh.zk_aa_id = NULL
+           where k_bh.pers_nr = v_pzm_s_k_imp.pers_nr
+             and k_bh.zk_aa_id is not NULL
+             and k_bh.konto_nr = v_konto.konto_nr
+             and k_bh.zk_start <= in_zk_start;
+          delete pzm_konten_bh k_bh 
+           where k_bh.pers_nr = v_pzm_s_k_imp.pers_nr
+             and k_bh.konto_nr = v_konto.konto_nr
+             and k_bh.zk_start <= in_zk_start;
+        end if;  
+        
+        begin
+          v_zk_std := to_number(v_pzm_s_k_imp.konto_saldo);
+              
+          pzm_kontoverwaltung.zugang_buchen(v_sid.sid,
+                                            v_firma,
+                                            v_konto.konto_nr,
+                                            v_konto.pers_nr,
+                                            nvl(get_pers_kst_id(v_konto.pers_nr),0),
+                                            v_zk_std,
+                                            'Initial ' || to_char(sysdate, 'dd.mm.yyy hh24:mi:ss'),
+                                            'K',
+                                            nvl(get_pers_abt_id(v_konto.pers_nr),0),
+                                            v_konto_bh_id);
+          update pzm_konten_bh t
+             set t.zk_start = in_zk_start
+           where t.sid = v_sid.sid
+             and t.firma_nr = v_firma
+             and t.konten_bh_id = v_konto_bh_id;
+          commit;
+        exception
+          when others then
+            dbms_output.put_line('Fehler bei der Übernahme von pers_nr ' || to_char(v_pzm_s_k_imp.pers_nr) 
+                               ||  ' - ' || v_pzm_s_k_imp.pers_name);
+        end;
+      end if;
+    end LOOP;
+    CLOSE c_pzm_s_k_imp;
+  end;
 
   procedure pzm_stempelzeiten_import is
 
@@ -615,4 +698,4 @@ end z_pzm_startup_import;
 
 
 
--- sqlcl_snapshot {"hash":"34a4192ced3bf362ffa5df9fb3d8559b609b3554","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"006fc394f4eab8976c0cb16992dca249a22b7c09","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}

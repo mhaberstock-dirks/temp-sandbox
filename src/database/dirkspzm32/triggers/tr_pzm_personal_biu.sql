@@ -26,6 +26,8 @@ declare
 
   v_d_arb_std_pro_tag pzm_schicht_modelle.d_arb_std_pro_tag%type;
   v_urlaub_anspr_aa_id pzm_personal.pers_urlaub_anspr_aa_id%type;
+  v_pers_urlaub_anspr_wert pzm_personal.pers_urlaub_anspr_wert%type;
+  v_konten_bh_id pzm_konten_bh.konten_bh_id%type;
  
 
   cursor c_pzm_konten_uk is
@@ -172,6 +174,38 @@ begin
               :new.pers_urlaub_anspr_wert := round(:old.pers_urlaub_anspr_wert / v_d_arb_std_pro_tag);
             end if;
           end if;
+          if :old.pers_urlaub_anspr_aa_id != :new.pers_urlaub_anspr_aa_id
+          then
+            v_pers_urlaub_anspr_wert := v_uk_konto_old.saldo;                                        -- initial setzen
+
+            if upper(v_uk_konto.buch_einheit) = 'HH24' and upper(v_uk_konto_old.buch_einheit) = 'DD' -- Unterschiedliche Einheiten
+            then
+              v_pers_urlaub_anspr_wert := v_uk_konto_old.saldo * v_d_arb_std_pro_tag;
+            elsif upper(v_uk_konto.buch_einheit) = 'DD' and upper(v_uk_konto_old.buch_einheit) = 'HH24'
+            then
+              v_pers_urlaub_anspr_wert := round(v_uk_konto_old.saldo / v_d_arb_std_pro_tag, 1);
+            end if;
+            
+            if v_pers_urlaub_anspr_wert != 0
+            then
+              pzm_kontoverwaltung.abgang_buchen('01', 1, v_uk_konto_old.konto_nr,                 -- Altes Konto auf 0
+                                                v_uk_konto_old.pers_nr,
+                                                :new.pers_kst_id,
+                                                v_uk_konto_old.saldo,
+                                                'Umbuchen Jahresurlaub (Geändertes Konto)',
+                                                'B',
+                                                :new.pers_abt_id,
+                                                v_konten_bh_id);
+              pzm_kontoverwaltung.zugang_buchen('01', 1, v_uk_konto.konto_nr,                    -- Aus altem Konto zubuchen
+                                                v_pers_nr,
+                                                :new.pers_kst_id,
+                                                v_pers_urlaub_anspr_wert,
+                                                'Umbuchen Jahresurlaub (Geändertes Konto)',
+                                                'B',
+                                                :new.pers_abt_id,
+                                                v_konten_bh_id);
+            end if;
+          end if;
         elsif :old.pers_urlaub_anspr_aa_id is not null
         then
           raise_application_error(-20000, 'In dem zugeordneten Schichtmodell <' ||
@@ -188,4 +222,4 @@ end;
 ALTER TRIGGER "DIRKSPZM32"."TR_PZM_PERSONAL_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"52c81f161ea0cd2779c428a05e4b37236df15b0d","type":"TRIGGER","name":"TR_PZM_PERSONAL_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b27e9691a0c37909ecbd039ab527750cdffb8687","type":"TRIGGER","name":"TR_PZM_PERSONAL_BIU","schemaName":"DIRKSPZM32","sxml":""}

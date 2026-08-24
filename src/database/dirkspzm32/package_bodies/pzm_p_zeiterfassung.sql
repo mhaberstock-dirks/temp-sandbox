@@ -105,10 +105,10 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
 
   /**
    * Liefert die RFID (bzw. Transponder-Code) des Mitarbeiters basierend auf der Personalnummer.
-   * Legacy-Note: derzeit wird für die Zuordnung von Transponder-Nummern auf Mitarbeiter
+   * Legacy-Note: derzeit wird f?r die Zuordnung von Transponder-Nummern auf Mitarbeiter
    * die Tabelle ISI_USER verwendet.
-   * In Zukunft könnte dies über eine separate Zuordnungstabelle erfolgen,
-   * um die Abhängigkeit von ISI_USER zu entfernen.
+   * In Zukunft k?nnte dies ?ber eine separate Zuordnungstabelle erfolgen,
+   * um die Abh?ngigkeit von ISI_USER zu entfernen.
    */
   -- PRIVAT (nur Package-intern)
   function get_rfid(in_pers_nr in isi_user.pers_nr%type ) return varchar2 is
@@ -953,8 +953,7 @@ package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
        and zee.ze_geraet = in_context.terminal_id;
 
     commit;
-  end;
-
+  end c_stempelzeit_eintrag_fehler;
   /**
    *
    */
@@ -2532,4 +2531,4 @@ end PZM_P_ZEITERFASSUNG;
 
 
 
--- sqlcl_snapshot {"hash":"7ffd5a8727382d95b8156793bccfbdb810671fbc","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8605abeb73ff242d084db2a55a500cb31a6ecab7","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

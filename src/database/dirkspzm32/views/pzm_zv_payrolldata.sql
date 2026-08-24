@@ -1,7 +1,32 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_ZV_PAYROLLDATA" ("RFID", "Persnr", "Name", "Abteilung", "Kostenstelle", "Datum", "gebuchte_Kostenstelle", "Type", "Kommt", "Geht", "Gezaehlt_von", "Gezaehlt_bis", "Pause_Dauer_Min", "Ist_Zeit", "Gebuchte_Zeit", "Abweichung_Minuten", "RESPONSIBLE_NR", "PB_ID", "ABT_ID", "Schichtart") AS 
-  SELECT b.rfid
-       , b.persnr
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_ZV_PAYROLLDATA" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
+  SELECT
+  /**
+   * View für PresentationLogic "PayrollDataAnalysisReport"
+   * Bei Abfrage ist mindestens ein Filter auf RESPONSIBLE_NR nötig, da andernfalls
+   * ein kartesisches Produkt gebildet wird, das zu gravierenden Ressourcen-Belastungen
+   * des Datenbank-Servers führt! 
+   * Der View benötigt 2 Sub-Views
+   *  - PZM_ZV_PAYROLLDATA_BASE: 
+   *    sammelt Daten aus PZM_ZE_TAGESSATZ und PZM_ZEITERFASSUNG
+   *    Die Ergebnisse werden in 3 verschiedenen Union-Zweigen 
+   *    gefiltert: 
+   *    Zweig 1: Alle Arbeitszeiten je Mitarbeiter und Tag, versehen mit Type='an'
+   *    Zweig 2: Alle Urlaubszeiten an Tagen mit Arbeitszei (halbe Urlaubstage markiert
+   *             mit Type='uh'
+   *    Zweig 3: Alle gebuchten Abwesenheitszeiten, markiert mit verschiedenen 
+   *             "Type"-Werten
+   *  - PZM_ZV_PAYROLLDATA_SU4:
+   *    listet sämtliche vermutlich unvollständig erfassten Arbeitszeiteinträge,
+   *    markiert mit Type='op'.
+   *    Das sind solche in PZM_ZEITERFASSUNG bei denen ze_calc_ist_start und 
+   *    ze_calc_ist_ende nicht gesetzt sind, sowie "Kommt" ohne "Geht"-Einträge
+   *    und "Geht" ohne Kommt"Einträge (soweit sie nicht durch die erste Bedingung 
+   *    schon gefunden werden. Das Ergebnis wird in UNION-Zweig 4 gefiltert.      
+   */
+       ------- Zweig 1 - Anwesenheits-Einträge -------  
+         b.rfid                                                          
+       , b.persnr                                                      
        , b.name
        , b.abt_name                                                    AS abteilung
        , b.kostenstelle
@@ -23,6 +48,7 @@
     FROM PZM_ZV_PAYROLLDATA_BASE b
    WHERE b.ist_zeit > 0
   UNION ALL
+       ------- Zweig 2 - halbe Urlaubstage -------  
   SELECT b.rfid
        , b.persnr
        , b.name
@@ -46,6 +72,7 @@
     FROM PZM_ZV_PAYROLLDATA_BASE b
    WHERE b.ist_zeit > 0 AND b.kennz_urlaub = 'T'
   UNION ALL
+       ------- Zweig 3 - verschiedene Abwesenheitseinträge  -------  
   SELECT b.rfid
        , b.persnr
        , b.name
@@ -80,7 +107,31 @@
        , b.sa_kurzname
     FROM PZM_ZV_PAYROLLDATA_BASE b
    WHERE b.ist_zeit = 0
+     and b.gezaehlt_von is not null and b.gezaehlt_bis is not null -- die werden im nächsten UNION-Zweig erfasst
+  UNION ALL      
+       ------- Zweig 4 - Unvollständig erfasste Zeiten  -------  
+  select u4.RFID
+       , u4.persnr
+       , u4.name
+       , u4.abteilung
+       , u4.kostenstelle
+       , u4.datum
+       , u4.gebuchte_kostenstelle
+       , cast(u4.typ as varchar2(22))                   
+       , u4.kommt
+       , u4.geht
+       , u4.gezaehlt_von
+       , u4.gezaehlt_bis
+       , u4.pause_dauer_min
+       , u4.ist_zeit
+       , u4.gebuchte_zeit
+       , u4.abweichung_minuten
+       , u4.responsible_nr
+       , u4.pb_id                              
+       , u4.f_abt_id
+       , u4.sa_kurzname 
+    from pzm_zv_payrolldata_su4 u4
   ORDER BY persnr, datum;
 
 
--- sqlcl_snapshot {"hash":"8200087f36d83090ebefafb8299bedeca8d96b6b","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"14e23f9fa7f4171298161327a4447a642f262c35","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}

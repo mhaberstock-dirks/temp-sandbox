@@ -16,7 +16,7 @@ procedure DIRKSPZM32.UPDATE_ALL_ZE_TAG_271(p_datum in date) is
            p.pers_austrittdatum >= trunc(p_datum))
       and (p.pers_eintrittsdatum is NULL or
            p.pers_eintrittsdatum <= trunc(p_datum))
-      and p.pers_pb_id = 271;
+      and p.pers_abt_id like '405%';
 
   v_PersNr   pzm_personal.pers_nr%TYPE;
   v_TagesauswResult number;
@@ -74,4 +74,4 @@ end UPDATE_ALL_ZE_TAG_271;
 
 
 
--- sqlcl_snapshot {"hash":"7dfa1dc0feb09eb8f8491670c5cc14558f17686a","type":"PROCEDURE","name":"UPDATE_ALL_ZE_TAG_271","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3cc2e082d87e0a1f0f7be7d6e9daf8beaaae39f3","type":"PROCEDURE","name":"UPDATE_ALL_ZE_TAG_271","schemaName":"DIRKSPZM32","sxml":""}

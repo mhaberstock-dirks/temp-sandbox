@@ -266,9 +266,30 @@ package DIRKSPZM32.pzm_kontoverwaltung is
                                            in_firma_nr in isi_firma.firma_nr%type,
                                            in_zk_start in pzm_konten_bh.zk_start%type);
 
+  /***********************************************************************************************
+   * zk_serien_Umbuchung verbucht einen Wert als alle vorhandenen Konten wenn Konten vorhanden
+   */
+  procedure zk_serien_umbuchen(in_pb_id in pzm_personal.pers_pb_id%type,
+                               in_abt_id in pzm_personal.pers_abt_id%type,
+                               in_wert in pzm_konten_bh.wert%type,
+                               in_einheit in pzm_konten_cfg.buch_einheit%type,
+                               in_info in pzm_konten_bh.info%type,
+                               in_zk_start in pzm_konten_bh.zk_start%type,
+                               in_zk_aa_id in pzm_konten_bh.zk_aa_id%type,
+                               in_zk_v_name_kurz in pzm_konten.name_kurz%type,
+                               in_zk_n_name_kurz in pzm_konten.name_kurz%type);
+  
+  /***********************************************************************************************
+   * pzm_job_serien_umbuchung kann einfach zyclisch aufgerufen werden. in der Prozedure oder den 
+   *                          Unterfunktionen wird geprüft, ob eine Serienbuchung noch durchgeführt 
+   *                          werden muss
+   */
+   procedure pzm_job_serien_umbuchung;
+
+
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"2be472a8b50c6fc95c77810cb9270afbf869ad41","type":"PACKAGE_SPEC","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"37c6723499f3c72b478c9362d04b156cba5974ce","type":"PACKAGE_SPEC","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
