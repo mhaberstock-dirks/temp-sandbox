@@ -807,9 +807,272 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
                            in_zk_start, null);
     commit;
   end;
+
+  /***********************************************************************************************
+   * zk_serien_Umbuchung verbucht einen Wert als alle vorhandenen Konten wenn Konten vorhanden
+   */
+  procedure zk_serien_umbuchen(in_pb_id in pzm_personal.pers_pb_id%type,
+                               in_abt_id in pzm_personal.pers_abt_id%type,
+                               in_wert in pzm_konten_bh.wert%type,
+                               in_einheit in pzm_konten_cfg.buch_einheit%type,
+                               in_info in pzm_konten_bh.info%type,
+                               in_zk_start in pzm_konten_bh.zk_start%type,
+                               in_zk_aa_id in pzm_konten_bh.zk_aa_id%type,
+                               in_zk_v_name_kurz in pzm_konten.name_kurz%type,
+                               in_zk_n_name_kurz in pzm_konten.name_kurz%type)
+                               is
+    v_pzm_konten                     pzm_konten%rowtype;
+    v_pzm_gegen_konten               pzm_konten%rowtype;
+    v_schichtmodell                  pzm_schicht_modelle%rowtype;
+    v_personal                       pzm_personal%rowtype;
+    v_schichtart                     pzm_schichtarten%rowtype;
+    
+    v_schichtmodell_day_d_std        number;
+
+    v_def_sa_kurzname                pzm_schichtarten.sa_kurzname%type;
+    v_SAFound                        boolean;
+    v_DaySAKurzname                  pzm_schichtarten.sa_kurzname%type;
+    v_SABeginn                       pzm_schichtarten.sa_beginn%type;
+    v_SAEnde                         pzm_schichtarten.sa_ende%type;
+    v_SAStdProTag                    number;
+    v_schicht_datum                  date;
+    
+    v_gutschrift_saldo               number;
+    v_found                          boolean;
+
+    cursor c_pzm_konten is
+      select t.*
+        from pzm_konten t
+       where upper(t.name_kurz) = upper(in_zk_n_name_kurz) -- case insensitive
+         and t.typ = 'ZK'
+       order by t.pers_nr;
+
+    cursor c_pzm_gegen_konten is
+      select t.*
+        from pzm_konten t
+       where t.pers_nr = v_pzm_konten.pers_nr
+         and upper(t.name_kurz) = upper(in_zk_v_name_kurz) -- case insensitive
+         and t.typ = 'ZK';
+
+    v_konten_bh_id pzm_konten_bh.konten_bh_id%type;
+  begin
+    open c_pzm_konten;
+
+    loop
+      fetch c_pzm_konten into v_pzm_konten;
+      exit when c_pzm_konten%notfound;
+      v_schichtmodell.standard_aa_id := NULL;
+      v_schicht_datum := trunc(nvl(in_zk_start, sysdate));
+      
+      if  pzm_p_base.get_personal(v_pzm_konten.pers_nr, v_personal)
+      and trunc(nvl(v_personal.pers_austrittdatum, v_schicht_datum)) >= v_schicht_datum
+      and trunc(v_personal.pers_eintrittsdatum) <= v_schicht_datum
+      and v_personal.pers_pb_id = nvl(in_pb_id, v_personal.pers_pb_id)
+      and v_personal.pers_abt_id = nvl(in_abt_id, v_personal.pers_abt_id)
+      then
+        v_def_sa_kurzname := pzm_utils.get_standard_schicht_by_pers_nr(v_personal.pers_nr);
+        if pzm_p_base.get_schicht_modell(v_pzm_konten.pers_nr, v_schichtmodell)
+        then
+          v_schichtmodell_day_d_std :=  pzm_utils.pzm_get_sm_durch_std_tag(v_schichtmodell.sm_name);
+        end if;
+        v_SAFound := get_schicht_daten(v_personal.pers_nr, v_schicht_datum, v_schicht_datum, 
+                                       v_DaySAKurzname, v_SABeginn, v_SAEnde, v_SAStdProTag) = 1;
+        if not pzm_p_base.get_schichtart_by_uix(v_DaySAKurzname, v_schichtart)
+        then
+          v_schichtart.sa_kurzname := v_def_sa_kurzname;
+        end if;
+
+        if in_wert is not NULL
+        then
+          v_gutschrift_saldo := in_wert;
+          if  in_einheit = 'DD'
+          and v_pzm_konten.buch_einheit = 'HH24'
+          then
+            v_gutschrift_saldo := 0;
+
+            if nvl(v_schichtart.sa_kurzname, v_def_sa_kurzname) = v_def_sa_kurzname
+            then
+              v_gutschrift_saldo := v_schichtmodell_day_d_std * in_wert;
+            else
+              v_gutschrift_saldo := v_schichtart.sa_std_pro_tag * in_wert;
+            end if;
+          elsif  in_einheit = 'HH24'
+          and v_pzm_konten.buch_einheit = 'DD'
+          then
+            v_gutschrift_saldo := 0;
+            
+            if nvl(v_schichtart.sa_kurzname, v_def_sa_kurzname) != v_def_sa_kurzname
+            and nvl(v_schichtart.sa_std_pro_tag, 0) > 0
+            then
+              v_schichtmodell_day_d_std := v_schichtart.sa_std_pro_tag;
+            end if;
+            
+            if nvl(v_schichtmodell_day_d_std, 0) > 0
+            then
+              v_gutschrift_saldo :=  in_wert / v_schichtmodell_day_d_std;
+            end if;
+          end if;
+        else -- In diesem Fall kommen die Werte aus den allg. Parametern und muss zwingen immer in der Einheit des kontos erfasst werden
+          v_gutschrift_saldo := pzm_utils.get_pers_arb_std (v_pzm_konten.pers_nr,
+                                                            NULL,
+                                                            v_schicht_datum,
+                                                            v_schicht_datum,   -- Ermittlung der gearbeiteten Stunden
+                                                            true, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                            false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
+                                                            );  -- Krank und Urlaub kommen dazu?
+          if v_gutschrift_saldo > 0                         -- Es ist an dem Tag gearbeitet worden, oder er war Krank - Dann Umbuchen
+          then
+            -- Dann die Gutschrift aus den allg. Parametern ermitteln
+            v_gutschrift_saldo := to_number(pzm_p_base.get_allg_parameter_mandant(get_pers_pb_id(v_pzm_konten.pers_nr), 'UMB_KONTO_' || in_zk_v_name_kurz || '_' || in_zk_n_name_kurz));
+          end if;
+          
+        end if;
+
+        if nvl(v_gutschrift_saldo, 0) != 0
+        then
+          OPEN c_pzm_gegen_konten;
+          FETCH c_pzm_gegen_konten into v_pzm_gegen_konten;
+          v_found := c_pzm_gegen_konten%found;
+          CLOSE c_pzm_gegen_konten;
+          
+          if v_found
+          then
+            if v_pzm_gegen_konten.buch_einheit = v_pzm_konten.buch_einheit
+            then
+              if  v_pzm_gegen_konten.saldo < v_gutschrift_saldo
+              then
+                if v_pzm_gegen_konten.min_saldo >= v_pzm_gegen_konten.saldo - v_gutschrift_saldo
+                then
+                  v_gutschrift_saldo := v_pzm_gegen_konten.saldo - v_pzm_gegen_konten.min_saldo;
+                 end if;
+              end if;
+              if v_gutschrift_saldo > 0
+              then
+                zk_abgang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_gegen_konten.konto_nr,
+                                 v_pzm_gegen_konten.pers_nr, get_pers_kst_id(v_pzm_gegen_konten.pers_nr), v_gutschrift_saldo, in_info,
+                                 nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+
+                zk_zugang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_konten.konto_nr,
+                                 v_pzm_konten.pers_nr, get_pers_kst_id(v_pzm_konten.pers_nr), v_gutschrift_saldo, in_info,
+                                 nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+
+              end if;
+            else
+              pzm_p_log.error('Bucheinheit von Konto NR. ' || v_pzm_konten.konto_nr || ' und Konto Nr. ' || v_pzm_gegen_konten.konto_nr || ' stimmen nicht überein.',
+                              pzm_p_log.CAT_SYSTEM, 
+                              'pzm_kontoverwaltung.zk_serien_umbuchen',
+                              -20010);
+              pzm_p_lc.raise_app_error(-20010, 'Bucheinheit von Konto NR. ' || v_pzm_konten.konto_nr || ' und Konto Nr. ' || v_pzm_gegen_konten.konto_nr || ' stimmen nicht überein.');
+            end if;
+          end if;
+        end if;
+      end if;
+    end loop;
+
+    close c_pzm_konten;
+  end;
+
+  /***********************************************************************************************
+   * pzm_job_serien_umbuchung kann einfach zyclisch aufgerufen werden. in der Prozedure oder den 
+   *                          Unterfunktionen wird geprüft, ob eine Serienbuchung noch durchgeführt 
+   *                          werden muss
+   */
+  procedure pzm_job_serien_umbuchung is
+    v_k_umb                   pzm_konten_umbuchen%rowtype;
+    v_date                    date;
+    v_Wochentag               integer;
+    v_true                    boolean;
+    
+    v_buch_wert               pzm_konten_umbuchen.buch_wert%type;
+
+    cursor c_k_umb is
+      select * from pzm_konten_umbuchen t
+       where t.typ_status in ('D', 'N')
+         and t.aktiv = c.R_C_TRUE;
+
+  begin
+    
+    open c_k_umb;
+    loop
+      fetch c_k_umb
+        into v_k_umb;
+      exit when c_k_umb%notfound;
+      v_true := false;
+      v_buch_wert := NULL;
+      v_Wochentag := isi_utils.Iso_WeekDay(sysdate);
+      
+      case when v_Wochentag = 1 and v_k_umb.buch_wot_mo_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_mo_wert;
+           when v_Wochentag = 2 and v_k_umb.buch_wot_di_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_di_wert;
+           when v_Wochentag = 3 and v_k_umb.buch_wot_mi_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_mi_wert;
+           when v_Wochentag = 4 and v_k_umb.buch_wot_do_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_do_wert;
+           when v_Wochentag = 5 and v_k_umb.buch_wot_fr_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_fr_wert;
+           when v_Wochentag = 6 and v_k_umb.buch_wot_sa_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_sa_wert;
+           when v_Wochentag = 7 and v_k_umb.buch_wot_so_wert is not NULL
+                then v_buch_wert := v_k_umb.buch_wot_so_wert;
+           else v_buch_wert := NULL;
+      end case;
+      
+      if v_buch_wert is NULL
+      and v_k_umb.buch_wert > 0
+      then
+        v_buch_wert := v_k_umb.buch_wert;
+      end if;
+      if v_buch_wert is not NULL
+      then
+        if v_k_umb.typ_status = 'D'
+        and fraction_of_day(v_k_umb.buch_datum) <= fraction_of_day(sysdate)
+        and trunc(nvl(v_k_umb.last_event_date, sysdate-1)) < trunc(sysdate)
+        then
+          v_true := true;
+          if v_buch_wert = 0
+          then
+            v_buch_wert := NULL;
+          end if;
+          v_k_umb.buch_datum := (trunc(sysdate) + fraction_of_day(v_k_umb.buch_datum)) -1; -- Immer erst am nächsten Tag buchen - Anwesenheit prüfen         
+        elsif v_k_umb.typ_status = 'N'
+        and v_k_umb.buch_datum <= sysdate
+        then
+          v_true := true;
+        end if;
+      end if;
+      
+      if v_true
+      then
+        pzm_kontoverwaltung.zk_serien_umbuchen(in_pb_id => v_k_umb.pb_id,
+                                               in_abt_id => v_k_umb.abt_id,
+                                               in_wert => v_buch_wert,
+                                               in_einheit => v_k_umb.buch_einheit,
+                                               in_info => nvl(v_k_umb.info, v_k_umb.name),
+                                               in_zk_start => v_k_umb.buch_datum,
+                                               in_zk_aa_id => NULL,
+                                               in_zk_v_name_kurz => v_k_umb.von_konto_name_kurz,
+                                               in_zk_n_name_kurz => v_k_umb.nach_konto_name_kurz);
+        if v_k_umb.typ_status = 'N'
+        then
+          v_k_umb.typ_status := 'F';
+        end if;
+        
+        update pzm_konten_umbuchen t
+           set t.typ_status = v_k_umb.typ_status,
+               t.last_event_date = sysdate
+         where t.name = v_k_umb.name;
+
+      end if;      
+      
+    end loop;
+    close c_k_umb;
+
+  end pzm_job_serien_umbuchung;
+
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"e6e4ba0aa9a78134f482c8eb30272df0b962ff11","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0058c36296613d88dcaf632df7b6e71a7e74c49d","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}

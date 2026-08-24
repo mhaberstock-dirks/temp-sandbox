@@ -65,15 +65,30 @@ begin
            k.def_min_saldo,
            k.aktiv,
            0
-      from pzm_konten_cfg k
+      from pzm_konten_cfg k,
+           pzm_allg_parameter ap
      where k.aktiv = 'T'
-       and k.name_kurz not in (select la.lz_konto_name_kurz
-                                 from PZM_LOHNARTEN la,
-                                      pzm_abwesenheitsarten a
-                                where la.lz_konto_name_kurz = k.name_kurz
-                                  and a.lz_id = la.lz_id
-                                  and a.kennz_urlaub = 'T'
-                                  and a.aa_id != :new.pers_urlaub_anspr_aa_id);
+      and (((    (ap.ap_name = 'FLEXSTUNDEN_KONTO' and k.name_kurz = ap.ap_value and ap.ap_pb_id = 0)
+             and not exists (select apx.ap_pb_id from pzm_allg_parameter apx where apx.ap_name = 'FLEXSTUNDEN_KONTO' and apx.ap_pb_id = :new.pers_pb_id)
+             
+            )
+            or (ap.ap_name = 'FLEXSTUNDEN_KONTO' and k.name_kurz = ap.ap_value and ap.ap_pb_id = :new.pers_pb_id)
+           )
+         or
+          ((    (ap.ap_name = 'URLAUBS_KONTO' and k.name_kurz = ap.ap_value and ap.ap_pb_id = 0)
+             and not exists (select apx.ap_pb_id from pzm_allg_parameter apx where apx.ap_name = 'URLAUBS_KONTO' and  apx.ap_pb_id = :new.pers_pb_id)
+             
+            )
+            or (ap.ap_name = 'URLAUBS_KONTO' and k.name_kurz = ap.ap_value and ap.ap_pb_id = :new.pers_pb_id)
+           )           
+         or
+          ((    (ap.ap_name = 'FLEXSTUNDEN_KONTO_ZUSAETZLICH' and ap.ap_value like '%' || k.name_kurz || ';%' and ap.ap_pb_id = 0)
+             and not exists (select apx.ap_pb_id from pzm_allg_parameter apx where apx.ap_name = 'FLEXSTUNDEN_KONTO_ZUSAETZLICH' and apx.ap_pb_id = :new.pers_pb_id)
+             
+            )
+            or (ap.ap_name = 'FLEXSTUNDEN_KONTO_ZUSAETZLICH' and ap.ap_value like '%' || k.name_kurz || ';%' and ap.ap_pb_id = :new.pers_pb_id)
+           )           
+          );
 
     v_urlaub_anspr_aa_id := :new.pers_urlaub_anspr_aa_id;
     open c_pzm_konten_uk;
@@ -165,4 +180,4 @@ end;
 ALTER TRIGGER "DIRKSPZM32"."TR_PZM_PERSONAL_AIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"baf2b0fa91977b6b63cd045ad832c7b1d5a269ab","type":"TRIGGER","name":"TR_PZM_PERSONAL_AIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c24195ec724e0349d2a2071001d982c9cfe85f72","type":"TRIGGER","name":"TR_PZM_PERSONAL_AIU","schemaName":"DIRKSPZM32","sxml":""}

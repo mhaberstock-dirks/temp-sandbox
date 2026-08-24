@@ -1,7 +1,7 @@
 
   CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_Z_PZM_SCHICHT_MOD_TO_INFOR_BIUD" 
   BEFORE DELETE OR INSERT OR UPDATE
-  ON dirkspzm32.pzm_schicht_modelle
+  ON DIRKSPZM32.pzm_schicht_modelle
   REFERENCING NEW AS new OLD AS old
   FOR EACH ROW
 
@@ -33,8 +33,9 @@ BEGIN
   , i_value         => CASE WHEN INSERTING THEN :new.sm_name ELSE :old.sm_name END
   , i_action_type   => CASE WHEN INSERTING THEN 'I' WHEN UPDATING THEN 'U' WHEN DELETING THEN 'D' END);
 END tr_z_pzm_schicht_mod_to_infor_biud;
+
 /
 ALTER TRIGGER "DIRKSPZM32"."TR_Z_PZM_SCHICHT_MOD_TO_INFOR_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c999da1caea05562e4b4f807ba851c92d676b08b","type":"TRIGGER","name":"TR_Z_PZM_SCHICHT_MOD_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c87a253733c675cb4b6ab1928337d4aebbb8ec02","type":"TRIGGER","name":"TR_Z_PZM_SCHICHT_MOD_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}

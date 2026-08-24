@@ -1170,7 +1170,14 @@ package body DIRKSPZM32.PZM_P_SCHICHT_TAG as
               if pzm_p_base.get_lohnart(v_abwes_art.lz_id, v_lohnarten)
               and v_lohnarten.lz_operator in ('ARBSTD', 'GEHALT')
               then
-                 v_SAEnde := v_SAEnde + nvl(get_pause_time(v_DaySAKurzname, v_SABeginn, v_SAEnde, v_personal.pers_pb_id), 0) / 24;
+                if pzm_lohnauswertung.v_pzm_sim_on = false
+                then
+                  pzm_lohnauswertung.v_pzm_sim_on := true;
+                  v_SAEnde := v_SAEnde + nvl(get_pause_time(v_DaySAKurzname, v_SABeginn, v_SAEnde, v_personal.pers_pb_id), 0) / 24;
+                  pzm_lohnauswertung.v_pzm_sim_on := false;
+                else
+                  v_SAEnde := v_SAEnde + nvl(get_pause_time(v_DaySAKurzname, v_SABeginn, v_SAEnde, v_personal.pers_pb_id), 0) / 24;
+                end if;
               end if;
             end if;
             v_ze_id := pzm_p_zeiterfassung.c_automatische_fehlzeit_eintragen(
@@ -1453,4 +1460,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"db1d43c1d59ef4e83086d0dde55a4cc0d3706886","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cbf97a7292e767261aed750ce4ea4fc9e9718d6b","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}

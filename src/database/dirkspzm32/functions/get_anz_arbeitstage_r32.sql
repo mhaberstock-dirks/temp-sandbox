@@ -32,6 +32,17 @@ function DIRKSPZM32.get_anz_arbeitstage_R32(p_pers_nr in integer,
                                  where x1.aa_id = t.ts_aa_id
                                    and x1.lz_id = x2.lz_id
                                    and x2.lz_operator in ('K', 'KUGK', 'UNB'));
+
+  cursor c_ts_unb is
+    select t.ts_aa_id from pzm_ze_tagessatz t
+    where t.ts_pers_nr = p_pers_nr
+      and t.ts_datum = v_Datum
+      and t.ts_aa_id in (select x1.aa_id 
+                           from pzm_abwesenheitsarten x1,
+                                pzm_lohnarten x2
+                                 where x1.aa_id = t.ts_aa_id
+                                   and x1.lz_id = x2.lz_id
+                                   and x2.lz_operator in ('UNB'));
   
   cursor c_pers is
     select t.pers_nr,
@@ -73,6 +84,7 @@ begin
     then
       v_isFeiertag := ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_Datum, v_SonderFeiertag) = 1;
       v_aa_id := NULL;
+      
       if v_isFeiertag
       then
         OPEN c_ts_krank_o_unb;
@@ -81,6 +93,14 @@ begin
         if v_aa_id is not NULL
         then
           v_isFeiertag := false;
+        end if;
+      else
+        OPEN c_ts_unb;
+        FETCH c_ts_unb into v_aa_id;
+        CLOSE c_ts_unb;
+        if v_aa_id is not NULL
+        then
+          v_SAStdProTag := 0;
         end if;
       end if;
       
@@ -119,4 +139,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"51e8a78b64f95a35f0ed8eda35aff421e4ba6540","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE_R32","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c0b6ec17280fb4b0108b6cfb8331dc92dbc3a9d4","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE_R32","schemaName":"DIRKSPZM32","sxml":""}

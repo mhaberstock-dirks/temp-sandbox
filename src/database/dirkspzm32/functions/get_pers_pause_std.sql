@@ -28,11 +28,13 @@ function DIRKSPZM32.get_pers_pause_std(in_pers_nr in pzm_personal.pers_nr%type,
   --v_unb_pause number;
   v_unb_pause_diff number;
   v_found boolean;
+  v_f_pausen number;
   v_result number;
 begin
   -- feste Pausen berücksichtigen
-  v_result := get_pause_time(in_sa_kurzname, in_von_zeit, in_bis_zeit, get_pers_pb_id(in_pers_nr));
+  v_f_pausen := get_pause_time(in_sa_kurzname, in_von_zeit, in_bis_zeit, get_pers_pb_id(in_pers_nr));
   v_bez_pause := 0;
+  v_result := 0;
   --v_unb_pause := 0;
 
   -- keine feste Pausen definiert?
@@ -104,6 +106,10 @@ begin
       end if;
     end if;
   end if;
+  if v_result < v_f_pausen
+  then
+    v_result := v_f_pausen;
+  end if;
 
   v_unb_pause_diff := get_pause_time_day(in_sa_kurzname, in_von_zeit, in_bis_zeit,
        (in_bis_zeit - in_von_zeit) * 24, v_result, get_pers_pb_id(in_pers_nr), v_bez_pause);
@@ -118,4 +124,4 @@ end get_pers_pause_std;
 
 
 
--- sqlcl_snapshot {"hash":"cff0e15f127beddc3234122442e81829ac620472","type":"FUNCTION","name":"GET_PERS_PAUSE_STD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7b9681376f1dfbdf85471987a0d600f7cb7067b5","type":"FUNCTION","name":"GET_PERS_PAUSE_STD","schemaName":"DIRKSPZM32","sxml":""}

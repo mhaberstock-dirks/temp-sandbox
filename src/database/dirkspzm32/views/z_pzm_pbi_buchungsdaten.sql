@@ -29,7 +29,14 @@
        NULL sap_zuordnung,
        to_char(nvl(ze.ze_ist_start, ze.ze_calc_ist_start), 'HH24:mi') start_zeit,
        to_char(nvl(ze.ze_ist_ende, ze.ze_calc_ist_ende), 'HH24:mi') ende_zeit,
-       nvl(ze.last_change_date, ze.created_date) last_change_date
+       case when nvl(ze.last_change_date, ze.created_date)
+               > nvl(ts.last_change_date, ts.created_date)
+             then
+               nvl(ze.last_change_date, ze.created_date)
+             else
+               nvl(ts.last_change_date, ts.created_date)
+             end last_change_date
+
    from pzm_personal p,
         pzm_zeiterfassung ze,
         pzm_ze_tagessatz ts,
@@ -299,4 +306,4 @@ select b.bu_id,
 ;
 
 
--- sqlcl_snapshot {"hash":"4485a82d19d90f60aaa5db82e97ff678d3ea7a9d","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ddf1fffc2ca9737d1219077a4018f3bda49d02e8","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}

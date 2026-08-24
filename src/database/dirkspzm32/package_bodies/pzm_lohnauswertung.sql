@@ -741,6 +741,10 @@ begin
                                               p_lz_bis,
                                               p_arb_bis); --,
             --round((p_arb_bis - p_arb_von) * 24, 3), 0);
+            if v_pause_std < 0 -- Negative Pause gibt es nicht. Kann aber Entstehen, wenn gebuchte Pausenzeiten in der LOA-Zeit ist
+            then
+              v_pause_std := 0;
+            end if;
             if trunc(p_lz_von) < trunc(p_lz_bis)
             and p_lz_bis < p_arb_von +  
                            ((p_lz_bis - p_lz_von) / 2)
@@ -750,7 +754,12 @@ begin
               if  v_pause_std > 0
               and p_lz_von < p_arb_von
               then
-                v_LoaStd := (v_LoaStd + v_pause_std) - v_LoaStdDiff; -- Wenn Pause dann so rechnen
+                if p_lz_bis < p_arb_bis
+                then
+                  v_LoaStd := (p_lz_bis - p_arb_von) * 24 - v_pause_std;
+                else
+                  v_LoaStd := (v_LoaStd + v_pause_std) - v_LoaStdDiff; -- Wenn Pause dann so rechnen
+                end if;
               elsif v_LoaStdDiff > 0
               and v_pause_std = 0
               then
@@ -1009,7 +1018,9 @@ begin
          and z.ze_schicht_tag = in_schicht_tag
          and z.ze_calc_ist_start >= in_von
          and z.ze_calc_ist_ende <= in_bis
-         and z.ze_status in (2, 7)
+         and (  z.ze_status in (2, 7)
+             or z.ze_status in (5) and nvl(z.ze_work_location, 52) not in (52, 53, 99)
+             )
          and nvl(z.ze_work_location, 52) not in (52, 53, 99);
 
     --------------------
@@ -1247,6 +1258,11 @@ begin
       v_ketten_zaehler := 0;
 
       if v_loa = '410'
+      or v_loa = '615'
+      or v_loa = '491'
+      or v_loa = '492'
+      or v_loa = '493'
+      or v_loa = '494'
       then
         v_Loa := v_loa;
       end if;
@@ -1379,6 +1395,10 @@ begin
               then
                 v_p_von := v_d_start;
                 v_p_bis := v_d_ende;
+                if v_std_d_g < v_arbstd
+                then
+                  v_arbstd := v_std_d_g;
+                end if;
               end if;
               
             end if;
@@ -2442,9 +2462,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                          else add_months(trunc(min(t.zeaw_datum), 'Month'), 1) 
                          end datum,
                    t.zeaw_lz_lohnart lohnart,
-                   decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
-                     'DD', count(t.zeaw_lz_loa_std),
-                     round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
+                   case when nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')) = 'DD' and lz.lz_typ != 'ABW' -- Zählen nur Tageweise, wenn keine Abwesenheit )
+                                                                                                     -- Bsp. Urlaub in Tagen muss hier in Stunden gerechnet werden
+                        then count(t.zeaw_lz_loa_std)
+                        else round(sum(t.zeaw_lz_loa_std), 3)
+                        end loa_value,
+                   --decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
+                   --  'DD', count(t.zeaw_lz_loa_std),
+                   --  round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
                    decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
                      'DD', 'TAG', 
                      'STD') loa_unit,
@@ -2491,7 +2516,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                    t.zeaw_lz_lohnart,
                    t.zeaw_lz_id,
                    lz.lz_lohnart_grp,
-                   nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')));
+                   nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')),
+                   lz.lz_typ
+                   );
 
     cursor c_loa_kumuliert is
       select *
@@ -2502,9 +2529,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                          else add_months(trunc(min(t.zeaw_datum), 'Month'), 1) 
                          end datum,
                    t.zeaw_lz_lohnart lohnart,
-                   decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
-                     'DD', count(t.zeaw_lz_loa_std),
-                     round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
+                   case when nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')) = 'DD' and lz.lz_typ != 'ABW' -- Zählen nur Tageweise, wenn keine Abwesenheit )
+                                                                                                     -- Bsp. Urlaub in Tagen muss hier in Stunden gerechnet werden
+                        then count(t.zeaw_lz_loa_std)
+                        else round(sum(t.zeaw_lz_loa_std), 3)
+                        end loa_value,
+                   --decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
+                   --  'DD', count(t.zeaw_lz_loa_std),
+                   --  round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
                    decode(nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')), 
                      'DD', 'TAG', 
                      'STD') loa_unit,
@@ -2566,7 +2598,8 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                    t.zeaw_lz_id,
                    lz.lz_lohnart_grp,
                    --nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
-                   nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24'))
+                   nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24')),
+                   lz.lz_typ
           union
             select k_loa.zeaw_pb_id,
                    k_loa.pers_nr,
@@ -2612,9 +2645,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                        else add_months(trunc(min(t.zeaw_datum), 'Month'), 1) 
                                        end datum,
                                  lz.lz_lohnart lohnart,
-                                 decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
-                                   'DD', count(t.zeaw_lz_loa_std),
-                                   round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
+                                 case when nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')) = 'DD' and lz.lz_typ != 'ABW' -- Zählen nur Tageweise, wenn keine Abwesenheit )
+                                                                                                                   -- Bsp. Urlaub in Tagen muss hier in Stunden gerechnet werden
+                                      then count(t.zeaw_lz_loa_std)
+                                      else round(sum(t.zeaw_lz_loa_std), 3)
+                                      end loa_value,
+                                 --decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+                                 --  'DD', count(t.zeaw_lz_loa_std),
+                                 --  round(sum(t.zeaw_lz_loa_std), 3)) loa_value, -- -WK- 13.01.2010 2 Stellig runden
                                  decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')), 
                                    'DD', 'TAG', 
                                    'STD') loa_unit,
@@ -2647,7 +2685,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                  lz.lz_lohnart_grp,
                                  lz.lz_konto_name_kurz,
                                  --nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
-                                nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24'))) k_erg
+                                nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+                                lz.lz_typ
+                                ) k_erg
                     group by k_erg.zeaw_pb_id,
                            k_erg.pers_nr,
                            k_erg.datum,
@@ -2660,9 +2700,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                zeaw_lz_id;
 
     cursor c_loa_zk is
-      select decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
-               'DD', count(t.zeaw_lz_loa_std),
-               round(sum(t.zeaw_lz_loa_std), 3)) loa_value
+      select case when nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')) = 'DD' and lz.lz_typ != 'ABW' -- Zählen nur Tageweise, wenn keine Abwesenheit )
+                                                                                                     -- Bsp. Urlaub in Tagen muss hier in Stunden gerechnet werden
+              then count(t.zeaw_lz_loa_std)
+              else round(sum(t.zeaw_lz_loa_std), 3)
+              end loa_value
+      --decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+      --         'DD', count(t.zeaw_lz_loa_std),
+      --         round(sum(t.zeaw_lz_loa_std), 3)) loa_value
         from pzm_ze_loa_ausw t,
              pzm_lohnarten lz,
              pzm_abwesenheitsarten aa
@@ -2688,12 +2733,17 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              lz.lz_lohnart_grp,
              lz.lz_konto_name_kurz,
              --nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
-             nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24'));
-              
+             nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+             lz.lz_typ;
     cursor c_loa_kug is
-      select decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
-               'DD', count(t.zeaw_lz_loa_std),
-               round(sum(t.zeaw_lz_loa_std), 3)) loa_value
+      select case when nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')) = 'DD' and lz.lz_typ != 'ABW' -- Zählen nur Tageweise, wenn keine Abwesenheit )
+                                                                                               -- Bsp. Urlaub in Tagen muss hier in Stunden gerechnet werden
+                  then count(t.zeaw_lz_loa_std)
+                  else round(sum(t.zeaw_lz_loa_std), 3)
+                  end loa_value
+             --decode(nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+             --  'DD', count(t.zeaw_lz_loa_std),
+             --  round(sum(t.zeaw_lz_loa_std), 3)) loa_value
         from pzm_ze_loa_ausw t,
              pzm_lohnarten lz,
              pzm_abwesenheitsarten aa
@@ -2719,7 +2769,8 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              lz.lz_lohnart_grp,
              lz.lz_konto_name_kurz,
              --nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
-             nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24'));
+             nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
+             lz.lz_typ;
               
     cursor c_loa_konto is
       select lz.*
@@ -3376,7 +3427,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           end if;
           
           if (in_schnittstelle != 'EXT_KW_MM'         -- Die gesamte Abhandlung Zeitkonto ist nicht für Externe Zeitarbeiter
-            and v_tarifmodell.tarif_fest_std != 'T')  -- Tarifmodell hat feste Stunden für einen Zeitraum
+            and (v_tarifmodell.tarif_fest_std != 'T'  -- Tarifmodell hat feste Stunden für einen Zeitraum
+              or v_vertragsart.va_loa_stunden_abrechnung = 'F') -- Gehalt
+             )
           or v_loa_kumuliert.ret_code != 'ZK'
           then 
             if v_loa_zk = 0 -- Alles KUG und es kommt kein ZK mehr.
@@ -4661,6 +4714,19 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
 
         if v_ueb_stunden_13w > 0
         then
+          v_arb_stunden := pzm_utils.get_pers_arb_std(in_pers_nr,
+                                                      v_loa_kumuliert.kst_id,
+                                                      v_von_datum,
+                                                      v_bis_datum,   -- Ermittlung der gearbeiteten Stunden
+                                                      nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                      nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T');  -- Krank und Urlaub kommen dazu?
+          if v_arb_stunden  - v_ueb_stunden_13w < 0             -- 20260805 AG Arbetsstunden dürfen durch 13W schnitt nicht ins minus gehen
+          then
+            v_ueb_stunden_13w := 0;                             -- Dann auf Stunden normal rechnen
+          end if;
+        end if;
+        if v_ueb_stunden_13w > 0
+        then
           v_loa_kumuliert.loa_value := v_ueb_stunden_13w;
           -- v_ueb_stunden_13w := 0;
           select min(loa.lz_lohnart), min(loa.lz_id) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
@@ -4737,8 +4803,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
            or (v_zk_monat_diff > 0 
            or v_ueb_stunden_loa2 > 0 
            or v_ueb_stunden_loa > 0 
-           or v_ueb_std_proz > 0 
-           or in_schnittstelle = 'EXT_KW_MM')
+           or v_ueb_std_proz > 0
+           or nvl(v_tarifmodell.tarif_ueb_basis, 'MM') != 'MM' 
+           or in_schnittstelle = 'EXT_KW_MM') -- Auch ohne Überstund prüfen, wenn auf Tagesbasis oder Wochenbasis gerechnet wird
       and (in_schnittstelle != 'EXT_KW_MM' or v_bis_datum = v_ende_datum) 
       and (v_kst_idx_max <= v_kst_idx_loa)
       then
@@ -5327,7 +5394,12 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         v_arb_stunden := v_arb_stunden + v_zk_monat_diff_kug;                  -- KUG-Differenz hier wieder draufrechenen
         if v_kst_id = v_kst_id_zk 
         then
-          v_arb_stunden := v_arb_stunden - v_ueb_stunden_13w; -- 13 W Schnitt abziehen
+          if v_arb_stunden  - v_ueb_stunden_13w > 0             -- 20260805 AG Arbetsstunden dürfen durch 13W schnitt nicht ins minus gehen
+          then
+            v_arb_stunden := v_arb_stunden - v_ueb_stunden_13w; -- 13 W Schnitt abziehen
+          else
+            v_arb_stunden := 0;
+          end if;
           if v_tarifmodell.tarif_fest_std != 'T'
           then
             v_ueb_stunden_13w := 0;
@@ -6426,4 +6498,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"2d73d72f6cb1451c64200575ae756b35abf7ba3f","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2a91ab1b2e2405253041e0a17aae16eb2605538b","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

@@ -2,7 +2,7 @@
   CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_Z_PZM_TARIFMOD_TO_INFOR_BIUD" 
   -- TR_Z_PZM_SCHICHT_MOD_TO_INFOR_BIUD
   BEFORE DELETE OR INSERT OR UPDATE
-  ON dirkspzm32.pzm_tarifmodelle
+  ON DIRKSPZM32.pzm_tarifmodelle
   REFERENCING NEW AS new OLD AS old
   FOR EACH ROW
 -- Kein FOLLOWS-Attribut nötig; PK wird nicht per Sequence erzeugt.
@@ -34,8 +34,9 @@ BEGIN
   , i_value         => CASE WHEN INSERTING THEN :new.tarif_name ELSE :old.tarif_name END
   , i_action_type   => CASE WHEN INSERTING THEN 'I' WHEN UPDATING THEN 'U' WHEN DELETING THEN 'D' END);
 END tr_z_pzm_tarifmod_to_infor_biud;
+
 /
 ALTER TRIGGER "DIRKSPZM32"."TR_Z_PZM_TARIFMOD_TO_INFOR_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d3f8ee2f6c5f9c7dc7ce9bde39853b8ebd2ddfe4","type":"TRIGGER","name":"TR_Z_PZM_TARIFMOD_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ea19385849c61b819b3535f65aae34f26527299f","type":"TRIGGER","name":"TR_Z_PZM_TARIFMOD_TO_INFOR_BIUD","schemaName":"DIRKSPZM32","sxml":""}

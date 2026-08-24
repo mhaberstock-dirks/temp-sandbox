@@ -44,9 +44,16 @@ union
          substr(aa.aa_name, 1, 50) wertart,
          round(sum(ze.ze_std), 2) wert,
          substr(a.abt_name, 1, 50) abteilung,
-         max(nvl(ze.last_change_date, ze.created_date)) last_change_date
+         case when max(nvl(ze.last_change_date, ze.created_date))
+                 > max(nvl(ts.last_change_date, ts.created_date))
+               then
+                 max(nvl(ze.last_change_date, ze.created_date))
+               else
+                 max(nvl(ts.last_change_date, ts.created_date))
+               end last_change_date
     from pzm_personal p,
          pzm_zeiterfassung ze,
+         pzm_ze_tagessatz ts,
          pzm_abteilungen a,
          pzm_abwesenheitsarten aa,
          pzm_produktionsbereiche_bu bu,
@@ -58,6 +65,8 @@ union
      and ze.ze_aa_status = aa.aa_id
      --and ze.ze_schicht_tag >= trunc(sysdate) - 90
      and ze.ze_schicht_tag <= nvl(p.pers_austrittdatum, ze.ze_schicht_tag)
+     and ze.ze_pers_nr = ts.ts_pers_nr(+)
+     and ze.ze_schicht_tag = ts.ts_datum(+)
 group by b.bu_id,
          b.bu_name,
          ze.ze_aa_status,
@@ -71,4 +80,4 @@ group by b.bu_id,
 ;
 
 
--- sqlcl_snapshot {"hash":"fe6b60b56ed1645e6c918acd1a4152e7d31ac729","type":"VIEW","name":"Z_PZM_PBI_KOSTENSTELLENSPLIT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"58f39c473401de9b65366d21e1234fea4c53387a","type":"VIEW","name":"Z_PZM_PBI_KOSTENSTELLENSPLIT","schemaName":"DIRKSPZM32","sxml":""}
