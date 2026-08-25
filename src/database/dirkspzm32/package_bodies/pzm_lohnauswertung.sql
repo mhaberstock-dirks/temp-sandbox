@@ -2856,6 +2856,28 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         from pzm_abteilungen t
        where t.abt_id = get_pers_abt_id(in_pers_nr);
 
+    cursor c_zk_umbuchen is
+      select sum(bh.wert) bk_std
+             --bh.*, bh.rowid 
+        from PZM_KONTEN_bh bh,
+             pzm_konten k
+       where k.pers_nr = in_pers_nr
+         and bh.konto_nr = k.konto_nr
+         and k.typ = 'ZK'
+         and k.name_kurz = 'ZK'
+         and bh.bus = 1
+         and bh.zk_start >= v_start_datum
+         and bh.zk_start < v_ende_datum + 1
+         and exists (select x.wert 
+                       from pzm_konten_bh x 
+                      where x.konto_nr = bh.konto_nr 
+                        and x.bus = 2 
+                        and x.wert = bh.wert 
+                        and trunc(bh.zk_start) = trunc(x.zk_start)
+                        )
+       order by bh.zk_start, bh.konten_bh_id desc;    
+    v_umb_std              number;
+    
     v_vertragsart          pzm_vertragsarten%rowtype;
     v_loa_stat_cfg         pzm_ze_loa_statistik_cfg%rowtype;
     
@@ -4838,6 +4860,15 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         
         v_loa_kumuliert.lohnart := NULL; -- Initial
         
+        OPEN c_zk_umbuchen;
+        FETCH c_zk_umbuchen into v_ueb_std;
+        CLOSE c_zk_umbuchen;
+        
+        if nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'LOA_HOERERE_LOA_MINUS'), 'T') = 'T'
+        then
+          v_ueb_stunden_loa2 := v_ueb_stunden_loa2 - nvl(v_umb_std, 0);
+        end if;
+        
         begin
           select loa.lz_lohnart, loa.lz_id into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
             from pzm_lohnarten loa
@@ -6498,4 +6529,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"2a91ab1b2e2405253041e0a17aae16eb2605538b","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"84da8f5125c68562e8b0b2e564d54075c75b0a41","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
