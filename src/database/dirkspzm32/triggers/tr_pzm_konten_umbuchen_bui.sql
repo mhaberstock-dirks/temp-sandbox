@@ -52,13 +52,6 @@ begin
     :new.last_change_login_id := current_isi_user_login_id();
   end if;
   
-  select count(k.name_kurz) into v_k_typ_anz from pzm_konten_cfg k where k.name_kurz = :new.von_konto_name_kurz;
-  if nvl(v_k_typ_anz, 0) > 0
-  then
-    v_q_typ_ok := true;
-  else
-    v_q_typ_ok := false;
-  end if;
   select count(k.name_kurz) into v_k_typ_anz from pzm_konten_cfg k where k.name_kurz = :new.nach_konto_name_kurz;
   if nvl(v_k_typ_anz, 0) > 0
   then
@@ -68,16 +61,7 @@ begin
   end if;
   
   
-  -- Prüfen Kontotyp Quelle
-  if v_q_typ_ok = false
-  then
-    pzm_p_log.error('Für den Konto-Typ Quelle ' || :new.von_konto_name_kurz || ' ist keine Konfiguration vorhanden',
-                    pzm_p_log.CAT_SYSTEM, 
-                    'TR_PZM_KONTEN_UMBUCHEN_BUI',
-                    -20010);
-    pzm_p_lc.raise_app_error(-20010, 'Für den Konto-Typ Quelle ' || :new.von_konto_name_kurz || ' ist keine Konfiguration vorhanden');
-  -- Prüfen Kontotyp Ziel
-  elsif v_z_typ_ok = false
+  if v_z_typ_ok = false
   then
     pzm_p_log.error('Für den Konto-Typ Ziel ' || :new.nach_konto_name_kurz || ' ist keine Konfiguration vorhanden',
                     pzm_p_log.CAT_SYSTEM, 
@@ -135,4 +119,4 @@ end;
 ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_UMBUCHEN_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"8583657aff0c25cadb8d585b27740d580c8a5358","type":"TRIGGER","name":"TR_PZM_KONTEN_UMBUCHEN_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"186618404e208856aa5742fda175f172a4d6fe22","type":"TRIGGER","name":"TR_PZM_KONTEN_UMBUCHEN_BUI","schemaName":"DIRKSPZM32","sxml":""}

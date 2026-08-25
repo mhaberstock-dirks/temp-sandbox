@@ -22,8 +22,8 @@ comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."NAME" is 'Name der automatisch
 comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."PB_ID" is 'NULL - Gilt für alle sonst zugehöriger Mandant (PZM Produktionsbereich) zu der Kostenstelle';
 comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."SID" is 'ID (Primary-Key)';
 comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."TYP_STATUS" is 'N = Neu, F = Fertig, D=dauerbuchung für z.B. Wochentage';
-comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."VON_KONTO_NAME_KURZ" is 'Von Konto (Konto-Kurz-Name)';
+comment on column DIRKSPZM32.PZM_KONTEN_UMBUCHEN."VON_KONTO_NAME_KURZ" is 'Von Konto (Konto-Kurz-Name) -- NULL kein Gegenkonto - Dann eine Gutschrift';
 
 
 
--- sqlcl_snapshot {"hash":"4744ec4c2edf5a57355192869e36c23bc5989b54","type":"COMMENT","name":"pzm_konten_umbuchen","schemaName":"dirkspzm32","sxml":""}
+-- sqlcl_snapshot {"hash":"203db93adb57959209f40082599fb541755eab6f","type":"COMMENT","name":"pzm_konten_umbuchen","schemaName":"dirkspzm32","sxml":""}

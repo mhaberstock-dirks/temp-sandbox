@@ -913,19 +913,23 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
             end if;
           end if;
         else -- In diesem Fall kommen die Werte aus den allg. Parametern und muss zwingen immer in der Einheit des kontos erfasst werden
-          v_gutschrift_saldo := pzm_utils.get_pers_arb_std (v_pzm_konten.pers_nr,
-                                                            NULL,
-                                                            v_schicht_datum,
-                                                            v_schicht_datum,   -- Ermittlung der gearbeiteten Stunden
-                                                            true, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
-                                                            false -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
-                                                            );  -- Krank und Urlaub kommen dazu?
-          if v_gutschrift_saldo > 0                         -- Es ist an dem Tag gearbeitet worden, oder er war Krank - Dann Umbuchen
+          -- Dann die Gutschrift aus den allg. Parametern ermitteln
+          if in_zk_v_name_kurz is NULL
           then
-            -- Dann die Gutschrift aus den allg. Parametern ermitteln
-            v_gutschrift_saldo := to_number(pzm_p_base.get_allg_parameter_mandant(get_pers_pb_id(v_pzm_konten.pers_nr), 'UMB_KONTO_' || in_zk_v_name_kurz || '_' || in_zk_n_name_kurz));
+            v_gutschrift_saldo := to_number(pzm_p_base.get_allg_parameter_mandant(get_pers_pb_id(v_pzm_konten.pers_nr), 'GUTSCHRIFT_' || in_zk_n_name_kurz));
+          else
+            v_gutschrift_saldo := pzm_utils.get_pers_arb_std (v_pzm_konten.pers_nr,
+                                                                NULL,
+                                                                v_schicht_datum,
+                                                                v_schicht_datum,   -- Ermittlung der gearbeiteten Stunden
+                                                                false, -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'K_IN_STUNDENLOHN'), 'F') = 'T',
+                                                                false  -- nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'U_IN_STUNDENLOHN'), 'F') = 'T'
+                                                                );  -- Krank und Urlaub kommen dazu?
+            if v_gutschrift_saldo > 0                         -- Es ist an dem Tag gearbeitet worden, oder er war Krank - Dann Umbuchen
+            then
+              v_gutschrift_saldo := to_number(pzm_p_base.get_allg_parameter_mandant(get_pers_pb_id(v_pzm_konten.pers_nr), 'UMB_KONTO_' || in_zk_v_name_kurz || '_' || in_zk_n_name_kurz));
+            end if;
           end if;
-          
         end if;
 
         if nvl(v_gutschrift_saldo, 0) != 0
@@ -936,10 +940,13 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
           CLOSE c_pzm_gegen_konten;
           
           if v_found
+          or in_zk_v_name_kurz is NULL
           then
             if v_pzm_gegen_konten.buch_einheit = v_pzm_konten.buch_einheit
+            or in_zk_v_name_kurz is NULL
             then
               if  v_pzm_gegen_konten.saldo < v_gutschrift_saldo
+              and in_zk_v_name_kurz is not NULL
               then
                 if v_pzm_gegen_konten.min_saldo >= v_pzm_gegen_konten.saldo - v_gutschrift_saldo
                 then
@@ -948,9 +955,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
               end if;
               if v_gutschrift_saldo > 0
               then
-                zk_abgang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_gegen_konten.konto_nr,
-                                 v_pzm_gegen_konten.pers_nr, get_pers_kst_id(v_pzm_gegen_konten.pers_nr), v_gutschrift_saldo, in_info,
-                                 nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                if in_zk_v_name_kurz is not NULL
+                then
+                  zk_abgang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_gegen_konten.konto_nr,
+                                   v_pzm_gegen_konten.pers_nr, get_pers_kst_id(v_pzm_gegen_konten.pers_nr), v_gutschrift_saldo, in_info,
+                                   nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                end if;
 
                 zk_zugang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_konten.konto_nr,
                                  v_pzm_konten.pers_nr, get_pers_kst_id(v_pzm_konten.pers_nr), v_gutschrift_saldo, in_info,
@@ -1034,7 +1044,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
           then
             v_buch_wert := NULL;
           end if;
-          v_k_umb.buch_datum := (trunc(sysdate) + fraction_of_day(v_k_umb.buch_datum)) -1; -- Immer erst am nächsten Tag buchen - Anwesenheit prüfen         
+          if v_k_umb.von_konto_name_kurz is not NULL
+          then -- Ist am Folgetag und muss für den Vortag gebucht werden
+            v_k_umb.buch_datum := (trunc(sysdate) + fraction_of_day(v_k_umb.buch_datum)) -1; -- Immer erst am nächsten Tag buchen - Anwesenheit prüfen
+          else
+            v_k_umb.buch_datum := trunc(sysdate);
+          end if;
         elsif v_k_umb.typ_status = 'N'
         and v_k_umb.buch_datum <= sysdate
         then
@@ -1075,4 +1090,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"0058c36296613d88dcaf632df7b6e71a7e74c49d","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"34d94019a582cf3b4b80be2b97baee6e3e071ecf","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
