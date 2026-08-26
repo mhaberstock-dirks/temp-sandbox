@@ -18,7 +18,7 @@ begin
           p_message => 'Der Saldo unterschreitet den Minimalwert des Kontos. Konto: ' || :new.name,
           p_category => pzm_p_log.cat_system,
           p_module => 'TR_PZM_KONTEN_BIU',
-          p_error_code => pzm_p_lc.PZM_ERROR_BUCHUNG,
+          p_error_code => pzm_p_lc.cerr_pzm_buchung,
           p_pers_nr => :new.pers_nr
         );
       end if;
@@ -33,16 +33,15 @@ begin
           p_message => 'Der Saldo ueberschreitet den Maximalwert des Kontos. Konto: ' || :new.name,
           p_category => pzm_p_log.cat_system,
           p_module => 'TR_PZM_KONTEN_BIU',
-          p_error_code => pzm_p_lc.PZM_ERROR_BUCHUNG,
+          p_error_code => pzm_p_lc.cerr_pzm_buchung,
           p_pers_nr => :new.pers_nr
         );
       end if;
     end if;
   end if;
 end;
-
 /
 ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"2211125d2eff5bcb584b81c21f4914c313fcc7ba","type":"TRIGGER","name":"TR_PZM_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1cc3274edb3296241faaec1b9f6411f978ac858e","type":"TRIGGER","name":"TR_PZM_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}

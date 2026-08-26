@@ -3,12 +3,59 @@ package body DIRKSPZM32.PZM_P_LC is
 
   C_CP_TRENNER constant varchar2(1) := '@';
   C_PP_TRENNER constant varchar2(1) := '|';
+  C_MAX_ERROR_MESSAGE_LENGTH constant pls_integer := 2000; -- Sicherheitsmarge unter dem von RAISE_APPLICATION_ERROR akzeptierten Limit (~2048 Byte)
 
+
+  -----------------------------------------------------------------------------------------------
+  -- Prueft explizit gegen die tatsaechlich in diesem Package deklarierten Fehlercodes, statt
+  -- pauschal gegen den gesamten von Oracle fuer benutzerdefinierte Fehler reservierten Bereich
+  -- (-20999..-20000) zu pruefen. Grund: Ein SQLCODE in diesem Bereich, der NICHT ueber
+  -- raise_app_error()/raise_app_error_p() geworfen wurde (z.B. aus einem Fremdpackage oder
+  -- Trigger), waere bei der Bereichspruefung faelschlich als "bereits protokolliert" erkannt
+  -- worden - und damit NIE in PZM_LOG gelandet. Bei der expliziten Liste ist der schlimmste
+  -- Fehlerfall (ein neuer Code wird hier vergessen) nur ein redundanter, doppelter Log-Eintrag -
+  -- nie ein fehlender.
+  --
+  -- Wartungshinweis: Bei jedem neuen cerr_*-Code oben MUSS der Code auch hier ergaenzt werden.
+  --
+  -- Alternative (bewusst nicht geloescht, sondern als Team-Entscheidung offengehalten):
+  -- Falls der Wartungsaufwand der expliziten Liste sich als zu hoch erweist, kann bewusst
+  -- wieder auf die generische, wartungsfreie Bereichspruefung zurueckgewechselt werden:
+  --
+  --   function is_app_code(p_code pls_integer) return boolean is
+  --   begin
+  --     return p_code between -20999 and -20000;
+  --   end;
+  -----------------------------------------------------------------------------------------------
+  -- OEFFENTLICH (siehe Package-Spec)
   function is_app_code(p_code pls_integer) return boolean is
   begin
-    return p_code between -20999 and -20000;
+    return p_code in (
+      cerr_pzm_pers_nr_404,
+      cerr_pzm_rfid_pers_nr_404,
+      cerr_pzm_abt_id_404,
+      cerr_sa_kurzname_404,
+      cerr_kst_id_404,
+      cerr_pzm_buchung,
+      cerr_pzm_ze_keine_offene_vorh,
+      cerr_pzm_ze_status_mismatch,
+      cerr_pzm_ze_bereits_offen,
+      cerr_pzm_ze_daten_invalid,
+      cerr_pzm_ze_gehen_ohne_kommen,
+      cerr_pzm_ze_tagesauswertung,
+      cerr_pzm_ze_kst_change_denied,
+      cerr_pzm_ze_employee_absent
+    );
   end;
 
+  -----------------------------------------------------------------------------------------------
+  -- NICHT AKTIV VERWENDET: Aeltere Message-/Backtrace-Aufbereitung, von keiner aktiven Routine
+  -- mehr aufgerufen (verifiziert per Referenzsuche). Vermutlich Vorlaeufer von create_p() und
+  -- log_before_raise() (das den Call-Stack heute direkt selbst per dbms_utility.format_call_stack
+  -- erfasst) - abgeloest, aber nicht entfernt. Auskommentiert statt geloescht, um die urspruengliche
+  -- Implementierung nachvollziehbar zu halten.
+  -----------------------------------------------------------------------------------------------
+  /*
   function get_backtrace return clob is
   begin
     return dbms_utility.format_error_backtrace;
@@ -47,7 +94,7 @@ package body DIRKSPZM32.PZM_P_LC is
     if p_msg is null then
       return null;
     end if;
-    
+
     if dbms_lob.getlength(p_msg) <= c_max_length then
       -- Passt komplett rein
       v_result := dbms_lob.substr(p_msg, c_max_length, 1);
@@ -55,23 +102,147 @@ package body DIRKSPZM32.PZM_P_LC is
       -- Muss abgeschnitten werden
       v_result := dbms_lob.substr(p_msg, c_max_length, 1) || ' [...]';
     end if;
-    
+
     return v_result;
   exception
     when others then
       -- Fallback bei Konvertierungsproblemen
       return 'Error message conversion failed: ' || sqlerrm;
   end;
+  */
 
-  procedure raise_app_error(
-    in_code     in pls_integer,
-    in_message  in varchar2
-  ) is
-    v_code   pls_integer := nvl(in_code, PZM_ERROR_BUCHUNG);
+  -- PRIVAT (nur Package-intern)
+  function create_p( in_p1 in varchar2
+                   , in_p2 in varchar2 default null)
+                     return varchar2
+  is 
   begin
-    RAISE_APPLICATION_ERROR(v_code, truncate_for_error(in_message), true);
+    return C_CP_TRENNER || '[' || nvl(in_p1, '') ||
+       CASE WHEN in_p2 is not null then C_PP_TRENNER || in_p2 end || 
+    ']';
+  end create_p;                   
+
+  -- PRIVAT (nur Package-intern)
+  function create_p( in_params in t_paramlist)
+                     return varchar2
+  is 
+    v_result varchar2(4000 char);
+  begin
+    if in_params is not null then
+      for i in 1 .. in_params.count loop
+        v_result := v_result || case when i > 1 then C_PP_TRENNER end || in_params(i);
+      end loop;
+    end if;
+    return C_CP_TRENNER || '[' || v_result || ']';
+  end create_p;
+
+  -----------------------------------------------------------------------------------------------
+  -- Private: einheitliches Protokollieren VOR dem eigentlichen RAISE_APPLICATION_ERROR.
+  -- Bewusst NICHT log_exception()/format_error_backtrace() - an dieser Stelle ist noch keine
+  -- Exception aktiv (SQLCODE waere hier 0). DBMS_UTILITY.FORMAT_CALL_STACK() liefert stattdessen
+  -- die aktuelle Aufrufkette bis zu dieser Stelle, unabhaengig von einer aktiven Exception.
+  -----------------------------------------------------------------------------------------------
+  -- PRIVAT (nur Package-intern)
+  procedure log_before_raise(
+    in_code            in pls_integer,
+    in_message         in varchar2,
+    in_already_logged  in boolean default false
+  ) is
+  begin
+    if not in_already_logged then
+      pzm_p_log.log_data(
+        p_level      => pzm_p_log.LEVEL_ERROR,
+        p_message    => in_message,
+        p_error_code => in_code,
+        p_stacktrace => dbms_utility.format_call_stack
+      );
+    end if;
+  end log_before_raise;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure raise_app_error(
+    in_code            in pls_integer,
+    in_message         in varchar2,
+    in_already_logged  in boolean default false
+  ) is
+    v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
+    v_message varchar2(4000 char) := substr(in_message, 1, C_MAX_ERROR_MESSAGE_LENGTH);
+  begin
+    log_before_raise(v_code, v_message, in_already_logged);
+    raise_application_error(v_code, v_message, true);
   end;
 
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure raise_app_error_p(
+      in_code            in pls_integer,
+      in_const_name      in varchar2,
+      in_p1              in varchar2,
+      in_p2              in varchar2 default null,
+      in_already_logged  in boolean default false
+    )
+  is
+    v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
+    v_message varchar2(4000 char) := substr(in_const_name || create_p(in_p1, in_p2), 1, C_MAX_ERROR_MESSAGE_LENGTH);
+  begin
+    log_before_raise(v_code, v_message, in_already_logged);
+    raise_application_error(v_code, v_message, true);
+  end raise_app_error_p;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure raise_app_error_p(
+    in_code            in pls_integer,
+    in_const_name      in varchar2,
+    in_plist           in t_paramlist,
+    in_already_logged  in boolean default false
+  ) is
+    v_code    pls_integer := nvl(in_code, cerr_PZM_BUCHUNG);
+    v_message varchar2(4000 char) := substr(in_const_name || create_p(in_plist), 1, C_MAX_ERROR_MESSAGE_LENGTH);
+  begin
+    log_before_raise(v_code, v_message, in_already_logged);
+    raise_application_error(v_code, v_message, true);
+  end raise_app_error_p;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition in boolean,
+    in_code      in pls_integer,
+    in_message   in varchar2
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error(in_code, in_message);
+    end if;
+  end assert;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition  in boolean,
+    in_code       in pls_integer,
+    in_const_name in varchar2,
+    in_p1         in varchar2,
+    in_p2         in varchar2 default null
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error_p(in_code, in_const_name, in_p1, in_p2);
+    end if;
+  end assert;
+
+  -- OEFFENTLICH (siehe Package-Spec)
+  procedure assert(
+    in_condition  in boolean,
+    in_code       in pls_integer,
+    in_const_name in varchar2,
+    in_plist      in t_paramlist
+  ) is
+  begin
+    if not in_condition then
+      raise_app_error_p(in_code, in_const_name, in_plist);
+    end if;
+  end assert;
+
+
+/*
   procedure raise_app_error_p1(
     in_code       in pls_integer,
     in_const_name in varchar2,
@@ -94,11 +265,12 @@ package body DIRKSPZM32.PZM_P_LC is
     v_msg := create_p2(in_const_name, in_p1, in_p2);
     RAISE_APPLICATION_ERROR(in_code, truncate_for_error(v_msg), true);
   end;
+*/
 
-
+/*
   procedure catch_and_rethrow(
-    in_location       in varchar2,
-    in_fallback_code  in pls_integer default pzm_error_buchung,
+    --in_location       in varchar2,
+    in_fallback_code  in pls_integer default cerr_pzm_buchung,
     in_user_message   in varchar2    default null
   ) is
     v_sqlcode   pls_integer := sqlcode;
@@ -113,11 +285,19 @@ package body DIRKSPZM32.PZM_P_LC is
       raise_app_error(v_sqlcode, v_message);
     else
       -- Systemfehler oder anderer Code: wrappen mit Fallback
+      -- Hinweis: 
+      -- -------- 
+      -- Oracle-Spezifische Meldungen werden hiermit durch einen generischen Fehler
+      -- ohne Aussagekraft ersetzt! Das kann sinnvoll sein, um komplexe technische Informationen
+      -- vor dem Anwender zu verbergen. Erschwert allerdings auch die Fehlersuche im Supportfall! 
+      -- Aufruf daher ausschließlich im Exception-Handler *NACH* pzm_p_log.log_exception()! 
       v_message := nvl(in_user_message, 'An unexpected error occurred');
       raise_app_error(in_fallback_code, v_message);
     end if;
   end;
+*/  
 
+  /*
   function create_p1(
     in_const_name in varchar2,
     in_p1 in varchar2
@@ -177,10 +357,10 @@ package body DIRKSPZM32.PZM_P_LC is
                                               || nvl(in_p4, '') || C_PP_TRENNER
                                               || nvl(in_p5, '') || ']';
   end;
-
-end;
+  */
+end pzm_p_lc;
 /
 
 
 
--- sqlcl_snapshot {"hash":"4d6fa699724e00f1ec492b251e2e879b92a2aab8","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7d60d08eab77560988b98f87cb7899bfe1919386","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}

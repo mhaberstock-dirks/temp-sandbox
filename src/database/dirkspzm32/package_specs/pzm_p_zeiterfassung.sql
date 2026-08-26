@@ -509,9 +509,14 @@ package DIRKSPZM32.PZM_P_ZEITERFASSUNG is
   /**
    * Liefert die Personalnummer des Mitarbeiters basierend auf der übergebenen RFID (Transponder-Code).
    * Gibt eine Exception zurück, wenn kein Mitarbeiter mit der angegebenen RFID gefunden wird.
+   *
+   * @param in_rfid              Transponder-Codenummer
+   * @param in_suppress_error    Unterdrückt Exception für nicht gefundenenen Eintrag wenn TRUE; Default=FALSE
+   *
    */
   function get_pers_nr_by_rfid(
     in_rfid in varchar2
+  , in_suppress_error in boolean default false  
   ) return pzm_personal.pers_nr%type;
 
   /**
@@ -551,4 +556,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"62b28415a5ac4c3cc4ae46269b46a8463a4f14e0","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6de510c95fdf0b6186db2b946252925f5fe67eea","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
