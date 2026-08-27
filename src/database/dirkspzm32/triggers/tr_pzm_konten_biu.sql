@@ -40,6 +40,7 @@ begin
     end if;
   end if;
 end;
+
 /
 ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_BIU" ENABLE;
 

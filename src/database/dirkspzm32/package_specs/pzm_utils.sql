@@ -178,10 +178,10 @@ package DIRKSPZM32.PZM_UTILS is
   procedure GENERATE_DUMMY_PZM_PERSONAL;
 
   function get_standard_schicht_by_pers_nr (in_pers_nr                in pzm_personal.pers_nr%type) 
-    return varchar2;
+    return pzm_schichtarten.sa_kurzname%type;
 
   function get_standard_schicht_by_calc_basis (in_calc_basis          in pzm_schichtarten.calc_basis%type) 
-    return varchar2;
+    return pzm_schichtarten.sa_kurzname%type;
 
   function get_feiertag_aa_id  
     return number;
@@ -217,4 +217,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"977af467f5812fd1c1ea6acdfc1da5681b109978","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2d32c7eacd664bac06bb241a01d76bd1a1b9f3f2","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

@@ -875,7 +875,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
         then
           v_schichtmodell_day_d_std :=  pzm_utils.pzm_get_sm_durch_std_tag(v_schichtmodell.sm_name);
         end if;
-        v_SAFound := get_schicht_daten(v_personal.pers_nr, v_schicht_datum, v_schicht_datum, 
+        v_DaySAKurzname := NULL;
+        v_SABeginn      := NULL;
+        v_SAEnde        := NULL;
+        v_SAStdProTag   := NULL;
+        
+        v_SAFound := get_schicht_daten(v_personal.pers_nr, nvl(in_zk_start, sysdate), v_schicht_datum, 
                                        v_DaySAKurzname, v_SABeginn, v_SAEnde, v_SAStdProTag) = 1;
         if not pzm_p_base.get_schichtart_by_uix(v_DaySAKurzname, v_schichtart)
         then
@@ -959,12 +964,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
                 then
                   zk_abgang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_gegen_konten.konto_nr,
                                    v_pzm_gegen_konten.pers_nr, get_pers_kst_id(v_pzm_gegen_konten.pers_nr), v_gutschrift_saldo, in_info,
-                                   nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                                   trunc(nvl(in_zk_start, sysdate)), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
                 end if;
 
                 zk_zugang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_konten.konto_nr,
                                  v_pzm_konten.pers_nr, get_pers_kst_id(v_pzm_konten.pers_nr), v_gutschrift_saldo, in_info,
-                                 nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                                 trunc(nvl(in_zk_start, sysdate)), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
 
               end if;
             else
@@ -1090,4 +1095,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"34d94019a582cf3b4b80be2b97baee6e3e071ecf","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3740e6dc4ac70d0715d1c67f78e7677536f39b8e","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}

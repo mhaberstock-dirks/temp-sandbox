@@ -1151,8 +1151,8 @@ package body DIRKSPZM32.PZM_UTILS is
   --
   -------------------------------------------------------------------------------------------------------------------------------
   function get_standard_schicht_by_pers_nr (in_pers_nr                in pzm_personal.pers_nr%type)
-           return varchar2 is
-    v_result varchar2(10);
+           return pzm_schichtarten.sa_kurzname%type is
+    v_result pzm_schichtarten.sa_kurzname%type;
     
     v_schichtmodell    pzm_schicht_modelle%rowtype;
     
@@ -1185,8 +1185,8 @@ package body DIRKSPZM32.PZM_UTILS is
   -------------------------------------------------------------------------------------------------------------------------------
   
   function get_standard_schicht_by_calc_basis (in_calc_basis          in pzm_schichtarten.calc_basis%type) 
-    return varchar2 is
-    v_result varchar2(10);
+    return pzm_schichtarten.sa_kurzname%type is
+    v_result pzm_schichtarten.sa_kurzname%type ;
     
     CURSOR c_Schichtarten IS
       SELECT sa.sa_kurzname
@@ -1544,4 +1544,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"972a05e1dc2c80363b3afcd856898945dff3359a","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7ddb101e2eacbc8cc4eb35b5cafc7cbe5cfa67ee","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
