@@ -1,6 +1,10 @@
 # CI/CD-Vorgehensmodell: Individuelle Entwicklungsdatenbanken und Haupt-Entwicklungsdatenbank
 
+> **Zugehörige Dokumente:** [Konsolidierung nach direkten Änderungen](konsolidierung-nach-direktaenderungen.md) (Ausnahmebehandlung bei Regelverstoß, liefert auch die Diff-Kurations-Technik für Schritt a) unten) · [Entscheidungsvorlage: SQLcl `project`-Tooling](entscheidungsvorlage-sqlcl-project-tooling.md) (warum `stage`/`release`/`deploy` hier aktuell durch einen manuellen Ablauf ersetzt werden, und welche Optionen es gibt)
+
 ## Vorgehensmodell (Zielbild)
+
+**Motivation für individuelle Entwicklungsdatenbanken:** Der Wunsch dahinter ist, den Entwicklungsprozess so natürlich wie möglich zu halten – so, wie es bei anderen Programmiersprachen Standard ist und bei uns z. B. in der .NET-/C#-Entwicklung bereits gelebt wird: Jeder Mitarbeiter arbeitet mit einer eigenen, lokal installierten Entwicklungsumgebung, unabhängig von anderen. Für Oracle-Entwicklung bedeutet das übertragen: eine eigene Entwicklungsdatenbank pro Entwickler statt eines gemeinsam genutzten Systems. Diese Motivation steht in Spannung zu dem in der [Grundsatzfrage](#grundsatzfrage-lohnen-sich-individuelle-entwicklungsdatenbanken-noch) weiter unten beschriebenen Rauschen-Problem – beide Seiten sollten beim Abwägen berücksichtigt werden.
 
 Jeder Entwickler arbeitet auf einer eigenen, individuellen Entwicklungsdatenbank (`<INDIVIDUELLE-ENTWICKLUNGSDATENBANK>`). Änderungen laufen ausschließlich über folgenden Weg:
 
@@ -15,7 +19,65 @@ Wird gegen diese Regel verstoßen, ist [Konsolidierung nach direkten Änderungen
 
 Solange die Regel eingehalten wird, können mehrere Entwickler völlig unabhängig voneinander arbeiten und mergen – Git regelt das Zusammenführen paralleler Arbeit ganz normal, dafür ist es da. Es muss **nicht** die Entwicklung serialisiert werden, sondern nur sichergestellt sein, dass niemand an der gemeinsamen Datenbank vorbei arbeitet.
 
+## Die vollständige `project`-Befehlskette (Zielbild)
+
+So sähe der Ablauf **technisch** aus, wenn `project stage`/`release`/`gen-artifact`/`deploy` durchgehend nutzbar wären – angelehnt an das offizielle [SQLcl Projects Quick Start](https://docs.oracle.com/en/database/oracle/sql-developer-command-line/26.1/sqcug/quick-start.html) (unsere SQLcl-Version), auf ein Feature statt zwei gekürzt:
+
+```mermaid
+flowchart TD
+    subgraph Quelle["Individuelle Entwicklungsdatenbank (Quelle)"]
+        A["git checkout -b FEATURE-BRANCH"] --> B["DB-Objekte anlegen/aendern<br/>CREATE / ALTER ..."]
+        B --> C["project export<br/>git add + commit"]
+        C --> D["project stage<br/>git add + commit"]
+        D --> E["git checkout main<br/>git merge FEATURE-BRANCH"]
+        E --> F["project release -version X.Y.Z<br/>git tag release-X.Y.Z"]
+        F --> G["project gen-artifact -version X.Y.Z"]
+    end
+    G -->|"artifact/name-X.Y.Z.zip"| H
+    subgraph Ziel["Haupt-Entwicklungsdatenbank / Test / Prod (Ziel)"]
+        H["conn -name ziel-verbindung"] --> I["project deploy -file artifact/...zip"]
+    end
+```
+
+**Beispiel-Befehlsfolge** (ein Feature, gekürzt gegenüber der offiziellen Anleitung):
+
+```sql
+-- Auf der individuellen Entwicklungsdatenbank:
+!git checkout -b <FEATURE-BRANCH>
+
+create table dept (...);
+alter table emp add email varchar2(255);
+
+project export
+!git add --all
+!git commit -m "<TICKET>: DB-Aenderungen exportiert"
+
+project stage
+!git add --all
+!git commit -m "<TICKET>: dist-Changesets"
+
+!git checkout main
+!git merge <FEATURE-BRANCH>
+
+project release -version 1.0.0
+!git add --all
+!git commit -m "release 1.0.0"
+!git tag release-1.0.0
+
+project gen-artifact -version 1.0.0
+
+-- Auf der Zieldatenbank:
+conn -name <ziel-verbindung>
+project deploy -file artifact/<projektname>-1.0.0.zip
+```
+
+Zwei Details, die leicht übersehen werden: `project export` und `project stage` erzeugen jeweils **eigene, separate Commits** (nicht nur einen gemeinsamen). Und `project deploy` bekommt kein Live-Changelog übergeben, sondern eine über `gen-artifact` erzeugte, portable ZIP-Datei – daher das `artifact/`-Verzeichnis, das in unserem Repository schon existiert.
+
+**Aktueller Stand bei uns:** Dieser Ablauf funktioniert derzeit **nicht durchgehend** – `project stage` erzeugt bei unserer Konfiguration (`generatedFormat: "sql"`, bewusst gewählt) keine Ausgabe unter `dist/` (siehe [Entscheidungsvorlage](entscheidungsvorlage-sqlcl-project-tooling.md), Anhang Punkt 4, samt Verweis auf ein bekanntes Oracle-Forum-Problem). Solange das nicht geklärt ist, ersetzen wir die Schritte `project stage` bis `project deploy` durch den manuellen Ablauf im nächsten Abschnitt – der zusätzlich das Prinzip erfüllt, im Fehlerfall nicht ausschließlich auf ein Tool angewiesen zu sein.
+
 ## Normaler Ablauf pro Feature
+
+**So setzen wir das Zielbild aktuell praktisch um**, mit manuellem Ersatz für `stage`/`release`/`gen-artifact`/`deploy`: Schritte a)–b) unten entsprechen `project export`, Schritt c) dem optionalen Zwischenstand-Abgleich, Schritt d) dem Merge nach `main` (ersetzt `release`), Schritt e) ersetzt `gen-artifact` + `deploy` durch manuelles, gezieltes Einspielen.
 
 Zwei Anliegen werden hier bewusst getrennt gehalten, die sich leicht vermischen lassen, aber unabhängig voneinander sind:
 - **Feature-Entwicklung** (dein eigentlicher Code) – läuft über den Feature-Branch.
@@ -38,6 +100,8 @@ git pull GitHub-Origin main
 - **Bei geänderten (nicht neuen) Tabellen:** kein `CREATE TABLE` blind drüberlaufen lassen – Oracle kennt kein `CREATE OR REPLACE` für Tabellen. Erst die Struktur-Differenz prüfen, dann gezielte `ALTER TABLE`-Statements schreiben.
 - Neue Tabellen, neue Views, neue/geänderte Trigger sind mit `CREATE (OR REPLACE)` unkritisch.
 - Danach verifizieren: `project export` wiederholen, gegen `main` diffen – sollte jetzt konvergieren.
+
+> **Unerprobter Diskussionsansatz, noch nicht Teil des empfohlenen Vorgehens:** Denkbar wäre, den Export-und-Diff-Schritt hier künftig ganz auszulassen und stattdessen – wie bei Schritt e) für die Haupt-Entwicklungsdatenbank – die aus Git bekannte Änderungsliste direkt vorwärts einzuspielen, ohne vorherigen Live-Abgleich. Das würde das Rauschen-Problem an dieser Stelle vermutlich vermeiden. Der Ansatz **funktioniert aber nur, wenn die individuelle Entwicklungsdatenbank ausschließlich über diesen Weg verändert wird** – keine vergessenen Ad-hoc-Änderungen, kein Abweichen vom Workflow durch irgendeinen Entwickler. Bricht auch nur einer diese Disziplin einmal, kommt der volle Verifikationsaufwand für den betroffenen Fall wieder ins Spiel – und zwar unbemerkt, bis er auffällt. Ob sich das dauerhaft und zuverlässig durchhalten lässt, ist offen; bis das erprobt ist, bleibt der oben beschriebene, geprüfte Export-und-Diff-Ablauf das empfohlene Vorgehen.
 
 Diesen Schritt bei Bedarf wiederholen (zu Beginn eines Features, und immer wenn `main` währenddessen relevant fortgeschritten ist).
 
