@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_PERS_FEIERTAGE" ("PERS_NR", "PERS_REGION_CODE", "F_DATUM", "F_NAME", "F_NAME_EN", "F_SONDER_FEIERTAG", "F_COUNTRY", "F_REGION_CODES_CSV") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_PERS_FEIERTAGE" ("PERS_NR", "PERS_REGION_CODE", "F_DATUM", "F_NAME", "F_NAME_EN", "F_SONDER_FEIERTAG", "F_COUNTRY", "F_REGION_CODES_CSV") AS 
   select v.pers_nr,
        v.pers_region_code,
        f.f_datum,
@@ -18,4 +18,4 @@
        );
 
 
--- sqlcl_snapshot {"hash":"de7cb414f32584b37e4173cd0a300a974091c224","type":"VIEW","name":"PZM_V_PERS_FEIERTAGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a26e84ede9e827c94c644bb4b7250b8d585b1afe","type":"VIEW","name":"PZM_V_PERS_FEIERTAGE","schemaName":"DIRKSPZM32","sxml":""}

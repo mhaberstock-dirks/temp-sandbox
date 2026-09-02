@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.C_PPS_OPT_GRP_INSERT is
+procedure C_PPS_OPT_GRP_INSERT is
 
   v_found               boolean;
   v_auftr_pos           s_rcv_kunden_auftr_pos%rowtype;
@@ -172,4 +172,4 @@ end C_PPS_OPT_GRP_INSERT;
 
 
 
--- sqlcl_snapshot {"hash":"19740dfb54676707300b411fc9333f864f880efc","type":"PROCEDURE","name":"C_PPS_OPT_GRP_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d3c7714c0edff54ff48ee7dcb35d098a91183e3b","type":"PROCEDURE","name":"C_PPS_OPT_GRP_INSERT","schemaName":"DIRKSPZM32","sxml":""}

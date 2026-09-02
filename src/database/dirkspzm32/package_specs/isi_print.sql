@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.ISI_PRINT is
+package ISI_PRINT is
 
   /*
   __________________________________________________
@@ -64,4 +64,4 @@ end isi_print;
 
 
 
--- sqlcl_snapshot {"hash":"506566367f3a3099304db66bdb6abde1759a54ca","type":"PACKAGE_SPEC","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3ef68e670689ed7221d1d4d541d8e7bf6f682e75","type":"PACKAGE_SPEC","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}

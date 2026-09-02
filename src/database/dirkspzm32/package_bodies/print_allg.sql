@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PRINT_ALLG is
+package body PRINT_ALLG is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -107,4 +107,4 @@ end PRINT_ALLG;
 
 
 
--- sqlcl_snapshot {"hash":"08e88c61afede00a1af99fc1f0f75272780346f2","type":"PACKAGE_BODY","name":"PRINT_ALLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6365921e974573ee8209ae8565114696b849cf5e","type":"PACKAGE_BODY","name":"PRINT_ALLG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."Z_PZM_PBI_KOSTENSTELLENSPLIT" ("BU_ID", "BU_NAME", "LNR", "FIRMA", "PERSONALNUMMER", "VORNAME", "NACHNAME", "DATUM", "KOSTENSTELLE", "WERTART", "WERT", "ABTEILUNG", "LAST_CHANGE_DATE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "Z_PZM_PBI_KOSTENSTELLENSPLIT" ("BU_ID", "BU_NAME", "LNR", "FIRMA", "PERSONALNUMMER", "VORNAME", "NACHNAME", "DATUM", "KOSTENSTELLE", "WERTART", "WERT", "ABTEILUNG", "LAST_CHANGE_DATE") AS 
   select   b.bu_id,
          b.bu_name,
          substr(p.pers_nr ||
@@ -76,8 +76,7 @@ group by b.bu_id,
          ze.ze_schicht_tag,
          ze.ze_kst_id,
          aa.aa_name,
-         a.abt_name
-;
+         a.abt_name;
 
 
--- sqlcl_snapshot {"hash":"58f39c473401de9b65366d21e1234fea4c53387a","type":"VIEW","name":"Z_PZM_PBI_KOSTENSTELLENSPLIT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6e6b46d49ebd53625b0a5aa6ba503eed0caf1779","type":"VIEW","name":"Z_PZM_PBI_KOSTENSTELLENSPLIT","schemaName":"DIRKSPZM32","sxml":""}

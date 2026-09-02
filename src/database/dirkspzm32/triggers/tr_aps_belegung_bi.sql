@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_APS_BELEGUNG_BI" 
-  before insert on DIRKSPZM32.aps_belegung
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_APS_BELEGUNG_BI" 
+  before insert on aps_belegung
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -44,8 +44,9 @@ exception
       end if;
 end TR_BDE_FA_AUFTRAG_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_APS_BELEGUNG_BI" ENABLE;
+ALTER TRIGGER "TR_APS_BELEGUNG_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"cc828e31e574ee1ece2526ba51e6bde9f096435b","type":"TRIGGER","name":"TR_APS_BELEGUNG_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0f89d886391ddf05e9ee278ceeafabed54d0c012","type":"TRIGGER","name":"TR_APS_BELEGUNG_BI","schemaName":"DIRKSPZM32","sxml":""}

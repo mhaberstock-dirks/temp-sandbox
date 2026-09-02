@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_ADR_BIU" 
-  before insert or update or delete on DIRKSPZM32.S_ERP_RCV_ADR
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_ADR_BIU" 
+  before insert or update or delete on S_ERP_RCV_ADR
   for each row
 declare
   v_found             boolean;
@@ -321,8 +321,9 @@ begin
   end if;
 end TR_S_ERP_RCV_ADR;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_ADR_BIU" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_ADR_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"01dd3abd8cb5092b7592015c4568e5af5bc03ee5","type":"TRIGGER","name":"TR_S_ERP_RCV_ADR_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a0341ef79be41123200d4c9e2ac63de4a3f209d6","type":"TRIGGER","name":"TR_S_ERP_RCV_ADR_BIU","schemaName":"DIRKSPZM32","sxml":""}

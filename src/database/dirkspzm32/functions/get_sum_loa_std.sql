@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_SUM_LOA_STD(p_pers_nr in number, p_datum in date, p_lohnart in varchar2) return number is
+function GET_SUM_LOA_STD(p_pers_nr in number, p_datum in date, p_lohnart in varchar2) return number is
   Result number;
   CURSOR c_SumLOAStd IS
     SELECT zeaw_lz_loa_std
@@ -23,4 +23,4 @@ end GET_SUM_LOA_STD;
 
 
 
--- sqlcl_snapshot {"hash":"66bec0fc538e355c54d761e15b9f3da42ad5b691","type":"FUNCTION","name":"GET_SUM_LOA_STD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8ecce917e22e6206be2568343dcb2cb80b15281f","type":"FUNCTION","name":"GET_SUM_LOA_STD","schemaName":"DIRKSPZM32","sxml":""}

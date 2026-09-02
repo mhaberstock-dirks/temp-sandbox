@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_TOR_CFG_BUID" 
-  before insert or update or delete on DIRKSPZM32.isi_tor_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_TOR_CFG_BUID" 
+  before insert or update or delete on isi_tor_cfg
   for each row
 declare
   -- local variables here
@@ -43,8 +43,9 @@ begin
   end if;
 end TR_ISI_TOR_CFG_BUID;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_TOR_CFG_BUID" ENABLE;
+ALTER TRIGGER "TR_ISI_TOR_CFG_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4c9778014da7d33c2745edb47fa1a8ec999fdbdb","type":"TRIGGER","name":"TR_ISI_TOR_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9b38c9da1cacc573b3c0154c0d9ed347df46f082","type":"TRIGGER","name":"TR_ISI_TOR_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}

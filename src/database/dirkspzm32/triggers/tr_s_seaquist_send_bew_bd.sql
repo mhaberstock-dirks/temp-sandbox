@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_SEAQUIST_SEND_BEW_BD" 
-  after delete on DIRKSPZM32.S_SeaQuist_SEND_BEW
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_SEAQUIST_SEND_BEW_BD" 
+  after delete on S_SeaQuist_SEND_BEW
   for each row
 declare
 begin
@@ -11,8 +11,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_SEAQUIST_SEND_BEW_BD" ENABLE;
+ALTER TRIGGER "TR_S_SEAQUIST_SEND_BEW_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c851526122ec67d453fe118708bfa54835889b37","type":"TRIGGER","name":"TR_S_SEAQUIST_SEND_BEW_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b393fbc4f8e73b970e13c0d7126aeb9020760e8d","type":"TRIGGER","name":"TR_S_SEAQUIST_SEND_BEW_BD","schemaName":"DIRKSPZM32","sxml":""}

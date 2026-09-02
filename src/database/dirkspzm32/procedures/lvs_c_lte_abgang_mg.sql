@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.lvs_c_lte_abgang_mg(in_sid in isi_sid.sid%type,
+procedure lvs_c_lte_abgang_mg(in_sid in isi_sid.sid%type,
                                               in_firma_nr   in isi_firma.firma_nr%type,
                                               in_lte_id     in lvs_lte.lte_id%type,
                                               in_user_id    in isi_user.login_id%type,
@@ -56,4 +56,4 @@ end lvs_c_lte_abgang_mg;
 
 
 
--- sqlcl_snapshot {"hash":"fa8b871ec33416d6f9319ecf7eb3570a8cbf88e9","type":"PROCEDURE","name":"LVS_C_LTE_ABGANG_MG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"337666f879b451ee1d8ca04135a400de41ac92ca","type":"PROCEDURE","name":"LVS_C_LTE_ABGANG_MG","schemaName":"DIRKSPZM32","sxml":""}

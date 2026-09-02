@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_CFG_BIU" 
-  before insert or update on DIRKSPZM32.PZM_KONTEN_CFG
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_KONTEN_CFG_BIU" 
+  before insert or update on PZM_KONTEN_CFG
   for each row
 declare
 
@@ -100,9 +100,8 @@ begin
 
   end if;
 end;
-
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_CFG_BIU" ENABLE;
+ALTER TRIGGER "TR_PZM_KONTEN_CFG_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d4905e9db130e56ae23b1d04f35880fd30225178","type":"TRIGGER","name":"TR_PZM_KONTEN_CFG_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"49143a497f9769ae98ebf78ef01d26591cb8615e","type":"TRIGGER","name":"TR_PZM_KONTEN_CFG_BIU","schemaName":"DIRKSPZM32","sxml":""}

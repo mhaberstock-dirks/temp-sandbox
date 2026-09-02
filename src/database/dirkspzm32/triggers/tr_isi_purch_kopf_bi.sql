@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_PURCH_KOPF_BI" 
-  before insert on DIRKSPZM32.isi_purch_kopf
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_PURCH_KOPF_BI" 
+  before insert on isi_purch_kopf
   for each row
 declare
   v_id        isi_purch_kopf.id%Type;
@@ -20,8 +20,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_PURCH_KOPF_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_PURCH_KOPF_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c274e872f6c3e89069c1727c53d5e02864970115","type":"TRIGGER","name":"TR_ISI_PURCH_KOPF_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"443defa2fe6b978ee28ea1e7a2b0b86021d54016","type":"TRIGGER","name":"TR_ISI_PURCH_KOPF_BI","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_p_ag_e
+procedure bde_pd_prod_p_ag_e
 /*
 In dieser Procedure wird Produktion Auftrag Ende gebucht
 
@@ -460,4 +460,4 @@ end bde_pd_prod_p_ag_e;
 
 
 
--- sqlcl_snapshot {"hash":"92b34da88ef594e9f109ed768e3ce16f48ef9a4f","type":"PROCEDURE","name":"BDE_PD_PROD_P_AG_E","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1e67271a2834b73101c6507c73745bb7bcbe2b2d","type":"PROCEDURE","name":"BDE_PD_PROD_P_AG_E","schemaName":"DIRKSPZM32","sxml":""}

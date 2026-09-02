@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_beg_schicht(p_pers_nr in number, p_datum in date) return date is
+function get_beg_schicht(p_pers_nr in number, p_datum in date) return date is
   Result date;
 
   CURSOR c_ZE_Begin IS
@@ -62,4 +62,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f92fdb4ca0e9eba7102c3ac0600fbd0008358b4e","type":"FUNCTION","name":"GET_BEG_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"968b955725e25147ac8f76703e6c175e8237a518","type":"FUNCTION","name":"GET_BEG_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}

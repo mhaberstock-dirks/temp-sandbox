@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_LEISTUNG_CFG_BI" 
-  before insert on DIRKSPZM32.isi_res_leistung_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_LEISTUNG_CFG_BI" 
+  before insert on isi_res_leistung_cfg
   for each row
 declare
   -- local variables here
@@ -11,8 +11,9 @@ begin
   end if;
 end TR_isi_res_leistung_cfg_BI;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_LEISTUNG_CFG_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_LEISTUNG_CFG_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a7308b0c2fc1cfb046241945fc07a1abc83b9b4e","type":"TRIGGER","name":"TR_ISI_RES_LEISTUNG_CFG_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c5f6a16699ff57695d5561d3c5221524244b1197","type":"TRIGGER","name":"TR_ISI_RES_LEISTUNG_CFG_BI","schemaName":"DIRKSPZM32","sxml":""}

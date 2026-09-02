@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.S_SCHNITTSTELLE is
+package body S_SCHNITTSTELLE is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -4376,4 +4376,4 @@ end S_SCHNITTSTELLE;
 
 
 
--- sqlcl_snapshot {"hash":"0b1f0fd4bf03bf79f3849c8b84adc37c6c4444a5","type":"PACKAGE_BODY","name":"S_SCHNITTSTELLE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0e4322950db4bf10263763005fabb824408214f8","type":"PACKAGE_BODY","name":"S_SCHNITTSTELLE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_MFR_AUFTR_BI" 
-  before insert or update on DIRKSPZM32.s_mfr_rcv_auftr
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_MFR_AUFTR_BI" 
+  before insert or update on s_mfr_rcv_auftr
   for each row
 declare
 
@@ -15,8 +15,9 @@ begin
 
 end TR_S_DIAF_RCV_AUFTR_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_MFR_AUFTR_BI" ENABLE;
+ALTER TRIGGER "TR_S_MFR_AUFTR_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"2aada75c14cb504a9030d21e464bd7fcbf94ccbd","type":"TRIGGER","name":"TR_S_MFR_AUFTR_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b6639e354e2017bdcf75fbdca2f7e3d857e65b28","type":"TRIGGER","name":"TR_S_MFR_AUFTR_BI","schemaName":"DIRKSPZM32","sxml":""}

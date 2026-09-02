@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_EINL is
+package body LVS_EINL is
   /*
   __________________________________________________
   Author
@@ -2088,4 +2088,4 @@ end LVS_EINL;
 
 
 
--- sqlcl_snapshot {"hash":"f8dff8239c344db53e801f5c3f6f6841824b7b62","type":"PACKAGE_BODY","name":"LVS_EINL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4f48415234a414e688066c3ba056d354eccc19f3","type":"PACKAGE_BODY","name":"LVS_EINL","schemaName":"DIRKSPZM32","sxml":""}

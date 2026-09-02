@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_LTE_RCV_BI" 
-  before insert on DIRKSPZM32.S_QS_BABTEC_LTE_RCV
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_QS_BABTEC_LTE_RCV_BI" 
+  before insert on S_QS_BABTEC_LTE_RCV
   for each row
 declare
   v_lam         lvs_lam%rowtype;
@@ -32,8 +32,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_LTE_RCV_BI" ENABLE;
+ALTER TRIGGER "TR_S_QS_BABTEC_LTE_RCV_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"cd2909a08410cbac0f31e89d00418c52cf0d9fd2","type":"TRIGGER","name":"TR_S_QS_BABTEC_LTE_RCV_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"17f31cd1b4012ae3d0e547c6b87a9f7c7864603a","type":"TRIGGER","name":"TR_S_QS_BABTEC_LTE_RCV_BI","schemaName":"DIRKSPZM32","sxml":""}

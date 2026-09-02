@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.tms_p_utils is
+package tms_p_utils is
 
   /*
   __________________________________________________
@@ -45,4 +45,4 @@ end tms_p_utils;
 
 
 
--- sqlcl_snapshot {"hash":"9f1e796460c34888152f62d677b8a6d86b76c5ed","type":"PACKAGE_SPEC","name":"TMS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"acc48fe145d8c479823030536a7aed4ce0a9ce4d","type":"PACKAGE_SPEC","name":"TMS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_TS_SCHEDULE_CFG_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ts_schedule_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_TS_SCHEDULE_CFG_BIUD" 
+  before insert or update or delete on ts_schedule_cfg
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end tr_ts_schedule_cfg_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_TS_SCHEDULE_CFG_BIUD" ENABLE;
+ALTER TRIGGER "TR_TS_SCHEDULE_CFG_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"396448f0e0115a88691b7d687f2f40b6fdb3bd53","type":"TRIGGER","name":"TR_TS_SCHEDULE_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36e23e356ec12e5393a3902de30fb9c6e857016f","type":"TRIGGER","name":"TR_TS_SCHEDULE_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}

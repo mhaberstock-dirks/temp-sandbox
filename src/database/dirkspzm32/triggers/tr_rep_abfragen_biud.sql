@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.rep_abfragen
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_REP_ABFRAGEN_BIUD" 
+  before insert or update or delete on rep_abfragen
   for each row
 declare
   -- local variables here
@@ -42,8 +42,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_REP_ABFRAGEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e5c9feabc4a8c2e52e462b8275f0411aab39644a","type":"TRIGGER","name":"TR_REP_ABFRAGEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6b07ceecbf68f3205fcf2b7976384906384d3ab7","type":"TRIGGER","name":"TR_REP_ABFRAGEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

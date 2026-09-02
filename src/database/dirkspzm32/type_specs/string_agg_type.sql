@@ -1,5 +1,5 @@
 create or replace 
-TYPE DIRKSPZM32."STRING_AGG_TYPE" as object
+TYPE "STRING_AGG_TYPE" as object
 (
    total varchar2(4000),
    def_delimiter varchar2(1),
@@ -27,4 +27,4 @@ TYPE DIRKSPZM32."STRING_AGG_TYPE" as object
 /
 
 
--- sqlcl_snapshot {"hash":"68372a39b57acd8a4ba3bc2749018c9ae3656171","type":"TYPE_SPEC","name":"STRING_AGG_TYPE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"198041cbcb7d12ed5e05a4183b996e6c8a60edb7","type":"TYPE_SPEC","name":"STRING_AGG_TYPE","schemaName":"DIRKSPZM32","sxml":""}

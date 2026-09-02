@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.fls_p_base is
+package fls_p_base is
 
   /*
   __________________________________________________
@@ -29,4 +29,4 @@ end fls_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"ec7eb3cb20f2d87695df5c651e3d9cdbb65e873d","type":"PACKAGE_SPEC","name":"FLS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4c32f66cc7f5bb0efa07e7e709ff0d54bfead15e","type":"PACKAGE_SPEC","name":"FLS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

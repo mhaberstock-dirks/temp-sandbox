@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.ISI_VISU_DEFAULT_GENERATE(in_lgr_ort in lvs_lgr_ort.lgr_ort%type default NULL,
+procedure ISI_VISU_DEFAULT_GENERATE(in_lgr_ort in lvs_lgr_ort.lgr_ort%type default NULL,
                                                       out_info   out varchar2) is
   -- MWe 20181018
   -- Diese Procedure generiert ent weder für den gewählten Lagerort die Lagervisualisierung
@@ -225,4 +225,4 @@ end ISI_VISU_DEFAULT_GENERATE;
 
 
 
--- sqlcl_snapshot {"hash":"b50210747d3054051b39b50e064a3b4f4aa538da","type":"PROCEDURE","name":"ISI_VISU_DEFAULT_GENERATE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0849349e7029b55f37a0d22631bf70391259a09a","type":"PROCEDURE","name":"ISI_VISU_DEFAULT_GENERATE","schemaName":"DIRKSPZM32","sxml":""}

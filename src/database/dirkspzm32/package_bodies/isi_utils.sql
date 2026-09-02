@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_utils is
+package body isi_utils is
 
   function max_number(in_a in number, in_b in number) return number is
     v_max_number number;
@@ -779,4 +779,4 @@ end isi_utils;
 
 
 
--- sqlcl_snapshot {"hash":"56aaf3c95ceba40108a485d08e5fe256dad1106f","type":"PACKAGE_BODY","name":"ISI_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2007f598c8d54b227d6f65d96643c074c512d9cb","type":"PACKAGE_BODY","name":"ISI_UTILS","schemaName":"DIRKSPZM32","sxml":""}

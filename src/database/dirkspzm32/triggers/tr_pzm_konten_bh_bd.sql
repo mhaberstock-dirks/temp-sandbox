@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_BH_BD" 
-  before delete on DIRKSPZM32.pzm_konten_bh
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_KONTEN_BH_BD" 
+  before delete on pzm_konten_bh
   for each row
 declare
   -- Lokale Variablen
@@ -70,8 +70,9 @@ begin
 
 end tr_pzm_konten_bh_bd;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_BH_BD" ENABLE;
+ALTER TRIGGER "TR_PZM_KONTEN_BH_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"5dd29864d06c1cfb146960a27d841e1e88a315d7","type":"TRIGGER","name":"TR_PZM_KONTEN_BH_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cce5341335294df3df611cd234b17ef34599a08b","type":"TRIGGER","name":"TR_PZM_KONTEN_BH_BD","schemaName":"DIRKSPZM32","sxml":""}

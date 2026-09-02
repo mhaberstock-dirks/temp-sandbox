@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_TAGESSATZ_BUI" 
-  before insert or update on DIRKSPZM32.pzm_ze_tagessatz
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_TAGESSATZ_BUI" 
+  before insert or update on pzm_ze_tagessatz
   for each row
 declare
   -- local variables here
@@ -175,8 +175,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_TAGESSATZ_BUI" ENABLE;
+ALTER TRIGGER "TR_TAGESSATZ_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"34efc054cf624cab5d60fe0e8ebc0b62ab69ec47","type":"TRIGGER","name":"TR_TAGESSATZ_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d2a269923ce1891fe8d130d356d2f8d388daa856","type":"TRIGGER","name":"TR_TAGESSATZ_BUI","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.security is
+package security is
 
   /*
   __________________________________________________
@@ -142,4 +142,4 @@ end security;
 
 
 
--- sqlcl_snapshot {"hash":"ee69272287a440d260f7b0cd6994cbc47d829d41","type":"PACKAGE_SPEC","name":"SECURITY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"80bbfbf99e41e8bc3e66b38c8300d194d80f12e6","type":"PACKAGE_SPEC","name":"SECURITY","schemaName":"DIRKSPZM32","sxml":""}

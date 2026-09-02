@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ARBEITSPLATZ_BI" 
-  before insert on DIRKSPZM32.isi_arbeitsplatz
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ARBEITSPLATZ_BI" 
+  before insert on isi_arbeitsplatz
   for each row
 declare
 
@@ -23,8 +23,9 @@ begin
       from isi_arbeitsplatz_param;
 end tr_isi_arbeitsplatz_bi;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ARBEITSPLATZ_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_ARBEITSPLATZ_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"8822aa51eb6db535c40c608d7bd238674257bffb","type":"TRIGGER","name":"TR_ISI_ARBEITSPLATZ_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"67acccab466570d8330d0e712191a178ed03b580","type":"TRIGGER","name":"TR_ISI_ARBEITSPLATZ_BI","schemaName":"DIRKSPZM32","sxml":""}

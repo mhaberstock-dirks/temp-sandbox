@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_PROD_LINIE_BUID" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_PROD_LINIE_BUID" 
   before insert or update or delete on lvs_prod_linie
   for each row
 declare
@@ -107,8 +107,9 @@ begin
   end if; -- if inserting or updating
 end tr_lvs_prod_linie_buid;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_PROD_LINIE_BUID" ENABLE;
+ALTER TRIGGER "TR_LVS_PROD_LINIE_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f3f25e8b52b444ca03e5781d5ec2043ccd65353f","type":"TRIGGER","name":"TR_LVS_PROD_LINIE_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"77a09b7789c9a6bceed86567ef5ba363ce4d41e5","type":"TRIGGER","name":"TR_LVS_PROD_LINIE_BUID","schemaName":"DIRKSPZM32","sxml":""}

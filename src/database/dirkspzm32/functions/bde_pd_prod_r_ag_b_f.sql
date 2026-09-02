@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pd_prod_r_ag_b_f
+function bde_pd_prod_r_ag_b_f
 /*
 Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Produktionsgruppe zum Rüsten an. 
 --------------------------------------------------------------------------------------------------------------------
@@ -479,4 +479,4 @@ end bde_pd_prod_r_ag_b_f;
 
 
 
--- sqlcl_snapshot {"hash":"d87d98c8f36b691ba2405bdb75a95a8cf436db0e","type":"FUNCTION","name":"BDE_PD_PROD_R_AG_B_F","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"67a468c7fd9f72a4efbef4dcd44fa7c8c6f14a3a","type":"FUNCTION","name":"BDE_PD_PROD_R_AG_B_F","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_ART_KD_BIU" 
-  before insert or update or delete on DIRKSPZM32.S_ERP_RCV_ART_KD
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_ART_KD_BIU" 
+  before insert or update or delete on S_ERP_RCV_ART_KD
   for each row
 declare
   -- local variables here
@@ -77,8 +77,9 @@ begin
 
 end tr_s_ERP_rcv_art_kd_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_ART_KD_BIU" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_ART_KD_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"21834b63a9f94752af0fd00e04d2265ec7c1d00d","type":"TRIGGER","name":"TR_S_ERP_RCV_ART_KD_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"97840f38c2ffc339f32328c2d7dc35a7e6873810","type":"TRIGGER","name":"TR_S_ERP_RCV_ART_KD_BIU","schemaName":"DIRKSPZM32","sxml":""}

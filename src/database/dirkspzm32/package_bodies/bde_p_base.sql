@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_p_base is
+package body bde_p_base is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehlerhandling für Exceptions
@@ -970,4 +970,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"20bb350c86b96da99d63cc743578a9c7ea94f0d2","type":"PACKAGE_BODY","name":"BDE_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5282f64fac69c5110f84e3814fb9f1e3469d5eb1","type":"PACKAGE_BODY","name":"BDE_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_GET_ASSIGNED_PB" ("PERS_NR", "PB_ID", "PB_NAME", "RESP_ZWEIG") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_GET_ASSIGNED_PB" ("PERS_NR", "PB_ID", "PB_NAME", "RESP_ZWEIG") AS 
   with h as
 (  -- Abteilungs-Hierarchie
    select root.abt_id   as root_abt_id
@@ -38,8 +38,7 @@ select distinct rp.pers_nr, pb.pb_id, 'PB' as zweig
 select v.pers_nr, v.pb_id, p.pb_name, stradd_distinct(v.zweig) resp_zweig
  from v left join pzm_produktionsbereiche p on p.pb_id=v.pb_id
 group by v.pers_nr, v.pb_id, p.pb_name
-order by pb_id
-;
+order by pb_id;
 
 
--- sqlcl_snapshot {"hash":"071bd40d6e95b29d8f00c950fbad81a25f528db9","type":"VIEW","name":"PZM_V_GET_ASSIGNED_PB","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2db3182d695ebb0f97a60c2780c3f5955f3e14e8","type":"VIEW","name":"PZM_V_GET_ASSIGNED_PB","schemaName":"DIRKSPZM32","sxml":""}

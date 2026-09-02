@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_TRANPORT_ZIEL_PRUEFEN" ("RES_NAME_LIST", "ANZ_TRANSPORTE", "MAX_TRANSPORTE", "MAX_BELEGUNG") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_TRANPORT_ZIEL_PRUEFEN" ("RES_NAME_LIST", "ANZ_TRANSPORTE", "MAX_TRANSPORTE", "MAX_BELEGUNG") AS 
   select r.res_name || ';' ||
        (select stradd_distinct(rl.res_name)
           from isi_resource rl
@@ -30,4 +30,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"fa2767174c941b68ebbb95ab2ef609cae64e0330","type":"VIEW","name":"LVS_TRANPORT_ZIEL_PRUEFEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ed0169800c596e03f8d60f6a8a784d9ecf7e792d","type":"VIEW","name":"LVS_TRANPORT_ZIEL_PRUEFEN","schemaName":"DIRKSPZM32","sxml":""}

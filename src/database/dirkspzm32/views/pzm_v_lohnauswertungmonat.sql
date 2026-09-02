@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_LOHNAUSWERTUNGMONAT" ("EmployeeId", "ShiftDay", "CostCenterId", "ShiftShortName", "DayAbsenceTypeId", "ExpectedWorkingHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayWorkingHours", "AbsenceHours", "DayOnSiteHours", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "DayTotalWorkingHours", "ExpectedWorkingHoursDiff") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_LOHNAUSWERTUNGMONAT" ("EmployeeId", "ShiftDay", "CostCenterId", "ShiftShortName", "DayAbsenceTypeId", "ExpectedWorkingHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayWorkingHours", "AbsenceHours", "DayOnSiteHours", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "DayTotalWorkingHours", "ExpectedWorkingHoursDiff") AS 
   WITH a as (select
     ts.ts_pers_nr                                                 pers_nr,
     ts.ts_datum,
@@ -150,4 +150,4 @@ select a.pers_nr             as "EmployeeId"                        --
  order by a.ts_datum;
 
 
--- sqlcl_snapshot {"hash":"770cb39843dd6ca5d2126d22e680ba6e6ebd8c0a","type":"VIEW","name":"PZM_V_LOHNAUSWERTUNGMONAT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cd85dd06fcc635c7505c6aff38ff0b75599e6dfd","type":"VIEW","name":"PZM_V_LOHNAUSWERTUNGMONAT","schemaName":"DIRKSPZM32","sxml":""}

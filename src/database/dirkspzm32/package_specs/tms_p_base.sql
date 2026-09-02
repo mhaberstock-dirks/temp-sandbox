@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.tms_p_base is
+package tms_p_base is
 
   /*
   __________________________________________________
@@ -74,4 +74,4 @@ end tms_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"9c1f1a557838d60f6aa4250186a54d798713e8c9","type":"PACKAGE_SPEC","name":"TMS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"285d25d749d7567b25f317dabe6fc94f4890c4eb","type":"PACKAGE_SPEC","name":"TMS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

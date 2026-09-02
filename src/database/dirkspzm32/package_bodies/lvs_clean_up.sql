@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_CLEAN_UP is
+package body LVS_CLEAN_UP is
   -- Functionsbibliothek um Fehler bei LVS_LGR Disponierungen, Beständen, Transporten zu bereinigen
 
 
@@ -387,4 +387,4 @@ end LVS_CLEAN_UP;
 
 
 
--- sqlcl_snapshot {"hash":"9a74c548a2c79df9fd3dacbf78de0a3971f2dc83","type":"PACKAGE_BODY","name":"LVS_CLEAN_UP","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"333f6644f0fc76e1d36dde1fc4a29090bce3c8c3","type":"PACKAGE_BODY","name":"LVS_CLEAN_UP","schemaName":"DIRKSPZM32","sxml":""}

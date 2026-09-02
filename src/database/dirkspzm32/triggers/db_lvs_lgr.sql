@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."DB_LVS_LGR" 
-  after insert or update or delete on DIRKSPZM32.LVS_LGR
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DB_LVS_LGR" 
+  after insert or update or delete on LVS_LGR
   for each row
 declare
   -- local variables here
@@ -48,8 +48,9 @@ begin
 
 end db_lvs_lgr;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."DB_LVS_LGR" ENABLE;
+ALTER TRIGGER "DB_LVS_LGR" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"37db71303f1dc7c18cc66a62a9d7b53a42a1744a","type":"TRIGGER","name":"DB_LVS_LGR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4878379fa50a46292e2c77c4d60a760b2fefaf13","type":"TRIGGER","name":"DB_LVS_LGR","schemaName":"DIRKSPZM32","sxml":""}

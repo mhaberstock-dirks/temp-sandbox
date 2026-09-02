@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_REP_SQL_PARAMETER_BIUD" 
-  before insert or update or delete on DIRKSPZM32.rep_sql_parameter
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_REP_SQL_PARAMETER_BIUD" 
+  before insert or update or delete on rep_sql_parameter
   for each row
 declare
   -- local variables here
@@ -22,8 +22,9 @@ begin
   end if;
 end TR_REP_SQL_PARAMETER_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_REP_SQL_PARAMETER_BIUD" ENABLE;
+ALTER TRIGGER "TR_REP_SQL_PARAMETER_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4eaf4bb105127ab412584b3bc7c4bef981acf635","type":"TRIGGER","name":"TR_REP_SQL_PARAMETER_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"42e3a4bd1d5b02f290e0cb8f63d1ba91c7fec45b","type":"TRIGGER","name":"TR_REP_SQL_PARAMETER_BIUD","schemaName":"DIRKSPZM32","sxml":""}

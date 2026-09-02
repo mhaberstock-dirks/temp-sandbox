@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.MAN_UPDATE_PERS_ZE_R55_2(
+procedure MAN_UPDATE_PERS_ZE_R55_2(
   in_ze_id          in  number,
   in_pers_nr        in  number,
   in_schicht_tag    in  date,
@@ -19,9 +19,11 @@ procedure DIRKSPZM32.MAN_UPDATE_PERS_ZE_R55_2(
   v_ze_sa_kurzname pzm_zeiterfassung.ze_sa_kurzname%type;
   v_kst_id         pzm_zeiterfassung.ze_kst_id%type;
   v_work_location  pzm_zeiterfassung.ze_work_location%type;
+  v_sm_name        pzm_zeiterfassung.ze_sm_name%type;
+  b_commit         boolean := false;
 begin
-  select ze.ze_schicht_tag, ze.ze_sa_kurzname, ze.ze_kst_id, nvl(ze.ze_work_location, 1)
-    into v_ze_schicht_tag, v_ze_sa_kurzname, v_kst_id, v_work_location
+  select ze.ze_schicht_tag, ze.ze_sa_kurzname, ze.ze_kst_id, nvl(ze.ze_work_location, 1), ze_sm_name
+    into v_ze_schicht_tag, v_ze_sa_kurzname, v_kst_id, v_work_location, v_sm_name
     from pzm_zeiterfassung ze
    where ze.ze_id = in_ze_id;
 
@@ -65,7 +67,7 @@ begin
       update pzm_zeiterfassung
          set ze_work_location = in_work_location
        where ze_id = in_ze_id;
-      commit;
+      b_commit := true;
     end if;
   end if;
 
@@ -88,7 +90,18 @@ begin
         in_schicht_tag_auswerten => false
       );
   end if;
-  
+
+  if (v_sm_name != in_sm_name) 
+     or (v_sm_name is null and in_sm_name is not null)
+     or (v_sm_name is not NULL and in_sm_name is NULL)
+  then
+    update pzm_zeiterfassung
+       set pzm_zeiterfassung.ze_sm_name = in_sm_name
+     where ze_id = in_ze_id;
+    b_commit := true;
+  end if;
+
+
   if v_ze_schicht_tag != in_schicht_tag then -- der Schichttag wurde geaendert
     -- vorherigen Schichttag auch nochmal auswerten
     update_pers_ze_tag(
@@ -96,7 +109,7 @@ begin
       p_datum => v_ze_schicht_tag,
       p_result => out_result,
       p_res_info => out_res_info);
-  
+
     pzm_abwes_plan_vorbereiten(
       in_start_date => v_ze_schicht_tag,
       in_end_date => v_ze_schicht_tag,
@@ -113,6 +126,12 @@ begin
     in_start_date => in_schicht_tag,
     in_end_date => in_schicht_tag,
     in_pers_nr => in_pers_nr);
+
+  if b_commit 
+  then 
+    commit;
+  end if;
+
 exception
   when others then
     out_result := abs(sqlcode) - 20000; -- Exception
@@ -122,9 +141,10 @@ exception
       p_module => 'man_update_pers_ze_r55_2',
       p_pers_nr => in_pers_nr
     );
+    raise;
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"debded952b805959ff6b5fc49b84c28641b2c151","type":"PROCEDURE","name":"MAN_UPDATE_PERS_ZE_R55_2","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ba3006d4bdddee0a401a4a179a765e4e512948da","type":"PROCEDURE","name":"MAN_UPDATE_PERS_ZE_R55_2","schemaName":"DIRKSPZM32","sxml":""}

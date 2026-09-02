@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.UPDATE_PERSONAL_ZE_STATUS_DATE(
+procedure UPDATE_PERSONAL_ZE_STATUS_DATE(
   p_pers_nr in number,          --# Personalnummer des Mitarbeiters der die Zeiterfassung ausführt.
   p_status in number,           --# Status für die Zeiterfassung (Kann nur ANWESEND, PAUSE und DIENSTGANG sein)
   p_buch_datum_zeit in date,          --# Datum der Buchung wenn NULL dann SYSDATE
@@ -78,4 +78,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"67826d57f255524f78632ec6948693f16c516de0","type":"PROCEDURE","name":"UPDATE_PERSONAL_ZE_STATUS_DATE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6ab0e68685c036c5a3d2281920b71d138b30317a","type":"PROCEDURE","name":"UPDATE_PERSONAL_ZE_STATUS_DATE","schemaName":"DIRKSPZM32","sxml":""}

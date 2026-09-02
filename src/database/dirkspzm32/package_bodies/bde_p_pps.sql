@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_p_pps is
+package body bde_p_pps is
 
 /*
 Funktionen für die Erzeugung von Fertigungsaufträgen über PPS-Tabellen Hier werden 
@@ -332,4 +332,4 @@ end bde_p_pps;
 
 
 
--- sqlcl_snapshot {"hash":"9255f2dd476417e16acd5c47ec5f70ca7a181ba2","type":"PACKAGE_BODY","name":"BDE_P_PPS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a34d20f8d53c13506cf6ebd7daf921cd602bd3f4","type":"PACKAGE_BODY","name":"BDE_P_PPS","schemaName":"DIRKSPZM32","sxml":""}

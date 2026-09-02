@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.ISI_ALLG is
+package body ISI_ALLG is
   /*
   __________________________________________________
   Author
@@ -681,4 +681,4 @@ end ISI_ALLG;
 
 
 
--- sqlcl_snapshot {"hash":"7f512b2e46592e7aa8462a4cd15dcbb701198193","type":"PACKAGE_BODY","name":"ISI_ALLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ca6d42f025021c5c0d0c93591f23949056d83456","type":"PACKAGE_BODY","name":"ISI_ALLG","schemaName":"DIRKSPZM32","sxml":""}

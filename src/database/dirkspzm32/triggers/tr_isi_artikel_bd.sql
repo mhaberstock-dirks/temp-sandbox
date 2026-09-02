@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_BD" 
-  before delete on DIRKSPZM32.isi_artikel
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ARTIKEL_BD" 
+  before delete on isi_artikel
   for each row
 declare
 
@@ -83,8 +83,9 @@ exception
     end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_BD" ENABLE;
+ALTER TRIGGER "TR_ISI_ARTIKEL_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6c056af28dbf77beee37160b21882b6ac3fe9c0e","type":"TRIGGER","name":"TR_ISI_ARTIKEL_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4712b2266e43bc123ff93bad804472ac3d960555","type":"TRIGGER","name":"TR_ISI_ARTIKEL_BD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_POS_BD" 
-  before delete on DIRKSPZM32.isi_order_pos
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ORDER_POS_BD" 
+  before delete on isi_order_pos
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -130,8 +130,9 @@ exception
       end if;
 end TR_ISI_ORDER_POS_BD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_POS_BD" ENABLE;
+ALTER TRIGGER "TR_ISI_ORDER_POS_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f66bcf87ff1c2f9db31a25a26027222fa01f6cd9","type":"TRIGGER","name":"TR_ISI_ORDER_POS_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6736ad822ea14ff5ee79b29f4099470f4b76b4a0","type":"TRIGGER","name":"TR_ISI_ORDER_POS_BD","schemaName":"DIRKSPZM32","sxml":""}

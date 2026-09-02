@@ -1,5 +1,5 @@
 create or replace 
-PACKAGE DIRKSPZM32.bde_util IS
+PACKAGE bde_util IS
 
 
   /*
@@ -104,4 +104,4 @@ END bde_util;
 
 
 
--- sqlcl_snapshot {"hash":"5cb685c74a935cbacd7d0519ab0f4a2b0c0cfe88","type":"PACKAGE_SPEC","name":"BDE_UTIL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b10c1eddfd0aa6825c7c13ba17eddd920bf279f0","type":"PACKAGE_SPEC","name":"BDE_UTIL","schemaName":"DIRKSPZM32","sxml":""}

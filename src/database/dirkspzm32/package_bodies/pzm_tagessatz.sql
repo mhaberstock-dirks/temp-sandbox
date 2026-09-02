@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_TAGESSATZ is
+package body PZM_TAGESSATZ is
 
   -- ********************************************************************
   function get_version return varchar2 is
@@ -95,4 +95,4 @@ end pzm_tagessatz;
 
 
 
--- sqlcl_snapshot {"hash":"647821f4004ad9bae9ab0b5e3458d8bbdd6b010b","type":"PACKAGE_BODY","name":"PZM_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c353c8830219f873b27eb112b81791550960b275","type":"PACKAGE_BODY","name":"PZM_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

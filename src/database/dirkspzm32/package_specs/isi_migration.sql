@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.ISI_Migration is
+package ISI_Migration is
 
   /*
   __________________________________________________
@@ -27,4 +27,4 @@ end ISI_Migration;
 
 
 
--- sqlcl_snapshot {"hash":"74af8f4d12ed3a8d0ff4a1cb754aa09b2929fe91","type":"PACKAGE_SPEC","name":"ISI_MIGRATION","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b73cb08a4404ee481cb80e7df434db884a958804","type":"PACKAGE_SPEC","name":"ISI_MIGRATION","schemaName":"DIRKSPZM32","sxml":""}

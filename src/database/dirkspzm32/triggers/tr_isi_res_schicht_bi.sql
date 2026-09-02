@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_SCHICHT_BI" 
-  before insert on DIRKSPZM32.isi_res_schicht
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_SCHICHT_BI" 
+  before insert on isi_res_schicht
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -40,8 +40,9 @@ exception
       end if;
 end TR_ISI_RES_SCHICHT_BI;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_SCHICHT_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_SCHICHT_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f2a4b8a0ef6ce3e005e56656845b4ba6f548d5a2","type":"TRIGGER","name":"TR_ISI_RES_SCHICHT_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cccf15f6ba29fe403450cb17223caff80d663372","type":"TRIGGER","name":"TR_ISI_RES_SCHICHT_BI","schemaName":"DIRKSPZM32","sxml":""}

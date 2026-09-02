@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.z_dir_pzm_delete_pdler_Werksvertrag is
+procedure z_dir_pzm_delete_pdler_Werksvertrag is
   -- Created on 06.01.2022 by DKROEKER
   v_personal pzm_personal%rowtype;
   v_del_date date;
@@ -102,4 +102,4 @@ end z_dir_pzm_delete_pdler_Werksvertrag;
 
 
 
--- sqlcl_snapshot {"hash":"84de38d8d7da6453aabfa4cb403b8bc94ee84a5e","type":"PROCEDURE","name":"Z_DIR_PZM_DELETE_PDLER_WERKSVERTRAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"87def8f6c9eaf5582c9d72ab1b13835c5c01d78e","type":"PROCEDURE","name":"Z_DIR_PZM_DELETE_PDLER_WERKSVERTRAG","schemaName":"DIRKSPZM32","sxml":""}

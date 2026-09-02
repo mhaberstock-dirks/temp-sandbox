@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_utils is
+package isi_utils is
 
   /*
   __________________________________________________
@@ -98,4 +98,4 @@ end isi_utils;
 
 
 
--- sqlcl_snapshot {"hash":"f9c22bc2a6c7eae26dddefc6955d9e0656c7033c","type":"PACKAGE_SPEC","name":"ISI_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c05ed4ca6bf1ba78501a183d7ded3346981b8397","type":"PACKAGE_SPEC","name":"ISI_UTILS","schemaName":"DIRKSPZM32","sxml":""}

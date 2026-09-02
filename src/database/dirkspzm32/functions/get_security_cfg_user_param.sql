@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_security_cfg_user_param(in_sid in isi_security_cfg.sid%type,
+function get_security_cfg_user_param(in_sid in isi_security_cfg.sid%type,
                                                        in_firma_nr in isi_security_cfg.firma_nr%type,
                                                        in_login_id in isi_user.login_id%type,
                                                        in_module_name in isi_security_cfg.module_name%type,
@@ -55,4 +55,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"d5141e0751e9287f4b48ead49b98e1957bd81921","type":"FUNCTION","name":"GET_SECURITY_CFG_USER_PARAM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dd3e91c0f73da8c8df90f6d355d5f54a634885b6","type":"FUNCTION","name":"GET_SECURITY_CFG_USER_PARAM","schemaName":"DIRKSPZM32","sxml":""}

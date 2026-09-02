@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_ARTIKEL_LGR_INFO_BUID" 
-  before insert or update or delete on DIRKSPZM32.lvs_artikel_lgr_info
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_ARTIKEL_LGR_INFO_BUID" 
+  before insert or update or delete on lvs_artikel_lgr_info
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end tr_lvs_artikel_lgr_info_buid;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_ARTIKEL_LGR_INFO_BUID" ENABLE;
+ALTER TRIGGER "TR_LVS_ARTIKEL_LGR_INFO_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a96d7556b04dac707e321fd3de0782d702267fb4","type":"TRIGGER","name":"TR_LVS_ARTIKEL_LGR_INFO_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a76e63f179bfb25f45ada07fda9ef6db1e02c86c","type":"TRIGGER","name":"TR_LVS_ARTIKEL_LGR_INFO_BUID","schemaName":"DIRKSPZM32","sxml":""}

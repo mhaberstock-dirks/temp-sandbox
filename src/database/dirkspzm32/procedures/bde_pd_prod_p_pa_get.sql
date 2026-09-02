@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_p_pa_get
+procedure bde_pd_prod_p_pa_get
 /*
 In dieser Procedure werden die Mengen der PA Sätze einen FA's auf einer Resource bis zum in_sysdate ermittelt. 
 Die Werte werden in den OUT-Parametern zurückgegeben
@@ -99,4 +99,4 @@ exception
 
 
 
--- sqlcl_snapshot {"hash":"a6781bfe3c2e7426a8e5fe77980d4f02df35dd1c","type":"PROCEDURE","name":"BDE_PD_PROD_P_PA_GET","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e0590304275970324290aad14497560d34dbf959","type":"PROCEDURE","name":"BDE_PD_PROD_P_PA_GET","schemaName":"DIRKSPZM32","sxml":""}

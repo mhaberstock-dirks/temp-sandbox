@@ -1,5 +1,5 @@
 create or replace 
-TYPE BODY DIRKSPZM32."PIVOTIMPL" as
+TYPE BODY "PIVOTIMPL" as
 
   static function ODCITableDescribe( rtype out anytype,
                                      p_stmt in varchar2,
@@ -340,4 +340,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f26b03745738d54af9fd6dc074f4d1aef512600d","type":"TYPE_BODY","name":"PIVOTIMPL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8a2cfd0a9fdd111e1dbb3846328482ac50f0f5f2","type":"TYPE_BODY","name":"PIVOTIMPL","schemaName":"DIRKSPZM32","sxml":""}

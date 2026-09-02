@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.Z_HAG_DRUCK is
+package body Z_HAG_DRUCK is
 
 
   -- Private type declarations
@@ -2513,4 +2513,4 @@ end Z_HAG_DRUCK;
 
 
 
--- sqlcl_snapshot {"hash":"83ba1a1ff9d54526072bd3d808cb2f7aeeb07b60","type":"PACKAGE_BODY","name":"Z_HAG_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b70c2fd9bc57e34ca7776756883cd6773bf477b5","type":"PACKAGE_BODY","name":"Z_HAG_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

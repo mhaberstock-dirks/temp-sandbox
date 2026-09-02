@@ -1,6 +1,8 @@
 # Konsolidierung nach direkten Änderungen an der Haupt-Entwicklungsdatenbank
 
-> Dies ist die Ausnahmebehandlung für einen Regelverstoß gegen das [CI/CD-Vorgehensmodell](ci-cd-vorgehensmodell.md): jemand hat die Haupt-Entwicklungsdatenbank direkt geändert, unter Umgehung von Git. Für den normalen Ablauf siehe dort – dieses Dokument ist **kein Teil des normalen Ablaufs** und im Idealfall nach vollständiger Einführung des Modells nicht mehr nötig.
+> **Zugehörige Dokumente:** [CI/CD-Vorgehensmodell](ci-cd-vorgehensmodell.md) (normaler Ablauf, hierher verlinkt für den Ausnahmefall) · [Entscheidungsvorlage: SQLcl `project`-Tooling](entscheidungsvorlage-sqlcl-project-tooling.md) (nutzt Befunde aus diesem Dokument als Belege im Anhang)
+
+Dies ist die Ausnahmebehandlung für einen Regelverstoß gegen das [CI/CD-Vorgehensmodell](ci-cd-vorgehensmodell.md): jemand hat die Haupt-Entwicklungsdatenbank direkt geändert, unter Umgehung von Git. Für den normalen Ablauf siehe dort – dieses Dokument ist **kein Teil des normalen Ablaufs** und im Idealfall nach vollständiger Einführung des Modells nicht mehr nötig.
 
 Dadurch spiegelt `main` nicht mehr den tatsächlichen Stand der Haupt-Entwicklungsdatenbank wider. Dieser Prozess holt die Differenz nach Git zurück.
 

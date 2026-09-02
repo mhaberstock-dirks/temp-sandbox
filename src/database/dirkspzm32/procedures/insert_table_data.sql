@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.INSERT_TABLE_DATA(in_source_schema in varchar2,
+procedure INSERT_TABLE_DATA(in_source_schema in varchar2,
                                               in_source_table_name in varchar2,
                                               in_destination_table_name varchar2,
                                               in_create_table boolean) is
@@ -72,4 +72,4 @@ end INSERT_TABLE_DATA;
 
 
 
--- sqlcl_snapshot {"hash":"30b2703e883ec0d9cb70d278759ca28e0b5de4e7","type":"PROCEDURE","name":"INSERT_TABLE_DATA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"217767163d764680df9148698d71b057cb8f5a52","type":"PROCEDURE","name":"INSERT_TABLE_DATA","schemaName":"DIRKSPZM32","sxml":""}

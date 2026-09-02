@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_V_LGR_DISPO_FEHLER" ("ID", "FEHLER", "RES_STRING", "TRANSP_ID", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "LGR_MAX_TE", "LGR_AKT_TE", "LGR_AKT_KG", "LGR_DISPO_EINL_TE", "LGR_DISPO_EINL_KG", "LGR_EINL_TE_VERFUEG", "LGR_EINL_TE_VERFUEG_GRUPPE", "LGR_DISPO_AUSL_TE", "LGR_DISPO_AUSL_KG") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_V_LGR_DISPO_FEHLER" ("ID", "FEHLER", "RES_STRING", "TRANSP_ID", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "LGR_MAX_TE", "LGR_AKT_TE", "LGR_AKT_KG", "LGR_DISPO_EINL_TE", "LGR_DISPO_EINL_KG", "LGR_EINL_TE_VERFUEG", "LGR_EINL_TE_VERFUEG_GRUPPE", "LGR_DISPO_AUSL_TE", "LGR_DISPO_AUSL_KG") AS 
   (select 1 ID, '[1] Storage Dispo In is wrong' Fehler, lgr.res_string, 0 transp_id,
                 lgr.lgr_platz, lgr.lgr_platz_gruppe,lgr.lgr_max_te, lgr.lgr_akt_te, lgr.lgr_akt_kg, lgr.lgr_dispo_einl_te, lgr.lgr_dispo_einl_kg, lgr.lgr_einl_te_verfueg,  lgr.lgr_einl_te_verfueg_gruppe,  lgr.lgr_dispo_ausl_te, lgr.lgr_dispo_ausl_kg
    from lvs_lgr lgr
@@ -73,4 +73,4 @@ union
 ;
 
 
--- sqlcl_snapshot {"hash":"688bf0381e579ebcf5547aa8a1bdaa6558bb4749","type":"VIEW","name":"LVS_V_LGR_DISPO_FEHLER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"904e4b38ff88fce0d7d98bb46348e74b9f736c34","type":"VIEW","name":"LVS_V_LGR_DISPO_FEHLER","schemaName":"DIRKSPZM32","sxml":""}

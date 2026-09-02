@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_charge_bez(in_sid in isi_sid.sid%type,
+function get_charge_bez(in_sid in isi_sid.sid%type,
                                           in_firma             in isi_firma.firma_nr%type)
                                          return varchar2 is
   -------------------------------------------------------------------------------------------------------
@@ -54,4 +54,4 @@ end get_charge_bez;
 
 
 
--- sqlcl_snapshot {"hash":"1d4abdce0296256c5625aba5139ff9942b360ebf","type":"FUNCTION","name":"GET_CHARGE_BEZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"709310166e67d8909c6706eff97ba6c11ffdb77c","type":"FUNCTION","name":"GET_CHARGE_BEZ","schemaName":"DIRKSPZM32","sxml":""}

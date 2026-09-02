@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_P_LOG is
+package body PZM_P_LOG is
   -----------------------------------------------------------------------------------------------
   -- Package Body: pzm_p_log
   -----------------------------------------------------------------------------------------------
@@ -435,4 +435,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"b4c1300f099d901bf66c5a7d8a87fe4219b6d701","type":"PACKAGE_BODY","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4c07650498410cb738ffe437aabc25b9adf27805","type":"PACKAGE_BODY","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}

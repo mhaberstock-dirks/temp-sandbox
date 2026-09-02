@@ -1,5 +1,5 @@
 
-   CREATE SEQUENCE  "DIRKSPZM32"."SEQ_BF_ID"  MINVALUE 0 MAXVALUE 999 INCREMENT BY 1 /* start with n */ NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SEQ_BF_ID"  MINVALUE 0 MAXVALUE 999 INCREMENT BY 1 /* start with n */ NOCACHE  ORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 
 
--- sqlcl_snapshot {"hash":"81919f109c7ad92285d7fc6966ef7f941019c20c","type":"SEQUENCE","name":"SEQ_BF_ID","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_BF_ID</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}
+-- sqlcl_snapshot {"hash":"8516888beee326fa0b1a6035f9308387d10d09dc","type":"SEQUENCE","name":"SEQ_BF_ID","schemaName":"DIRKSPZM32","sxml":"\n  <SEQUENCE xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>SEQ_BF_ID</NAME>\n   \n   <INCREMENT>1</INCREMENT>\n   <MINVALUE>0</MINVALUE>\n   <MAXVALUE>999</MAXVALUE>\n   <CACHE>0</CACHE>\n   <ORDER></ORDER>\n   <SCALE>NOSCALE</SCALE>\n</SEQUENCE>"}

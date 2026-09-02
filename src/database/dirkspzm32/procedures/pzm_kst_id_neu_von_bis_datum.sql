@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.pzm_kst_id_neu_von_bis_datum(in_pers_nr in pzm_personal.pers_nr%type,
+procedure pzm_kst_id_neu_von_bis_datum(in_pers_nr in pzm_personal.pers_nr%type,
                                                          in_kst_id           in pzm_personal.pers_kst_id%type,
                                                          in_personal_aendern in number, -- Auch im Personalstamm ändern = 1
                                                          in_von_datum        in date,
@@ -40,4 +40,4 @@ end pzm_kst_id_neu_von_bis_datum;
 
 
 
--- sqlcl_snapshot {"hash":"8948bc9735abde7e70cdae1e97d1b12e87022d0a","type":"PROCEDURE","name":"PZM_KST_ID_NEU_VON_BIS_DATUM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4df100fc69e71ec115e0d5c1121731cc05f1129e","type":"PROCEDURE","name":"PZM_KST_ID_NEU_VON_BIS_DATUM","schemaName":"DIRKSPZM32","sxml":""}

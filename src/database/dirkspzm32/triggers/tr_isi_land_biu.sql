@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_LAND_BIU" 
-  before insert or update on DIRKSPZM32.ISI_LAND
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_LAND_BIU" 
+  before insert or update on ISI_LAND
   for each row
 declare
 
@@ -30,8 +30,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_LAND_BIU" ENABLE;
+ALTER TRIGGER "TR_ISI_LAND_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"2be37c6e219a15b5bd43e9e02ca044a52b0fa6aa","type":"TRIGGER","name":"TR_ISI_LAND_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36cb871d29cb209bf78590decd10e2389d411b7e","type":"TRIGGER","name":"TR_ISI_LAND_BIU","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.bde_rueckverfolg is
+package bde_rueckverfolg is
 
   /*
   __________________________________________________
@@ -180,4 +180,4 @@ end bde_rueckverfolg;
 
 
 
--- sqlcl_snapshot {"hash":"5878d7adb519fcf69322e315208048e685122233","type":"PACKAGE_SPEC","name":"BDE_RUECKVERFOLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"96b6a903cadfd93536934f50482be77a881ebe71","type":"PACKAGE_SPEC","name":"BDE_RUECKVERFOLG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.ISI_CHECK_SEQUENCE
+function ISI_CHECK_SEQUENCE
 /*
   Test ermitttle Sequence
 */
@@ -29,4 +29,4 @@ end ISI_CHECK_SEQUENCE;
 
 
 
--- sqlcl_snapshot {"hash":"b8018f7a1b4a136b339ff1860633eda60de12d9f","type":"FUNCTION","name":"ISI_CHECK_SEQUENCE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"21a8eb0d3645015a81a2f7db7c744bb72d777358","type":"FUNCTION","name":"ISI_CHECK_SEQUENCE","schemaName":"DIRKSPZM32","sxml":""}

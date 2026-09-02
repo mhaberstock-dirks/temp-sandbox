@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_stempelungen_liste_st(p_pers_nr in number,
+function get_stempelungen_liste_st(p_pers_nr in number,
                                                     p_datum in date,
                                                     p_status_filter in number DEFAULT NULL,
                                                     p_separator in varchar2 DEFAULT CHR(13)) return varchar2 is
@@ -116,4 +116,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"7d07ba1117ba5dc042084e317ff4c782eaf40844","type":"FUNCTION","name":"GET_STEMPELUNGEN_LISTE_ST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"617be5ffdbef968a8eca9a4fdcf5ef91a8f5d9fa","type":"FUNCTION","name":"GET_STEMPELUNGEN_LISTE_ST","schemaName":"DIRKSPZM32","sxml":""}

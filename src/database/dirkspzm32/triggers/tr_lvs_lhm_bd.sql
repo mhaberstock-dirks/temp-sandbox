@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LHM_BD" 
-  before delete on DIRKSPZM32.lvs_lhm
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LHM_BD" 
+  before delete on lvs_lhm
   for each row
 declare
   -- local variables here
@@ -27,8 +27,9 @@ begin
                :old.komm_neu_lhm_name);
 end tr_lvs_lhm_bd;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LHM_BD" ENABLE;
+ALTER TRIGGER "TR_LVS_LHM_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"be5904b1a7447b584968ff6531cb93c1af070460","type":"TRIGGER","name":"TR_LVS_LHM_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f052d88849d25c50df5caf3fe6266a9e541aba19","type":"TRIGGER","name":"TR_LVS_LHM_BD","schemaName":"DIRKSPZM32","sxml":""}

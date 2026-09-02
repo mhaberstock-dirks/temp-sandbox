@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_lager_opt is
+package body lvs_lager_opt is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -3129,4 +3129,4 @@ end lvs_lager_opt;
 
 
 
--- sqlcl_snapshot {"hash":"b661472d098ecaf69dda6498266fb4518570a4e9","type":"PACKAGE_BODY","name":"LVS_LAGER_OPT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7f02f48b210f64d8eb20c45972079f4445cd76fe","type":"PACKAGE_BODY","name":"LVS_LAGER_OPT","schemaName":"DIRKSPZM32","sxml":""}

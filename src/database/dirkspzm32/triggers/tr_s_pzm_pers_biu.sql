@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_PZM_PERS_BIU" 
-  before insert or update on DIRKSPZM32.s_pzm_pers
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_PZM_PERS_BIU" 
+  before insert or update on s_pzm_pers
   for each row
 declare
   -- local variables here
@@ -316,8 +316,9 @@ begin
 
 end tr_s_pzm_pers_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_PZM_PERS_BIU" ENABLE;
+ALTER TRIGGER "TR_S_PZM_PERS_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a3f3fab93a9658d3a10e502aabbbcd246fce60ca","type":"TRIGGER","name":"TR_S_PZM_PERS_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d3e227b7726a1d001422ac33c641ae0562d33513","type":"TRIGGER","name":"TR_S_PZM_PERS_BIU","schemaName":"DIRKSPZM32","sxml":""}

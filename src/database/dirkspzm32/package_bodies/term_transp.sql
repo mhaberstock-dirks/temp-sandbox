@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.term_transp is
+package body term_transp is
 
   /*
   __________________________________________________
@@ -948,4 +948,4 @@ end term_transp;
 
 
 
--- sqlcl_snapshot {"hash":"3e8e711dba924a4bb0359a337a57f0187cace75c","type":"PACKAGE_BODY","name":"TERM_TRANSP","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0d52642f455a0538ccd883ad2d47ad34b7134cda","type":"PACKAGE_BODY","name":"TERM_TRANSP","schemaName":"DIRKSPZM32","sxml":""}

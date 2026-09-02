@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."SIM_V_DATA_HELPER" ("DATA_TYPE", "DATA_FIELD", "VALUE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "SIM_V_DATA_HELPER" ("DATA_TYPE", "DATA_FIELD", "VALUE") AS 
   select 'MITARBEIER' data_type, 'VORNAME_FRAU' data_field , 'Sabine' value from dual
 union
 select 'MITARBEIER' data_type, 'VORNAME_FRAU' data_field , 'Susanne' value from dual
@@ -291,4 +291,4 @@ select 'MITARBEIER' data_type, 'NACHNAME' data_field , 'Pfeiffer' value from dua
 ;
 
 
--- sqlcl_snapshot {"hash":"05561acdfb1f2b4066664d1f8423521dab919000","type":"VIEW","name":"SIM_V_DATA_HELPER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"303ee837c95444c178fb087a7c092435104e906f","type":"VIEW","name":"SIM_V_DATA_HELPER","schemaName":"DIRKSPZM32","sxml":""}

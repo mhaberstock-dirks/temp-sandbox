@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZEITERFASSUNG_BUID" 
-  before insert or update or delete on DIRKSPZM32.pzm_zeiterfassung
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZEITERFASSUNG_BUID" 
+  before insert or update or delete on pzm_zeiterfassung
   for each row
 declare
   v_abwesenheitsarten pzm_abwesenheitsarten%rowtype;
@@ -92,8 +92,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZEITERFASSUNG_BUID" ENABLE;
+ALTER TRIGGER "TR_PZM_ZEITERFASSUNG_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3ee269269e9c3a879085b0db4d021ef4db60af31","type":"TRIGGER","name":"TR_PZM_ZEITERFASSUNG_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7d4bc6411d3a484e12f6e93f741c8c98ac98682c","type":"TRIGGER","name":"TR_PZM_ZEITERFASSUNG_BUID","schemaName":"DIRKSPZM32","sxml":""}

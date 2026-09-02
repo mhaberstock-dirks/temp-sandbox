@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LAM_BU" 
-  before update on DIRKSPZM32.lvs_lam
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LAM_BU" 
+  before update on lvs_lam
   for each row
 declare
   v_lgr         lvs_lgr%rowtype;
@@ -79,8 +79,9 @@ begin
   end if;
 end tr_lvs_lam_bu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LAM_BU" ENABLE;
+ALTER TRIGGER "TR_LVS_LAM_BU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7d254093354294018202fd9ec41bf23f6f12b7fb","type":"TRIGGER","name":"TR_LVS_LAM_BU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"30aa035ee92d8bb6606c40b2113a349bf6f4be45","type":"TRIGGER","name":"TR_LVS_LAM_BU","schemaName":"DIRKSPZM32","sxml":""}

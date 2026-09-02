@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."DB_PZM_PERSONAL" 
-  after insert or update or delete on DIRKSPZM32.pzm_personal
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DB_PZM_PERSONAL" 
+  after insert or update or delete on pzm_personal
   for each row
 declare
   -- local variables here
@@ -48,8 +48,9 @@ begin
 
 end db_pzm_personal;
      
+
 /
-ALTER TRIGGER "DIRKSPZM32"."DB_PZM_PERSONAL" ENABLE;
+ALTER TRIGGER "DB_PZM_PERSONAL" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"74ce282e23422dd8f5568eb0e52bdf0998042a8c","type":"TRIGGER","name":"DB_PZM_PERSONAL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"639b45a4985d600d70f658a200f6c3185752a399","type":"TRIGGER","name":"DB_PZM_PERSONAL","schemaName":"DIRKSPZM32","sxml":""}

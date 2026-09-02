@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_TRANS_ZIEL_MIT_RES_CHK_3" ("RES_NAME_LIST", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "ANZ_LAM_ORDER_RES_TRANS_FREI", "LGR_AKT_TE", "MAX_TRANSPORTE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_TRANS_ZIEL_MIT_RES_CHK_3" ("RES_NAME_LIST", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "ANZ_LAM_ORDER_RES_TRANS_FREI", "LGR_AKT_TE", "MAX_TRANSPORTE") AS 
   select r.res_name || ';' ||
        (select stradd_distinct(rl.res_name)
           from isi_resource rl
@@ -79,4 +79,4 @@ order by l.lgr_platz_gruppe, r.res_name
 ;
 
 
--- sqlcl_snapshot {"hash":"9e81f30a460924aeba32fee8c7b576b7fb0d41d1","type":"VIEW","name":"LVS_TRANS_ZIEL_MIT_RES_CHK_3","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"306caf1fa8f517deddf5376bfa4d7c46dd5c0bcf","type":"VIEW","name":"LVS_TRANS_ZIEL_MIT_RES_CHK_3","schemaName":"DIRKSPZM32","sxml":""}

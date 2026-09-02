@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.current_isi_user_login_id return number is
+function current_isi_user_login_id return number is
   v_client_ident varchar2(255);
   v_isiusr varchar2(255);
   v_result number;
@@ -29,4 +29,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"5fdbac7d8fb0fe6b894b7d041ee19c9963076b4b","type":"FUNCTION","name":"CURRENT_ISI_USER_LOGIN_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7b50c1c15d90f58716cb81b20ee81a7b90c33a89","type":"FUNCTION","name":"CURRENT_ISI_USER_LOGIN_ID","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.CHECK_TABLE_NAME (in_Table_Name in user_tables.TABLE_NAME%type)
+function CHECK_TABLE_NAME (in_Table_Name in user_tables.TABLE_NAME%type)
                                           return varchar2 is
 
   v_select varchar2(255);
@@ -29,4 +29,4 @@ function DIRKSPZM32.CHECK_TABLE_NAME (in_Table_Name in user_tables.TABLE_NAME%ty
 
 
 
--- sqlcl_snapshot {"hash":"a17bf1fbfbd0643ede4d47bb9aecb0e889f70b3b","type":"FUNCTION","name":"CHECK_TABLE_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"790ed35e1cb5aa4eef40556ffcad55c6d6348664","type":"FUNCTION","name":"CHECK_TABLE_NAME","schemaName":"DIRKSPZM32","sxml":""}

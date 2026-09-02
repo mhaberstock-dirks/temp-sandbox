@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.MULTILANG is
+package MULTILANG is
 
   /*
   __________________________________________________
@@ -44,4 +44,4 @@ end MULTILANG;
 
 
 
--- sqlcl_snapshot {"hash":"abcabfdf324e7e4ac6665ac615ddf076d5f26931","type":"PACKAGE_SPEC","name":"MULTILANG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ae6aa792baff332e70118289c46eb09c9042b713","type":"PACKAGE_SPEC","name":"MULTILANG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_byte_to_char is
+procedure isi_byte_to_char is
 
   v_table_name     varchar2(255);
   v_column_name    varchar2(255);
@@ -39,4 +39,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"da0b12d601fee34f9adae8d6c62b2fe74acf2c4a","type":"PROCEDURE","name":"ISI_BYTE_TO_CHAR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"190afeeb7e89a52098965a00c5c7fdaa6ecd49b9","type":"PROCEDURE","name":"ISI_BYTE_TO_CHAR","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."V_ISI_CHECK_SEQUENCES" ("TABLE_NAME_", "SEQ_NAME_", "FIELD_NAME_", "Kommentar_", "SEQ_TAB_WERTE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "V_ISI_CHECK_SEQUENCES" ("TABLE_NAME_", "SEQ_NAME_", "FIELD_NAME_", "Kommentar_", "SEQ_TAB_WERTE") AS 
   select check_table_name(upper(s."table_name_") ) Table_Name_,
        upper(s."sequence_name_") SEQ_Name_,
        check_field_name(upper(s."table_name_"),upper(s."field_name_") ) Field_Name_,
@@ -10,4 +10,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"cbc2ec852a1db056763770c1fcfab1c05af9b038","type":"VIEW","name":"V_ISI_CHECK_SEQUENCES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"503826a9c1647e8776c5d88cf6583c48caf5ba67","type":"VIEW","name":"V_ISI_CHECK_SEQUENCES","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.PZM_GET_ABT_ZU_PERS_NR(in_pers_nr in number)
+function PZM_GET_ABT_ZU_PERS_NR(in_pers_nr in number)
   return varchar2 is
   Result                   varchar2(4096);
   v_abteilung              pzm_abteilungen%rowtype;
@@ -68,4 +68,4 @@ end PZM_GET_ABT_ZU_PERS_NR;
 
 
 
--- sqlcl_snapshot {"hash":"7c891a0cdd03bdb6eb71b800d74e9f81fc609d1a","type":"FUNCTION","name":"PZM_GET_ABT_ZU_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"22e8edd340ca384b93c1b75fe1c6a34e88c8b158","type":"FUNCTION","name":"PZM_GET_ABT_ZU_PERS_NR","schemaName":"DIRKSPZM32","sxml":""}

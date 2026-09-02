@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pzm_P_PERS_ZEIT_KST is
+package pzm_P_PERS_ZEIT_KST is
 
   -- Author  : HJGOEDEKE
   -- Created : 04.04.2011 13:55:40
@@ -16,4 +16,4 @@ end pzm_P_PERS_ZEIT_KST;
 
 
 
--- sqlcl_snapshot {"hash":"7b1b47198e2d5051cd99711467e454c360f29708","type":"PACKAGE_SPEC","name":"PZM_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"66d8a0724b049d36d440893aca1da844f9dd43fb","type":"PACKAGE_SPEC","name":"PZM_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}

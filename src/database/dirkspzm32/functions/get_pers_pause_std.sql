@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_pers_pause_std(in_pers_nr in pzm_personal.pers_nr%type,
+function get_pers_pause_std(in_pers_nr in pzm_personal.pers_nr%type,
                                               in_schicht_tag in date,
                                               in_sa_kurzname in pzm_schichtarten.sa_kurzname%type,
                                               in_von_zeit in date,
@@ -124,4 +124,4 @@ end get_pers_pause_std;
 
 
 
--- sqlcl_snapshot {"hash":"7b9681376f1dfbdf85471987a0d600f7cb7067b5","type":"FUNCTION","name":"GET_PERS_PAUSE_STD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"084a946defba4e6c7c6ff19993e7c3ee03fb3144","type":"FUNCTION","name":"GET_PERS_PAUSE_STD","schemaName":"DIRKSPZM32","sxml":""}

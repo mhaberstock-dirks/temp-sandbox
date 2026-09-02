@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.bde_tms_push is
+package bde_tms_push is
 
   /*
   __________________________________________________
@@ -63,4 +63,4 @@ end bde_tms_push;
 
 
 
--- sqlcl_snapshot {"hash":"112bc7b48826834bae99ddfab852b7467a9bfc3d","type":"PACKAGE_SPEC","name":"BDE_TMS_PUSH","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"53806f95e790638e5d49ece077e1eec170b56ab7","type":"PACKAGE_SPEC","name":"BDE_TMS_PUSH","schemaName":"DIRKSPZM32","sxml":""}

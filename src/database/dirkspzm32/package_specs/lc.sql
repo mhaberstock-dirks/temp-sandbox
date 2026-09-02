@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lc is
+package lc is
 
   /*
   __________________________________________________
@@ -332,4 +332,4 @@ end lc;
 
 
 
--- sqlcl_snapshot {"hash":"73d2aef4e5c2fb08cd4da251083a0afa7cc97f37","type":"PACKAGE_SPEC","name":"LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"be419d69e1166c6c3ea9a44377ec36b4c62f9ded","type":"PACKAGE_SPEC","name":"LC","schemaName":"DIRKSPZM32","sxml":""}

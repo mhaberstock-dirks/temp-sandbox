@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_disable_MA_SL_triggers (in_owner in varchar2) is
+procedure isi_disable_MA_SL_triggers (in_owner in varchar2) is
 /*
 DTs, 12.03.2021
 Die Prozedur deaktiviert alle Trigger die in der Tabelle: ISI_DB_AKTIVITAET schreiben.
@@ -56,4 +56,4 @@ end isi_disable_MA_SL_triggers;
 
 
 
--- sqlcl_snapshot {"hash":"896de74985b5148db0cee658780f4dc19fa44e69","type":"PROCEDURE","name":"ISI_DISABLE_MA_SL_TRIGGERS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3adbb2c5068fe8fa40d057c1881d6ab597ec41cb","type":"PROCEDURE","name":"ISI_DISABLE_MA_SL_TRIGGERS","schemaName":"DIRKSPZM32","sxml":""}

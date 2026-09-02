@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lc is
+package body lc is
   /*
 	*  Versionsverlauf
 	*   - V3.4.0.0: > (-WK-) Package erstellt
@@ -93,4 +93,4 @@ end lc;
 
 
 
--- sqlcl_snapshot {"hash":"095c14abe4c62214e1b303984a245f3fce5d6dd5","type":"PACKAGE_BODY","name":"LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"81f670b7b9487a60d9e07a762f971d904bcbec29","type":"PACKAGE_BODY","name":"LC","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.term_order is
+package body term_order is
 
   v_error exception;
   v_err_nr   number;
@@ -29,4 +29,4 @@ end term_order;
 
 
 
--- sqlcl_snapshot {"hash":"81544ad0125bb7ae86b5a78fcd558e337bfa7c77","type":"PACKAGE_BODY","name":"TERM_ORDER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5535475c46ec010fc0525df05a74c61c57f60767","type":"PACKAGE_BODY","name":"TERM_ORDER","schemaName":"DIRKSPZM32","sxml":""}

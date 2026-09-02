@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pzm_p_base is
+package pzm_p_base is
 
   /*
   __________________________________________________
@@ -111,4 +111,4 @@ end pzm_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"65014f2c1b45b7ef9dad58858eaf807bb1ccb451","type":"PACKAGE_SPEC","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f724136d446116ddd8ed4c187b164c3caf0e2afb","type":"PACKAGE_SPEC","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

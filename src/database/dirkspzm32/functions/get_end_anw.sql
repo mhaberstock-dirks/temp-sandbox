@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_end_anw(p_pers_nr in number,
+function get_end_anw(p_pers_nr in number,
                                        p_datum in date
                                       ) return date is
   Result date;
@@ -82,4 +82,4 @@ end GET_END_ANW;
 
 
 
--- sqlcl_snapshot {"hash":"70ebf44b8a0a519c4174ee766ca3ac58d4180939","type":"FUNCTION","name":"GET_END_ANW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"84a4bf40013837d06436ddac735dd1ca1b923c3b","type":"FUNCTION","name":"GET_END_ANW","schemaName":"DIRKSPZM32","sxml":""}

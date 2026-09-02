@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_PLAN_AUFTRAG_AG_BD" 
-  before delete on DIRKSPZM32.pps_plan_auftrag_ag
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_PLAN_AUFTRAG_AG_BD" 
+  before delete on pps_plan_auftrag_ag
   for each row
 declare
 
@@ -23,8 +23,9 @@ begin
 
 end tr_pps_plan_auftrag_bd;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_PLAN_AUFTRAG_AG_BD" ENABLE;
+ALTER TRIGGER "TR_PPS_PLAN_AUFTRAG_AG_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7098451548a90ec918cc546bec62a85015daca98","type":"TRIGGER","name":"TR_PPS_PLAN_AUFTRAG_AG_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8cc7cefa52efbba3c3d89b6f64c66652501a6ab1","type":"TRIGGER","name":"TR_PPS_PLAN_AUFTRAG_AG_BD","schemaName":"DIRKSPZM32","sxml":""}

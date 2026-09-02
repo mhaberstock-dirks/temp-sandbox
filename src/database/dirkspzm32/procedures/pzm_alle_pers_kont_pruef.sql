@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.pzm_alle_pers_kont_pruef is
+procedure pzm_alle_pers_kont_pruef is
   v_pers_nr pzm_personal.pers_nr%type;
 
   cursor c_personal is
@@ -26,4 +26,4 @@ end pzm_alle_pers_kont_pruef;
 
 
 
--- sqlcl_snapshot {"hash":"21bad6030bded251de15cbd2d2fa391037804f06","type":"PROCEDURE","name":"PZM_ALLE_PERS_KONT_PRUEF","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8119161e6709051e983e10f631acad72359f6888","type":"PROCEDURE","name":"PZM_ALLE_PERS_KONT_PRUEF","schemaName":"DIRKSPZM32","sxml":""}

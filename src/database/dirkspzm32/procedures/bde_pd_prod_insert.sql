@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_insert
+procedure bde_pd_prod_insert
 /*
 In dieser Procedure werden die Produktionsdaten geschrieben.
 --------------------------------------------------------------------------------------------------------------------
@@ -1291,4 +1291,4 @@ end bde_pd_prod_insert;
 
 
 
--- sqlcl_snapshot {"hash":"80ddc4f067670ef20bf172a2075a68613bdc06cf","type":"PROCEDURE","name":"BDE_PD_PROD_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a8f6c7d77db09ce82afdb60811ebd819de20e745","type":"PROCEDURE","name":"BDE_PD_PROD_INSERT","schemaName":"DIRKSPZM32","sxml":""}

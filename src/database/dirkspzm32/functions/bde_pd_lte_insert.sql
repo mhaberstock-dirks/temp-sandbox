@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pd_lte_insert
+function bde_pd_lte_insert
 /*
 Traegt eine LTE zum Befüllen an einer Maschine ein.
 Diese Palette wird dann auf den Staus B = Befüllen aktiv gesetzt. Zusälich wird diese Palette dann an der Maschine als aktuelle Palette zum befülle angemeldet.
@@ -189,4 +189,4 @@ end bde_pd_lte_insert;
 
 
 
--- sqlcl_snapshot {"hash":"503f0fdf3e4c66a28c926d7b49b96b8d1f1f9fd2","type":"FUNCTION","name":"BDE_PD_LTE_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"49763f32204cfea949bf1eb432a79a6786cbc7ec","type":"FUNCTION","name":"BDE_PD_LTE_INSERT","schemaName":"DIRKSPZM32","sxml":""}

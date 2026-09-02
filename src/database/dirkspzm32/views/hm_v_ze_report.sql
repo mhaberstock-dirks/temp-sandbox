@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."HM_V_ZE_REPORT" ("ZE_PERS_NR", "ZE_SCHICHT_TAG", "ZE_KST_ID", "ZE_IST_START", "ZE_IST_ENDE", "ZE_CALC_IST_START", "ZE_CALC_IST_ENDE", "PAUSE_STD", "ARB_STD", "BUCH_STD", "ZE_ABT_ID", "ZE_PB_ID", "ZE_AA_STATUS", "GRUPPE_NR") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HM_V_ZE_REPORT" ("ZE_PERS_NR", "ZE_SCHICHT_TAG", "ZE_KST_ID", "ZE_IST_START", "ZE_IST_ENDE", "ZE_CALC_IST_START", "ZE_CALC_IST_ENDE", "PAUSE_STD", "ARB_STD", "BUCH_STD", "ZE_ABT_ID", "ZE_PB_ID", "ZE_AA_STATUS", "GRUPPE_NR") AS 
   WITH
   -- Schritt 1: Aktive KST_ID pro Zeile bestimmen (nur ZE_STATUS=2 ist relevant für Wechsel)
   -- Für ZE_STATUS=4 wird die letzte bekannte ZE_KST_ID mit ZE_STATUS=2 verwendet
@@ -79,4 +79,4 @@ GROUP BY g.ze_pers_nr
 ORDER BY g.ze_pers_nr, g.ze_schicht_tag, ze_calc_ist_start;
 
 
--- sqlcl_snapshot {"hash":"082a0f8f16a5034c4bf8bce22a5679b737d7933f","type":"VIEW","name":"HM_V_ZE_REPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5430f1bcea0c08e850eccc8fb348cc34eb8e2c5f","type":"VIEW","name":"HM_V_ZE_REPORT","schemaName":"DIRKSPZM32","sxml":""}

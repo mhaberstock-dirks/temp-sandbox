@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.bde_p_base is
+package bde_p_base is
 
   /*
   __________________________________________________
@@ -130,4 +130,4 @@ end bde_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"959c3da7cdfe3d0b4c5f112a33170ab3574e756d","type":"PACKAGE_SPEC","name":"BDE_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8c1809cb59c384a1f0c6f7ab12d9b0a610967399","type":"PACKAGE_SPEC","name":"BDE_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

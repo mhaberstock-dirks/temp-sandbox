@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_REORD_H" 
-  before insert on DIRKSPZM32.isi_order_reord_h
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ORDER_REORD_H" 
+  before insert on isi_order_reord_h
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end tr_isi_order_reord_h;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_REORD_H" ENABLE;
+ALTER TRIGGER "TR_ISI_ORDER_REORD_H" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c599adec77067e8d3a8627591d29919176338538","type":"TRIGGER","name":"TR_ISI_ORDER_REORD_H","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3970d32e7d56157c32effe3809d7e979581f2aa8","type":"TRIGGER","name":"TR_ISI_ORDER_REORD_H","schemaName":"DIRKSPZM32","sxml":""}

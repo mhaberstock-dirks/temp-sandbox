@@ -15,7 +15,7 @@
       "collationClause" : "NEVER",
       "constraints" : true,
       "constraintsAsAlter" : true,
-      "emitSchema" : true,
+      "emitSchema" : false,
       "force" : true,
       "partitioning" : false,
       "segmentAttributes" : false,

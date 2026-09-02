@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.MFR_Package is
+package MFR_Package is
 
   /*
   __________________________________________________
@@ -395,4 +395,4 @@ end mfr_package;
 
 
 
--- sqlcl_snapshot {"hash":"39478ded604bcaa38475e7f75bf19c8e5e5dae42","type":"PACKAGE_SPEC","name":"MFR_PACKAGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"964a61a9631190cadd3492941375febe42a014d1","type":"PACKAGE_SPEC","name":"MFR_PACKAGE","schemaName":"DIRKSPZM32","sxml":""}

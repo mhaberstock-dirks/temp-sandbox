@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.term_transp is
+package term_transp is
 
   -- Author  : wkroeker
   -- Created : 12.02.2009 11:27:22
@@ -93,4 +93,4 @@ end term_transp;
 
 
 
--- sqlcl_snapshot {"hash":"6d24cb0737dac4b98a010f4517fb1ff30e8a834f","type":"PACKAGE_SPEC","name":"TERM_TRANSP","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ace70b051b7ee99278dc468dd7cb28c8c4319c88","type":"PACKAGE_SPEC","name":"TERM_TRANSP","schemaName":"DIRKSPZM32","sxml":""}

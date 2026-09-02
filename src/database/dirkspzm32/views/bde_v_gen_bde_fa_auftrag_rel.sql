@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."BDE_V_GEN_BDE_FA_AUFTRAG_REL" ("SID", "FIRMA_NR", "LEITZAHL", "FA_AG", "FA_UPOS", "NFA_AG", "NFA_UPOS", "OVERLAP_TYPE", "OVERLAP_VALUE", "TIME_BUFFER_MIN", "MAXPUFFERBEACHTEN", "TIME_BUFFER_MAX") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "BDE_V_GEN_BDE_FA_AUFTRAG_REL" ("SID", "FIRMA_NR", "LEITZAHL", "FA_AG", "FA_UPOS", "NFA_AG", "NFA_UPOS", "OVERLAP_TYPE", "OVERLAP_VALUE", "TIME_BUFFER_MIN", "MAXPUFFERBEACHTEN", "TIME_BUFFER_MAX") AS 
   select fa.sid,
        fa.firma_nr,
        fa.leitzahl /*kopfid*/ ,               -- eindeutige ID des Arbeitsplans
@@ -49,4 +49,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"af3bb0b56e549e07515f339ac5e73d6879339988","type":"VIEW","name":"BDE_V_GEN_BDE_FA_AUFTRAG_REL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9c6c57fd74712dd1c7a1714bed7b459b9f29da20","type":"VIEW","name":"BDE_V_GEN_BDE_FA_AUFTRAG_REL","schemaName":"DIRKSPZM32","sxml":""}

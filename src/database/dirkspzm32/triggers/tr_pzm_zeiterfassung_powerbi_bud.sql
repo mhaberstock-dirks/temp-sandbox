@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZEITERFASSUNG_POWERBI_BUD" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZEITERFASSUNG_POWERBI_BUD" 
   before update or delete
-  on DIRKSPZM32.pzm_zeiterfassung
+  on pzm_zeiterfassung
   for each row
 begin
   begin
@@ -22,8 +22,9 @@ begin
   end;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZEITERFASSUNG_POWERBI_BUD" ENABLE;
+ALTER TRIGGER "TR_PZM_ZEITERFASSUNG_POWERBI_BUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"166c5efb3be5f2c75002c6c63eb58b0b447339be","type":"TRIGGER","name":"TR_PZM_ZEITERFASSUNG_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aa86287031dd651e0a9d0ea155967f0808891381","type":"TRIGGER","name":"TR_PZM_ZEITERFASSUNG_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}

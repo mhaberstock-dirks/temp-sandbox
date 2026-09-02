@@ -1,5 +1,5 @@
 create or replace 
-PROCEDURE DIRKSPZM32.SEQUENCE_NEWVALUE_mhk(
+PROCEDURE SEQUENCE_NEWVALUE_mhk(
 seqowner VARCHAR2,
 seqname VARCHAR2,
 newvalue NUMBER) AS
@@ -22,4 +22,4 @@ END;
 
 
 
--- sqlcl_snapshot {"hash":"225838d8d28480910df435562ed5dd5cb331f14f","type":"PROCEDURE","name":"SEQUENCE_NEWVALUE_MHK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f09c0c7ad0a6a23f0a447217e2fbff369836a63e","type":"PROCEDURE","name":"SEQUENCE_NEWVALUE_MHK","schemaName":"DIRKSPZM32","sxml":""}

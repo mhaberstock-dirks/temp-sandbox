@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_ARTIKEL_STATUS_BIUD" 
-  before insert or update or delete on DIRKSPZM32.lvs_artikel_status
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_ARTIKEL_STATUS_BIUD" 
+  before insert or update or delete on lvs_artikel_status
   for each row
 declare
   -- Lokale Variablen
@@ -51,8 +51,9 @@ begin
   end;
 end tr_lvs_artikel_status_bi;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_ARTIKEL_STATUS_BIUD" ENABLE;
+ALTER TRIGGER "TR_LVS_ARTIKEL_STATUS_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3a2896f45e9b18a780f712844f540a36292d8624","type":"TRIGGER","name":"TR_LVS_ARTIKEL_STATUS_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5fd8eed90a00d4cd647c892b16f6dda2f6d3b9e5","type":"TRIGGER","name":"TR_LVS_ARTIKEL_STATUS_BIUD","schemaName":"DIRKSPZM32","sxml":""}

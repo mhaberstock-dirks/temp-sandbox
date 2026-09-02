@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."DB_ISI_RESOURCE_ZUST_AKT" 
-  after insert or update or delete on DIRKSPZM32.ISI_RESOURCE_ZUST_AKT
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DB_ISI_RESOURCE_ZUST_AKT" 
+  after insert or update or delete on ISI_RESOURCE_ZUST_AKT
   for each row
 declare
   -- local variables here
@@ -50,8 +50,9 @@ begin
 
 end db_isi_resource_zust_akt;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."DB_ISI_RESOURCE_ZUST_AKT" ENABLE;
+ALTER TRIGGER "DB_ISI_RESOURCE_ZUST_AKT" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"721b207e5a5aa2b99e6245f1d66397da67558da3","type":"TRIGGER","name":"DB_ISI_RESOURCE_ZUST_AKT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ca310246ffc1406a3ffd30f8c1623e0a3f39e5e7","type":"TRIGGER","name":"DB_ISI_RESOURCE_ZUST_AKT","schemaName":"DIRKSPZM32","sxml":""}

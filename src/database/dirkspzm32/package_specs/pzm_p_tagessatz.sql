@@ -1,5 +1,5 @@
-create or replace
-package DIRKSPZM32.PZM_P_TAGESSATZ as
+create or replace 
+package PZM_P_TAGESSATZ as
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_tagessatz
   -- Zweck:   Berechnung des Tagessatzes (Stundensaldi) pro Mitarbeiter und Schichttag.
@@ -36,4 +36,4 @@ end PZM_P_TAGESSATZ;
 
 
 
--- sqlcl_snapshot {"hash":"","type":"PACKAGE_SPEC","name":"PZM_P_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"51ad3455ec20736c18959b849ef424de4a0fb3eb","type":"PACKAGE_SPEC","name":"PZM_P_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

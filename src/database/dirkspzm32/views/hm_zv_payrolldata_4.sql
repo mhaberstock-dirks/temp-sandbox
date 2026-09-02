@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."HM_ZV_PAYROLLDATA_4" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HM_ZV_PAYROLLDATA_4" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
   SELECT b.rfid                                                          
        , b.persnr                                                      
        , b.name
@@ -85,4 +85,4 @@
   ORDER BY persnr, datum;
 
 
--- sqlcl_snapshot {"hash":"4cf8c8c0d00e4e9ce4cf6c09df66947750f6825c","type":"VIEW","name":"HM_ZV_PAYROLLDATA_4","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"617c893b84c186873b1ab6b543f202e272b54b21","type":"VIEW","name":"HM_ZV_PAYROLLDATA_4","schemaName":"DIRKSPZM32","sxml":""}

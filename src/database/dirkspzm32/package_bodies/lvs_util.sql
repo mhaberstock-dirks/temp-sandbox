@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_util is
+package body lvs_util is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -1056,4 +1056,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"32c5f7223dac9f6b0edfbc157626c770f44a374a","type":"PACKAGE_BODY","name":"LVS_UTIL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cb22dfe0b5ba24f4bef9d84bce74fee49c0d76df","type":"PACKAGE_BODY","name":"LVS_UTIL","schemaName":"DIRKSPZM32","sxml":""}

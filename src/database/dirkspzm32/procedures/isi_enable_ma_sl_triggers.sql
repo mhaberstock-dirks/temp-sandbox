@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_enable_MA_SL_triggers (in_owner in varchar2) is
+procedure isi_enable_MA_SL_triggers (in_owner in varchar2) is
 /*
 DTs, 12.03.2021
 Die Prozedur aktiviert alle Trigger die in der Tabelle: ISI_DB_AKTIVITAET schreiben.
@@ -56,4 +56,4 @@ end isi_enable_MA_SL_triggers;
 
 
 
--- sqlcl_snapshot {"hash":"06f6f9759618ee4b456f8b6b441782cfe281ce03","type":"PROCEDURE","name":"ISI_ENABLE_MA_SL_TRIGGERS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2a9d5e66008a5cb3f26bd404020832ec51579cea","type":"PROCEDURE","name":"ISI_ENABLE_MA_SL_TRIGGERS","schemaName":"DIRKSPZM32","sxml":""}

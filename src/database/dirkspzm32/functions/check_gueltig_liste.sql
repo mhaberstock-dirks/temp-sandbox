@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.check_gueltig_liste (
+function check_gueltig_liste (
     in_schluessel in varchar2,
     in_regeln     in pzm_gueltig_regel_ct
 ) return number is
@@ -35,4 +35,4 @@ end check_gueltig_liste;
 
 
 
--- sqlcl_snapshot {"hash":"36b8f6d75137d7c4040aecf8514687f1688d9a50","type":"FUNCTION","name":"CHECK_GUELTIG_LISTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b9d3219abf1bec1acc6e240f51f50709a1c4a5a5","type":"FUNCTION","name":"CHECK_GUELTIG_LISTE","schemaName":"DIRKSPZM32","sxml":""}

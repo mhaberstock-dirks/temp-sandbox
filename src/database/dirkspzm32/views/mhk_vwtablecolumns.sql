@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."MHK_VWTABLECOLUMNS" ("TABLE_NAME", "COLUMN_NAME", "ORDINAL_POSITION", "COLUMN_DEFAULT", "IS_NULLABLE", "DATA_TYPE", "IS_ROWGUID", "IS_IDENTITY") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "MHK_VWTABLECOLUMNS" ("TABLE_NAME", "COLUMN_NAME", "ORDINAL_POSITION", "COLUMN_DEFAULT", "IS_NULLABLE", "DATA_TYPE", "IS_ROWGUID", "IS_IDENTITY") AS 
   select sao.object_name as TABLE_NAME, sac.COLUMN_NAME, sac.COLUMN_ID as ORDINAL_POSITION,
 --clh.tableType, clh.tableName, clh.columnName, clh.displayText,
 sac.DATA_DEFAULT as column_default,
@@ -24,4 +24,4 @@ order by sao.object_name, sac.COLUMN_ID
 ;
 
 
--- sqlcl_snapshot {"hash":"b8491c9ba87578ae7b0aa3f9a78fc8952b459e8e","type":"VIEW","name":"MHK_VWTABLECOLUMNS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9af1cc3b0cf1614ce3b8332a8abd154deba2a9f8","type":"VIEW","name":"MHK_VWTABLECOLUMNS","schemaName":"DIRKSPZM32","sxml":""}

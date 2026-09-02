@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_ZK_UEB_LOA(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_ZK_UEB_LOA(in_pers_nr in pzm_personal.pers_nr%type
                                                 ) return varchar2 is
 
   Result                                       pzm_lohnarten.lz_lohnart%type;
@@ -35,4 +35,4 @@ end GET_PERS_ZK_UEB_LOA;
 
 
 
--- sqlcl_snapshot {"hash":"b9302c900a130384677759d70d51dcc7178e73d7","type":"FUNCTION","name":"GET_PERS_ZK_UEB_LOA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"50c3a77891c40b1e114dcc85c300a9fc001e9bab","type":"FUNCTION","name":"GET_PERS_ZK_UEB_LOA","schemaName":"DIRKSPZM32","sxml":""}

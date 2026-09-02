@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_cerealia_druck is
+package z_cerealia_druck is
 
   /*
   __________________________________________________
@@ -37,4 +37,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"425692c795a8fd7c590c85680001c48ae3eba60a","type":"PACKAGE_SPEC","name":"Z_CEREALIA_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3de652384c7dcce6b9a0e1489361c15991f8d4bc","type":"PACKAGE_SPEC","name":"Z_CEREALIA_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

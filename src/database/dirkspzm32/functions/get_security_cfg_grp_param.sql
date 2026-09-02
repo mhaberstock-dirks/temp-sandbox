@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_security_cfg_grp_param(in_sid in isi_security_cfg.sid%type,
+function get_security_cfg_grp_param(in_sid in isi_security_cfg.sid%type,
                                                       in_firma_nr in isi_security_cfg.firma_nr%type,
                                                       in_group_id in isi_security_cfg.group_id%type,
                                                       in_module_name in isi_security_cfg.module_name%type,
@@ -39,4 +39,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"eaa6795f2f940b8957e63c412bf66d660506eb97","type":"FUNCTION","name":"GET_SECURITY_CFG_GRP_PARAM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4f41a9632f397fac678179fd5efa701b6cfbd607","type":"FUNCTION","name":"GET_SECURITY_CFG_GRP_PARAM","schemaName":"DIRKSPZM32","sxml":""}

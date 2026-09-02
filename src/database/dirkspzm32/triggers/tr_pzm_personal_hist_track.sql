@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_PERSONAL_HIST_TRACK" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_PERSONAL_HIST_TRACK" 
   before insert or update
-  on DIRKSPZM32.pzm_personal 
+  on pzm_personal 
   for each row
 declare
   -- local variables here
@@ -83,8 +83,9 @@ begin
     end if;
 end TR_PZM_PERSONAL_HIST_TRACK;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_PERSONAL_HIST_TRACK" ENABLE;
+ALTER TRIGGER "TR_PZM_PERSONAL_HIST_TRACK" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"74dc75b288663e18c84bc0a31afe0071a8066d38","type":"TRIGGER","name":"TR_PZM_PERSONAL_HIST_TRACK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3cd2325dea62bfe5824ad4d395f89a6f10884455","type":"TRIGGER","name":"TR_PZM_PERSONAL_HIST_TRACK","schemaName":"DIRKSPZM32","sxml":""}

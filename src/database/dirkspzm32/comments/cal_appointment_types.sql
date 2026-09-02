@@ -1,8 +1,8 @@
-comment on column DIRKSPZM32.CAL_APPOINTMENT_TYPES."APP_TYPE" is 'Appointment Type';
-comment on column DIRKSPZM32.CAL_APPOINTMENT_TYPES."DESCRIPTION" is 'Description';
-comment on column DIRKSPZM32.CAL_APPOINTMENT_TYPES."ID" is 'Id';
-comment on column DIRKSPZM32.CAL_APPOINTMENT_TYPES."NAME" is 'Name';
+comment on column CAL_APPOINTMENT_TYPES."APP_TYPE" is 'Appointment Type';
+comment on column CAL_APPOINTMENT_TYPES."DESCRIPTION" is 'Description';
+comment on column CAL_APPOINTMENT_TYPES."ID" is 'Id';
+comment on column CAL_APPOINTMENT_TYPES."NAME" is 'Name';
 
 
 
--- sqlcl_snapshot {"hash":"e2fe85abb300b24d33e226ea618bc7c01aa01e9a","type":"COMMENT","name":"cal_appointment_types","schemaName":"dirkspzm32","sxml":""}
+-- sqlcl_snapshot {"hash":"5faae63294825f5e9f36d2808b60c972bdfda023","type":"COMMENT","name":"cal_appointment_types","schemaName":"dirkspzm32","sxml":""}

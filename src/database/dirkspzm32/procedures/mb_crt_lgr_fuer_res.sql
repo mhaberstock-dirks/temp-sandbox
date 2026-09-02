@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.mb_crt_lgr_fuer_res is
+procedure mb_crt_lgr_fuer_res is
   -- Local variables here
   v_res isi_resource%rowtype;
   CURSOR c_res is
@@ -202,4 +202,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"aacb73f124d3a86dd661d63ba1292eb2737fb5d9","type":"PROCEDURE","name":"MB_CRT_LGR_FUER_RES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e3a8a545497b75f9b4c770e20f3d3036e910f584","type":"PROCEDURE","name":"MB_CRT_LGR_FUER_RES","schemaName":"DIRKSPZM32","sxml":""}

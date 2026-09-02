@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_SERIE_ID_POS_BIU" 
-  before insert or update on DIRKSPZM32.LVS_SERIE_ID_POS
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_SERIE_ID_POS_BIU" 
+  before insert or update on LVS_SERIE_ID_POS
   for each row
 begin
   if updating or inserting
@@ -31,8 +31,9 @@ begin
   end if;
 end TR_LVS_SERIE_ID_POS_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_SERIE_ID_POS_BIU" ENABLE;
+ALTER TRIGGER "TR_LVS_SERIE_ID_POS_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"737b69e4ba2594943cb12fda66a156acae55d17a","type":"TRIGGER","name":"TR_LVS_SERIE_ID_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e19a40366a1a368cca8a7ceca4766d97d5f2e476","type":"TRIGGER","name":"TR_LVS_SERIE_ID_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}

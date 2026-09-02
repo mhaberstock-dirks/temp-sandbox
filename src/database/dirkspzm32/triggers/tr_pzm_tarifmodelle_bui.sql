@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_TARIFMODELLE_BUI" 
-  before insert or update on DIRKSPZM32.PZM_TARIFMODELLE
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_TARIFMODELLE_BUI" 
+  before insert or update on PZM_TARIFMODELLE
   for each row
 declare
 begin
@@ -25,8 +25,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_TARIFMODELLE_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_TARIFMODELLE_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"78eebe0f20e65462cc870987cef3c54b33681d9e","type":"TRIGGER","name":"TR_PZM_TARIFMODELLE_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5bbed33dc6a2268a1f20b6fcea6e7906723ef075","type":"TRIGGER","name":"TR_PZM_TARIFMODELLE_BUI","schemaName":"DIRKSPZM32","sxml":""}

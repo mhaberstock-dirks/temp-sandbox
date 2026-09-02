@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_huf_druck is
+package z_huf_druck is
 
   /*
   __________________________________________________
@@ -30,4 +30,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"3392a11abfa5206c79991d30058acf7c46ab80c7","type":"PACKAGE_SPEC","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"44e5b7cd600773f4cb53e314ed7067b28ea5c238","type":"PACKAGE_SPEC","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

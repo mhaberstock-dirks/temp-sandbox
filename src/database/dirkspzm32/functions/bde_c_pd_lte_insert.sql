@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_c_pd_lte_insert
+function bde_c_pd_lte_insert
 /*
   Traegt eine LTE ein.
   Es wird die Funktion BDE_PD_LTE_INSERT aufgerufen und anschließend ein Commit durchgefuehrt.
@@ -57,4 +57,4 @@ end bde_c_pd_lte_insert;
 
 
 
--- sqlcl_snapshot {"hash":"964d3c2166dc5cc1c0ecd3f304f7e3ae9de7e8dc","type":"FUNCTION","name":"BDE_C_PD_LTE_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"13f33dafc27e562ba15452fee2af9b05b613e6e8","type":"FUNCTION","name":"BDE_C_PD_LTE_INSERT","schemaName":"DIRKSPZM32","sxml":""}

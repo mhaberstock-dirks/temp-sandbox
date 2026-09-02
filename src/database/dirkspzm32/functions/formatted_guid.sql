@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.formatted_guid(
+function formatted_guid(
   in_guid_value in raw,                            --# Original (raw) guid value (can be table value or result of sys_guid())
   in_enclose_with_braces in varchar2 default 'F'   --# (optional) Indicate whether to enclose the result with curly braces or not.
   ) return varchar2 is                             --# Return: converted/formated guid value as varchar2
@@ -31,4 +31,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"8f68bfca84cb69e9d00c432b23180743fda77762","type":"FUNCTION","name":"FORMATTED_GUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5fb9152a1665ad38f5f09828980f3919444b730e","type":"FUNCTION","name":"FORMATTED_GUID","schemaName":"DIRKSPZM32","sxml":""}

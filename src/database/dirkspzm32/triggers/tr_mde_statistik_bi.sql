@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_MDE_STATISTIK_BI" 
-  before insert on DIRKSPZM32.mde_statistik
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_MDE_STATISTIK_BI" 
+  before insert on mde_statistik
   for each row
 declare
   v_merk_leitzahl                 bde_fa_auftrag.leitzahl%type;
@@ -221,8 +221,9 @@ begin
 
 end tr_mde_statistik_bi;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_MDE_STATISTIK_BI" ENABLE;
+ALTER TRIGGER "TR_MDE_STATISTIK_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6facf2b20787dc56bb324817629b22ce818e6f81","type":"TRIGGER","name":"TR_MDE_STATISTIK_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ccd832ec17a025dffde6fc3f59d07086dddd120a","type":"TRIGGER","name":"TR_MDE_STATISTIK_BI","schemaName":"DIRKSPZM32","sxml":""}

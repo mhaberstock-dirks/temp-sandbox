@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.UPDATE_ALL_ZE_TAG(p_datum in date) is
+procedure UPDATE_ALL_ZE_TAG(p_datum in date) is
 -- Diese Funktion wird von einem DBMS_JOB aufgerufen
 -- Der Das Datum vom einem Tag vorher übergibt. (SYSDATE -1)
 
@@ -74,4 +74,4 @@ end UPDATE_ALL_ZE_TAG;
 
 
 
--- sqlcl_snapshot {"hash":"314696bd54128321ad258c3f47eba4c461f40934","type":"PROCEDURE","name":"UPDATE_ALL_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"085196e9e8b05e26177ae852b37085ac69659130","type":"PROCEDURE","name":"UPDATE_ALL_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}

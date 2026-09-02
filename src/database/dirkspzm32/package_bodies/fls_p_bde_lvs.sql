@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.fls_p_bde_lvs is
+package body fls_p_bde_lvs is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -810,4 +810,4 @@ end fls_p_bde_lvs;
 
 
 
--- sqlcl_snapshot {"hash":"b51305136ac3399b425fa3daa1691a0f29f73520","type":"PACKAGE_BODY","name":"FLS_P_BDE_LVS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8f0832d40e0c13e6c1c9e510cbd72cfb330ff390","type":"PACKAGE_BODY","name":"FLS_P_BDE_LVS","schemaName":"DIRKSPZM32","sxml":""}

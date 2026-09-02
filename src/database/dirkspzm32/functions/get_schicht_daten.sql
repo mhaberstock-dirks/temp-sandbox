@@ -1,14 +1,14 @@
 create or replace 
-function DIRKSPZM32.get_schicht_daten(
-  p_pers_nr in integer,           --# Personalnummer des Mitarbeiters für den die Schichtdaten geladen werden sollen
-  p_stempel_zeit in date,         --# Zeitpunkt, auf dessen Basis die Schichtart und der Schichttag ermittelt werden
-  p_schicht_datum in out date,    --# [optional/out] Übegabe eines Schichtdatums oder Rückgabe des ermittelten Schichtdatums
-  p_sa_kurzname in out varchar2,  --# [optional/out] Übergabe der Schichtart oder Rückgabe der ermittelten Schichtart
-  p_sa_beginn out date,           --# [out] Rückgabe der Uhrzeit für den Schichtbeginn (Schichtdatum als Basis)
-  p_sa_ende out date,             --# [out] Rückgabe der Uhrzeit für das Schichtende (Schichtdatum als Basis)
-  p_sa_std out number,            --# [out] Gesamtstunden der Schicht (berücksichtigt die durchschn. Arbeitsstd. p. Woche)
-  p_zaehler in number default 0   --# Rekursionszähler, um Endlos-Rekursionen zu verhindern
-) return integer is               --# Return: 0 = keine Schicht ermittelt, 1 = Schicht erfolgreich ermittelt
+function get_schicht_daten(
+  p_pers_nr in integer,                                        --# Personalnummer des Mitarbeiters für den die Schichtdaten geladen werden sollen
+  p_stempel_zeit in date,                                      --# Zeitpunkt, auf dessen Basis die Schichtart und der Schichttag ermittelt werden
+  p_schicht_datum in out date,                                 --# [optional/out] Übegabe eines Schichtdatums oder Rückgabe des ermittelten Schichtdatums
+  p_sa_kurzname in out pzm_zeiterfassung.ze_sa_kurzname%type,  --# [optional/out] Übergabe der Schichtart oder Rückgabe der ermittelten Schichtart
+  p_sa_beginn out date,                                        --# [out] Rückgabe der Uhrzeit für den Schichtbeginn (Schichtdatum als Basis)
+  p_sa_ende out date,                                          --# [out] Rückgabe der Uhrzeit für das Schichtende (Schichtdatum als Basis)
+  p_sa_std out number,                                         --# [out] Gesamtstunden der Schicht (berücksichtigt die durchschn. Arbeitsstd. p. Woche)
+  p_zaehler in number default 0                                --# Rekursionszähler, um Endlos-Rekursionen zu verhindern
+) return integer is                                            --# Return: 0 = keine Schicht ermittelt, 1 = Schicht erfolgreich ermittelt
 ------------------------------------------------------------------------------------------------
 --# Diese Funktion ermittelt die passende Schichtart und das Schichtdatum für einen Mitarbeiter
 --# auf Basis der übergebenen Stempelzeit. Wenn die Schichtart und das Schichtdatum ermittelt
@@ -295,4 +295,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"bfa9c70da7d15b679123a97975c7b7b55e8e061e","type":"FUNCTION","name":"GET_SCHICHT_DATEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c06e948f35224635723071b47c299ea85e130c92","type":"FUNCTION","name":"GET_SCHICHT_DATEN","schemaName":"DIRKSPZM32","sxml":""}

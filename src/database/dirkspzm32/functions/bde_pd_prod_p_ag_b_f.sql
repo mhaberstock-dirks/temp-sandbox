@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pd_prod_p_ag_b_f (in_sid in isi_sid.sid%type,
+function bde_pd_prod_p_ag_b_f (in_sid in isi_sid.sid%type,
                                                  in_firma_nr    in isi_firma.firma_nr%type,
                                                  in_leitzahl    in bde_fa_auftrag.leitzahl%type,
                                                  in_fa_ag       in bde_fa_auftrag.fa_ag%type,
@@ -615,4 +615,4 @@ end bde_pd_prod_p_ag_b_f;
 
 
 
--- sqlcl_snapshot {"hash":"4a0fce458312b39e7c1a0332a4207bce1f10400e","type":"FUNCTION","name":"BDE_PD_PROD_P_AG_B_F","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"13d6ac6aa862777d70930f4b30c7b73a0f4cbb18","type":"FUNCTION","name":"BDE_PD_PROD_P_AG_B_F","schemaName":"DIRKSPZM32","sxml":""}

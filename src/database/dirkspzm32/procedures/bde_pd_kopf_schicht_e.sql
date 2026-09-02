@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_kopf_schicht_e
+procedure bde_pd_kopf_schicht_e
 /*
 In dieser Procedure werden Kopfdaten einer Produktionschicht in den Produktionsdaten abgeschlossen.
 Aus den PZM-Schichtdaten wird versucht die Schicht zu finden um damit die Schichtanmeldung im BDE zu aktualisieren
@@ -143,4 +143,4 @@ end bde_pd_kopf_schicht_e;
 
 
 
--- sqlcl_snapshot {"hash":"1f4c9c18963e8fe72c642649d2f5f6074d4f752c","type":"PROCEDURE","name":"BDE_PD_KOPF_SCHICHT_E","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"02d0cad63f41098abe9a389a1b306ea0e31dc7e0","type":"PROCEDURE","name":"BDE_PD_KOPF_SCHICHT_E","schemaName":"DIRKSPZM32","sxml":""}

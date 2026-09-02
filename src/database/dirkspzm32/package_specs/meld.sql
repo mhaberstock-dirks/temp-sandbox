@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.MELD is
+package MELD is
 
   /*
   __________________________________________________
@@ -105,4 +105,4 @@ end MELD;
 
 
 
--- sqlcl_snapshot {"hash":"980e2f2bdb218051e39149f3dd0da0e3ab2156cf","type":"PACKAGE_SPEC","name":"MELD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fbdda53280d629ab727d9be56c5c5ac6850819ac","type":"PACKAGE_SPEC","name":"MELD","schemaName":"DIRKSPZM32","sxml":""}

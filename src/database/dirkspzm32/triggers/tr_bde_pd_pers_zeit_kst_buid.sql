@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_PD_PERS_ZEIT_KST_BUID" 
-  before insert or update or delete on DIRKSPZM32.BDE_PD_PERS_ZEIT_KST
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_PD_PERS_ZEIT_KST_BUID" 
+  before insert or update or delete on BDE_PD_PERS_ZEIT_KST
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -42,8 +42,9 @@ exception
       end if;
 end TR_BDE_FA_AUFTRAG_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_PD_PERS_ZEIT_KST_BUID" ENABLE;
+ALTER TRIGGER "TR_BDE_PD_PERS_ZEIT_KST_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f92f8642fb541c17ac0034e96ddbdd517fbca596","type":"TRIGGER","name":"TR_BDE_PD_PERS_ZEIT_KST_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"47a49be58f4f502c6d2992d85f9e60e0213fefc8","type":"TRIGGER","name":"TR_BDE_PD_PERS_ZEIT_KST_BUID","schemaName":"DIRKSPZM32","sxml":""}

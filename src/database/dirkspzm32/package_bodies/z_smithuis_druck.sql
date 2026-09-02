@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_smithuis_druck is
+package body z_smithuis_druck is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -335,4 +335,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f6dd745998157ed77e0d355ddebc0cd08c6de114","type":"PACKAGE_BODY","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"32b64b494d0e55102f279172c74cb069a0be2834","type":"PACKAGE_BODY","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

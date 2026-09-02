@@ -1,10 +1,10 @@
 create or replace 
-procedure DIRKSPZM32.z_dir_pzm_serien_umbuchung is
+procedure z_dir_pzm_serien_umbuchung is
   v_k_umb                   pzm_konten_umbuchen%rowtype;
   v_date                    date;
   v_Wochentag               integer;
   v_true                    boolean;
-  
+
   v_buch_wert               pzm_konten_umbuchen.buch_wert%type;
 
   cursor c_k_umb is
@@ -13,7 +13,7 @@ procedure DIRKSPZM32.z_dir_pzm_serien_umbuchung is
        and t.aktiv = c.R_C_TRUE;
 
 begin
-  
+
   open c_k_umb;
   loop
     fetch c_k_umb
@@ -22,7 +22,7 @@ begin
     v_true := false;
     v_buch_wert := NULL;
     v_Wochentag := isi_utils.Iso_WeekDay(sysdate);
-    
+
     case when v_Wochentag = 1 and v_k_umb.buch_wot_mo_wert is not NULL
               then v_buch_wert := v_k_umb.buch_wot_mo_wert;
          when v_Wochentag = 2 and v_k_umb.buch_wot_di_wert is not NULL
@@ -39,7 +39,7 @@ begin
               then v_buch_wert := v_k_umb.buch_wot_so_wert;
          else v_buch_wert := NULL;
     end case;
-    
+
     if v_buch_wert is NULL
     and v_k_umb.buch_wert > 0
     then
@@ -63,7 +63,7 @@ begin
         v_true := true;
       end if;
     end if;
-    
+
     if v_true
     then
       pzm_kontoverwaltung.zk_serien_umbuchen(in_pb_id => v_k_umb.pb_id,
@@ -79,14 +79,14 @@ begin
       then
         v_k_umb.typ_status := 'F';
       end if;
-      
+
       update pzm_konten_umbuchen t
          set t.typ_status = v_k_umb.typ_status,
              t.last_event_date = sysdate
        where t.name = v_k_umb.name;
 
     end if;      
-    
+
   end loop;
   close c_k_umb;
 
@@ -95,4 +95,4 @@ end z_dir_pzm_serien_umbuchung;
 
 
 
--- sqlcl_snapshot {"hash":"804b3be114c305ac5dece03c4b615052577ed9fa","type":"PROCEDURE","name":"Z_DIR_PZM_SERIEN_UMBUCHUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a520a4b59229fc6789bd15024e86659f407b0d55","type":"PROCEDURE","name":"Z_DIR_PZM_SERIEN_UMBUCHUNG","schemaName":"DIRKSPZM32","sxml":""}

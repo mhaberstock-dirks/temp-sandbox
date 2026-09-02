@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_REP_SECURITY_CFG_BUID" 
-  before insert or update or delete on DIRKSPZM32.rep_security_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_REP_SECURITY_CFG_BUID" 
+  before insert or update or delete on rep_security_cfg
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end tr_rep_security_cfg_buid;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_REP_SECURITY_CFG_BUID" ENABLE;
+ALTER TRIGGER "TR_REP_SECURITY_CFG_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"fc8615956c8ee483c48ffae5d7d08849e71561ce","type":"TRIGGER","name":"TR_REP_SECURITY_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c09be3ba7e5c9770428fd213be483f2bd264a29e","type":"TRIGGER","name":"TR_REP_SECURITY_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}

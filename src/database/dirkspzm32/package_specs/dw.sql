@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.DW is
+package DW is
 
   -- Author  : KGRIESSHAMMER
   -- Created : 29.01.2007 14:15:53
@@ -49,4 +49,4 @@ end DW;
 
 
 
--- sqlcl_snapshot {"hash":"dde811d1f9b0a5424d5881bc7cb1ce8b2e83c8ab","type":"PACKAGE_SPEC","name":"DW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9abee4212f48b67b83131f0155eb60381469e399","type":"PACKAGE_SPEC","name":"DW","schemaName":"DIRKSPZM32","sxml":""}

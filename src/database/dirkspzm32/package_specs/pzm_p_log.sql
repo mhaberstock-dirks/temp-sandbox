@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_P_LOG is
+package PZM_P_LOG is
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_log
   -- Zweck:   Zentrales Logging fuer PZM-Module
@@ -146,4 +146,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"3ab922f92cdc8ad0bd6e4a0fe660506a6a6e383d","type":"PACKAGE_SPEC","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ccf62ccf7cdc3cc300926e23be1abce25a9f3045","type":"PACKAGE_SPEC","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}

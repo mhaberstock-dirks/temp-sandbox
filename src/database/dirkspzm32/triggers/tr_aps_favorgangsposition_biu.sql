@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_APS_FAVORGANGSPOSITION_BIU" 
-  before insert or update on DIRKSPZM32.APS_FA_VORGANGS_POSITION
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_APS_FAVORGANGSPOSITION_BIU" 
+  before insert or update on APS_FA_VORGANGS_POSITION
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -136,8 +136,9 @@ exception
       end if;
 end TR_BDE_FA_AUFTRAG_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_APS_FAVORGANGSPOSITION_BIU" ENABLE;
+ALTER TRIGGER "TR_APS_FAVORGANGSPOSITION_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"067c05ac167740cb1dfdd47e1598579dd2e38521","type":"TRIGGER","name":"TR_APS_FAVORGANGSPOSITION_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1752ad56a2fec7f832c33e98313f89ae555eef94","type":"TRIGGER","name":"TR_APS_FAVORGANGSPOSITION_BIU","schemaName":"DIRKSPZM32","sxml":""}

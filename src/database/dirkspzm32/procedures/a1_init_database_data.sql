@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.a1_init_database_data is
+procedure a1_init_database_data is
   v_count number; -- Count of records of any table
 begin
   --~~~~~~~~~~~~~~~~ General ISI_* tables ~~~~~~~~~~~~~~~~--
@@ -67,4 +67,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"fcc672fb0723b9d1aec3554c7fc633d419bab16d","type":"PROCEDURE","name":"A1_INIT_DATABASE_DATA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"880269c88c8c4f3b21180068a6bc92019e3a7e1c","type":"PROCEDURE","name":"A1_INIT_DATABASE_DATA","schemaName":"DIRKSPZM32","sxml":""}

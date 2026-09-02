@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_p_pa_u
+procedure bde_pd_prod_p_pa_u
 /*
 In dieser Procedure wird die Produktion eines LAM in den PA Satz gebucht.
 Der PA-Satz ist die Zusammenfassung aller Produktionssätzen PP die Zusammenhängen Produzuert wurden.
@@ -148,4 +148,4 @@ end bde_pd_prod_p_pa_u;
 
 
 
--- sqlcl_snapshot {"hash":"19fa74212bf7e00c175226da6468c139bc04c17e","type":"PROCEDURE","name":"BDE_PD_PROD_P_PA_U","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"005a7f633f84610c64ffd40ca7bad60b6d6ab55c","type":"PROCEDURE","name":"BDE_PD_PROD_P_PA_U","schemaName":"DIRKSPZM32","sxml":""}

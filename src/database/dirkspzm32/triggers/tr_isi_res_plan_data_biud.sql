@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_PLAN_DATA_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_RES_PLAN_DATA
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_PLAN_DATA_BIUD" 
+  before insert or update or delete on ISI_RES_PLAN_DATA
   for each row
 declare
 
@@ -59,8 +59,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_PLAN_DATA_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_PLAN_DATA_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1533371d90959e5fc83af138d8df1a8bc789cbb7","type":"TRIGGER","name":"TR_ISI_RES_PLAN_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"066cb9ddfa1f06e0c54aa22f2c0f381d46c2206e","type":"TRIGGER","name":"TR_ISI_RES_PLAN_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}

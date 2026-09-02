@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_get_last_v_ag
+function bde_get_last_v_ag
 /*
   Gibt den letzten ...Arbeitsgang zurueck
   ---- HISTORY ---
@@ -42,4 +42,4 @@ end bde_get_last_v_ag;
 
 
 
--- sqlcl_snapshot {"hash":"608a99e64d7fbe71147451ab69138ca33e0ee7ea","type":"FUNCTION","name":"BDE_GET_LAST_V_AG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a4bd16312a37f4060d4997fc3fb5e5c1e076c7a3","type":"FUNCTION","name":"BDE_GET_LAST_V_AG","schemaName":"DIRKSPZM32","sxml":""}

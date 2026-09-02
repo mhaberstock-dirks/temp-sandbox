@@ -1,5 +1,5 @@
 create or replace 
-TYPE DIRKSPZM32."PZM_SCHICHTPERIODE_T" as object(
+TYPE "PZM_SCHICHTPERIODE_T" as object(
   schichtmodellname varchar2(30),
   wochenr   integer,
   name      varchar2(30),
@@ -10,4 +10,4 @@ TYPE DIRKSPZM32."PZM_SCHICHTPERIODE_T" as object(
 /
 
 
--- sqlcl_snapshot {"hash":"f102c1800ecf9932281937fc56da0ddfb3b7651d","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_T","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ad36335a9662d6ec165c8a367fc4dbc927437dd0","type":"TYPE_SPEC","name":"PZM_SCHICHTPERIODE_T","schemaName":"DIRKSPZM32","sxml":""}

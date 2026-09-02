@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_PROD_LINIE_WAREN_BI" 
-  before insert on DIRKSPZM32.lvs_prod_linie_waren
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_PROD_LINIE_WAREN_BI" 
+  before insert on lvs_prod_linie_waren
   for each row
 declare
   -- local variables here
@@ -16,8 +16,9 @@ begin
   end if;
 end tr_lvs_prod_linie_waren_bi;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_PROD_LINIE_WAREN_BI" ENABLE;
+ALTER TRIGGER "TR_LVS_PROD_LINIE_WAREN_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e9893fdc65db1926463ae7e3544d77eaab8ade46","type":"TRIGGER","name":"TR_LVS_PROD_LINIE_WAREN_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"01f68f16684a260c94484604752ff70d51138ab7","type":"TRIGGER","name":"TR_LVS_PROD_LINIE_WAREN_BI","schemaName":"DIRKSPZM32","sxml":""}

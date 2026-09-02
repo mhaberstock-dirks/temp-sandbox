@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_essex_druck is
+package z_essex_druck is
 
   -- Author  : HJGOEDEKE
   -- Created : 24.06.2004 16:37:26
@@ -26,4 +26,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"e98ab4c7a77fb9a2c24f1cf51457f077f6798675","type":"PACKAGE_SPEC","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"acbf3dfec1da92c63ef664fc867d828442a6a2a9","type":"PACKAGE_SPEC","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

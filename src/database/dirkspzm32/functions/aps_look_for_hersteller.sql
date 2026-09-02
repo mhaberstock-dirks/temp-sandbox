@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.aps_look_for_hersteller(in_auftrag_nr in s_rcv_kunden_auftr_pos.auftrag%type,
+function aps_look_for_hersteller(in_auftrag_nr in s_rcv_kunden_auftr_pos.auftrag%type,
                                                    in_aps_pos                 in aps_order_auftr_pos.pos_nr%type,
                                                    in_aps_plan_status         in aps_order_auftr_pos.aps_plan_status%type)
                                                    return varchar2 is
@@ -257,4 +257,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"75b7d827e3fe415318b0b40b3503c19223d4040c","type":"FUNCTION","name":"APS_LOOK_FOR_HERSTELLER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ec41fd0b0ea56083229621582f246dbc22b592f7","type":"FUNCTION","name":"APS_LOOK_FOR_HERSTELLER","schemaName":"DIRKSPZM32","sxml":""}

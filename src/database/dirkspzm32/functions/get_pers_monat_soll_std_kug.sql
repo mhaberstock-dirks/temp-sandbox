@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_MONAT_SOLL_STD_KUG(in_pers_nr in pzm_personal.pers_nr%type,
+function GET_PERS_MONAT_SOLL_STD_KUG(in_pers_nr in pzm_personal.pers_nr%type,
                                                        in_kst_id  in  pzm_ze_tagessatz.ts_day_kst_id%type,
                                                        in_datum   in  date
                                         ) return number is
@@ -37,4 +37,4 @@ end GET_PERS_MONAT_SOLL_STD_KUG;
 
 
 
--- sqlcl_snapshot {"hash":"3ec030ef473c40c5c44cf9c624f777f635c82552","type":"FUNCTION","name":"GET_PERS_MONAT_SOLL_STD_KUG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2a6d58496ed028a69bc7027844147c8d33a2ef4a","type":"FUNCTION","name":"GET_PERS_MONAT_SOLL_STD_KUG","schemaName":"DIRKSPZM32","sxml":""}

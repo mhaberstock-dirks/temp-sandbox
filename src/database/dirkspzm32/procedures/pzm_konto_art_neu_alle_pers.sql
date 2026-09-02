@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.pzm_konto_art_neu_alle_pers(in_name_kurz in varchar2) is
+procedure pzm_konto_art_neu_alle_pers(in_name_kurz in varchar2) is
 begin
   insert into pzm_konten
   select '01' sid,
@@ -30,4 +30,4 @@ end pzm_konto_art_neu_alle_pers;
 
 
 
--- sqlcl_snapshot {"hash":"eb612f014e3d8c535e5bd2c0188a373c5ec3a44f","type":"PROCEDURE","name":"PZM_KONTO_ART_NEU_ALLE_PERS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1ba76cbc6b7aa9fbb80b53cbb1056f65cf74774d","type":"PROCEDURE","name":"PZM_KONTO_ART_NEU_ALLE_PERS","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.ISI_ALLG is
+package ISI_ALLG is
 
   /*
   __________________________________________________
@@ -234,4 +234,4 @@ end ISI_ALLG;
 
 
 
--- sqlcl_snapshot {"hash":"c8503c7adc76e9aff7715666dff1b40fdd0941aa","type":"PACKAGE_SPEC","name":"ISI_ALLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d28592eae04f7b71d1cb0e6591ef65168c132db7","type":"PACKAGE_SPEC","name":"ISI_ALLG","schemaName":"DIRKSPZM32","sxml":""}

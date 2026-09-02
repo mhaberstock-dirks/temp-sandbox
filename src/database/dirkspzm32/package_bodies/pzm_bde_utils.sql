@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_BDE_UTILS is
+package body PZM_BDE_UTILS is
 
   v_build_number constant number := 1;
   /*
@@ -650,4 +650,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"e38ea1026afe55ad50dda9c8483047d070699377","type":"PACKAGE_BODY","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bd1469bdf8b3f6a4cb91f0f6b0d6fe496b375086","type":"PACKAGE_BODY","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}

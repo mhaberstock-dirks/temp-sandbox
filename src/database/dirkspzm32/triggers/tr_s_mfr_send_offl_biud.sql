@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_MFR_SEND_OFFL_BIUD" 
-  before insert or update or delete on DIRKSPZM32.s_mfr_send_offline
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_MFR_SEND_OFFL_BIUD" 
+  before insert or update or delete on s_mfr_send_offline
   for each row
 declare
   -- local variables here
@@ -37,8 +37,9 @@ begin
 
 end TR_S_MFR_SEND_OFFL_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_MFR_SEND_OFFL_BIUD" ENABLE;
+ALTER TRIGGER "TR_S_MFR_SEND_OFFL_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c755a31729147b44fba1ffeeb4a6c152e94ebddb","type":"TRIGGER","name":"TR_S_MFR_SEND_OFFL_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cbdbc92e46b5f3ccf9a8b134d6e2a56a9a61aa7e","type":"TRIGGER","name":"TR_S_MFR_SEND_OFFL_BIUD","schemaName":"DIRKSPZM32","sxml":""}

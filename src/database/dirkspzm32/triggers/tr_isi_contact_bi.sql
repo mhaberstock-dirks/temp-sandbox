@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_CONTACT_BI" 
-  before insert on DIRKSPZM32.isi_contact
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_CONTACT_BI" 
+  before insert on isi_contact
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -22,8 +22,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_CONTACT_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_CONTACT_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e88f902a2928847d8a6f1fe943264c8cb8c0d745","type":"TRIGGER","name":"TR_ISI_CONTACT_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"23d98c6bfd098d0504c7a90a1d3afb39fcefa256","type":"TRIGGER","name":"TR_ISI_CONTACT_BI","schemaName":"DIRKSPZM32","sxml":""}

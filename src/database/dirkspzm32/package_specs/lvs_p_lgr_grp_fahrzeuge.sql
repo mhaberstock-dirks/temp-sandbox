@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_p_lgr_grp_fahrzeuge is
+package lvs_p_lgr_grp_fahrzeuge is
 
   /*
   __________________________________________________
@@ -90,4 +90,4 @@ end lvs_p_lgr_grp_fahrzeuge;
 
 
 
--- sqlcl_snapshot {"hash":"5c771ec95f7be4ae6f4ae1d9aad99d49df31466d","type":"PACKAGE_SPEC","name":"LVS_P_LGR_GRP_FAHRZEUGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6ff6f425456e3228e71cb1df6f1915ac2662eed2","type":"PACKAGE_SPEC","name":"LVS_P_LGR_GRP_FAHRZEUGE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_seaquist_druck is
+package z_seaquist_druck is
 
   /*
   __________________________________________________
@@ -53,4 +53,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"e6d6bf897fefaf76d8789b5b1c08028e90997108","type":"PACKAGE_SPEC","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8d10297dd6d27086fec90971af8958ef271cd888","type":"PACKAGE_SPEC","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

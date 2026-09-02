@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_smithuis_druck is
+package z_smithuis_druck is
   /*
   __________________________________________________
   Author
@@ -38,4 +38,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"c4e0ff61aff3a93cd8e37dbcf231fe3b9f41e6ce","type":"PACKAGE_SPEC","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"98db753dc6b991965da574aa565bbabc88823a0c","type":"PACKAGE_SPEC","name":"Z_SMITHUIS_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_PACK_VOR_G_BUI" 
-  before insert or update on DIRKSPZM32.S_ERP_RCV_PACK_VORSCHR_GEW
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_PACK_VOR_G_BUI" 
+  before insert or update on S_ERP_RCV_PACK_VORSCHR_GEW
   for each row
 declare
 
@@ -63,8 +63,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_PACK_VOR_G_BUI" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_PACK_VOR_G_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"8c6fab52cfcd61adb34ed98d587c21839ee9e83b","type":"TRIGGER","name":"TR_S_ERP_RCV_PACK_VOR_G_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7bc929d7a73f9b0de8d63d7105247a375adfc89b","type":"TRIGGER","name":"TR_S_ERP_RCV_PACK_VOR_G_BUI","schemaName":"DIRKSPZM32","sxml":""}

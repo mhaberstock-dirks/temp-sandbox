@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.DW is
+package body DW is
 
   function set_aus_begin(in_ausw_begin in date) return date is
   begin
@@ -690,4 +690,4 @@ end DW;
 
 
 
--- sqlcl_snapshot {"hash":"18fbae9df62e76c533202ff7cf3b1dac581907c4","type":"PACKAGE_BODY","name":"DW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d3598115a4e34dfb383d00cbaf228bcab2e96108","type":"PACKAGE_BODY","name":"DW","schemaName":"DIRKSPZM32","sxml":""}

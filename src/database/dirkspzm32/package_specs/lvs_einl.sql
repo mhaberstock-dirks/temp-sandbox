@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_EINL is
+package LVS_EINL is
 
   /*
   __________________________________________________
@@ -433,4 +433,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"ce585d8457ec413f91c983cda39b1a58bfe16e33","type":"PACKAGE_SPEC","name":"LVS_EINL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d7960378dacebab970a926635bcbe0916da9ef5e","type":"PACKAGE_SPEC","name":"LVS_EINL","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_p_lte_lhm is
+package body lvs_p_lte_lhm is
 
   -- Private type declarations
   procedure lvs_lhm_abpacken(in_lhm        in lvs_lhm%rowtype,
@@ -5025,4 +5025,4 @@ end lvs_p_lte_lhm;
 
 
 
--- sqlcl_snapshot {"hash":"70ffbf6c8629fd61e5e83ec0557a281affd28316","type":"PACKAGE_BODY","name":"LVS_P_LTE_LHM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"29f196fb6c6b5bb253f08f1fedc690583fc4f552","type":"PACKAGE_BODY","name":"LVS_P_LTE_LHM","schemaName":"DIRKSPZM32","sxml":""}

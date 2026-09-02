@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_DB_TRACE_CFG" 
-  before insert or update or delete on DIRKSPZM32."DB_TRACE_CFG"
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_DB_TRACE_CFG" 
+  before insert or update or delete on "DB_TRACE_CFG"
   FOR each row
 declare
   -- local variables here
@@ -49,8 +49,9 @@ begin
 
 end tr_isi_db_act_cfg;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_DB_TRACE_CFG" ENABLE;
+ALTER TRIGGER "TR_DB_TRACE_CFG" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"77e6ba3ab9973e768ad944dd7f2296f4644da9e7","type":"TRIGGER","name":"TR_DB_TRACE_CFG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c818b48995ced96b7ed1a71a38727d0ed8b1a229","type":"TRIGGER","name":"TR_DB_TRACE_CFG","schemaName":"DIRKSPZM32","sxml":""}

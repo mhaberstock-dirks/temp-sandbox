@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_BUI" 
-  before insert or update on DIRKSPZM32.isi_artikel
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ARTIKEL_BUI" 
+  before insert or update on isi_artikel
   for each row
 declare
   -- local variables here
@@ -35,8 +35,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_BUI" ENABLE;
+ALTER TRIGGER "TR_ISI_ARTIKEL_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c75f95e3a7a94e5db211702fa1b97e8b42636621","type":"TRIGGER","name":"TR_ISI_ARTIKEL_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"947cc9838fa959f5a683527e88360f739457ec04","type":"TRIGGER","name":"TR_ISI_ARTIKEL_BUI","schemaName":"DIRKSPZM32","sxml":""}

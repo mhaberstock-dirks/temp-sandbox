@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_AZK_URLAUB_BUI" 
-  before insert or update on DIRKSPZM32.PZM_ZE_AZK_URLAUB
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_AZK_URLAUB_BUI" 
+  before insert or update on PZM_ZE_AZK_URLAUB
   for each row
 declare
 begin
@@ -24,8 +24,9 @@ begin
 end;
 
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_AZK_URLAUB_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_AZK_URLAUB_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"77c91ef03b4e423aaa04af6ff5d36ae9a0202b2c","type":"TRIGGER","name":"TR_PZM_ZE_AZK_URLAUB_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4333d36b19a0bd71a9dbd78c84d47b5e50331ab0","type":"TRIGGER","name":"TR_PZM_ZE_AZK_URLAUB_BUI","schemaName":"DIRKSPZM32","sxml":""}

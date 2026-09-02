@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_p_base is
+package body lvs_p_base is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -901,4 +901,4 @@ end lvs_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"135c9d849cdf255876b678e53c652943cad64029","type":"PACKAGE_BODY","name":"LVS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2702bcda4200992e29f1fb00f1ec75e18f3f9ece","type":"PACKAGE_BODY","name":"LVS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
