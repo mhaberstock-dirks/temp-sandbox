@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_funktionen is
+package body bde_funktionen is
 
 /*
   Hier werden Funktionen zur BDE-Auswertung zur Verfügung gestellt. Diese können dann in SQLs und Reports mit besserem Zeitverhalten genutzt werden. Zusätzlich sind in diesm package methoten, zur Erzeugeung manueller BDE-Buchungen wie z.B. Schrotterfassung
@@ -2131,4 +2131,4 @@ end bde_funktionen;
 
 
 
--- sqlcl_snapshot {"hash":"3597a2a7c32d08cf668a7af4a351cf07f3c75b5d","type":"PACKAGE_BODY","name":"BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e97323d09156265d5dd3cf1d395b1e04b0d507ed","type":"PACKAGE_BODY","name":"BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}

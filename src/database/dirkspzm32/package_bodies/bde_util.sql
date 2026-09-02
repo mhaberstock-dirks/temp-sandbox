@@ -1,5 +1,5 @@
 create or replace 
-PACKAGE BODY DIRKSPZM32.bde_util is
+PACKAGE BODY bde_util is
 
   PROCEDURE convert_human_to_steuerzeichen (
     in_str  IN  VARCHAR2,
@@ -1130,4 +1130,4 @@ END bde_util;
 
 
 
--- sqlcl_snapshot {"hash":"25f70a7e23c55e677cef9dfc2b17a56b0b2c7cbf","type":"PACKAGE_BODY","name":"BDE_UTIL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3c59adc000df0ce446024d5ecfc89365d3bab517","type":"PACKAGE_BODY","name":"BDE_UTIL","schemaName":"DIRKSPZM32","sxml":""}

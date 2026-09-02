@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_KPI_CFG_BIUD" 
-  before insert or update on DIRKSPZM32.ISI_KPI_CFG
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_KPI_CFG_BIUD" 
+  before insert or update on ISI_KPI_CFG
   for each row
 declare
   -- local variables here
@@ -57,8 +57,9 @@ exception
       end if;
 end tr_ISI_KPI_CFG_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_KPI_CFG_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_KPI_CFG_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"088a0119a1d7dfe27d79dfc98d36bebd2e923a40","type":"TRIGGER","name":"TR_ISI_KPI_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"af34590d9930cc39f7b369312a3580bb672bed2a","type":"TRIGGER","name":"TR_ISI_KPI_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,12 +1,12 @@
-comment on table DIRKSPZM32.ISI_FEIERTAGE is 'Zukünftig werden die Daten von hier geholt - https://github.com/openpotato/openholidaysapi.data/blob/develop/src/de/holidays/holidays.public.csv';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_COUNTRY" is 'Landeskuerzel z.B. DE';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_DATUM" is 'Datum des Fieertags';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_NAME" is 'Feiertags Name in Landes Sprachd';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_NAME_2" is 'Feiertags Name in Sprache der Verantwortungsstelle';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_NAME_EN" is 'Feiertags Name in Englisch als Fallback';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_SONDER_FEIERTAG" is 'SF = Sonderfeiertag';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."F_WOCHENTAG" is 'Wochentag des Feiertags 1 = Montag, 7 = Sontag';
-comment on column DIRKSPZM32.ISI_FEIERTAGE."REGION_CODES_CSV" is 'Bundesland / Region - Zur Feiertagsfindung z.B.: 
+comment on table ISI_FEIERTAGE is 'Zukünftig werden die Daten von hier geholt - https://github.com/openpotato/openholidaysapi.data/blob/develop/src/de/holidays/holidays.public.csv';
+comment on column ISI_FEIERTAGE."F_COUNTRY" is 'Landeskuerzel z.B. DE';
+comment on column ISI_FEIERTAGE."F_DATUM" is 'Datum des Fieertags';
+comment on column ISI_FEIERTAGE."F_NAME" is 'Feiertags Name in Landes Sprachd';
+comment on column ISI_FEIERTAGE."F_NAME_EN" is 'Feiertags Name in Englisch als Fallback';
+comment on column ISI_FEIERTAGE."F_NAME_2" is 'Feiertags Name in Sprache der Verantwortungsstelle';
+comment on column ISI_FEIERTAGE."F_SONDER_FEIERTAG" is 'SF = Sonderfeiertag';
+comment on column ISI_FEIERTAGE."F_WOCHENTAG" is 'Wochentag des Feiertags 1 = Montag, 7 = Sontag';
+comment on column ISI_FEIERTAGE."REGION_CODES_CSV" is 'Bundesland / Region - Zur Feiertagsfindung z.B.: 
 DE-NRW Nordrhein-Westfalen
 DE-NI Niedersachsen 
 DE-BY Bayern
@@ -23,4 +23,4 @@ select t.*, t.rowid
 
 
 
--- sqlcl_snapshot {"hash":"2431264ffc52d263d2663a49c814ca33bd017fa2","type":"COMMENT","name":"isi_feiertage","schemaName":"dirkspzm32","sxml":""}
+-- sqlcl_snapshot {"hash":"7632c46055469b24dae31002002bfa3fd6ed171c","type":"COMMENT","name":"isi_feiertage","schemaName":"dirkspzm32","sxml":""}

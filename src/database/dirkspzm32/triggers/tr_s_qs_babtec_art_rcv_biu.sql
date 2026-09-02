@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_ART_RCV_BIU" 
-  before insert or update on DIRKSPZM32.S_QS_BABTEC_ART_RCV
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_QS_BABTEC_ART_RCV_BIU" 
+  before insert or update on S_QS_BABTEC_ART_RCV
   for each row
 declare
 
@@ -11,8 +11,9 @@ begin
    where art.artikel = :new.artikel;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_ART_RCV_BIU" ENABLE;
+ALTER TRIGGER "TR_S_QS_BABTEC_ART_RCV_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"96151b194167ce159f5ddcfa6f4956a8a515522c","type":"TRIGGER","name":"TR_S_QS_BABTEC_ART_RCV_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bd00081bae292d9b4852393ee37b4ed8a3a0cbb9","type":"TRIGGER","name":"TR_S_QS_BABTEC_ART_RCV_BIU","schemaName":"DIRKSPZM32","sxml":""}

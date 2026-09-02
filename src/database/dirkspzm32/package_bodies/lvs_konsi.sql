@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_konsi is
+package body lvs_konsi is
   /*
   __________________________________________________
   Author
@@ -569,4 +569,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"1fed1ee87d7420e1dbefbb91a9be3e13f2c38da8","type":"PACKAGE_BODY","name":"LVS_KONSI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"78e61ea1a5829a0aaed0d0a962418c24d11e850a","type":"PACKAGE_BODY","name":"LVS_KONSI","schemaName":"DIRKSPZM32","sxml":""}

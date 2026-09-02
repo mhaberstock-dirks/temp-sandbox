@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_charge_bez_check(p_sid in isi_sid.sid%type,
+function get_charge_bez_check(p_sid in isi_sid.sid%type,
                                                 p_firma             in isi_firma.firma_nr%type,
                                                 p_charge            in lvs_charge.charge_bez%type)
                                          return varchar2 is
@@ -115,4 +115,4 @@ end get_charge_bez_check;
 
 
 
--- sqlcl_snapshot {"hash":"732434d4fe43f96da092ae283db3a369ffc2bdde","type":"FUNCTION","name":"GET_CHARGE_BEZ_CHECK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c2355e2590fea58942d1b889612be9f6e958efff","type":"FUNCTION","name":"GET_CHARGE_BEZ_CHECK","schemaName":"DIRKSPZM32","sxml":""}

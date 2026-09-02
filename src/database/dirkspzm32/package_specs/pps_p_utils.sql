@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pps_p_utils is
+package pps_p_utils is
 
   /*
   __________________________________________________
@@ -64,4 +64,4 @@ end pps_p_utils;
 
 
 
--- sqlcl_snapshot {"hash":"1faba1fdd3686f41074c0f15ba88f3b330d6c05a","type":"PACKAGE_SPEC","name":"PPS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c5e2e4f7b1516bbccaf20d6ed7812f4748e13c99","type":"PACKAGE_SPEC","name":"PPS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}

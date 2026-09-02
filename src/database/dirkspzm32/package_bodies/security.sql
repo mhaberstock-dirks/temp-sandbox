@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.security is
+package body security is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -1035,4 +1035,4 @@ end security;
 
 
 
--- sqlcl_snapshot {"hash":"76b974148e9bd1ce7d3747990049b2e3f757d632","type":"PACKAGE_BODY","name":"SECURITY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"823e63776571b046d56679051483e1325a6433c2","type":"PACKAGE_BODY","name":"SECURITY","schemaName":"DIRKSPZM32","sxml":""}

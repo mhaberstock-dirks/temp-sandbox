@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.c_gen_all_arb_plan is
+procedure c_gen_all_arb_plan is
   -- Local variables here
   i integer;
 
@@ -36,4 +36,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"945a077f020bb409cb797b84ec3e5134310c128b","type":"PROCEDURE","name":"C_GEN_ALL_ARB_PLAN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"983be07924502b72cab052543074bf6afa1bbc98","type":"PROCEDURE","name":"C_GEN_ALL_ARB_PLAN","schemaName":"DIRKSPZM32","sxml":""}

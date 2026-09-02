@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_pause_time_day(in_sa_kurzname in varchar2,
+function get_pause_time_day(in_sa_kurzname in varchar2,
                                               in_beginn in date,
                                               in_ende in date,
                                               in_anw_std in number,
@@ -222,4 +222,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"321589f8d1b54b71070a7234cabc0e0101a2f883","type":"FUNCTION","name":"GET_PAUSE_TIME_DAY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"778cc040452706014fcac69e809c78b699c7e3c4","type":"FUNCTION","name":"GET_PAUSE_TIME_DAY","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_ARB_PLAN_AG_BIUD" 
-  before insert or update or delete on DIRKSPZM32.pps_arb_plan_ag
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_ARB_PLAN_AG_BIUD" 
+  before insert or update or delete on pps_arb_plan_ag
   for each row
 declare
 begin
@@ -13,8 +13,9 @@ begin
   end if;
 end tr_pps_arb_plan_ag_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_ARB_PLAN_AG_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_ARB_PLAN_AG_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c269327e57d96c8895d84887438950817350b332","type":"TRIGGER","name":"TR_PPS_ARB_PLAN_AG_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8a29a3d9c4c258370935b0c72bc3ce3fedf5c676","type":"TRIGGER","name":"TR_PPS_ARB_PLAN_AG_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_FAHRZEUGE_LS_ID_BIUD" 
-  before insert or update on DIRKSPZM32.LVS_FAHRZEUGE_ls_id
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_FAHRZEUGE_LS_ID_BIUD" 
+  before insert or update on LVS_FAHRZEUGE_ls_id
   for each row
 declare
   -- local variables here
@@ -59,8 +59,9 @@ exception
       end if;
 end tr_LVS_FAHRZEUGE_ls_id_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_FAHRZEUGE_LS_ID_BIUD" ENABLE;
+ALTER TRIGGER "TR_LVS_FAHRZEUGE_LS_ID_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a19a640da8266670cbc043cfebe44c60ef519639","type":"TRIGGER","name":"TR_LVS_FAHRZEUGE_LS_ID_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cf8048efd847cbcc7922d35f3f5a88e9fef3b250","type":"TRIGGER","name":"TR_LVS_FAHRZEUGE_LS_ID_BIUD","schemaName":"DIRKSPZM32","sxml":""}

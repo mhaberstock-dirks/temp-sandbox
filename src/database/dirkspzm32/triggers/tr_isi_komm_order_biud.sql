@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_KOMM_ORDER_BIUD" 
-  before insert or update or delete on DIRKSPZM32.isi_komm_order
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_KOMM_ORDER_BIUD" 
+  before insert or update or delete on isi_komm_order
   for each row
 declare
   -- local variables here
@@ -228,8 +228,9 @@ begin
   end if;
 end tr_isi_komm_order_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_KOMM_ORDER_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_KOMM_ORDER_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"beb37172bd178fcb01f40b936409e8cb143d9b02","type":"TRIGGER","name":"TR_ISI_KOMM_ORDER_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"69345b9fd78ba5800f9a7013b87014041bbe86c0","type":"TRIGGER","name":"TR_ISI_KOMM_ORDER_BIUD","schemaName":"DIRKSPZM32","sxml":""}

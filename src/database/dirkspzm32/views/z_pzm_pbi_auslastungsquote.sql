@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."Z_PZM_PBI_AUSLASTUNGSQUOTE" ("BU_ID", "BU_NAME", "LNR", "MANDANT", "NAME", "NNAME", "PERSNR", "DATUM", "WERT", "KOSTENSTELLE", "WERTART", "SAP_ZUORDNUNG", "ABTEILUNG", "LAST_CHANGE_DATE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "Z_PZM_PBI_AUSLASTUNGSQUOTE" ("BU_ID", "BU_NAME", "LNR", "MANDANT", "NAME", "NNAME", "PERSNR", "DATUM", "WERT", "KOSTENSTELLE", "WERTART", "SAP_ZUORDNUNG", "ABTEILUNG", "LAST_CHANGE_DATE") AS 
   select b.bu_id,
        b.bu_name,
        p.pers_nr * 1000000000 +
@@ -59,4 +59,4 @@ select b.bu_id,
     and ts.ts_datum < trunc(sysdate);
 
 
--- sqlcl_snapshot {"hash":"8183f7a970f8b9ae2bb5bc624288bf493c87ba31","type":"VIEW","name":"Z_PZM_PBI_AUSLASTUNGSQUOTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9adddab8fce32ca36231819b873edb42ecdbee39","type":"VIEW","name":"Z_PZM_PBI_AUSLASTUNGSQUOTE","schemaName":"DIRKSPZM32","sxml":""}

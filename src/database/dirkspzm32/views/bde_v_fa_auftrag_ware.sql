@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."BDE_V_FA_AUFTRAG_WARE" ("SID", "FIRMA_NR", "LEITZAHL", "FA_AG", "AG_IST_MG", "AG_IST_MG_B", "AG_IST_MG_SCHROTT", "AG_IST_MG_RUESTEN", "GUTWARE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "BDE_V_FA_AUFTRAG_WARE" ("SID", "FIRMA_NR", "LEITZAHL", "FA_AG", "AG_IST_MG", "AG_IST_MG_B", "AG_IST_MG_SCHROTT", "AG_IST_MG_RUESTEN", "GUTWARE") AS 
   select t."SID",
        t."FIRMA_NR",
        t."LEITZAHL",
@@ -13,4 +13,4 @@ from bde_fa_auftrag t
 ;
 
 
--- sqlcl_snapshot {"hash":"8010a87ea5d5595f977065646f205fe5d4bf4413","type":"VIEW","name":"BDE_V_FA_AUFTRAG_WARE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b5ac3db8fc8f115a3b19f3b6e5ba5e886814fcc5","type":"VIEW","name":"BDE_V_FA_AUFTRAG_WARE","schemaName":"DIRKSPZM32","sxml":""}

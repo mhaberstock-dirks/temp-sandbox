@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_p_license is
+package body isi_p_license is
   -- Initialisierung
   c_c constant varchar2(200)   := 'AAJqi2pnka5IfEmpfsAL/Q==';
   c_mba constant varchar2(200) := 'dGwJf4iFj8ULejfIq+WMGQ==';
@@ -260,4 +260,4 @@ end isi_p_license;
 
 
 
--- sqlcl_snapshot {"hash":"f299df0b20908c74a63d74422c67a9ae2abcb39b","type":"PACKAGE_BODY","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fc7f09474d4c91c4d4798333ff1d07d8db1e194d","type":"PACKAGE_BODY","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}

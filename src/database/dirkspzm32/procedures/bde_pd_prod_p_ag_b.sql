@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_p_ag_b
+procedure bde_pd_prod_p_ag_b
 /*
 Deckel zu bde_pd_prod_p_ag_b_f Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Produktionsgruppe zur Produktion an. 
 
@@ -45,4 +45,4 @@ end bde_pd_prod_p_ag_b;
 
 
 
--- sqlcl_snapshot {"hash":"3dc9df3185f94bb5da451d164bb7e070c8339bec","type":"PROCEDURE","name":"BDE_PD_PROD_P_AG_B","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"75173d6844a895583fe91fe735e6e472b1cb437a","type":"PROCEDURE","name":"BDE_PD_PROD_P_AG_B","schemaName":"DIRKSPZM32","sxml":""}

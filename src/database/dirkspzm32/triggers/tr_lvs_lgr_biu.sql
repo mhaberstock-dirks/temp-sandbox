@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LGR_BIU" 
-  before update or insert on DIRKSPZM32.LVS_LGR
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LGR_BIU" 
+  before update or insert on LVS_LGR
   for each row
 declare
   /*
@@ -218,8 +218,9 @@ begin
   end if;
 end TR_LVS_LGR_Biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LGR_BIU" ENABLE;
+ALTER TRIGGER "TR_LVS_LGR_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4fcf7fce300ace97b7aeb7ac1f8758f5af45b9f1","type":"TRIGGER","name":"TR_LVS_LGR_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a9c674ae37c3a00040d9729bfe8dfdf760e241d4","type":"TRIGGER","name":"TR_LVS_LGR_BIU","schemaName":"DIRKSPZM32","sxml":""}

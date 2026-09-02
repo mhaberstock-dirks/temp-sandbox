@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_p_order_base is
+package body isi_p_order_base is
   /*
   __________________________________________________
   Author
@@ -318,4 +318,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"9512179b92e62d453b313140361401e8517e86dc","type":"PACKAGE_BODY","name":"ISI_P_ORDER_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ebb0c3ed0d39b347f612bc7783f60cc9c0ee8f16","type":"PACKAGE_BODY","name":"ISI_P_ORDER_BASE","schemaName":"DIRKSPZM32","sxml":""}

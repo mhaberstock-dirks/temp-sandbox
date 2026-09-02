@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_PDL_KST_EQUAL_PAY_BUI" 
-  before insert or update on DIRKSPZM32.PZM_PDL_KST_EQUAL_PAY
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_PDL_KST_EQUAL_PAY_BUI" 
+  before insert or update on PZM_PDL_KST_EQUAL_PAY
   for each row
 declare
 begin
@@ -26,8 +26,9 @@ end;
 
 
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_PDL_KST_EQUAL_PAY_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_PDL_KST_EQUAL_PAY_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"bb837da6b244c6ea232043a79acb32ff115b1c0a","type":"TRIGGER","name":"TR_PZM_PDL_KST_EQUAL_PAY_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4302a621ca6c94f6dc5c1ac7f98b18672430cba4","type":"TRIGGER","name":"TR_PZM_PDL_KST_EQUAL_PAY_BUI","schemaName":"DIRKSPZM32","sxml":""}

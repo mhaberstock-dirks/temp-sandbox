@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_oetker_druck is
+package z_oetker_druck is
 
   /*
   __________________________________________________
@@ -39,4 +39,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"620973229f31aeb1fa0ce436d12aca3657fc28ea","type":"PACKAGE_SPEC","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6247753808396dbf7e9d2ce9c659783d77f1ab7c","type":"PACKAGE_SPEC","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

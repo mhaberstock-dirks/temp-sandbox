@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.res_schicht is
+package res_schicht is
 
   /*
   __________________________________________________
@@ -57,4 +57,4 @@ end res_schicht;
 
 
 
--- sqlcl_snapshot {"hash":"23df647c91d89064632a0128526765b60203edcc","type":"PACKAGE_SPEC","name":"RES_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dd1c185e19fafc7fb3c52533b8b6c1c61cc8c18d","type":"PACKAGE_SPEC","name":"RES_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}

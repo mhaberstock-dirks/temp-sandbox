@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_PD_KOPF_MA_BIUD" 
-  before insert or update on DIRKSPZM32.BDE_PD_KOPF_MA
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_PD_KOPF_MA_BIUD" 
+  before insert or update on BDE_PD_KOPF_MA
   for each row
 
 declare
@@ -115,8 +115,9 @@ exception
       end if;
 end tr_BDE_PD_KOPF_MA_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_PD_KOPF_MA_BIUD" ENABLE;
+ALTER TRIGGER "TR_BDE_PD_KOPF_MA_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"5d84fbdb883652dff932132f7fa7e2dc6cfc0e42","type":"TRIGGER","name":"TR_BDE_PD_KOPF_MA_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"14cf6afbda8d6537246161f7e4ae3aaefeeb828d","type":"TRIGGER","name":"TR_BDE_PD_KOPF_MA_BIUD","schemaName":"DIRKSPZM32","sxml":""}

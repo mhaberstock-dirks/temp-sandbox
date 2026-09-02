@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_APS_PLAN_ERGEBNIS_BUI" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_APS_PLAN_ERGEBNIS_BUI" 
   before insert or update
-  on DIRKSPZM32.APS_PLAN_ERGEBNIS
+  on APS_PLAN_ERGEBNIS
   for each row
 declare
   -- local variables here
@@ -19,8 +19,9 @@ begin
   end if;
 end TR_Z_DIR_APS_PLAN_MATR_bui;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_APS_PLAN_ERGEBNIS_BUI" ENABLE;
+ALTER TRIGGER "TR_APS_PLAN_ERGEBNIS_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f8e2bdc07ed5c826a45c13563a847bca5eb33c2a","type":"TRIGGER","name":"TR_APS_PLAN_ERGEBNIS_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bef7d1f6367c0df10afeac3fddfcae35d85c6e30","type":"TRIGGER","name":"TR_APS_PLAN_ERGEBNIS_BUI","schemaName":"DIRKSPZM32","sxml":""}

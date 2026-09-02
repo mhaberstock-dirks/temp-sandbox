@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_p_base is
+package body isi_p_base is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehlerhandling für Exceptions
@@ -586,4 +586,4 @@ end isi_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"62e07ca39f14f8c06978af71c2710a125523becb","type":"PACKAGE_BODY","name":"ISI_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fe37c34733afaf808b87244523809cce3b6a32f1","type":"PACKAGE_BODY","name":"ISI_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

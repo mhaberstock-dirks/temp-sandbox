@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_TMS_KUNDEN_AUFTR_POS_BIU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_TMS_KUNDEN_AUFTR_POS_BIU" 
   before insert or update
-  on DIRKSPZM32.TMS_KUNDEN_AUFTR_POS
+  on TMS_KUNDEN_AUFTR_POS
   for each row
 declare
   -- local variables here
@@ -29,8 +29,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_TMS_KUNDEN_AUFTR_POS_BIU" ENABLE;
+ALTER TRIGGER "TR_TMS_KUNDEN_AUFTR_POS_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e8a8a97b538558af5e8c97363755c5b4356a06dd","type":"TRIGGER","name":"TR_TMS_KUNDEN_AUFTR_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"22087962cbc3852270a9194db85fac59ed6aeb70","type":"TRIGGER","name":"TR_TMS_KUNDEN_AUFTR_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}

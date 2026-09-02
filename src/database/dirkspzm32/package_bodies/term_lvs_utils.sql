@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.term_lvs_utils is
+package body term_lvs_utils is
 
   v_build_number constant number := 1;
   /*
@@ -162,4 +162,4 @@ end term_lvs_utils;
 
 
 
--- sqlcl_snapshot {"hash":"c3dcb55ef5e6ac2d33e09f3da1cfbb4d77463c70","type":"PACKAGE_BODY","name":"TERM_LVS_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5c2d623558589e3473b295ff72169e07a169919b","type":"PACKAGE_BODY","name":"TERM_LVS_UTILS","schemaName":"DIRKSPZM32","sxml":""}

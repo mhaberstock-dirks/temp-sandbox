@@ -1,5 +1,5 @@
 create or replace 
-PACKAGE DIRKSPZM32.lvs_platz_new IS
+PACKAGE lvs_platz_new IS
 
   /*
   __________________________________________________
@@ -495,4 +495,4 @@ END lvs_platz_new;
 
 
 
--- sqlcl_snapshot {"hash":"ec282da3bbe14f7be79a64582a4ac456c1084b25","type":"PACKAGE_SPEC","name":"LVS_PLATZ_NEW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3724e321b39a73e18ccfdfb55a18d46378db640d","type":"PACKAGE_SPEC","name":"LVS_PLATZ_NEW","schemaName":"DIRKSPZM32","sxml":""}

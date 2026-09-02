@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."V_LVS_GESTELL_INHALT" ("LGR_PLATZ", "VORGANG_ID", "LI_NR", "LIEFER_DATUM", "ANZ") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "V_LVS_GESTELL_INHALT" ("LGR_PLATZ", "VORGANG_ID", "LI_NR", "LIEFER_DATUM", "ANZ") AS 
   select lam.lgr_platz,
        iop.vorgang_id,
        iop.li_nr,
@@ -14,4 +14,4 @@ order by iop.li_nr
 ;
 
 
--- sqlcl_snapshot {"hash":"c1ea2515ae253b36161f5978f407ce4b191efb68","type":"VIEW","name":"V_LVS_GESTELL_INHALT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1ea8c2847ece480e3f1269f6c72f7b815e9af81b","type":"VIEW","name":"V_LVS_GESTELL_INHALT","schemaName":"DIRKSPZM32","sxml":""}

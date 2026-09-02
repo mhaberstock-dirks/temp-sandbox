@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LHM_CFG_BIU" 
-  before insert or update on DIRKSPZM32.lvs_lhm_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LHM_CFG_BIU" 
+  before insert or update on lvs_lhm_cfg
   for each row
 declare
   v_ems_artikel    ems_artikel%rowtype;
@@ -78,8 +78,9 @@ begin
 
 end tr_lvs_lhm_cfg_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LHM_CFG_BIU" ENABLE;
+ALTER TRIGGER "TR_LVS_LHM_CFG_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"df345f3fc9576002ec9dc42f8f557b5867988987","type":"TRIGGER","name":"TR_LVS_LHM_CFG_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"254c1d671a13d45511f6f538ac3a95286b01928b","type":"TRIGGER","name":"TR_LVS_LHM_CFG_BIU","schemaName":"DIRKSPZM32","sxml":""}

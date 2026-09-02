@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_BIU" 
-  before insert or update on DIRKSPZM32.s_rcv_fa_auf
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_RCV_FA_AUF_BIU" 
+  before insert or update on s_rcv_fa_auf
   for each row
 declare
   v_error     EXCEPTION;
@@ -575,8 +575,9 @@ exception
     end if;
 end TR_S_RCV_FA_AUF_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_BIU" ENABLE;
+ALTER TRIGGER "TR_S_RCV_FA_AUF_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3e70e2be66852e8616c3d49fcc3007854077b9bc","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"429a767ed3862a7f775967ddb8585ef461b7ce3e","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_BIU","schemaName":"DIRKSPZM32","sxml":""}

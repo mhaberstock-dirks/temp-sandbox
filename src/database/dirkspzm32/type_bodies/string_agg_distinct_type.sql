@@ -1,5 +1,5 @@
 create or replace 
-TYPE BODY DIRKSPZM32."STRING_AGG_DISTINCT_TYPE" is
+TYPE BODY "STRING_AGG_DISTINCT_TYPE" is
 
   static function ODCIAggregateInitialize(sctx IN OUT string_agg_distinct_type) return number is
   begin
@@ -48,4 +48,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"51737ff6c99bb74f9843c544eaee8e60f79ce54b","type":"TYPE_BODY","name":"STRING_AGG_DISTINCT_TYPE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b96c454e97c8eeab88d0eb87a24fd5e8e704c1c4","type":"TYPE_BODY","name":"STRING_AGG_DISTINCT_TYPE","schemaName":"DIRKSPZM32","sxml":""}

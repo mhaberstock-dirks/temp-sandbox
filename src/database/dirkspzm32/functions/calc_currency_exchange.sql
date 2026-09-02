@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.calc_currency_exchange(
+function calc_currency_exchange(
   in_source_currency in varchar2,               --# Source currency to lookup currency rates
   in_target_currency in varchar2,               --# Target currency to lookup currency rates
   in_source_value in number,                    --# Original value for source currency
@@ -29,4 +29,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"6359dbc6093e5966dfaec478ae745d418cc928df","type":"FUNCTION","name":"CALC_CURRENCY_EXCHANGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a1f4d7300141a2b88a3ce4b98bd9beacd2b4b0fd","type":"FUNCTION","name":"CALC_CURRENCY_EXCHANGE","schemaName":"DIRKSPZM32","sxml":""}

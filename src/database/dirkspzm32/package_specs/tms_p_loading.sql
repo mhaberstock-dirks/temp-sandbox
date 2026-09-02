@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.tms_p_loading is
+package tms_p_loading is
 
   -- Author  : WKROEKER
   -- Created : 05.03.2009 15:07:28
@@ -91,4 +91,4 @@ end tms_p_loading;
 
 
 
--- sqlcl_snapshot {"hash":"fc310381e66d2a6550870b878955c739b1ed6dfc","type":"PACKAGE_SPEC","name":"TMS_P_LOADING","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ef9664a449d2a03456bfa1942edf9ceb028741de","type":"PACKAGE_SPEC","name":"TMS_P_LOADING","schemaName":"DIRKSPZM32","sxml":""}

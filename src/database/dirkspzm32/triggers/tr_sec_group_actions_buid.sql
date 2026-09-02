@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_SEC_GROUP_ACTIONS_BUID" 
-  before insert or update or delete on DIRKSPZM32.sec_group_actions
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_SEC_GROUP_ACTIONS_BUID" 
+  before insert or update or delete on sec_group_actions
   for each row
 declare
   -- local variables here
@@ -43,8 +43,9 @@ begin
 
 end tr_sec_group_actions_buid;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_SEC_GROUP_ACTIONS_BUID" ENABLE;
+ALTER TRIGGER "TR_SEC_GROUP_ACTIONS_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"62100b1af1e6575aa4697281c42eaf1fb8cf886b","type":"TRIGGER","name":"TR_SEC_GROUP_ACTIONS_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d54b0d2bdaf1973ecd034d999a3b9e3a93818dd0","type":"TRIGGER","name":"TR_SEC_GROUP_ACTIONS_BUID","schemaName":"DIRKSPZM32","sxml":""}

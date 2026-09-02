@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ZE_LOA_AUSW_BIUD" 
-  before insert or update or delete on DIRKSPZM32.pzm_ze_loa_ausw
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ZE_LOA_AUSW_BIUD" 
+  before insert or update or delete on pzm_ze_loa_ausw
   for each row
 declare
   type T_CommonCursorRef is ref cursor;
@@ -431,9 +431,8 @@ begin
     end if;
   end if;
 end;
-
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ZE_LOA_AUSW_BIUD" ENABLE;
+ALTER TRIGGER "TR_ZE_LOA_AUSW_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"32da86e31283b88a75fcfbfc2cc6f61474fd6f7a","type":"TRIGGER","name":"TR_ZE_LOA_AUSW_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a925655a04c4f6a108ab7ab54ab6f060daf42847","type":"TRIGGER","name":"TR_ZE_LOA_AUSW_BIUD","schemaName":"DIRKSPZM32","sxml":""}

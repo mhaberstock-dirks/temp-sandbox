@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_db_c_aktivitaet_delete(in_tabelle in varchar2,
+procedure isi_db_c_aktivitaet_delete(in_tabelle in varchar2,
 																											 in_pk_feld in varchar2,
 																											 in_row_id  in varchar2,
 																											 in_ts      in timestamp) is
@@ -24,4 +24,4 @@ end isi_db_c_aktivitaet_delete;
 
 
 
--- sqlcl_snapshot {"hash":"bd559940549c8e3b3a5ff9bcbcb1fec7e2c800bd","type":"PROCEDURE","name":"ISI_DB_C_AKTIVITAET_DELETE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"97b50df922389bd83ceb73317c541ccabb87c2a7","type":"PROCEDURE","name":"ISI_DB_C_AKTIVITAET_DELETE","schemaName":"DIRKSPZM32","sxml":""}

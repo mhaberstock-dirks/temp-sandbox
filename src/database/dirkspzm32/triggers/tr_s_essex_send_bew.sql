@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ESSEX_SEND_BEW" 
-  before insert or update on DIRKSPZM32.s_essex_send_bew
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ESSEX_SEND_BEW" 
+  before insert or update on s_essex_send_bew
   for each row
 begin
   if inserting
@@ -22,8 +22,9 @@ begin
 
 end ;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ESSEX_SEND_BEW" ENABLE;
+ALTER TRIGGER "TR_S_ESSEX_SEND_BEW" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7052de237e8e2b27f07bf3ee5ef14f1d72e7590a","type":"TRIGGER","name":"TR_S_ESSEX_SEND_BEW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"80283c383cee26090bf90e06209ca6b9f9702b6b","type":"TRIGGER","name":"TR_S_ESSEX_SEND_BEW","schemaName":"DIRKSPZM32","sxml":""}

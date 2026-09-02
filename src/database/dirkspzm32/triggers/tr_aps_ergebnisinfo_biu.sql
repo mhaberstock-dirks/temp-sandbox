@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_APS_ERGEBNISINFO_BIU" 
-  before insert or update on DIRKSPZM32.APS_ERGEBNISINFO
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_APS_ERGEBNISINFO_BIU" 
+  before insert or update on APS_ERGEBNISINFO
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -36,8 +36,9 @@ exception
       end if;
 end TR_APS_ERGEBNISINFO_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_APS_ERGEBNISINFO_BIU" ENABLE;
+ALTER TRIGGER "TR_APS_ERGEBNISINFO_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"885a42d860130d11642e4888fe6b56430f8ac894","type":"TRIGGER","name":"TR_APS_ERGEBNISINFO_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"55710cc4c54f26832a1cc66561c5ee4a6b355aad","type":"TRIGGER","name":"TR_APS_ERGEBNISINFO_BIU","schemaName":"DIRKSPZM32","sxml":""}

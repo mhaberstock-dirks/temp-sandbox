@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_pzm_startup_import is
+package z_pzm_startup_import is
 
   /*
   -- Author  : hjgoedeke
@@ -35,12 +35,12 @@ package DIRKSPZM32.z_pzm_startup_import is
   v_firma                       isi_firma.firma_nr%type;
   v_sid_found                   boolean;
   v_isi_user                    isi_user%rowtype;
-  
+
   CURSOR c_sid is
    select *
      from isi_sid s
     where s.sid_my_sid = 1;
-    
+
   procedure pzm_urlaub_flex_start_import(in_del_kontobuchungen   in varchar2,
                                          in_zk_start             in date);
   procedure pzm_sonst_konten_start_import(in_del_kontobuchungen   in varchar2,
@@ -56,4 +56,4 @@ end z_pzm_startup_import;
 
 
 
--- sqlcl_snapshot {"hash":"109654e29b13cf17f4c1ef03cc8d42c27d068c97","type":"PACKAGE_SPEC","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1b8701f6f59d7dcbc330519bc67ebb53f618e435","type":"PACKAGE_SPEC","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}

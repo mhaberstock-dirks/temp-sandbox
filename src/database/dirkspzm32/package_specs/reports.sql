@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.REPORTS is
+package REPORTS is
 
   /*
   __________________________________________________
@@ -90,4 +90,4 @@ end REPORTS;
 
 
 
--- sqlcl_snapshot {"hash":"006126c00e7d3d45dddd3e12210ef668117086e8","type":"PACKAGE_SPEC","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d606a11cd0e45c47792aa1f7c997890ff5952334","type":"PACKAGE_SPEC","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}

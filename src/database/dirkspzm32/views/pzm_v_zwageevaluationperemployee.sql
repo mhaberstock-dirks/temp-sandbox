@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_ZWAGEEVALUATIONPEREMPLOYEE" ("EmployeeId", "ShiftDay", "ShiftShortName", "DayAbsenceTypeId", "CostCenterId", "ExpectedWorkingHours", "DayOnSiteHours", "DayWorkingHours", "DayTotalWorkingHours", "ExpectedWorkingHoursDiff", "AbsenceHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "UNION_ORDER", "DataSourceInfo", "feiertagszuschlag", "nachtzuschlag", "sonntagszuschlag", "samstagszuschlag") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_ZWAGEEVALUATIONPEREMPLOYEE" ("EmployeeId", "ShiftDay", "ShiftShortName", "DayAbsenceTypeId", "CostCenterId", "ExpectedWorkingHours", "DayOnSiteHours", "DayWorkingHours", "DayTotalWorkingHours", "ExpectedWorkingHoursDiff", "AbsenceHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "UNION_ORDER", "DataSourceInfo", "feiertagszuschlag", "nachtzuschlag", "sonntagszuschlag", "samstagszuschlag") AS 
   select
     loa_ausw."EmployeeId"
    ,loa_ausw."ShiftDay"    -- ts_datum
@@ -46,4 +46,4 @@
 from pzm_v_WageEvaluationPerEmployee loa_ausw;
 
 
--- sqlcl_snapshot {"hash":"ff508c1dc36d012b3fb9221c713c42a85ea15746","type":"VIEW","name":"PZM_V_ZWAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d7abb6859bc759120ce59e5afab3ab6a9cbef4d0","type":"VIEW","name":"PZM_V_ZWAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}

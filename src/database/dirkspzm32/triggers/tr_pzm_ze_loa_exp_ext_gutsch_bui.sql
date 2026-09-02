@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI" 
-  before insert or update on DIRKSPZM32.PZM_ZE_LOA_EXP_EXT_GUTSCH
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI" 
+  before insert or update on PZM_ZE_LOA_EXP_EXT_GUTSCH
   for each row
 declare
 begin
@@ -21,8 +21,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"318d23d2e31fca5ded2aae5339452aef15126b2f","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"bcaf63cd2fe3027449d2670fc028ae94baafa7bf","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_BUI","schemaName":"DIRKSPZM32","sxml":""}

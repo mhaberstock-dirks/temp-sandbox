@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_seaquist_druck is
+package body z_seaquist_druck is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -1103,4 +1103,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"03098f81e1ed8b7b122ad95baa58de2702c09584","type":"PACKAGE_BODY","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e50131a82b239feba69ac5640ef61c0cd7310199","type":"PACKAGE_BODY","name":"Z_SEAQUIST_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

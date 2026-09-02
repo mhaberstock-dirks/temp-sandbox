@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_lager_opt is
+package lvs_lager_opt is
 
   /*
   __________________________________________________
@@ -114,4 +114,4 @@ end lvs_lager_opt;
 
 
 
--- sqlcl_snapshot {"hash":"ca7fd3d4c5105f852d959a7bb6c44ef3416021e0","type":"PACKAGE_SPEC","name":"LVS_LAGER_OPT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"51e3d7a682b83eaebe1acd6d3cc82e64c4a16e44","type":"PACKAGE_SPEC","name":"LVS_LAGER_OPT","schemaName":"DIRKSPZM32","sxml":""}

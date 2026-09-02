@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PRINT_ALLG is
+package PRINT_ALLG is
 
   /*
   __________________________________________________
@@ -51,4 +51,4 @@ end PRINT_ALLG;
 
 
 
--- sqlcl_snapshot {"hash":"16c1d9e8007d26d0058bd850f03da0146e4db965","type":"PACKAGE_SPEC","name":"PRINT_ALLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dc2a3558b1ba251ed8d3721eb9fc3cc789f8895b","type":"PACKAGE_SPEC","name":"PRINT_ALLG","schemaName":"DIRKSPZM32","sxml":""}

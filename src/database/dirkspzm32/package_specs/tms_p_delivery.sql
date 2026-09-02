@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.tms_p_delivery is
+package tms_p_delivery is
 
   /*
   __________________________________________________
@@ -139,4 +139,4 @@ end tms_p_delivery;
 
 
 
--- sqlcl_snapshot {"hash":"76d6bb1250ab4f0f6d0cc4ddcf9a32877b3eaaa0","type":"PACKAGE_SPEC","name":"TMS_P_DELIVERY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ef73c033d53a4d644d836f6578d05c433ded7fe6","type":"PACKAGE_SPEC","name":"TMS_P_DELIVERY","schemaName":"DIRKSPZM32","sxml":""}

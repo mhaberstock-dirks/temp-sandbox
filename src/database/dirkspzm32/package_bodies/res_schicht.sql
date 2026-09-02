@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.res_schicht is
+package body res_schicht is
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler-Variablen fï¿½r eine Exception
   -------------------------------------------------------------------------------------------------------
@@ -386,4 +386,4 @@ end res_schicht;
 
 
 
--- sqlcl_snapshot {"hash":"680b06f9901a14984c7187248fa22cc41a67b313","type":"PACKAGE_BODY","name":"RES_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9afcdde155035f0a0b97567e410ae798fc73eadb","type":"PACKAGE_BODY","name":"RES_SCHICHT","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.Get_table_Colname_wert_sql(in_tabelle in varchar2) return varchar2 is
+function Get_table_Colname_wert_sql(in_tabelle in varchar2) return varchar2 is
 
 v_sql       varchar2(10000);
 v_col_name  varchar2(100);
@@ -36,4 +36,4 @@ end Get_table_Colname_wert_sql;
 
 
 
--- sqlcl_snapshot {"hash":"a75b2f20f1400aea1de593cbb275ebb065343c61","type":"FUNCTION","name":"GET_TABLE_COLNAME_WERT_SQL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8b3d8ae6664db4fe9e9fe8fb7a48e7a97a86e8c1","type":"FUNCTION","name":"GET_TABLE_COLNAME_WERT_SQL","schemaName":"DIRKSPZM32","sxml":""}

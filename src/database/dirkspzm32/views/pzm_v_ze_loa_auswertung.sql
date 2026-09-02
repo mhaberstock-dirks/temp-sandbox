@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_ZE_LOA_AUSWERTUNG" ("UNION_ORDER", "DATA_SRC", "PERS_NR", "TS_DATUM", "KST_ID", "SA_KURZNAME", "AA_ID", "ZE_IST_START", "ZE_IST_ENDE", "ZE_CALC_START", "ZE_CALC_ENDE", "TS_DAY_ABW_STD", "TS_DAY_ARB_STD", "TS_DAY_PAUSE_STD", "TS_DAY_UEB_STD", "TS_DAY_FLEX_STD", "TS_GES_ARB_STD", "LOA_LIST_CR") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_ZE_LOA_AUSWERTUNG" ("UNION_ORDER", "DATA_SRC", "PERS_NR", "TS_DATUM", "KST_ID", "SA_KURZNAME", "AA_ID", "ZE_IST_START", "ZE_IST_ENDE", "ZE_CALC_START", "ZE_CALC_ENDE", "TS_DAY_ABW_STD", "TS_DAY_ARB_STD", "TS_DAY_PAUSE_STD", "TS_DAY_UEB_STD", "TS_DAY_FLEX_STD", "TS_GES_ARB_STD", "LOA_LIST_CR") AS 
   select 0 union_order,
        'ZE' data_src, -- ZE = tägliche Zeiterfassung (time collection)
        ts.ts_pers_nr pers_nr,
@@ -145,4 +145,4 @@ select 2 union_order,
 ;
 
 
--- sqlcl_snapshot {"hash":"0663275351eb17a4fde5c100751db1278ada69aa","type":"VIEW","name":"PZM_V_ZE_LOA_AUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"24aaf03d792c71f68a01ea2c48974dd1f3e83dcc","type":"VIEW","name":"PZM_V_ZE_LOA_AUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

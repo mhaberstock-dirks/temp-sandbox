@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_GRUPPE_BI" 
-  before insert on DIRKSPZM32.isi_artikel_gruppe
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ARTIKEL_GRUPPE_BI" 
+  before insert on isi_artikel_gruppe
   for each row
 begin
   if INSERTING
@@ -12,8 +12,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ARTIKEL_GRUPPE_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_ARTIKEL_GRUPPE_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1f27b77640c0f8cf4069057362074530d29ec706","type":"TRIGGER","name":"TR_ISI_ARTIKEL_GRUPPE_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4bfd1322eb903fb157ac910a1921aca11da504ee","type":"TRIGGER","name":"TR_ISI_ARTIKEL_GRUPPE_BI","schemaName":"DIRKSPZM32","sxml":""}

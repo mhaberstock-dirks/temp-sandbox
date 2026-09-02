@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.bde_scanner is
+package bde_scanner is
 
 
 
@@ -243,4 +243,4 @@ end bde_scanner;
 
 
 
--- sqlcl_snapshot {"hash":"037644765972e53c4ba4a74895b91105c3b3cd4b","type":"PACKAGE_SPEC","name":"BDE_SCANNER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1268c7a583e2610e52d35ee89bf2d83273d013ff","type":"PACKAGE_SPEC","name":"BDE_SCANNER","schemaName":"DIRKSPZM32","sxml":""}

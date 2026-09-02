@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.res_status is
+package body res_status is
 	-------------------------------------------------------------------------------------------------------
 	-- Standard Fehler-Variablen für eine Exception
 	-------------------------------------------------------------------------------------------------------
@@ -515,4 +515,4 @@ end res_status;
 
 
 
--- sqlcl_snapshot {"hash":"9770b6624a488b62f2cbda813e1a15399a3f3ca9","type":"PACKAGE_BODY","name":"RES_STATUS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f5a637b87b96687ab0bbe7441c100a768a34df9d","type":"PACKAGE_BODY","name":"RES_STATUS","schemaName":"DIRKSPZM32","sxml":""}

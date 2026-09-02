@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."Z_PZM_PBI_BUCHUNGSDATEN" ("BU_ID", "BU_NAME", "LNR", "DATUM", "FIRMA", "PD_MANDANT", "MANDANT", "PERSNR", "NAME", "VORNAME", "ABTEILUNG", "ART", "WERT", "KOSTENSTELLE", "STATUS", "STATUS_TEXT", "STATUS_TEXT2", "SAP_ZUORDNUNG", "START_ZEIT", "ENDE_ZEIT", "LAST_CHANGE_DATE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "Z_PZM_PBI_BUCHUNGSDATEN" ("BU_ID", "BU_NAME", "LNR", "DATUM", "FIRMA", "PD_MANDANT", "MANDANT", "PERSNR", "NAME", "VORNAME", "ABTEILUNG", "ART", "WERT", "KOSTENSTELLE", "STATUS", "STATUS_TEXT", "STATUS_TEXT2", "SAP_ZUORDNUNG", "START_ZEIT", "ENDE_ZEIT", "LAST_CHANGE_DATE") AS 
   select b.bu_id,
        b.bu_name,
        'ZE' ||
@@ -302,8 +302,7 @@ select b.bu_id,
        aa.aa_id,
        aa.aa_name,
        aan.au_bemerkung,
-       aan.au_status
-;
+       aan.au_status;
 
 
--- sqlcl_snapshot {"hash":"ddf1fffc2ca9737d1219077a4018f3bda49d02e8","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9737f1087ee98ddfe79e2793ed5c00ae84402cd7","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}

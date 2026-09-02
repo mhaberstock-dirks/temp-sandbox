@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_LOHNAUSWERTUNG is
+package body PZM_LOHNAUSWERTUNG is
 
   type t_kst_std_rec is record
        (
@@ -145,7 +145,7 @@ begin
                                           in_monatsende   in date,
                                           in_loa          in pzm_lohnarten.lz_lohnart%type
                                           ) return boolean is
-                                     
+
     v_loa_stunden                    number;
     cursor c_lohnauswertungen is
       select sum(t.zeaw_lz_loa_std)
@@ -157,7 +157,7 @@ begin
     OPEN c_lohnauswertungen;
     FETCH c_lohnauswertungen into v_loa_stunden;
     CLOSE c_lohnauswertungen;
-    
+
     if nvl(v_loa_stunden, 0) > 0
     then 
       return false;
@@ -182,9 +182,9 @@ begin
                       in_jahr,
                       in_stunden);
     commit;
-    
+
   end;
-  
+
   procedure ueb_std_auszahlen(in_pers_nr in number,
                               in_monat   in integer,
                               in_jahr    in integer,
@@ -219,7 +219,7 @@ begin
          and lz.lz_id = v_lohnart.lz_id;
   begin
     v_error_code   := null;
-    
+
     if not pzm_p_base.get_personal(in_pers_nr, v_personal)
     then
       v_error_code := 1;
@@ -227,10 +227,10 @@ begin
       raise_application_error(-20000 - v_error_code,
                               v_error_text,
                               true);
-      
+
     end if;
 
-        
+
     open c_lohnarten;
     fetch c_lohnarten into v_lohnart;
     v_found := c_lohnarten%found;
@@ -285,8 +285,8 @@ begin
       raise_application_error(-20000 - v_error_code, v_error_text, true);
     end if;
   end;
-  
-  
+
+
   /**************************************************************************************************
   *
   * UEB_STD_AUSZAHLEN_STORNO
@@ -301,9 +301,9 @@ begin
                              in_monat,
                              in_jahr);
     commit;
-    
+
   end;
-  
+
   procedure ueb_std_auszahlen_storno(in_pers_nr in number,
                                      in_monat   in integer,
                                      in_jahr    in integer) is
@@ -337,7 +337,7 @@ begin
          and lz.lz_id = v_lohnart.lz_id;
   begin
     v_error_code   := null;
-    
+
     if not pzm_p_base.get_personal(in_pers_nr, v_personal)
     then
       v_error_code := 1;
@@ -345,10 +345,10 @@ begin
       raise_application_error(-20000 - v_error_code,
                               v_error_text,
                               true);
-      
+
     end if;
 
-        
+
     open c_lohnarten;
     fetch c_lohnarten into v_lohnart;
     v_found := c_lohnarten%found;
@@ -626,14 +626,14 @@ begin
         v_Ueberspringen := true;
       end if;
     end if;
-    
+
     v_ist_feiertag := ist_feiertag(p_pers_nr, 
                                    get_pers_pb_id(p_pers_nr), 
                                    get_pers_abt_id(p_pers_nr), 
                                    get_pers_kst_id(p_pers_nr), 
                                    p_lz_von, 
                                    v_SonderFeiertag) = 1;
-    
+
     -- Feiertag prüfen
     if v_ist_feiertag
     then
@@ -676,7 +676,7 @@ begin
 
     if not v_Ueberspringen 
     then
-      
+
       if p_lz_op in ('<=', '<', '>=', '>', '!N')
       or p_lz_op is NULL 
       or p_lz_ueb_std is null 
@@ -710,7 +710,7 @@ begin
             else
               v_LoaVon := p_lz_von;          -- Die Pause der ganzen Schincht rechenen
             end if;
-              
+
             v_pause_std := get_pers_pause_std(p_pers_nr,
                                               p_schicht_tag,
                                               p_sa_kurzname,
@@ -799,7 +799,7 @@ begin
             end if;
           end if;
         --end if;
-        
+
         if p_loa_std is NULL
         then
           if p_lz_op = '<=' then
@@ -928,7 +928,7 @@ begin
     v_lohnart         pzm_lohnarten%rowtype;
     v_Schichtmodell   pzm_schicht_modelle%rowtype;
     v_nachtschicht    boolean;
-    
+
     v_pb_id number;
     v_abt_id number;
     v_kst_id number;
@@ -1079,7 +1079,7 @@ begin
     v_ueb_std              number;
     v_flex_std             number;
     v_korr_std             number;
-    
+
     --v_FeiertagKette boolean;        -- Feiertag ist kein Ganztageseintrag und muß evtl. zwei mal durchlaufen
     v_ketten_zaehler integer;
     v_loa_ketten     integer;
@@ -1097,13 +1097,13 @@ begin
              t.tarif_name
         from pzm_personal t
        where t.pers_nr = in_pers_nr;
-    
+
 
   begin
     open c_pers;
     fetch c_pers into v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_tarif_name;
     close c_pers;
-    
+
     if v_kst_id is NULL
     then
       v_kst_id := get_pers_kst_id(v_pers_nr);
@@ -1164,7 +1164,7 @@ begin
        and t.aa_id is null
        and t.zeaw_lz_lohnart not in
            (v_ueb_std_loa, v_flex_std_loa, v_korr_std_loa);
-    
+
     v_a_Wochentag := isi_utils.Iso_WeekDay(in_schicht_tag);
     if v_arbstd > 0
     and v_a_Wochentag not in (6, 7)
@@ -1197,7 +1197,7 @@ begin
         end if;
       end if;
     end if;
-      
+
 
     -- ************ Gehe durch alle lohnarten pruefe dann ueber Cursor (c_lzsa und c_lzkst) auf Gueltigkeit  ************
     -- lohnarten sind gueltig, wenn diese LOA keiner Schicht und Abteilung zugeordnet sind oder
@@ -1233,7 +1233,7 @@ begin
       exit when c_lohnartenAll%notfound;
       v_Wochentag := to_number(v_x_Wochentag);
       v_arbstd := v_arbstd_pers;
-      
+
       -- keine Sonderbehandlung für Korrektur-/Bonusstunden, aber auch nicht verarbeiten
       if v_Loa in (v_ueb_std_loa, v_flex_std_loa, v_korr_std_loa) then
         goto fetch_loa; -- nach Sonderbehandlung mit der nächsten LOA weitermachen
@@ -1298,7 +1298,7 @@ begin
           v_von := v_von + v_ketten_zaehler;
           v_bis := v_bis + v_ketten_zaehler;
         end if;
-        
+
         if trunc(in_von) < trunc(in_bis)
         then
           v_nachtschicht := true;
@@ -1324,7 +1324,7 @@ begin
           end if;
         end if;
         v_gueltigX := true;
-        
+
         v_n_Wochentag := isi_utils.Iso_WeekDay(in_schicht_tag+1);
         if v_n_Wochentag > 7 -- Aktuellet Tag ist Sonntag
         then
@@ -1365,7 +1365,7 @@ begin
             v_bis := trunc(v_von) + 1;
           end if;
         end if;
-        
+
         if v_gueltigX = true
         then
           if  v_Op in ('KUG', 'KUGF')   -- Kurzarbeitergeld  
@@ -1400,7 +1400,7 @@ begin
                   v_arbstd := v_std_d_g;
                 end if;
               end if;
-              
+
             end if;
             if v_arbstd > 0
             then
@@ -1458,9 +1458,9 @@ begin
           end loop;
 
           close c_lztarif;
-          
+
         end if;
-        
+
         -- Jede gefundene Lohnart ist gueltig, wenn LoaZeit in der Schichtzeit !!!!
         v_gueltigX := true;
 
@@ -1588,7 +1588,7 @@ begin
             end if;
             v_p_Von := in_von;
             v_p_Bis := nvl(v_in_bis, v_p_Bis);
-            
+
             if v_d_ende is not NULL
             and v_d_start is not NULL
             then
@@ -1599,7 +1599,7 @@ begin
                 v_in_bis := v_p_Bis;
                 v_p_Bis := v_d_start;
               end if;
-              
+
               if v_p_Von < v_d_ende    -- Wenn die Diestreise zum Beginn der Schicht ist
               and v_p_Von = v_d_start  -- Dann ist diese nicht vor der Dienstreise Schichtbeginn = Diensreisebeginn
               then
@@ -1610,7 +1610,7 @@ begin
               v_p_von := v_d_start;
               v_p_bis := v_d_ende;
             end if;
-            
+
             v_LoaStd := berechne_loa_std(v_p_Von,
                                          v_p_bis,
                                          v_Von,
@@ -1854,7 +1854,7 @@ begin
       and t.ze_pers_nr = in_pers_nr
       and t.ze_schicht_tag = in_schicht_tag;
     v_arbstd := v_arbstd - nvl(v_korr_std, 0);
-    
+
     -- Und jetzt die Zulagen die über die Personalnummer zugeordnet werden sollen
     open c_lohnarten_pers;
 
@@ -1873,7 +1873,7 @@ begin
              v_lz_typ,
              v_lz_einheit;
       exit when c_lohnarten_pers%notfound;
-      
+
       v_LoaStd := 0;   -- Erst mal keine LOA-Stunden
 
       if v_lz_typ = 'ZU_STD'
@@ -1905,7 +1905,7 @@ begin
           v_LoaStd := 1;
         end if;
       end if;
-        
+
       if v_feiertag = 'F' or v_feiertag = 'SF' 
       then
         if ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_von, v_SonderFeiertag) != 1 
@@ -1930,7 +1930,7 @@ begin
       end if;
     end LOOP;
     close c_lohnarten_pers;
-    
+
     commit;
 
   end c_berechne_schichtzulagen;
@@ -2006,7 +2006,7 @@ begin
     v_datum_von                   date;
     v_datum_bis                   date;
     --v_13_w_schnitt                number;
-    
+
   begin
     v_datum_von := in_monat_jahr;
     v_datum_bis := last_day(in_monat_jahr);
@@ -2039,14 +2039,14 @@ begin
                      and la.lz_id = aa.lz_id
                      and la.lz_konto_name_kurz = 'ZK')
            );
-           
+
     if nvl(pzm_p_base.get_allg_parameter_mandant(get_pers_pb_id(in_pers_nr), 'LOA_13WS_MIT_ZEITKONTO_STD'), 'T') = 'F'
     then
       v_zk_stunden := 0;                              -- Nicht mitrechnen
     end if;
-    
+
     v_arb_stunden := nvl(v_arb_stunden, 0) + nvl(v_zk_stunden, 0);
-    
+
     delete pzm_ze_loa_13w_schnitt t
      where t.pers_nr = in_pers_nr
        and t.datum = trunc(v_datum_bis);
@@ -2066,7 +2066,7 @@ begin
     v_datum_von                   date;
     v_datum_bis                   date;
     v_13_w_schnitt                number;
-    
+
   begin
     v_datum_bis := in_monat_jahr;
     v_datum_von := trunc(trunc(trunc(v_datum_bis - 1, 'MONTH') - 1, 'MONTH') - 1, 'MONTH');
@@ -2085,8 +2085,8 @@ begin
     end if;
     return (v_13_w_schnitt);
   end;
-  
-  
+
+
   function c_loa_an_host (in_pers_nr       in pzm_personal.pers_nr%type,
                           in_monat         in number,
                           in_jahr          in number,
@@ -2100,7 +2100,7 @@ begin
                              'LODAS',
                              nvl(in_reset, 'F')));
   end;
-  
+
   procedure insert_pzm_ze_loa_exp_host(in_loa_kumuliert   in pzm_ze_loa_exp_host%rowtype, 
                                        in_kst_tab         in t_kst_std_tab,
                                        in_kst_idx_max     in integer) is
@@ -2123,7 +2123,7 @@ begin
       v_kst_idx := v_kst_idx + 1;
     end LOOP;
   end;
-  
+
   procedure insert_pzm_ze_loa_exp_ext_gutsch(in_loa_kumuliert   in pzm_ze_loa_exp_host%rowtype, 
                                              in_datum           in pzm_ze_loa_exp_ext_gutsch.datum%type,
                                              in_pers_vname      in pzm_personal.pers_vname%type,
@@ -2134,7 +2134,7 @@ begin
     v_ende_zeit                              varchar2(5);
     v_pause_zeit                             number;
     v_st_zeiten                              varchar2(50);
-    
+
     CURSOR c_ts_zeit is
       select to_char(min(t.ze_calc_ist_start), 'hh24:mi') start_zeit,
              to_char(max(t.ze_calc_ist_ende), 'hh24:mi') ende_zeit,
@@ -2200,7 +2200,7 @@ begin
                                     in_bis_datum          in date,
                                     in_kst_tab            in t_kst_std_tab,
                                     in_kst_idx_max        in integer) is
-  
+
   v_kst_idx                            integer;
   v_loa_kumuliert                      pzm_ze_loa_exp_host%rowtype;
 
@@ -2255,7 +2255,7 @@ begin
               erg.loa_id,
               erg.loa_unit;
     v_get_bereitschaft_zeiten c_get_bereitschaft_zeiten%rowtype;
-  
+
   begin
     v_loa_kumuliert := in_loa_kumuliert;
     OPEN c_get_bereitschaft_zeiten;
@@ -2313,7 +2313,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_start_datum_ueb_p date;
     v_ende_datum_ueb_p date;
     v_folgemonat_datum date;
-    
+
     v_zk_monat_saldo_kug_done     boolean;
     v_zk_monat_saldo_true         boolean;
     v_zk_monat_saldo              number;      -- Zeitkonto hatt Überstunden + oder - 
@@ -2357,7 +2357,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_stat_value                  number;
     v_stat_value_arb_std          number;
     v_loa_kumuliert_loa_value     number;
-    
+
     v_zk_13_w_schnitt_ueb         number;
     v_zk_13_w_schnitt_feiertag    number;
     v_zk_13_w_schnitt_krank       number;
@@ -2369,7 +2369,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_uer_std_aus_K_U_F           number;
     v_uer_std_aus_K_U_F_S         number;
     v_uer_std_aus_K_U_F_13W       number;
-    
+
 
     v_konten_bh_id                pzm_konten_bh.konten_bh_id%type;
     v_pzm_loa_komto               pzm_lohnarten%rowtype;
@@ -2384,7 +2384,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_kst_id_zk                   pzm_personal.pers_kst_id%type;
     v_kst_std                     number;
     v_lohnart                     pzm_lohnarten%rowtype;
-    
+
     v_zk_loa                      pzm_lohnarten.lz_lohnart%type;
     v_kug_loa                     pzm_lohnarten.lz_lohnart%type;
     v_kug_loa_id                  pzm_lohnarten.lz_id%type;
@@ -2397,7 +2397,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_unbezahlt_std_value         number;
     v_unbezahlt_tag_value         number;
     v_operator                    varchar2(50);
-    
+
     v_SABeginn                 date;
     v_SAEnde                   date;
     v_SAStdProTag              number;
@@ -2424,7 +2424,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
   --   where t.sid = '01'
   --     and t.firma_nr = 1
   --     and t.konto_nr = v_loa_kumuliert.konto_nr_korr;
-       
+
   cursor c_loa_kumuliert_stat is
       select round(sum(t.zeaw_lz_loa_std), 3) strat_std,
              count(t.zeaw_lz_loa_std) strat_tage
@@ -2452,7 +2452,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              lz.lz_lohnart_grp,
              nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
              nvl(lz.lz_einheit, nvl(aa.aa_einheit, 'HH24'));
-             
+
     cursor c_loa_kumuliert_13W is
       select *
       from (select t.zeaw_pb_id,
@@ -2771,7 +2771,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              --nvl(t.zeaw_kst_id, get_pers_kst_id(in_pers_nr)),
              nvl(aa.aa_einheit, nvl(lz.lz_einheit, 'HH24')),
              lz.lz_typ;
-              
+
     cursor c_loa_konto is
       select lz.*
         from pzm_lohnarten lz
@@ -2821,7 +2821,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
          and t.datum >= v_start_datum
          and t.datum <= v_ende_datum
          and t.status != 'N';
-    
+
     /*
     cursor c_ze_loa_exp_ext_gutsch is
       select * 
@@ -2830,7 +2830,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
          and (t.datum = v_bis_datum or t.datum = v_ende_datum)
          and t.konto_val_korr > 0
          and t.konten_bh_id_korr is not NULL;
-    
+
     cursor c_ze_loa_exp_host is           -- kontokorrekturen aus Monats LOA
       select * 
         from pzm_ze_loa_exp_host t
@@ -2850,7 +2850,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       select t.*
         from pzm_ze_loa_statistik_cfg t
        where t.lz_gueltig = 1;
-    
+
     cursor c_pb_abteilung is
       select t.abt_pb_id
         from pzm_abteilungen t
@@ -2877,10 +2877,10 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                         )
        order by bh.zk_start, bh.konten_bh_id desc;    
     v_umb_std              number;
-    
+
     v_vertragsart          pzm_vertragsarten%rowtype;
     v_loa_stat_cfg         pzm_ze_loa_statistik_cfg%rowtype;
-    
+
     v_pb_abteilung pzm_personal.pers_pb_id%type;
 
     v_loa_zk number;
@@ -2892,9 +2892,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_found_kto boolean;
     v_ext_kw_mm_done boolean;
     v_loa_zk_done boolean;
-    
+
   begin
-    
+
     v_found_ue := false;
     v_result := '(E?)'; -- unKnown Error
     if in_schnittstelle = 'EXT_KW_MM' -- kalenderwoche und Monat
@@ -2908,7 +2908,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       fetch c_check_exp_ext_gutsch into v_check_anz;
       v_found := c_check_exp_ext_gutsch%found;
       close c_check_exp_ext_gutsch;
-      
+
       if v_found and v_check_anz > 0
       and nvl(in_reset, 'N') != 'T'
       then
@@ -2927,7 +2927,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       v_bis_datum := last_day(v_von_datum);
       v_start_datum := v_von_datum;
       v_ende_datum := v_bis_datum;
-      
+
       select nvl(t.pers_schnittstelle, 0) pd_schnittstelle
         into v_pers_schnittst
         from pzm_personal t
@@ -2943,7 +2943,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       fetch c_check into v_check_anz;
       v_found := c_check%found;
       close c_check;
-      
+
       if v_found and v_check_anz > 0
       then
         v_found_ue := true;
@@ -2963,7 +2963,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     OPEN c_pb_abteilung;
     FETCH c_pb_abteilung into v_pb_abteilung;
     CLOSE c_pb_abteilung;
-    
+
     if not pzm_p_base.get_personal(in_pers_nr, v_personal)
     then
       v_personal.pers_kappung_me_ab_flx_std := NULL;
@@ -2973,14 +2973,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       OPEN c_produktionsbereich;
       FETCH c_produktionsbereich INTO v_produktionsbereich;
       CLOSE c_produktionsbereich;
-      
+
       if nvl(v_produktionsbereich.pb_schnittstelle, 'LODAS') != in_schnittstelle
       then
           v_result := '(E101) PZM_PERSONAL.PERS_SCHNITTSTELLE=FALSE ' || in_schnittstelle || ' != ' || nvl(v_produktionsbereich.pb_schnittstelle, 'LODAS'); -- S = pers_nr nicht für Schnittstellenübergabe konfiguriert
           return(v_result);
       end if;
     end if;
-    
+
     v_pers_tarif_name := get_pers_tarif_name(in_pers_nr);
     v_tarifmodell := NULL;
     if v_pers_tarif_name is not NULL
@@ -2989,7 +2989,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       FETCH c_tarifmodel into v_tarifmodell;
       CLOSE c_tarifmodel;
     end if;
-    
+
     OPEN c_vertragsart;
     FETCH c_vertragsart into v_vertragsart;
     if c_vertragsart%NOTFOUND
@@ -3002,7 +3002,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     then
       v_pzm_sim_on := true;
       v_datum := trunc(sysdate);
-      
+
       v_datum := v_datum;
       if get_schicht_daten(in_pers_nr, v_datum, v_datum,
                                    v_DaySAKurzname, v_SABeginn, v_SAEnde, v_SAStdProTag) != 1
@@ -3053,7 +3053,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           );
       end if;
       v_datum := v_datum + 1;
-        
+
       --schicht_daten
       -- Call the procedure
       LOOP
@@ -3067,11 +3067,11 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         v_datum := v_datum + 1;
         exit when v_datum > v_bis_datum;
       end loop;
-      
+
       v_pzm_sim_on := false;
       v_result := NULL;
     end if;
-    
+
     select t.konto_nr into v_loa_kumuliert.konto_nr_korr
       from pzm_konten t
      where t.sid = '01'
@@ -3114,7 +3114,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
        where t.pers_nr = in_pers_nr
          and t.datum >=  v_start_datum
          and t.datum <=  v_ende_datum;
-      
+
     else
       begin
         delete pzm_konten_bh t
@@ -3128,13 +3128,13 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         when others then
           v_result := '(E199) Korrektur für Konto ' || to_char(v_loa_kumuliert.konto_nr_korr) || ' Nicht möglich.'; -- Konto nicht mehr da?
       end;
-      
+
       if v_found_ue
       and nvl(v_vertragsart.va_bis_monat_ende_sim, 'F') != 'T'
       then
         v_found_ue := false;  
       end if;
-      
+
       delete pzm_ze_loa_exp_host t -- Falls etwas da was noch nicht übertragen ist, dann löschen
        where t.pers_nr = in_pers_nr
          and t.datum =  v_folgemonat_datum;
@@ -3152,7 +3152,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_kugk_loa := NULL;
     v_kugk_loa_value := 0;
     v_zk_monat_diff := 0;
-    
+
     v_anz_arb_tage := get_anz_arbeitstage_R32(in_pers_nr,
                                               v_von_datum,
                                               v_ende_datum);    -- p_ende_datum => :p_ende_datum,
@@ -3189,7 +3189,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_kst_id_zk := NULL;
     v_kst_idx_loa := 0;
 
-    
+
     v_bis_datum_kst := v_bis_datum;
     v_bis_datum := v_ende_datum;
 
@@ -3197,7 +3197,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     LOOP
       FETCH c_ze_tagessatz_kst_id into v_kst_id, v_kst_std;
       EXIT when c_ze_tagessatz_kst_id%NOTFOUND;
-      
+
       v_kst_idx := v_kst_idx + 1;
       v_kst_tab(v_kst_idx).kst_id := v_kst_id;
       v_kst_tab(v_kst_idx).kst_std := v_kst_std;
@@ -3211,7 +3211,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
 
     --v_zk_loa := 0;
     v_kug_loa := 0;
-      
+
     v_uer_std_aus_K_U_F := 0;
     --v_uer_std_aus_K_U_F_S := 0;
     v_uer_std_aus_K_U_F_13W := 0;
@@ -3293,7 +3293,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
               end if;
             end if;
           end if;
-            
+
           if nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F'  -- Gehalt
           and ( v_lohnart.lz_operator in ('KUGK', 'K', 'U', 'SU', 'F', 'SF', 'SU')
              or (( v_lohnart.lz_feiertag in ('F', 'SF')
@@ -3378,11 +3378,11 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         end if;
       end if;
       v_ext_kw_mm_done := true;     -- in_schnittstelle = 'EXT_KW_MM' ohne Kostenstellenaufteilung
-      
+
       v_zk_loa := 0;
       v_kug_loa := 0;
       v_kugk_loa := 0;
-      
+
       v_ueb_stunden := 0;
       v_ueb_stunden_loa := 0;
       v_ueb_stunden_13w := 0;
@@ -3406,7 +3406,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       then
         v_loa_kumuliert.pb_id := nvl(v_produktionsbereich.pb_bemerkungen, v_produktionsbereich.pb_id);
       end if;
-      
+
 
       begin
         if in_schnittstelle != 'EXT_KW_MM'
@@ -3423,20 +3423,20 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           v_loa_zk := 0;
           v_loa_kug :=0;
         end if;
-        
+
         v_loa_zk := nvl(v_loa_zk, 0);
         v_loa_kug := nvl(v_loa_kug, 0);
-        
+
         open c_loa_kumuliert;        -- lesen alle berechneten Lohnzulagen
         loop
           fetch c_loa_kumuliert into v_loa_kumuliert;
           exit when c_loa_kumuliert%notfound;
-          
+
           if in_schnittstelle = 'EXT_KW_MM' -- Die gesamte Abhandlung Zeitkonto ist nicht für Externe Zeitarbeiter
           then
             v_loa_kumuliert.pb_id := nvl(v_produktionsbereich.pb_bemerkungen, v_produktionsbereich.pb_id);
           end if;
-          
+
           if pzm_p_base.get_lohnart(v_loa_kumuliert.lz_id, v_lohnart)
           and v_tarifmodell.tarif_fest_std = 'T'  -- Tarifmodell hat feste Stunden für einen Zeitraum
           and v_tarifmodell.tarif_13w_schnitt ='F'
@@ -3447,7 +3447,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
               v_F_U_K_stunden := v_F_U_K_stunden + v_loa_kumuliert.loa_value;
             end if;
           end if;
-          
+
           if (in_schnittstelle != 'EXT_KW_MM'         -- Die gesamte Abhandlung Zeitkonto ist nicht für Externe Zeitarbeiter
             and (v_tarifmodell.tarif_fest_std != 'T'  -- Tarifmodell hat feste Stunden für einen Zeitraum
               or v_vertragsart.va_loa_stunden_abrechnung = 'F') -- Gehalt
@@ -3499,12 +3499,12 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
             then
               v_ueb_stunden_13w := nvl(v_uer_std_aus_K_U_F_13W - v_uer_std_aus_K_U_F, 0);
             end if;
-            
+
             if in_schnittstelle != 'EXT_KW_MM' -- Die gesamte Abhandlung Zeitkonto ist nicht für Externe Zeitarbeiter
             then
               if v_loa_kumuliert.ret_code = 'ZK'
               then
-                
+
                 v_loa_kumuliert.konto_val_korr := NULL;
                 v_kappung_flex_std := get_pers_kappung_flex_std(in_pers_nr);
                 v_ueb_std := 0;
@@ -3512,7 +3512,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                 v_korr_std := 0;
                 v_korr_std_abz := 0;
                 v_korr_std_korrekt := false;
-                
+
                 v_zk_13_w_schnitt_ueb := v_loa_kumuliert.loa_value + v_uer_std_aus_K_U_F_13W - v_uer_std_aus_K_U_F;
                 v_ueb_stunden_13w := nvl(v_uer_std_aus_K_U_F_13W - v_uer_std_aus_K_U_F, 0);
                 v_loa_zk_done := true;
@@ -3549,7 +3549,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                                       'pers_LOA_ME_KORR_TARIF ' || v_uk_konto.name, 'B',
                                                       get_pers_abt_id(in_pers_nr),
                                                       v_konten_bh_id); -- Korrekturbuchung auf Konto -> Diese Stunden werden ausgezahlt
-                      
+
                     update pzm_konten_bh t
                        set t.zk_start = v_loa_kumuliert.datum - 1,
                            t.buch_datum = v_loa_kumuliert.datum - 1,
@@ -3573,13 +3573,13 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                 if v_loa_kumuliert.loa_value + v_kug_loa_value + v_kugk_loa_value >= 0 -- KUG ist wie ZK zu betrachten
                 and v_loa_kumuliert.loa_value + v_uer_std_aus_K_U_F_13W - v_uer_std_aus_K_U_F < v_kug_loa_value + v_kugk_loa_value -- im plus abewr wegen KUG im Minus
                 then
-                  
+
                   orignal_loa_value := v_loa_kumuliert.loa_value;
 
                   select nvl(min(loa.lz_lohnart), v_loa_kumuliert.lohnart), nvl(min(loa.lz_id), v_loa_kumuliert.lz_id ) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
                     from pzm_lohnarten loa
                    where loa.lz_id = (select loax.lz_link_loa_id from pzm_lohnarten loax where loax.lz_id = v_loa_kumuliert.lz_id);
-                  
+
                   v_zk_monat_saldo_old := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
                                                                                     in_pers_nr,
                                                                                     'ZK',
@@ -3662,7 +3662,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                   v_zk_monat_saldo_kug_done := False;
                   orignal_loa_value := v_loa_kumuliert.loa_value;
                   v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - (v_kug_loa_value + v_kugk_loa_value);
-                  
+
                   if v_loa_kumuliert.loa_value + v_uer_std_aus_K_U_F_13W - v_uer_std_aus_K_U_F > 0 -- Nur 13 W Schnitt
                   then
                     if v_loa_kumuliert.loa_value <= 0 -- Nur wegen 13 W Schnitt Zugang
@@ -3679,7 +3679,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                         and t.ze_pers_nr = in_pers_nr
                         and t.ze_schicht_tag >= v_start_datum
                         and t.ze_schicht_tag <= v_ende_datum;
-                        
+
                       if nvl(v_rb_stunden, 0) > 0                   -- RB Stunden dürfen nicht gekappt werden
                       then
                         if v_kappung_flex_std > 0
@@ -3718,7 +3718,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                           end if;
                         end if;
                       end if;
-                      
+
                       if v_loa_kumuliert.loa_value + v_ueb_stunden_13w <= v_kappung_flex_std
                       then
                         v_ueb_stunden_13w := 0;
@@ -3772,8 +3772,8 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                       then
                         v_aus_arb_stunden := v_vertragsart.va_bis_std_auszahlen * v_anz_arb_tage; -- Ermittlung der Sollstunden
                       end if;
-                      
-                       
+
+
                       if v_aus_arb_stunden >= v_ueb_stunden_13w + v_arb_stunden
                       then
                         v_pers_max_frei_stunden := 0;                -- Alles auszahlen
@@ -3789,7 +3789,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                     and v_loa_kumuliert.lohnart is not NULL
                     then
                       v_korr_std := v_zk_monat_saldo - v_pers_max_frei_stunden; -- Wieviel zu viel ist auf dem Konto
-                      
+
                       if v_korr_std > 0
                       then
                         /* -- Dies wird jetzt korrekt im Tagessatz gebucht (LOA 503 ARBSTD)
@@ -3888,7 +3888,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                       end if;  
                     end if;  
                     v_loa_kumuliert.konto_val_korr := v_korr_std + v_korr_std_abz;
-                      
+
                     if v_loa_kumuliert.konto_val_korr < 0 -- Es muss etwas aufgebaut werden
                     or (v_loa_kumuliert.konto_val_korr = 0 -- Es ist eigndlich nichts zu korrigieren
                     and  (v_loa_kumuliert.loa_value >= 0 or (v_loa_kumuliert.loa_value < 0 and v_loa_kumuliert.loa_value + v_ueb_stunden_13w > 0))
@@ -3943,7 +3943,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                          where t.sid = '01'
                            and t.firma_nr = 1
                            and t.konten_bh_id = v_konten_bh_id;
-                                                              
+
                         v_loa_kumuliert.konto_nr_korr := v_uk_konto.konto_nr;
                         v_loa_kumuliert.konto_val_korr := v_loa_kumuliert.konto_val_korr * -1;
                       end if;
@@ -3978,7 +3978,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                       --then
                       --  v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value - round(v_loa_kumuliert.konto_val_korr, 3);
                       --end if;
-                                                            
+
                       v_loa_kumuliert.konto_nr_korr := v_uk_konto.konto_nr;
                     else
                       v_loa_kumuliert.konto_val_korr := v_loa_kumuliert.konto_val_korr * -1;
@@ -4001,7 +4001,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                     then
                       v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value * -1;
                     end if;
-                    
+
                     if  v_loa_kumuliert.loa_value != 0
                     and v_loa_kumuliert.lohnart is not NULL
                     and v_kst_id = v_kst_id_zk
@@ -4354,14 +4354,14 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                          where t.sid = '01'
                            and t.firma_nr = 1
                            and t.konten_bh_id = v_konten_bh_id;
-                                                                  
+
                         v_loa_kumuliert.konto_nr_korr := v_uk_konto.konto_nr;
                         v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value + v_ueb_stunden_13w - v_ueb_stunden_13w_korr;
                         v_ueb_stunden_13w := 0;
                         v_ueb_stunden_13w_korr := 0;
                       end if;
                     end if;
-                  
+
                     if v_kugk_loa_value > 0
                     then
                       if v_kug_loa_value = 0
@@ -4425,7 +4425,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                            where t.sid = '01'
                              and t.firma_nr = 1
                              and t.konten_bh_id = v_konten_bh_id;
-                                                                  
+
                           v_loa_kumuliert.konto_nr_korr := v_uk_konto.konto_nr;
                           v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value + v_ueb_stunden_13w;
                           v_ueb_stunden_13w := 0;
@@ -4612,7 +4612,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         end loop;
         close c_loa_kumuliert;
       exception
-       
+
         WHEN OTHERS THEN  -- handles all other errors
           if c_loa_kumuliert%isopen 
           then
@@ -4656,8 +4656,8 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           then
             v_aus_arb_stunden := v_vertragsart.va_bis_std_auszahlen * v_anz_arb_tage; -- Ermittlung der Sollstunden
           end if;
-                      
-                       
+
+
           if v_aus_arb_stunden >= v_ueb_stunden_13w + v_arb_stunden
           then
             v_pers_max_frei_stunden := 0;                -- Alles auszahlen
@@ -4692,7 +4692,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
            where loa.lz_link_loa_id is not NULL
              and loa.lz_alternativ_loa_id is NULL
              and loa.lz_konto_name_kurz = 'ZK';
-             
+
           v_loa_kumuliert.ret_code := 'ZK';
           open c_pzm_konten_uk;               -- konto lesen
           fetch c_pzm_konten_uk into v_uk_konto;
@@ -4713,7 +4713,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
            where t.sid = '01'
              and t.firma_nr = 1
              and t.konten_bh_id = v_konten_bh_id;
-                                                            
+
           v_loa_kumuliert.konto_nr_korr := v_uk_konto.konto_nr;
           v_loa_kumuliert.konto_val_korr := v_loa_kumuliert.konto_val_korr * -1;
           if v_found_ue = true -- Daten bereits übertragen und es muss eine korrektur durchgeführt werden
@@ -4760,7 +4760,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              and in_pers_nr = p_lz.pers_nr(+)
              and v_von_datum - 1 <= nvl(p_lz.gueltig_datum_bis(+), v_von_datum - 1)
              and v_von_datum - 1 >= nvl(p_lz.gueltig_datum_von(+), v_von_datum - 1);
-                                                                     
+
           v_loa_kumuliert.konto_nr_korr := NULL;
           v_loa_kumuliert.konto_val_korr := NULL;
           v_loa_kumuliert.konto_val_korr := NULL;
@@ -4807,7 +4807,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           insert_pzm_ze_loa_exp_host(v_loa_kumuliert, v_kst_tab, v_kst_idx_max);
         end if;
       end if;
-    
+
       v_loa_kumuliert.kst_id := nvl(v_kst_id, get_pers_kst_id(in_pers_nr));
       v_loa_kumuliert.pers_nr := in_pers_nr;
       if in_schnittstelle = 'EXT_KW_MM' -- kalenderwoche und Monat
@@ -4855,20 +4855,20 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           and t.ze_schicht_tag <= v_ende_datum;
         v_ueb_stunden_loa2 := v_ueb_stunden_loa2 + nvl(v_arb_stunden, 0);  -- Diese Arbeitsstunden dazuneh´men
         */
-        
+
         v_arb_stunden := 0;
-        
+
         v_loa_kumuliert.lohnart := NULL; -- Initial
-        
+
         OPEN c_zk_umbuchen;
         FETCH c_zk_umbuchen into v_ueb_std;
         CLOSE c_zk_umbuchen;
-        
+
         if nvl(pzm_p_base.get_allg_parameter_mandant(v_loa_kumuliert.pb_id, 'LOA_HOERERE_LOA_MINUS'), 'T') = 'T'
         then
           v_ueb_stunden_loa2 := v_ueb_stunden_loa2 - nvl(v_umb_std, 0);
         end if;
-        
+
         begin
           select loa.lz_lohnart, loa.lz_id into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
             from pzm_lohnarten loa
@@ -4976,7 +4976,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                 end if;
                 v_loa_kumuliert_loa_value := 0;
                 v_loa_kumuliert.loa_value := NULL;
-                
+
                 LOOP
                   EXIT when v_start_datum_ueb_p > v_ende_datum;
                   if v_ende_datum_ueb_p > v_ende_datum
@@ -5033,7 +5033,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
             end if;
           end if;
         end if;
-        
+
         if  v_loa_kumuliert_loa_value != 0
         and v_loa_kumuliert.lohnart is not NULL
         and v_datum is NULL
@@ -5057,8 +5057,8 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
               --if v_zk_monat_saldo + v_loa_kumuliert.loa_value < v_personal.pers_max_freistd
               if v_zk_monat_saldo + v_korr_std > v_personal.pers_max_freistd
               then
- 
- 
+
+
                 v_korr_std := v_zk_monat_saldo + v_korr_std - v_personal.pers_max_freistd;
                 v_loa_kumuliert.loa_value := v_loa_kumuliert_loa_value -
                                               (v_korr_std / (v_tarifmodell.tarif_ueb_zeitkonto_proz / 100));
@@ -5187,7 +5187,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                and v_von_datum - 1 <= nvl(p_lz.gueltig_datum_bis(+), v_von_datum - 1)
                and v_von_datum - 1 >= nvl(p_lz.gueltig_datum_von(+), v_von_datum - 1);
             v_loa_kumuliert.loa_value := v_loa_kumuliert.konto_val_korr;
-            
+
             v_loa_kumuliert.konto_val_korr := NULL;
             v_loa_kumuliert.konto_val_korr := NULL;
             v_loa_kumuliert.konten_bh_id_korr := NULL;
@@ -5234,7 +5234,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                and t.pers_nr = v_loa_kumuliert.pers_nr
                and t.datum = v_loa_kumuliert.datum
                and t.lohnart = v_loa_kumuliert.lohnart;
-            
+
             if pzm_p_base.get_lohnart_by_alternative_lz_id(v_loa_kumuliert.lz_id, v_lohnart)
             and v_lohnart.lz_operator = 'ERP_ZUS_ZK'
             then
@@ -5253,7 +5253,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                  and t.datum = v_loa_kumuliert.datum
                  and t.lohnart = v_lohnart.lz_lohnart;
             end if;
-            
+
             if v_loa_kumuliert.loa_value is NULL
             then
               select nvl(min(loa.lz_lohnart), v_loa_kumuliert.lohnart), nvl(min(loa.lz_id), v_loa_kumuliert.lz_id ) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
@@ -5291,7 +5291,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                    and t.lohnart = v_lohnart.lz_lohnart;
               end if;
             end if;
-            
+
             v_loa_kumuliert.loa_value := nvl(v_loa_kumuliert.loa_value, 0) + v_korr_std;
             if v_loa_kumuliert.loa_value < 0
             then
@@ -5309,7 +5309,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                      and loax.lz_alternativ_loa_id is NULL
                                      and loax.lz_konto_name_kurz = 'ZK');
             end if;
-            
+
             v_loa_kumuliert.konto_val_korr := NULL;
             v_loa_kumuliert.konten_bh_id_korr := NULL;
             if  v_loa_kumuliert.loa_value != 0
@@ -5357,7 +5357,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           end if;
         end if;
       end if;
-      
+
       -- Hier die Stunden
       select min(loa.lz_lohnart), min(loa.lz_id) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
         from pzm_lohnarten loa,
@@ -5370,7 +5370,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
          and in_pers_nr = p_lz.pers_nr(+)
          and v_von_datum - 1 <= nvl(p_lz.gueltig_datum_bis(+), v_von_datum - 1)
          and v_von_datum - 1 >= nvl(p_lz.gueltig_datum_von(+), v_von_datum - 1);
-          
+
       if v_loa_kumuliert.lohnart is not NULL
       or nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F'
       then
@@ -5459,7 +5459,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         v_loa_kumuliert.loa_value := nvl(v_arb_stunden, 0) + nvl(v_feiertags_std, 0) + nvl(v_zk_fuer_sundenlohn_std, 0);  -- Arbeitsstunden + Urlaub + Krank + Feiertag = Stundlohn-Stunden
         v_stat_value_arb_std := v_stat_value_arb_std + v_loa_kumuliert.loa_value;
       end if;
-          
+
       if v_loa_kumuliert.loa_value > 0
       and v_loa_kumuliert.lohnart is not NULL
       or nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F'
@@ -5496,7 +5496,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                and t.kst_id = v_loa_kumuliert.kst_id;
           end if;
         end if;
-        
+
         if nvl(v_vertragsart.va_loa_stunden_abrechnung, 'T') = 'F'
         then
           if v_kst_id = v_kst_id_zk
@@ -5552,7 +5552,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
             v_loa_kumuliert.status := 'N';
             v_loa_kumuliert.ret_code := null;
             v_loa_kumuliert.cycle := null;
-            
+
             -- Salden von Monatsanfang und Ende ermitteln
             v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
                                                                          in_pers_nr,
@@ -5581,7 +5581,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
             end if;
             v_ueb_stunden_13w := 0;
             v_loa_kumuliert.loa_value := (v_loa_kumuliert.loa_value + v_zk_monat_saldo); -- Differenz noch dazu
-            
+
             if v_zk_monat_saldo <= 0 -- Die korrekte LOA ermitteln
             then
               select nvl(min(loa.lz_lohnart), v_loa_kumuliert.lohnart), nvl(min(loa.lz_id), v_loa_kumuliert.lz_id ) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
@@ -5616,7 +5616,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                           v_loa_kumuliert.lz_id,
                           v_loa_kumuliert.kst_id);
             end if;
-            
+
             if v_loa_kumuliert.loa_value < 0 -- Jetzt die korrekte LOA für den Statistik-Satz finden (KONTO ZK - Altanative LOA)
             then
               select nvl(min(loa.lz_lohnart), v_loa_kumuliert.lohnart), nvl(min(loa.lz_id), v_loa_kumuliert.lz_id ) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
@@ -5691,7 +5691,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
             v_loa_kumuliert.status := 'N';
             v_loa_kumuliert.ret_code := null;
             v_loa_kumuliert.cycle := null;
-            
+
             v_zk_monat_saldo := nvl(pzm_kontoverwaltung.zk_get_date_saldo('01', 1,
                                                                          in_pers_nr,
                                                                          'ZK',
@@ -5728,7 +5728,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                 v_zk_monat_saldo := v_zk_monat_saldo * -1;
               else
                 v_zk_monat_saldo := 0;
-                
+
                 v_loa_kumuliert.loa_value :=  nvl(v_arb_stunden, 0) -  nvl(v_uer_std_aus_K_U_F, 0);
                 if v_zk_monat_saldo > 0
                 then
@@ -5749,7 +5749,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                                 'pers_LOA_ME_KORR_TARIF ' || v_uk_konto.name, 'B',
                                                 get_pers_abt_id(in_pers_nr),
                                                 v_konten_bh_id); -- Korrekturbuchung auf Konto -> Diese Stunden werden ausgezahlt
-              
+
               v_loa_kumuliert.loa_value := v_loa_kumuliert.loa_value + v_zk_monat_saldo;
             end if;
             update pzm_konten_bh t
@@ -5774,7 +5774,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
               end if;
               insert_pzm_ze_loa_exp_host(v_loa_kumuliert, v_kst_tab, v_kst_idx_max);
             end if;
-            
+
             if v_zk_monat_saldo > 0
             then
               select nvl(min(loa.lz_lohnart), v_loa_kumuliert.lohnart), nvl(min(loa.lz_id), v_loa_kumuliert.lz_id ) into v_loa_kumuliert.lohnart, v_loa_kumuliert.lz_id 
@@ -5790,7 +5790,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                    where loax.lz_link_loa_id is not NULL
                                      and loax.lz_alternativ_loa_id is NULL
                                      and loax.lz_konto_name_kurz = 'ZK');
-              
+
             end if;
 
             if v_zk_monat_saldo != 0
@@ -5835,7 +5835,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           end if;
         end if;
       end if;
-      
+
       -- ZK Konto abarbeiten Ohne Überstunden
       v_loa_kumuliert.loa_value := 0;
       if in_schnittstelle != 'EXT_KW_MM'
@@ -5897,7 +5897,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                where t.sid = '01'
                  and t.firma_nr = 1
                  and t.konten_bh_id = v_konten_bh_id;
-              
+
             elsif v_zk_monat_saldo < 0
             then
               open c_pzm_konten_uk;               -- konto lesen
@@ -5917,7 +5917,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                where t.sid = '01'
                  and t.firma_nr = 1
                  and t.konten_bh_id = v_konten_bh_id;
-              
+
             end if;
           end if;
         end if;
@@ -5955,7 +5955,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
              and in_pers_nr = p_lz.pers_nr(+)
              and v_von_datum - 1 <= nvl(p_lz.gueltig_datum_bis(+), v_von_datum - 1)
              and v_von_datum - 1 >= nvl(p_lz.gueltig_datum_von(+), v_von_datum - 1);
-              
+
           if v_loa_kumuliert.lohnart is not NULL
           then
             v_loa_kumuliert.ret_code := 'ZK';
@@ -6060,7 +6060,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       then
         c_reset_Monatsende(in_pers_nr, v_loa_kumuliert.datum - 1, v_result);
       end if;
-      
+
       v_loa_kumuliert.pers_nr := nvl(v_loa_kumuliert.pers_nr, in_pers_nr);
       v_loa_kumuliert.datum := add_months(v_von_datum, 1);
       if v_found_ue = true -- Daten bereits übertragen und es muss eine korrektur durchgeführt werden
@@ -6074,7 +6074,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       v_urlaub_tag_value := NULL;
       v_unbezahlt_std_value := NULL;
       v_unbezahlt_tag_value := NULL;
-      
+
       OPEN c_loa_stat_cfg;
       LOOP
         FETCH c_loa_stat_cfg into v_loa_stat_cfg;
@@ -6109,7 +6109,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                                                v_von_datum,
                                                                v_bis_datum);   -- Ermittlung der krank Stunden
                  v_stat_value := round(v_stat_value * v_13_w_schnitt / v_day_schnitt, 3);
-                 
+
                else
                  v_stat_value := pzm_utils.get_pers_krank_tage(in_pers_nr,
                                                                NULL, -- v_loa_kumuliert.kst_id,
@@ -6200,7 +6200,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           v_result := '(E199) Korrektur für Konto ' || to_char(v_loa_kumuliert.konto_nr_korr) || ' Nicht möglich.'; -- Konto nicht mehr da?
       end;
     end if;
-    
+
     if v_vertragsart.va_bis_monat_ende_sim = 'T'
     and trunc(sysdate) <= v_bis_datum
     then
@@ -6226,7 +6226,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
           and t.ts_datum  <= v_bis_datum
           and (t.ts_day_wert_ende is NULL or t.ts_datum > v_datum);
     end if;
-    
+
     commit;
 
     if v_tarifmodell.tarif_13w_schnitt = 'T'
@@ -6287,7 +6287,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     v_bis_datum date;
     v_start_datum date;
     v_ende_datum date;
-    
+
     v_pzm_ze_loa_exp_ext_gutsch  pzm_ze_loa_exp_ext_gutsch%rowtype;
 
     cursor c_ze_tagessatz_kst_id is
@@ -6298,7 +6298,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
          and t.ts_datum >= v_von_datum
          and t.ts_datum <= v_bis_datum
        group by nvl(t.ts_day_kst_id, get_pers_kst_id(in_pers_nr));
-       
+
     cursor c_pzm_ze_loa_exp_ext_gutsch is
       select max(datum), 
              pb_id, 
@@ -6360,7 +6360,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       LOOP                        -- Tabelle füllen
         FETCH c_ze_tagessatz_kst_id into v_kst_id, v_kst_std;
         EXIT when c_ze_tagessatz_kst_id%NOTFOUND;
-          
+
         v_kst_idx := v_kst_idx + 1;
         v_kst_tab(v_kst_idx).kst_id := v_kst_id;
         v_kst_tab(v_kst_idx).kst_std := v_kst_std;
@@ -6396,7 +6396,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
         end if;
         EXIT when v_kst_idx >= v_kst_idx_max;
       end LOOP;
-      
+
       OPEN c_pzm_ze_loa_exp_ext_gutsch; -- Öffnen der Gutschriften für diese pers_nr und Stichtag
       LOOP                              -- Druch alle Gutschriftseinträge
         FETCH c_pzm_ze_loa_exp_ext_gutsch into v_pzm_ze_loa_exp_ext_gutsch; -- lesen
@@ -6406,9 +6406,9 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
                                      v_kst_tab,
                                      v_kst_idx_max);
       end LOOP;
-      
+
       CLOSE c_pzm_ze_loa_exp_ext_gutsch;
-      
+
       if v_bis_datum < v_ende_datum
       then
         --v_bis_datum := v_ende_datum;
@@ -6421,7 +6421,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     end LOOP;
     commit;
   end;    
-    
+
   function c_azk_urlaub_monat_Abschluss (in_pers_nr       pzm_personal.pers_nr%type,
                                          in_datum         in date
                                         ) return varchar2 is
@@ -6507,7 +6507,7 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
       v_von_datum := to_date('01.' || lpad(in_monat, 2, '0') || '.' || lpad(in_jahr, 4, '0'), 'dd.mm.yyyy');
     end if;
     v_folgemonat_datum := add_months(v_von_datum, 1);
- 
+
     update PZM_ZE_LOA_EXP_HOST t
     set t.status = 'U' 
     where t.pers_nr = in_pers_nr
@@ -6522,11 +6522,11 @@ function c_loa_an_host_r32 (in_pers_nr       in pzm_personal.pers_nr%type,
     return ('T');
   end;
 
-  
+
 
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"84da8f5125c68562e8b0b2e564d54075c75b0a41","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"996699f2b5c44e01e7800a6a0f82dd56baa03db7","type":"PACKAGE_BODY","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

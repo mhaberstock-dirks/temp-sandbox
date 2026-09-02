@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.LVS_PLATZ_BEWERTEN(in_sid in lvs_lgr.sid%type,
+function LVS_PLATZ_BEWERTEN(in_sid in lvs_lgr.sid%type,
                               in_firma_nr            in lvs_lgr.firma_nr%type,
                               in_lgr_ort_typ         in lvs_lgr.lgr_typ%type,
                               in_res_string          in lvs_lte.res_string%type,
@@ -695,4 +695,4 @@ function DIRKSPZM32.LVS_PLATZ_BEWERTEN(in_sid in lvs_lgr.sid%type,
 
 
 
--- sqlcl_snapshot {"hash":"45b24d116d5ed25665758aa5968cd37c46c3d569","type":"FUNCTION","name":"LVS_PLATZ_BEWERTEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"419b51a945b48610a5df7c51120a35940991d501","type":"FUNCTION","name":"LVS_PLATZ_BEWERTEN","schemaName":"DIRKSPZM32","sxml":""}

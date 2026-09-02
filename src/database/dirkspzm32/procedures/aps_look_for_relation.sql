@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.aps_look_for_relation(in_auftrag_nr in aps_order_materialrelation.auftrag_nr%type,
+procedure aps_look_for_relation(in_auftrag_nr in aps_order_materialrelation.auftrag_nr%type,
                                                   in_pos_nr          in aps_order_materialrelation.pos_nr%type,
                                                   in_upos_nr         in aps_order_materialrelation.upos_nr%type,
                                                   in_artikel_id      in isi_artikel.artikel_id%type,
@@ -98,4 +98,4 @@ end aps_look_for_relation;
 
 
 
--- sqlcl_snapshot {"hash":"e9b6a2d1e486852f23ee5eed6667c02a07c52109","type":"PROCEDURE","name":"APS_LOOK_FOR_RELATION","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1d09252cf288c6ebb57c86d0f31df0bdd6a67c2e","type":"PROCEDURE","name":"APS_LOOK_FOR_RELATION","schemaName":"DIRKSPZM32","sxml":""}

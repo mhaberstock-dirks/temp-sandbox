@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.BDE_SET_NR_PRUEFUNG_FA (in_sid isi_sid.sid%type,
+procedure BDE_SET_NR_PRUEFUNG_FA (in_sid isi_sid.sid%type,
                                                     in_firma_nr         bde_fa_auftrag.firma_nr%type,
                                                     in_nr_pruefung      bde_fa_auftrag.nr_pruefung%type,
                                                     in_leitzahl         bde_fa_auftrag.leitzahl%type,
@@ -147,4 +147,4 @@ end BDE_SET_NR_PRUEFUNG_FA;
 
 
 
--- sqlcl_snapshot {"hash":"b141ac8b7e5e4d0ce55d5217138a5ce19d8da4b4","type":"PROCEDURE","name":"BDE_SET_NR_PRUEFUNG_FA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"355a113ded79317f9f3af51d65e1c94b5912b57f","type":"PROCEDURE","name":"BDE_SET_NR_PRUEFUNG_FA","schemaName":"DIRKSPZM32","sxml":""}

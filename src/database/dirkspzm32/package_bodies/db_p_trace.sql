@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.db_p_trace is
+package body db_p_trace is
 
   /**************************************************************************************************************************
   Funktion ermittelt und gibt die Job-Nr. zurück
@@ -1446,4 +1446,4 @@ end db_p_trace;
 
 
 
--- sqlcl_snapshot {"hash":"b9cea603d0b5b5c468897eb4f66115159123d0f1","type":"PACKAGE_BODY","name":"DB_P_TRACE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1d9b705057b98ee2358f3124231fd12de3b13686","type":"PACKAGE_BODY","name":"DB_P_TRACE","schemaName":"DIRKSPZM32","sxml":""}

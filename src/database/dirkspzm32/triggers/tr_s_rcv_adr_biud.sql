@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_RCV_ADR_BIUD" 
-  before insert or update or delete on DIRKSPZM32.s_rcv_adr
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_RCV_ADR_BIUD" 
+  before insert or update or delete on s_rcv_adr
   for each row
 declare
   -- local variables here
@@ -137,8 +137,9 @@ begin
   end if;
 end TR_S_RCV_ADR_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_RCV_ADR_BIUD" ENABLE;
+ALTER TRIGGER "TR_S_RCV_ADR_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6dfd0dcbeca709a1388c97627411e5b163023c9d","type":"TRIGGER","name":"TR_S_RCV_ADR_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"08d4688ae9e8ccccc667938d870437b43e56a4f3","type":"TRIGGER","name":"TR_S_RCV_ADR_BIUD","schemaName":"DIRKSPZM32","sxml":""}

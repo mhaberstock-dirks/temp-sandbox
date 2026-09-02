@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PPS_V_STL" ("ARTIKEL", "STL_ARTIKEL", "STUECKLISTE_POS_ID", "PROD_MENGE_P_EINHEIT", "PROD_MENGE_P_EINHEIT_OP") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PPS_V_STL" ("ARTIKEL", "STL_ARTIKEL", "STUECKLISTE_POS_ID", "PROD_MENGE_P_EINHEIT", "PROD_MENGE_P_EINHEIT_OP") AS 
   select art.artikel,
        art_stl.artikel stl_artikel,
        p_art_stl.stueckliste_pos_id,
@@ -19,4 +19,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"d143d6081b63797f34411e1f10c0df33d6162e70","type":"VIEW","name":"PPS_V_STL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36e8399aaeda2b5bc568225e19b96e5f3df7dbf9","type":"VIEW","name":"PPS_V_STL","schemaName":"DIRKSPZM32","sxml":""}

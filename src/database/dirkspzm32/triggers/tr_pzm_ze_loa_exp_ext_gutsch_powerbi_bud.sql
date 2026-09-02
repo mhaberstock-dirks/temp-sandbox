@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD" 
   before update or delete
-  on DIRKSPZM32.pzm_ze_loa_exp_ext_gutsch
+  on pzm_ze_loa_exp_ext_gutsch
   for each row
 begin
   begin  
@@ -25,8 +25,9 @@ begin
   end;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3d331234018e9883a1b500d5c8c4a6b1f28b5a3e","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"12f746845995a6a49a6e79af0949886cdc690125","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_EXT_GUTSCH_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}

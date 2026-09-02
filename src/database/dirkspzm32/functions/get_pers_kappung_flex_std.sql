@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_KAPPUNG_FLEX_STD(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_KAPPUNG_FLEX_STD(in_pers_nr in pzm_personal.pers_nr%type
                                                     ) return number is
 
   Result number;
@@ -18,4 +18,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"d5a751ea547c7c33238fed85fcd7b9969943a118","type":"FUNCTION","name":"GET_PERS_KAPPUNG_FLEX_STD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"03599f930f001081093e6cc1f1fa4b20f5be4b94","type":"FUNCTION","name":"GET_PERS_KAPPUNG_FLEX_STD","schemaName":"DIRKSPZM32","sxml":""}

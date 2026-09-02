@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_13W_SCHNITT_BUI" 
-  before insert or update on DIRKSPZM32.PZM_ZE_LOA_13W_SCHNITT
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_LOA_13W_SCHNITT_BUI" 
+  before insert or update on PZM_ZE_LOA_13W_SCHNITT
   for each row
 declare
 begin
@@ -26,8 +26,9 @@ begin
 end;
 
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_13W_SCHNITT_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_LOA_13W_SCHNITT_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"8d702a083a7c108b3f236cf408bc6766ab58919a","type":"TRIGGER","name":"TR_PZM_ZE_LOA_13W_SCHNITT_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"538d779a7d2364e225a30172c9a1770cca8618dc","type":"TRIGGER","name":"TR_PZM_ZE_LOA_13W_SCHNITT_BUI","schemaName":"DIRKSPZM32","sxml":""}

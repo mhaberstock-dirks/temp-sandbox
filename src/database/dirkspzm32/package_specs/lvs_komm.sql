@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_komm is
+package lvs_komm is
 
   function get_komm_anz_lam_fuer_lte(in_sid lvs_lam.sid%type,
                                      in_firma_nr lvs_lam.firma_nr%type,
@@ -103,4 +103,4 @@ end lvs_komm;
 
 
 
--- sqlcl_snapshot {"hash":"dc777b48ccbe065c6189b7c08026708f53f92d58","type":"PACKAGE_SPEC","name":"LVS_KOMM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0553fd61fe238a2675c6781224477830cbe471ba","type":"PACKAGE_SPEC","name":"LVS_KOMM","schemaName":"DIRKSPZM32","sxml":""}

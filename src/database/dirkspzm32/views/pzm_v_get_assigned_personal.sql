@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_GET_ASSIGNED_PERSONAL" ("RESPONSIBLE_NR", "RESPONSIBLE_ABT_ID", "RESPONSIBLE_TYPE", "PB_ID", "ABT_ID", "PERS_NR") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_GET_ASSIGNED_PERSONAL" ("RESPONSIBLE_NR", "RESPONSIBLE_ABT_ID", "RESPONSIBLE_TYPE", "PB_ID", "ABT_ID", "PERS_NR") AS 
   select pers.responsible_nr,
        pers.responsible_abt_id responsible_abt_id,
        stradd_distinct(pers.responsible_typ) responsible_type,
@@ -57,4 +57,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"ef542b62f006edf05e65fc54bd6172876ad1d1e0","type":"VIEW","name":"PZM_V_GET_ASSIGNED_PERSONAL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0cfa029a85feb478f15943756debfbfeb10bdc97","type":"VIEW","name":"PZM_V_GET_ASSIGNED_PERSONAL","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.MAN_DEL_PERS_ZE(
+procedure MAN_DEL_PERS_ZE(
   p_ze_id in number,
   p_pers_nr in number,
   p_ze_status in number,
@@ -45,4 +45,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"f43ffb9f2ba1c4079c3c1af82b9a5541178db813","type":"PROCEDURE","name":"MAN_DEL_PERS_ZE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"00ed03d8a83cb3619049c931c574aebb349fd5eb","type":"PROCEDURE","name":"MAN_DEL_PERS_ZE","schemaName":"DIRKSPZM32","sxml":""}

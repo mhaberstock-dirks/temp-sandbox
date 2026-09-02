@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_CLEAN_UP is
+package LVS_CLEAN_UP is
 
   -- Author  : BWELLING
   -- Created : 21.11.2022 15:22:50
@@ -19,4 +19,4 @@ end LVS_CLEAN_UP;
 
 
 
--- sqlcl_snapshot {"hash":"9a0a76ccdfb9794b506c2c3faa745775927b5fb3","type":"PACKAGE_SPEC","name":"LVS_CLEAN_UP","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"74fdcecd2e282b32e9dabf94d6164641fb007016","type":"PACKAGE_SPEC","name":"LVS_CLEAN_UP","schemaName":"DIRKSPZM32","sxml":""}

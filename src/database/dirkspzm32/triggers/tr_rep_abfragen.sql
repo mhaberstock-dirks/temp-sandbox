@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN" 
-  before delete on DIRKSPZM32.rep_abfragen
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_REP_ABFRAGEN" 
+  before delete on rep_abfragen
   for each row
 declare
   -- local variables here
@@ -10,8 +10,9 @@ begin
   DELETE FROM rep_user_top_abfragen WHERE rep_id = :old.rep_id;
 end tr_rep_abfragen;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_REP_ABFRAGEN" ENABLE;
+ALTER TRIGGER "TR_REP_ABFRAGEN" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"12cded3290567d304a54ab287622c4da038b29cc","type":"TRIGGER","name":"TR_REP_ABFRAGEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36a99ad14b4a7062138936b19cc7c5dedb680ffc","type":"TRIGGER","name":"TR_REP_ABFRAGEN","schemaName":"DIRKSPZM32","sxml":""}

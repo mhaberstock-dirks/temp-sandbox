@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_schicht_zeiten(in_pers_nr in number,
+function get_schicht_zeiten(in_pers_nr in number,
                                               in_datum in date,
                                               out_begin out date,
                                               out_ende out date) return varchar2 is
@@ -70,4 +70,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"bdf3d3907bbe083c594ce79ccef041ad2a6d196b","type":"FUNCTION","name":"GET_SCHICHT_ZEITEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"34771e02912febbc81570278b9bc82a68f99e2c0","type":"FUNCTION","name":"GET_SCHICHT_ZEITEN","schemaName":"DIRKSPZM32","sxml":""}

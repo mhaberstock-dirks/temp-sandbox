@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_beg_anw(p_pers_nr in number,
+function get_beg_anw(p_pers_nr in number,
                                        p_datum in date) return date is
   Result date;
 
@@ -83,4 +83,4 @@ end GET_BEG_ANW;
 
 
 
--- sqlcl_snapshot {"hash":"17010943b1d90f69172346eb69b06df1155ce9b7","type":"FUNCTION","name":"GET_BEG_ANW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a82abd0cf2e431fa650713015f605bde87810f91","type":"FUNCTION","name":"GET_BEG_ANW","schemaName":"DIRKSPZM32","sxml":""}

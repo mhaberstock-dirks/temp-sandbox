@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LTE_BI" 
-  before insert on DIRKSPZM32.lvs_lte
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LTE_BI" 
+  before insert on lvs_lte
   for each row
 declare
   -- local variables here
@@ -22,8 +22,9 @@ begin
   end if;
 end tr_lvs_lte_bi;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LTE_BI" ENABLE;
+ALTER TRIGGER "TR_LVS_LTE_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f67f8ed2ddf7b262b3c17fe29953bfd1b62ebf7b","type":"TRIGGER","name":"TR_LVS_LTE_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6adbfea2d6e01c9629f1ac9b26d43077f446bc11","type":"TRIGGER","name":"TR_LVS_LTE_BI","schemaName":"DIRKSPZM32","sxml":""}

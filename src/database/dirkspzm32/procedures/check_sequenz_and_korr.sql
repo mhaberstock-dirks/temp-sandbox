@@ -1,5 +1,5 @@
 create or replace 
-PROCEDURE DIRKSPZM32.CHECK_SEQUENZ_AND_KORR(in_SEQ_owner varchar2) AS
+PROCEDURE CHECK_SEQUENZ_AND_KORR(in_SEQ_owner varchar2) AS
   v_isi_seq                 v_isi_check_sequences%rowtype;
 
   cursor c_isi_check_sequences is
@@ -62,4 +62,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"e0aa26d4aebbe4755dbf2b0385c98a25fe353aa1","type":"PROCEDURE","name":"CHECK_SEQUENZ_AND_KORR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"60c5bdc03ce4e60deab6128538d91cf91f8b610d","type":"PROCEDURE","name":"CHECK_SEQUENZ_AND_KORR","schemaName":"DIRKSPZM32","sxml":""}

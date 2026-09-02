@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_message_board is
+package isi_message_board is
 
   /*
   __________________________________________________
@@ -47,4 +47,4 @@ end isi_message_board;
 
 
 
--- sqlcl_snapshot {"hash":"00f0e359206bf9d5f84c9eda05b43750155f08a2","type":"PACKAGE_SPEC","name":"ISI_MESSAGE_BOARD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"93ef9f161fd8d4356102fba4bd2ccc3eee2a766a","type":"PACKAGE_SPEC","name":"ISI_MESSAGE_BOARD","schemaName":"DIRKSPZM32","sxml":""}

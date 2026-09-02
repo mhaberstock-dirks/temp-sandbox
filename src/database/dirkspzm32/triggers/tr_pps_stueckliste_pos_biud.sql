@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_STUECKLISTE_POS_BIUD" 
-  before insert or update or delete on DIRKSPZM32.pps_stueckliste_pos
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_STUECKLISTE_POS_BIUD" 
+  before insert or update or delete on pps_stueckliste_pos
   for each row
 declare
 begin
@@ -11,8 +11,9 @@ begin
   end if;
 end tr_pps_stueckliste_pos_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_STUECKLISTE_POS_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_STUECKLISTE_POS_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1e6c28e7f591cbcec5b228e294c68cf667772493","type":"TRIGGER","name":"TR_PPS_STUECKLISTE_POS_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cd6764d96925d4788440e8ad51dd54366d5364f9","type":"TRIGGER","name":"TR_PPS_STUECKLISTE_POS_BIUD","schemaName":"DIRKSPZM32","sxml":""}

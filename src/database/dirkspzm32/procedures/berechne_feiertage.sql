@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.berechne_feiertage(p_jahr in number) is
+procedure berechne_feiertage(p_jahr in number) is
 falsewert             exception;
 berechnungsfehler     exception;
 keinedaten            exception;
@@ -229,4 +229,4 @@ end berechne_feiertage;
 
 
 
--- sqlcl_snapshot {"hash":"e3f63eb8534adee837430f69750e334f577d36b9","type":"PROCEDURE","name":"BERECHNE_FEIERTAGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8081371746cc75adefc91eb754306bb34c8a6d64","type":"PROCEDURE","name":"BERECHNE_FEIERTAGE","schemaName":"DIRKSPZM32","sxml":""}

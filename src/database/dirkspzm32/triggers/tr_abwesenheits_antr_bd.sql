@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ABWESENHEITS_ANTR_BD" 
-  before delete on DIRKSPZM32."PZM_ABWESENHEITS_ANTR"
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ABWESENHEITS_ANTR_BD" 
+  before delete on "PZM_ABWESENHEITS_ANTR"
   for each row
 declare
   -- local variables here
@@ -46,8 +46,9 @@ begin
   end loop;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ABWESENHEITS_ANTR_BD" ENABLE;
+ALTER TRIGGER "TR_ABWESENHEITS_ANTR_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"0b61ebe438b7b0e23436df2ca6c77b0c1ae53f2d","type":"TRIGGER","name":"TR_ABWESENHEITS_ANTR_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4aabce4c2cebf25aa274e62aaed816f24b30c9bf","type":"TRIGGER","name":"TR_ABWESENHEITS_ANTR_BD","schemaName":"DIRKSPZM32","sxml":""}

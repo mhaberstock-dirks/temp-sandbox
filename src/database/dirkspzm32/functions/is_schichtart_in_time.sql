@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.is_schichtart_in_time
+function is_schichtart_in_time
 /*
   Modul: PZM
   Kommentare:
@@ -113,4 +113,4 @@ end is_schichtart_in_time;
 
 
 
--- sqlcl_snapshot {"hash":"ac1cd390fcdde5194b40afc0db897200483c9e85","type":"FUNCTION","name":"IS_SCHICHTART_IN_TIME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3af36210fa131f0e39b57c59de52b84311395201","type":"FUNCTION","name":"IS_SCHICHTART_IN_TIME","schemaName":"DIRKSPZM32","sxml":""}

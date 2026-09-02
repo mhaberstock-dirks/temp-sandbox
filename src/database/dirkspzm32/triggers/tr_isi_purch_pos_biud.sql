@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_PURCH_POS_BIUD" 
-  before insert or update or delete on DIRKSPZM32.isi_purch_pos
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_PURCH_POS_BIUD" 
+  before insert or update or delete on isi_purch_pos
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -260,8 +260,9 @@ exception
     end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_PURCH_POS_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_PURCH_POS_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"63f2d33abdde8f3f73c42fea7107591c3d4fcdd2","type":"TRIGGER","name":"TR_ISI_PURCH_POS_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b22afd7a69f05a80ef357c34fc5a33bb4a0a42ec","type":"TRIGGER","name":"TR_ISI_PURCH_POS_BIUD","schemaName":"DIRKSPZM32","sxml":""}

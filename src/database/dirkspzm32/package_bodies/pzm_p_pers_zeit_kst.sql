@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.pzm_P_PERS_ZEIT_KST is
+package body pzm_P_PERS_ZEIT_KST is
 
   -- Function and procedure implementations
   procedure pzm_c_pd_pers_zeit_berech (in_sid                      in  pzm_ze_pers_kst_monat_ab.sid%type,
@@ -139,4 +139,4 @@ end pzm_P_PERS_ZEIT_KST;
 
 
 
--- sqlcl_snapshot {"hash":"77c43db47842a4cf8785cf9df64c200dfb058445","type":"PACKAGE_BODY","name":"PZM_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dcfea3938c6f86e6629497878d5e767f9f5e4a90","type":"PACKAGE_BODY","name":"PZM_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.UPDATE_TAGESSATZ(p_pers_nr in number,
+procedure UPDATE_TAGESSATZ(p_pers_nr in number,
                                              p_datum in date,
                                              p_day_begin in date,
                                              p_day_end in date,
@@ -182,4 +182,4 @@ end update_tagessatz;
 
 
 
--- sqlcl_snapshot {"hash":"1de4b5efcae31596e7f7995408f9add7afca4687","type":"PROCEDURE","name":"UPDATE_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"79a4f8788ec5d10b5af87d1141984f811769d5ba","type":"PROCEDURE","name":"UPDATE_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

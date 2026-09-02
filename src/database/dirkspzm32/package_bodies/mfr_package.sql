@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.MFR_Package is
+package body MFR_Package is
 
   procedure Change_Lte_Properties(in_lte                  in lvs_lte%rowtype,
                                   in_lte_name             in lvs_lte.lte_name%type,
@@ -2484,4 +2484,4 @@ end mfr_package;
 
 
 
--- sqlcl_snapshot {"hash":"b73c04cc78caa5f79b98c51209c718d4e8f5de83","type":"PACKAGE_BODY","name":"MFR_PACKAGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f06b147b22a5540d33d07e9ffad573d638a97127","type":"PACKAGE_BODY","name":"MFR_PACKAGE","schemaName":"DIRKSPZM32","sxml":""}

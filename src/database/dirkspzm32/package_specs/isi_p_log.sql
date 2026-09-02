@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_p_log is
+package isi_p_log is
 
   /*
   __________________________________________________
@@ -67,4 +67,4 @@ end isi_p_log;
 
 
 
--- sqlcl_snapshot {"hash":"0d1ddbcafc7af48d92bc71606e7ef772ded7eb8f","type":"PACKAGE_SPEC","name":"ISI_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4d603b8e1846b34632e628e871f8cbeb6d33c4f8","type":"PACKAGE_SPEC","name":"ISI_P_LOG","schemaName":"DIRKSPZM32","sxml":""}

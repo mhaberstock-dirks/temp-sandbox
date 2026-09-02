@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.dw_bde_funktionen is
+package body dw_bde_funktionen is
 
   procedure dw_bde_kenz_tagesab(in_sid              in  isi_sid.sid%type,
                                 in_firma_nr         in  isi_firma.firma_nr%type,
@@ -582,4 +582,4 @@ end dw_bde_funktionen;
 
 
 
--- sqlcl_snapshot {"hash":"ab6a8d25974656046baff322634355e632364493","type":"PACKAGE_BODY","name":"DW_BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"19abb2a0aa72fae3877fa3acfbf046fc0b9d6f92","type":"PACKAGE_BODY","name":"DW_BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}

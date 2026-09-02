@@ -1,20 +1,33 @@
 create or replace 
-PACKAGE DIRKSPZM32.z_pzm_infor_sst
+PACKAGE z_pzm_infor_sst
 -----------------------------------------------------------------------------------------------
 -- Package: z_pzm_infor_sst
 -- Zweck:   Prozeduren für die Kommunikation mit INFO.
 -- Autor:   M.Haberstock
--- Datum:   2026-07
+-- Datum:   2026-07-17
 --
 -- Dieses Package buendelt alle Tabellen-Operationen, die für die Kommunikation mit INFOR
--- benötigt werden-
+-- benötigt werden.
 --
 
------------------------------------------------------------------------------------------------
--- OEFFENTLICHE API:
------------------------------------------------------------------------------------------------
 IS
   /**
+   * Liste der unterstützten Tabellen; Wird validiert
+  **/
+  TYPE t_table_list IS TABLE OF VARCHAR2(128);
+
+  c_supported_tables CONSTANT t_table_list :=
+    t_table_list(
+      'PZM_SCHICHT_MODELLE'
+    , 'PZM_TARIFMODELLE'
+    , 'PZM_PERSONAL'
+    , 'PZM_PRODUKTIONSBEREICHE'
+    , 'PZM_ABTEILUNGEN'
+    , 'PZM_VERTRAGSARTEN'
+    , 'ISI_USER'
+    );
+
+   /**
    * Exception-Definitionen für Fehler-Handling in Anwendung
    * (können in Exception-Handler-Blöcken z.B. wie folgt behandelt werden:
    *   EXCEPTION
@@ -28,6 +41,10 @@ IS
   err_unsupported_table     NUMBER := -20002;
   unsupported_table         EXCEPTION;
   PRAGMA EXCEPTION_INIT (unsupported_table, -20002);
+
+-----------------------------------------------------------------------------------------------
+-- OEFFENTLICHE API:
+-----------------------------------------------------------------------------------------------
 
   /**
    * Prozedur zur Erzeugung von Schnittstellen-Daten
@@ -47,4 +64,4 @@ END z_pzm_infor_sst;
 
 
 
--- sqlcl_snapshot {"hash":"fea2b6fc62db09deba573b36b81946bf4d058cda","type":"PACKAGE_SPEC","name":"Z_PZM_INFOR_SST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"938d4071513837b1365a22d89dc70677e6a914cd","type":"PACKAGE_SPEC","name":"Z_PZM_INFOR_SST","schemaName":"DIRKSPZM32","sxml":""}

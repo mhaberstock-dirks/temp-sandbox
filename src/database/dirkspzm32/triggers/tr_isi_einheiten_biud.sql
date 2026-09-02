@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_EINHEITEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_EINHEITEN
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_EINHEITEN_BIUD" 
+  before insert or update or delete on ISI_EINHEITEN
   for each row
 declare
 
@@ -46,8 +46,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_EINHEITEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_EINHEITEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1424b97aae4a8098b8aa86b15c90cdb609f1bcc9","type":"TRIGGER","name":"TR_ISI_EINHEITEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a0b704c87466fe67e305bc9cb34c329b9c7b9ba6","type":"TRIGGER","name":"TR_ISI_EINHEITEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

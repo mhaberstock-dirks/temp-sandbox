@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_PROZESS_DATA_BIUD" 
-  before insert or update or delete on DIRKSPZM32.isi_res_prozess_data_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_PROZESS_DATA_BIUD" 
+  before insert or update or delete on isi_res_prozess_data_cfg
   for each row
 declare
 
@@ -54,8 +54,9 @@ exception
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_PROZESS_DATA_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_PROZESS_DATA_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"0447607f3eb39c9a07c0610081b7ac5e683ed1d5","type":"TRIGGER","name":"TR_ISI_RES_PROZESS_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f1e2f7b67121906358523a67e1197d754cb1ae69","type":"TRIGGER","name":"TR_ISI_RES_PROZESS_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_TARIF_NAME(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_TARIF_NAME(in_pers_nr in pzm_personal.pers_nr%type
                                         ) return varchar2 is
   Result varchar2(100);
 begin
@@ -17,4 +17,4 @@ end GET_PERS_TARIF_NAME;
 
 
 
--- sqlcl_snapshot {"hash":"45ad7e97c2c7d20acf736255e08452adada97a1d","type":"FUNCTION","name":"GET_PERS_TARIF_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c5ffc8985c5a37bf371b20d38c37a7ff82cea51b","type":"FUNCTION","name":"GET_PERS_TARIF_NAME","schemaName":"DIRKSPZM32","sxml":""}

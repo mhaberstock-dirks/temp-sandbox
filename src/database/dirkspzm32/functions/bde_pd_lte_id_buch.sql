@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pd_lte_id_buch
+function bde_pd_lte_id_buch
 (
 in_sid in isi_sid.sid%type,
 in_res_id in isi_resource.res_id%type,
@@ -88,4 +88,4 @@ end bde_pd_lte_id_buch;
 
 
 
--- sqlcl_snapshot {"hash":"02ea2c21e0751bb949318322b4ce7c77f3a05f4b","type":"FUNCTION","name":"BDE_PD_LTE_ID_BUCH","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cdf652dee03e03d14eee5a08d0b7de345d6dc1cb","type":"FUNCTION","name":"BDE_PD_LTE_ID_BUCH","schemaName":"DIRKSPZM32","sxml":""}

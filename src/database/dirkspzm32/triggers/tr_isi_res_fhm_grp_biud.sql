@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_GRP_BIUD" 
-  before insert or update on DIRKSPZM32.ISI_RES_FHM_GRP
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_FHM_GRP_BIUD" 
+  before insert or update on ISI_RES_FHM_GRP
   for each row
 declare
   -- local variables here
@@ -59,8 +59,9 @@ exception
       end if;
 end tr_ISI_RES_FHM_GRP_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_GRP_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_FHM_GRP_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"ef1b9262cf77bb4f3aaadb9e15f5261053471c6d","type":"TRIGGER","name":"TR_ISI_RES_FHM_GRP_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3a032d4921965b0344a1e59dd5d13d5f9af2f620","type":"TRIGGER","name":"TR_ISI_RES_FHM_GRP_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PE_JOBS_AIU" 
-  after insert or update on DIRKSPZM32.pe_jobs
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PE_JOBS_AIU" 
+  after insert or update on pe_jobs
   for each row
 declare
   -- local variables here
@@ -15,8 +15,9 @@ begin
   end if;
 end TR_PE_JOBS_AIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PE_JOBS_AIU" ENABLE;
+ALTER TRIGGER "TR_PE_JOBS_AIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e9445844a5031cdec3fe443f6886d29001f476a4","type":"TRIGGER","name":"TR_PE_JOBS_AIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9ae6594b14a82b1b9a03b045e710a4864ecf723e","type":"TRIGGER","name":"TR_PE_JOBS_AIU","schemaName":"DIRKSPZM32","sxml":""}

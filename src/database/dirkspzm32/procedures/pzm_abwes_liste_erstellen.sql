@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.PZM_ABWES_LISTE_ERSTELLEN(in_start_date in date,
+procedure PZM_ABWES_LISTE_ERSTELLEN(in_start_date in date,
                                                                 in_end_date in date,
                                                                 in_pers_nr in pzm_abwes_plan.pers_nr%type
                                                                 ) is
@@ -348,4 +348,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"ae000c039cd7b36e0b7163bdc4f611b4c13f2515","type":"PROCEDURE","name":"PZM_ABWES_LISTE_ERSTELLEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5e5b27fa450788855ee32f97db0408bf314b0eb9","type":"PROCEDURE","name":"PZM_ABWES_LISTE_ERSTELLEN","schemaName":"DIRKSPZM32","sxml":""}

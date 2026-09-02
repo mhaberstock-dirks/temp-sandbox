@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_anz_arbeitstage(p_pers_nr in integer,
+function get_anz_arbeitstage(p_pers_nr in integer,
                                                p_start_datum    in date,
                                                p_ende_datum     in date,
                                                p_einflussfaktor in integer)
@@ -16,4 +16,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"9cf900a1a4f07f58d1ccd4f27461d4bb52172458","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d1a559366651d36a2e45bc2878a8743274b90ec2","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE","schemaName":"DIRKSPZM32","sxml":""}

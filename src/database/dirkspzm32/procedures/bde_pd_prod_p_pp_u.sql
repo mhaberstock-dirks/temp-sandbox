@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_p_pp_u
+procedure bde_pd_prod_p_pp_u
 /*
 In dieser Procedure wird ein Update auf die Produktion eines LAM in den PP Satz gebucht.
 Diese Procedure aktualisiert die Tabellen bde_pd_prod (Satzart PP und PA), lvs_lam_bh (Die dann
@@ -177,4 +177,4 @@ end bde_pd_prod_p_pp_u;
 
 
 
--- sqlcl_snapshot {"hash":"c07678c4a34671c514a97f9947c1234a18f57b5e","type":"PROCEDURE","name":"BDE_PD_PROD_P_PP_U","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e659ff692a9640ea51912caa37c3f39026cafa5f","type":"PROCEDURE","name":"BDE_PD_PROD_P_PP_U","schemaName":"DIRKSPZM32","sxml":""}

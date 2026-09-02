@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_SM_NAME(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_SM_NAME(in_pers_nr in pzm_personal.pers_nr%type
                                         ) return varchar2 is
 
   Result pzm_schicht_modelle.sm_name%type;
@@ -17,4 +17,4 @@ end GET_PERS_SM_NAME;
 
 
 
--- sqlcl_snapshot {"hash":"1b29f0b561d818340add956205206b1b5e99eb02","type":"FUNCTION","name":"GET_PERS_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7effd676e6e29e83947a2c1834aa562508020dc1","type":"FUNCTION","name":"GET_PERS_SM_NAME","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
+package body PZM_KONTOVERWALTUNG is
   /* Neue Kontoverwaltung umsetzung Feb 2006 (-WK-) */
 
   /* Kontoinformationen */
@@ -139,7 +139,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
       NULL,
       NULL,
       NULL 
-      
+
     ) returning konten_bh_id into out_konten_bh_id;
   end;
 
@@ -764,7 +764,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
         open c_abwes_art;
         fetch c_abwes_art into v_lohnarten;
         close c_abwes_art;
-        
+
         if is_konto_vorhanden(in_sid, in_firma_nr, v_pzm_personal.pers_nr,
           v_lohnarten.lz_konto_name_kurz, 'ZK', v_pzm_konto)
         then
@@ -826,7 +826,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
     v_schichtmodell                  pzm_schicht_modelle%rowtype;
     v_personal                       pzm_personal%rowtype;
     v_schichtart                     pzm_schichtarten%rowtype;
-    
+
     v_schichtmodell_day_d_std        number;
 
     v_def_sa_kurzname                pzm_schichtarten.sa_kurzname%type;
@@ -836,7 +836,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
     v_SAEnde                         pzm_schichtarten.sa_ende%type;
     v_SAStdProTag                    number;
     v_schicht_datum                  date;
-    
+
     v_gutschrift_saldo               number;
     v_found                          boolean;
 
@@ -863,7 +863,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
       exit when c_pzm_konten%notfound;
       v_schichtmodell.standard_aa_id := NULL;
       v_schicht_datum := trunc(nvl(in_zk_start, sysdate));
-      
+
       if  pzm_p_base.get_personal(v_pzm_konten.pers_nr, v_personal)
       and trunc(nvl(v_personal.pers_austrittdatum, v_schicht_datum)) >= v_schicht_datum
       and trunc(v_personal.pers_eintrittsdatum) <= v_schicht_datum
@@ -875,7 +875,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
         then
           v_schichtmodell_day_d_std :=  pzm_utils.pzm_get_sm_durch_std_tag(v_schichtmodell.sm_name);
         end if;
-        v_SAFound := get_schicht_daten(v_personal.pers_nr, v_schicht_datum, v_schicht_datum, 
+        v_DaySAKurzname := NULL;
+        v_SABeginn      := NULL;
+        v_SAEnde        := NULL;
+        v_SAStdProTag   := NULL;
+
+        v_SAFound := get_schicht_daten(v_personal.pers_nr, nvl(in_zk_start, sysdate), v_schicht_datum, 
                                        v_DaySAKurzname, v_SABeginn, v_SAEnde, v_SAStdProTag) = 1;
         if not pzm_p_base.get_schichtart_by_uix(v_DaySAKurzname, v_schichtart)
         then
@@ -900,13 +905,13 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
           and v_pzm_konten.buch_einheit = 'DD'
           then
             v_gutschrift_saldo := 0;
-            
+
             if nvl(v_schichtart.sa_kurzname, v_def_sa_kurzname) != v_def_sa_kurzname
             and nvl(v_schichtart.sa_std_pro_tag, 0) > 0
             then
               v_schichtmodell_day_d_std := v_schichtart.sa_std_pro_tag;
             end if;
-            
+
             if nvl(v_schichtmodell_day_d_std, 0) > 0
             then
               v_gutschrift_saldo :=  in_wert / v_schichtmodell_day_d_std;
@@ -938,7 +943,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
           FETCH c_pzm_gegen_konten into v_pzm_gegen_konten;
           v_found := c_pzm_gegen_konten%found;
           CLOSE c_pzm_gegen_konten;
-          
+
           if v_found
           or in_zk_v_name_kurz is NULL
           then
@@ -959,12 +964,12 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
                 then
                   zk_abgang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_gegen_konten.konto_nr,
                                    v_pzm_gegen_konten.pers_nr, get_pers_kst_id(v_pzm_gegen_konten.pers_nr), v_gutschrift_saldo, in_info,
-                                   nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                                   trunc(nvl(in_zk_start, sysdate)), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
                 end if;
 
                 zk_zugang_buchen(v_pzm_konten.sid, v_pzm_konten.firma_nr, v_pzm_konten.konto_nr,
                                  v_pzm_konten.pers_nr, get_pers_kst_id(v_pzm_konten.pers_nr), v_gutschrift_saldo, in_info,
-                                 nvl(in_zk_start, sysdate), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
+                                 trunc(nvl(in_zk_start, sysdate)), nvl(in_zk_aa_id, v_schichtmodell.standard_aa_id), get_pers_abt_id(v_pzm_gegen_konten.pers_nr), v_konten_bh_id);
 
               end if;
             else
@@ -992,7 +997,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
     v_date                    date;
     v_Wochentag               integer;
     v_true                    boolean;
-    
+
     v_buch_wert               pzm_konten_umbuchen.buch_wert%type;
 
     cursor c_k_umb is
@@ -1001,7 +1006,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
          and t.aktiv = c.R_C_TRUE;
 
   begin
-    
+
     open c_k_umb;
     loop
       fetch c_k_umb
@@ -1010,7 +1015,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
       v_true := false;
       v_buch_wert := NULL;
       v_Wochentag := isi_utils.Iso_WeekDay(sysdate);
-      
+
       case when v_Wochentag = 1 and v_k_umb.buch_wot_mo_wert is not NULL
                 then v_buch_wert := v_k_umb.buch_wot_mo_wert;
            when v_Wochentag = 2 and v_k_umb.buch_wot_di_wert is not NULL
@@ -1027,7 +1032,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
                 then v_buch_wert := v_k_umb.buch_wot_so_wert;
            else v_buch_wert := NULL;
       end case;
-      
+
       if v_buch_wert is NULL
       and v_k_umb.buch_wert > 0
       then
@@ -1056,7 +1061,7 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
           v_true := true;
         end if;
       end if;
-      
+
       if v_true
       then
         pzm_kontoverwaltung.zk_serien_umbuchen(in_pb_id => v_k_umb.pb_id,
@@ -1072,14 +1077,14 @@ package body DIRKSPZM32.PZM_KONTOVERWALTUNG is
         then
           v_k_umb.typ_status := 'F';
         end if;
-        
+
         update pzm_konten_umbuchen t
            set t.typ_status = v_k_umb.typ_status,
                t.last_event_date = sysdate
          where t.name = v_k_umb.name;
 
       end if;      
-      
+
     end loop;
     close c_k_umb;
 
@@ -1090,4 +1095,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"34d94019a582cf3b4b80be2b97baee6e3e071ecf","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"528f79d7b5eea8f9dc112ae1f3244a56b4e48b65","type":"PACKAGE_BODY","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_p_license is
+package isi_p_license is
 
   /*
   __________________________________________________
@@ -37,4 +37,4 @@ end isi_p_license;
 
 
 
--- sqlcl_snapshot {"hash":"933947a9ee67c3e6e97c0bd2a5a9caef32e0e8da","type":"PACKAGE_SPEC","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"527c8318f43ea600728e6365abb6d58bbbea62a7","type":"PACKAGE_SPEC","name":"ISI_P_LICENSE","schemaName":"DIRKSPZM32","sxml":""}

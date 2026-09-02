@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."V_ISI_TAB_FIELD_SEQ" ("table_name_", "field_name_", "sequence_name_", "Kommentar_") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "V_ISI_TAB_FIELD_SEQ" ("table_name_", "field_name_", "sequence_name_", "Kommentar_") AS 
   select 'BDE_FA_AUFTRAG'          as "table_name_", 'Auf_ID'               as "field_name_", 'SEQ_ISI_ORDER'             as "sequence_name_", ''  as "Kommentar_" from dual union
 select 'bde_fa_auftrag_stl'      as "table_name_", 'fa_ag_stl_id'         as "field_name_", 'seq_fa_ag_stl_id'           as "sequence_name_", 'TR: TR_BDE_FA_AUFTRAG_STL_BI, Zeile:9'  as "Kommentar_" from dual union
 select 'bde_pd_lam_stl_daten'    as "table_name_", 'pd_lam_stl_daten_id'  as "field_name_", 'seq_lam_stl_daten_id'       as "sequence_name_", 'TR: TR_BDE_PD_LAM_STL_DATEN_BIU'  as "Kommentar_" from dual union
@@ -101,4 +101,4 @@ select 's_sas_sap_send_bew' as "table_name_", 'SEND_ID'    as "field_name_", 'se
 ;
 
 
--- sqlcl_snapshot {"hash":"40ad2a67ad589aef2892e4ebd6c40a3dc4cde60d","type":"VIEW","name":"V_ISI_TAB_FIELD_SEQ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b9294d3d19595333a5262cd31772f31891e96911","type":"VIEW","name":"V_ISI_TAB_FIELD_SEQ","schemaName":"DIRKSPZM32","sxml":""}

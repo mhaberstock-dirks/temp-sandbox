@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pps_p_bde_new is
+package pps_p_bde_new is
 
   /*
   __________________________________________________
@@ -496,4 +496,4 @@ end pps_p_bde_new;
 
 
 
--- sqlcl_snapshot {"hash":"1571bce36f5de02a3b0d7791c92c43ff70a8937f","type":"PACKAGE_SPEC","name":"PPS_P_BDE_NEW","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4d3e6d47e36cc60ca42736d44ea5d66e86c9955a","type":"PACKAGE_SPEC","name":"PPS_P_BDE_NEW","schemaName":"DIRKSPZM32","sxml":""}

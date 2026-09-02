@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_V_ART_LTE_NAME_V_ORT_Z_ORT" ("SID", "ARTIKEL_ID", "ARTIKEL", "BEZEICHNUNG1", "LGR_ORT_QUELLE", "LGR_ORT_ZIEL", "LTE_NAME_QUELLE", "LTE_NAME_ZIEL", "LTE_MENGE_ZIEL") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_V_ART_LTE_NAME_V_ORT_Z_ORT" ("SID", "ARTIKEL_ID", "ARTIKEL", "BEZEICHNUNG1", "LGR_ORT_QUELLE", "LGR_ORT_ZIEL", "LTE_NAME_QUELLE", "LTE_NAME_ZIEL", "LTE_MENGE_ZIEL") AS 
   select a_lte_cfg.sid,
        a.artikel_id,
        a.artikel,
@@ -18,4 +18,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"7a9e1bc63e8a4148159d4e2af4d66dfc91642b0f","type":"VIEW","name":"LVS_V_ART_LTE_NAME_V_ORT_Z_ORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"83ac90c8f8a6e50df5190f8da70e532719a41fce","type":"VIEW","name":"LVS_V_ART_LTE_NAME_V_ORT_Z_ORT","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_disable is
+procedure isi_disable is
 
   v_table_name     varchar2(255);
   v_constrane_name varchar2(255);
@@ -55,4 +55,4 @@ end isi_disable;
 
 
 
--- sqlcl_snapshot {"hash":"d28f56124f414a0ef4bd848a483c6f19a7753c39","type":"PROCEDURE","name":"ISI_DISABLE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c7206544aba505ee9b18b1d87374a6562c948d19","type":"PROCEDURE","name":"ISI_DISABLE","schemaName":"DIRKSPZM32","sxml":""}

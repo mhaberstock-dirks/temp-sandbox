@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_euscher_druck is
+package body z_euscher_druck is
 
   /*
   __________________________________________________
@@ -690,4 +690,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"8f2a928e83d6df0f9ea2fba3a566fe3b13050d76","type":"PACKAGE_BODY","name":"Z_EUSCHER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6926302da2e9da29115f965091d592f6404efe8c","type":"PACKAGE_BODY","name":"Z_EUSCHER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

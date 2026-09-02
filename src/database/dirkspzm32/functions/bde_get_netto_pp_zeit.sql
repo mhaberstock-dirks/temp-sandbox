@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_get_netto_pp_zeit
+function bde_get_netto_pp_zeit
 /*
   TODO: Kommentieren
   ---- HISTORY ---
@@ -87,4 +87,4 @@ end bde_get_netto_pp_zeit;
 
 
 
--- sqlcl_snapshot {"hash":"e47705a125148c6dcedaebe40bea7c7251c50fed","type":"FUNCTION","name":"BDE_GET_NETTO_PP_ZEIT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"50fac62e43a1ef8f240aaf5a8985e960274819ae","type":"FUNCTION","name":"BDE_GET_NETTO_PP_ZEIT","schemaName":"DIRKSPZM32","sxml":""}

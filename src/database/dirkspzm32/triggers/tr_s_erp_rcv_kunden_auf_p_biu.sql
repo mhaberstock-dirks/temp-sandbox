@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_KUNDEN_AUF_P_BIU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_KUNDEN_AUF_P_BIU" 
   before insert or update
-  on DIRKSPZM32.S_ERP_RCV_KUNDEN_AUFTR_POS
+  on S_ERP_RCV_KUNDEN_AUFTR_POS
   for each row
 declare
   -- local variables here
@@ -198,8 +198,9 @@ begin
   end if;
 end TR_S_ERP_RCV_KUNDEN_AUF_P_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_KUNDEN_AUF_P_BIU" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_KUNDEN_AUF_P_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4a9859fc6c518bc0f0b77b37467644ccdd8985d0","type":"TRIGGER","name":"TR_S_ERP_RCV_KUNDEN_AUF_P_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"51cfcba36c8da5ba898f2bbef80dbe5aa6adf660","type":"TRIGGER","name":"TR_S_ERP_RCV_KUNDEN_AUF_P_BIU","schemaName":"DIRKSPZM32","sxml":""}

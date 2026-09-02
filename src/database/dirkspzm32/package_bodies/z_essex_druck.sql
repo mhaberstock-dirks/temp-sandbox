@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_essex_druck is
+package body z_essex_druck is
 
 
   /*
@@ -750,4 +750,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"cc9ad77829191c84f0f8f56f67de519ed4342cec","type":"PACKAGE_BODY","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cd9788328faf2010a40f2e389fd6bda5aa464198","type":"PACKAGE_BODY","name":"Z_ESSEX_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

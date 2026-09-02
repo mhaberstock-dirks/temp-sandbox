@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_euscher_druck is
+package z_euscher_druck is
 
   -- Author  : HJGOEDEKE
   -- Created : 24.06.2004 16:37:26
@@ -26,4 +26,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"270c518423a89b56baeb10d2f7a876d5413da6cc","type":"PACKAGE_SPEC","name":"Z_EUSCHER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dbe4134b735f0ab4d4f8dbf8df806b4fa2c61649","type":"PACKAGE_SPEC","name":"Z_EUSCHER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_FAHRZEUG_AU" 
-  after update on DIRKSPZM32.lvs_fahrzeuge
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_FAHRZEUG_AU" 
+  after update on lvs_fahrzeuge
   for each row
 declare
 
@@ -27,8 +27,9 @@ begin
 
 end TR_LVS_FAHRZEUG_AU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_FAHRZEUG_AU" ENABLE;
+ALTER TRIGGER "TR_LVS_FAHRZEUG_AU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d6a619b1b681c60f45f0a0d88776669ca90a398c","type":"TRIGGER","name":"TR_LVS_FAHRZEUG_AU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"592742b95f01230cff75903c7d42845ffc218251","type":"TRIGGER","name":"TR_LVS_FAHRZEUG_AU","schemaName":"DIRKSPZM32","sxml":""}

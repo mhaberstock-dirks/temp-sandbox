@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_p_base is
+package lvs_p_base is
 
   /*
   __________________________________________________
@@ -226,4 +226,4 @@ end lvs_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"b64a13f8c5f5db8e1889956913e1a33213d14602","type":"PACKAGE_SPEC","name":"LVS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"495bfa3b124c47d1ad76f55dbbb7a52365d27ccd","type":"PACKAGE_SPEC","name":"LVS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

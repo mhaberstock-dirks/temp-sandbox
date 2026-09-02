@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_lte_delete
+procedure bde_pd_lte_delete
 /*
 In dieser Procedure wird eine LTE gelöscht und dabei die Tabelle LVS_LGR aktualisiert
 
@@ -88,4 +88,4 @@ end bde_pd_lte_delete;
 
 
 
--- sqlcl_snapshot {"hash":"3dd4bc47082bd8ae6cb87a182a8777e729213d1e","type":"PROCEDURE","name":"BDE_PD_LTE_DELETE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0b9173fcd1e317c49b6264814b20bf538d9ff162","type":"PROCEDURE","name":"BDE_PD_LTE_DELETE","schemaName":"DIRKSPZM32","sxml":""}

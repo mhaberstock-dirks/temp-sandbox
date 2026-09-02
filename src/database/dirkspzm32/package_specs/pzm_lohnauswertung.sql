@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_LOHNAUSWERTUNG is
+package PZM_LOHNAUSWERTUNG is
 
   /*
   __________________________________________________
@@ -20,7 +20,7 @@ package DIRKSPZM32.PZM_LOHNAUSWERTUNG is
   * alle_ueb_std_pruefen
   * wie ueb_std_auszahlung_pruefen! Nur für ALLE Personalnummern bzw. fuer einen Personalnummern-Bereich.
   **************************************************************************************************/
-  
+
   v_pzm_sim_on                        boolean := False;
 
   function GET_PERS_LOA_IS_GUELTIG (in_pers_nr     in pzm_personal.pers_nr%type,
@@ -31,7 +31,7 @@ package DIRKSPZM32.PZM_LOHNAUSWERTUNG is
   function get_alternativ_loa(
     in_loa_id in pzm_lohnarten.lz_id%type
   ) return pzm_lohnarten.lz_lohnart%type;
-  
+
   function ueb_std_auszahlung_pruefen_r32(in_pers_nr      in number,
                                           in_monatsende   in date,
                                           in_loa          in pzm_lohnarten.lz_lohnart%type
@@ -87,7 +87,7 @@ package DIRKSPZM32.PZM_LOHNAUSWERTUNG is
   procedure c_save_13_w_schnitt (in_pers_nr       in pzm_personal.pers_nr%type,
                                 in_monat_jahr    in date
                                 );
-                               
+
   function c_loa_an_host (in_pers_nr       in pzm_personal.pers_nr%type,
                           in_monat         in number,
                           in_jahr          in number,
@@ -101,7 +101,7 @@ package DIRKSPZM32.PZM_LOHNAUSWERTUNG is
                               in_schnittstelle in pzm_produktionsbereiche.pb_schnittstelle%type,
                               in_reset         in varchar2 default 'F'
                              ) return varchar2;
-                             
+
   procedure c_pdl_equal_pay (in_pers_nr       pzm_personal.pers_nr%type,
                              in_datum         in date);
 
@@ -118,4 +118,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"6d0341026329e3f9c5d61295f659f6110a6c56ab","type":"PACKAGE_SPEC","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"26af2779e36982c367bea8aadd1b20fed3f3006f","type":"PACKAGE_SPEC","name":"PZM_LOHNAUSWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

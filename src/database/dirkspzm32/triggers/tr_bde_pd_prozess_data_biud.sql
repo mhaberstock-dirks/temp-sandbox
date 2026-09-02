@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_PD_PROZESS_DATA_BIUD" 
-  before insert or update or delete on DIRKSPZM32.bde_pd_prozess_data
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_PD_PROZESS_DATA_BIUD" 
+  before insert or update or delete on bde_pd_prozess_data
   for each row
 declare
 
@@ -58,8 +58,9 @@ exception
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_PD_PROZESS_DATA_BIUD" ENABLE;
+ALTER TRIGGER "TR_BDE_PD_PROZESS_DATA_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"193cdbaf71f66359840634f26822ffb00f5c7fe2","type":"TRIGGER","name":"TR_BDE_PD_PROZESS_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b67413c3d1c1210310d1b1b35195367efa6e18eb","type":"TRIGGER","name":"TR_BDE_PD_PROZESS_DATA_BIUD","schemaName":"DIRKSPZM32","sxml":""}

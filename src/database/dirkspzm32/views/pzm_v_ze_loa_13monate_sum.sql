@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_ZE_LOA_13MONATE_SUM" ("PERS_NR", "LZ_LOHNART", "SUM_LOA_STD_1", "SUM_LOA_STD_2", "SUM_LOA_STD_3", "SUM_LOA_STD_4", "SUM_LOA_STD_5", "SUM_LOA_STD_6", "SUM_LOA_STD_7", "SUM_LOA_STD_8", "SUM_LOA_STD_9", "SUM_LOA_STD_10", "SUM_LOA_STD_11", "SUM_LOA_STD_12", "SUM_LOA_STD_13") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_ZE_LOA_13MONATE_SUM" ("PERS_NR", "LZ_LOHNART", "SUM_LOA_STD_1", "SUM_LOA_STD_2", "SUM_LOA_STD_3", "SUM_LOA_STD_4", "SUM_LOA_STD_5", "SUM_LOA_STD_6", "SUM_LOA_STD_7", "SUM_LOA_STD_8", "SUM_LOA_STD_9", "SUM_LOA_STD_10", "SUM_LOA_STD_11", "SUM_LOA_STD_12", "SUM_LOA_STD_13") AS 
   select p.pers_nr,
        t.lz_lohnart,
        (select sum(zeaw_lz_loa_std)
@@ -73,4 +73,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"e72cdd865eef9c1d52dc0dadca4f4e962c8d25f8","type":"VIEW","name":"PZM_V_ZE_LOA_13MONATE_SUM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4bc558f1c6eae9a707247ba84386b1ba17fd914b","type":"VIEW","name":"PZM_V_ZE_LOA_13MONATE_SUM","schemaName":"DIRKSPZM32","sxml":""}

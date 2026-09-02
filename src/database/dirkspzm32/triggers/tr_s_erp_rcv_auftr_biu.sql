@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_AUFTR_BIU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_AUFTR_BIU" 
   before insert or update or delete on S_ERP_RCV_AUFTR
   for each row
 declare
@@ -229,8 +229,9 @@ begin
 
 end TR_S_ERP_RCV_AUFTR;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_AUFTR_BIU" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_AUFTR_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e40ffe03940423811f42acf619db19a20aa319da","type":"TRIGGER","name":"TR_S_ERP_RCV_AUFTR_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8d363d322f253fbf4b5a1379a43c1b85b2edd508","type":"TRIGGER","name":"TR_S_ERP_RCV_AUFTR_BIU","schemaName":"DIRKSPZM32","sxml":""}

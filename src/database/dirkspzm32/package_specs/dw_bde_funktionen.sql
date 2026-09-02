@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.dw_bde_funktionen is
+package dw_bde_funktionen is
 
   -- Author  : HJGOEDEKE
   -- Created : 14.12.2007 16:17:55
@@ -160,4 +160,4 @@ end dw_bde_funktionen;
 
 
 
--- sqlcl_snapshot {"hash":"8ce6585b12c9a8638d6e23eb5e613c104d158745","type":"PACKAGE_SPEC","name":"DW_BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c8109ca5d7067bbe0b55efc10c8ec9c8dc676d0c","type":"PACKAGE_SPEC","name":"DW_BDE_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}

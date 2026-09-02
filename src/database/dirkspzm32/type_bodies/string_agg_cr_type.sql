@@ -1,5 +1,5 @@
 create or replace 
-TYPE BODY DIRKSPZM32."STRING_AGG_CR_TYPE" is
+TYPE BODY "STRING_AGG_CR_TYPE" is
 
   static function ODCIAggregateInitialize(sctx IN OUT string_agg_cr_type) return number is
   begin
@@ -41,4 +41,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"e7876e7d287cc48ca6c5525a0a3fc20d4a3f6c41","type":"TYPE_BODY","name":"STRING_AGG_CR_TYPE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ce63515f5e8c6bfde45b252906c31edfe66e6092","type":"TYPE_BODY","name":"STRING_AGG_CR_TYPE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-TYPE DIRKSPZM32."PIVOTIMPL" as object
+TYPE "PIVOTIMPL" as object
 (
   ret_type anytype,      -- The return type of the table function
   stmt varchar2(32767),
@@ -27,4 +27,4 @@ TYPE DIRKSPZM32."PIVOTIMPL" as object
 /
 
 
--- sqlcl_snapshot {"hash":"24f27803cc50e67755518bae99f7e4002bb9ec7d","type":"TYPE_SPEC","name":"PIVOTIMPL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e010b313b9fdab4d1990545bdefe35c5c4e4973f","type":"TYPE_SPEC","name":"PIVOTIMPL","schemaName":"DIRKSPZM32","sxml":""}

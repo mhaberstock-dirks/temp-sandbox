@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_P_ZEITERFASSUNG is
+package body PZM_P_ZEITERFASSUNG is
   -----------------------------------------------------------------------------------------------
   -- Package Body: pzm_p_zeiterfassung
   --
@@ -2531,4 +2531,4 @@ end PZM_P_ZEITERFASSUNG;
 
 
 
--- sqlcl_snapshot {"hash":"3735863e31daeee1e5dddd9e3f984eb3974686d0","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5bf841c49ead2c0b6b8ad0a0f3c5b28eb61ed1e7","type":"PACKAGE_BODY","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

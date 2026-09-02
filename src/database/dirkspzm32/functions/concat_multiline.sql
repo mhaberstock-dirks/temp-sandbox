@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.concat_multiline(
+function concat_multiline(
   in_line1 in varchar2,              --# 
   in_line2 in varchar2,              --# 
   in_line3 in varchar2 default null, --# 
@@ -63,4 +63,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"06401c7d824fef3910e938e526803126de9c85f1","type":"FUNCTION","name":"CONCAT_MULTILINE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d0a979c6e366154505607448671ff31f78991c8a","type":"FUNCTION","name":"CONCAT_MULTILINE","schemaName":"DIRKSPZM32","sxml":""}

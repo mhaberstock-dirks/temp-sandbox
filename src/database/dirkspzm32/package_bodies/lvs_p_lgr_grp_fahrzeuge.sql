@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_p_lgr_grp_fahrzeuge is
+package body lvs_p_lgr_grp_fahrzeuge is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -1236,4 +1236,4 @@ end lvs_p_lgr_grp_fahrzeuge;
 
 
 
--- sqlcl_snapshot {"hash":"f3bb712cc2efb85fa042bd8f583d1e8d504ae19a","type":"PACKAGE_BODY","name":"LVS_P_LGR_GRP_FAHRZEUGE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ffc6a1db04110f7dc6ca8a006337286181010171","type":"PACKAGE_BODY","name":"LVS_P_LGR_GRP_FAHRZEUGE","schemaName":"DIRKSPZM32","sxml":""}

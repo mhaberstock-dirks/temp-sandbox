@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.BDE_P_PERS_ZEIT_KST is
+package body BDE_P_PERS_ZEIT_KST is
 /*
 Funktionen für die Zeitverteilung Presonal auf Resource
 Diese weden für die Stundenverteilung auf Kostenstelle je Mitarbeiter genutzt
@@ -245,4 +245,4 @@ end BDE_P_PERS_ZEIT_KST;
 
 
 
--- sqlcl_snapshot {"hash":"2ee09059f463d2a38bb63a2cca6c5c9bbcc82a0a","type":"PACKAGE_BODY","name":"BDE_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dde3c1201f56858a9389403f2ab2f0a16b6a97d7","type":"PACKAGE_BODY","name":"BDE_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}

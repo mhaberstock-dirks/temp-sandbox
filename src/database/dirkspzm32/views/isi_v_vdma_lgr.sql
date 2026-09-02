@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."ISI_V_VDMA_LGR" ("LGR_ORT", "LGR_ORT_TEXT", "LGR_TYP", "AKT_TE", "MAX_TE", "LAGERNUTZGRAD") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "ISI_V_VDMA_LGR" ("LGR_ORT", "LGR_ORT_TEXT", "LGR_TYP", "AKT_TE", "MAX_TE", "LAGERNUTZGRAD") AS 
   select lgr.lgr_ort,
          lo.lgr_ort_text,
          lgr.lgr_typ,
@@ -37,4 +37,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"23e4191e2c294eccc7cd9acab81a51b3da796c8e","type":"VIEW","name":"ISI_V_VDMA_LGR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"048c9a1eb47badaecd7fcfc3ca27977a90993e1f","type":"VIEW","name":"ISI_V_VDMA_LGR","schemaName":"DIRKSPZM32","sxml":""}

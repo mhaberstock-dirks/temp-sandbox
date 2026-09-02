@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_Z_DIR_APS_PLAN_MATR_BUI" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_Z_DIR_APS_PLAN_MATR_BUI" 
   before insert or update
-  on DIRKSPZM32.APS_PLAN_OP_A_MAT_RELATION
+  on APS_PLAN_OP_A_MAT_RELATION
   for each row
 declare
   -- local variables here
@@ -251,8 +251,9 @@ begin
   end if;
 end TR_Z_DIR_APS_PLAN_MATR_bui;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_Z_DIR_APS_PLAN_MATR_BUI" ENABLE;
+ALTER TRIGGER "TR_Z_DIR_APS_PLAN_MATR_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7b320ce04e02c18a44e3a7026b6b42b07fa266cc","type":"TRIGGER","name":"TR_Z_DIR_APS_PLAN_MATR_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"37c61d58ff53fc3cbd2d785794bea7b8ccfd04d6","type":"TRIGGER","name":"TR_Z_DIR_APS_PLAN_MATR_BUI","schemaName":"DIRKSPZM32","sxml":""}

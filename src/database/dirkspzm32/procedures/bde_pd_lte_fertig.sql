@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_lte_fertig
+procedure bde_pd_lte_fertig
 /*
 In dieser Procedure wird eine LTE einer Resource (Maschine) als Fertig befüllt gebucht.
 Die Tabellen wie isi_resource_zust_akt werden aktuallisiert und in der LTE in der tabelle LVS_LTE wird der Staus aud 'BF' = Befüllen gesetzt
@@ -112,4 +112,4 @@ end bde_pd_lte_fertig;
 
 
 
--- sqlcl_snapshot {"hash":"78a23d8a5b420e03f37d161e47b087c7f375890b","type":"PROCEDURE","name":"BDE_PD_LTE_FERTIG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b68d3a578677c2860a23d45348afb2e1b05e21df","type":"PROCEDURE","name":"BDE_PD_LTE_FERTIG","schemaName":"DIRKSPZM32","sxml":""}

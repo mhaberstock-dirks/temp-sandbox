@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_slave_seq(in_seqname in varchar2,
+procedure isi_slave_seq(in_seqname in varchar2,
                                           in_value in number)
 is
   v_seq      user_sequences%rowtype;
@@ -37,4 +37,4 @@ end isi_slave_seq;
 
 
 
--- sqlcl_snapshot {"hash":"4e8a3c0a15580e0bdd9ed96aeb1c4499e0521329","type":"PROCEDURE","name":"ISI_SLAVE_SEQ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"15f5f4ab1eba3ca934a584ad923af52545893101","type":"PROCEDURE","name":"ISI_SLAVE_SEQ","schemaName":"DIRKSPZM32","sxml":""}

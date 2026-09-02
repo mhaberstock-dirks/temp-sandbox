@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_r_ag_e
+procedure bde_pd_prod_r_ag_e
 /*
 In dieser Procedure wird Produktion Auftrag Rüsten Ende gebucht
 Diese Procedur ist ein Deckel, der für den Aufruf von bde_pd_prod_r_ag_e_p benötigt wird,
@@ -128,4 +128,4 @@ end bde_pd_prod_r_ag_e;
 
 
 
--- sqlcl_snapshot {"hash":"3af3c847b2833b1c7d9b8c085a8a2a831986d10d","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_E","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"765bf22c191a218f2d9f944fa8b6da14f391b639","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_E","schemaName":"DIRKSPZM32","sxml":""}

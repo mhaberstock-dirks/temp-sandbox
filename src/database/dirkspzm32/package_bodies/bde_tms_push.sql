@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_tms_push is
+package body bde_tms_push is
 
 /*
 Funktionen für die Erzeugung von Fertigungsaufträgen über PPS-Tabellen Hier werden
@@ -1295,4 +1295,4 @@ end bde_tms_push;
 
 
 
--- sqlcl_snapshot {"hash":"cb2cc06e1d1e98146367352c25547ce5c90aa920","type":"PACKAGE_BODY","name":"BDE_TMS_PUSH","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b681286ca11109ef3506c21129164d7250cb6bad","type":"PACKAGE_BODY","name":"BDE_TMS_PUSH","schemaName":"DIRKSPZM32","sxml":""}

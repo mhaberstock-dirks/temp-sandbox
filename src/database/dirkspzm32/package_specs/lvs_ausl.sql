@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_AUSL is
+package LVS_AUSL is
 
   /*
   __________________________________________________
@@ -275,4 +275,4 @@ end LVS_AUSL;
 
 
 
--- sqlcl_snapshot {"hash":"a45263c24f7f7ff680dfd24e3e868be89fc5577d","type":"PACKAGE_SPEC","name":"LVS_AUSL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"67612d42d4d5ca320c94240c8199bbc17dcfecb5","type":"PACKAGE_SPEC","name":"LVS_AUSL","schemaName":"DIRKSPZM32","sxml":""}

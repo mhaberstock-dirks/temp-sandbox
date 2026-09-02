@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.pps_p_bde is
+package body pps_p_bde is
 
   -- Record Struktur als Basis für die erstellung von BDE und PPS daten
 
@@ -5534,4 +5534,4 @@ end pps_p_bde;
 
 
 
--- sqlcl_snapshot {"hash":"af73161badf40d3866cb950f91839683bfffec95","type":"PACKAGE_BODY","name":"PPS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4ea2794258729d72b415da18c4094bfc94e36037","type":"PACKAGE_BODY","name":"PPS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}

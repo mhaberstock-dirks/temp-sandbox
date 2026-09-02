@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE" ("ABT_L_PERS_NR", "VQ_ID", "VQ_BEZEICHNUNG", "VQ_ABT_ID", "ABT_NAME", "SCHICHT_NR", "ZEITEN", "PERS_BEDARF_MO", "PERS_BEDARF_DI", "PERS_BEDARF_MI", "PERS_BEDARF_DO", "PERS_BEDARF_FR", "PERS_BEDARF_SA", "PERS_BEDARF_SO", "PERS_NR_VORSCHL") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE" ("ABT_L_PERS_NR", "VQ_ID", "VQ_BEZEICHNUNG", "VQ_ABT_ID", "ABT_NAME", "SCHICHT_NR", "ZEITEN", "PERS_BEDARF_MO", "PERS_BEDARF_DI", "PERS_BEDARF_MI", "PERS_BEDARF_DO", "PERS_BEDARF_FR", "PERS_BEDARF_SA", "PERS_BEDARF_SO", "PERS_NR_VORSCHL") AS 
   select abt_l.abt_l_pers_nr,
        vq.vq_id,
        vq.vq_bezeichnung,
@@ -33,8 +33,7 @@
  order by nvl(vq.vq_abt_id, 0),
           vq.vq_id,
           nvl(vqb.schicht_nr, 0),
-          vqb.schicht_von
-;
+          vqb.schicht_von;
 
 
--- sqlcl_snapshot {"hash":"f8984e12e2674c199a8c76f564997f56ae68f972","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b438e14d246d56e9cf5ae212418a3930b5ce8099","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE","schemaName":"DIRKSPZM32","sxml":""}

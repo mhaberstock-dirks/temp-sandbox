@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."BDE_V_GEN_BDE_FA_AUFTRAG_STL" ("SID", "FIRMA_NR", "FA_AG_STL_ID", "LEITZAHL", "FA_AG", "FA_UPOS", "MA_FA_AG", "MA_UPOS", "STUECKLISTE_POS_ID", "STUECKLISTE_POS_NR", "PROD_REIHENFOLGE", "PROD_MENGE_P_EINHEIT", "PROD_MENGE_P_EINHEIT_OP", "PROD_MENGE_IX", "MA_RES_ID") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "BDE_V_GEN_BDE_FA_AUFTRAG_STL" ("SID", "FIRMA_NR", "FA_AG_STL_ID", "LEITZAHL", "FA_AG", "FA_UPOS", "MA_FA_AG", "MA_UPOS", "STUECKLISTE_POS_ID", "STUECKLISTE_POS_NR", "PROD_REIHENFOLGE", "PROD_MENGE_P_EINHEIT", "PROD_MENGE_P_EINHEIT_OP", "PROD_MENGE_IX", "MA_RES_ID") AS 
   select fa.sid,
        fa.firma_nr,
        fa.leitzahl * 1000000 + fam.fa_ag * 1000 + fam.fa_upos fa_ag_stl_id,         -- STL_ID ist immer die Artikel-ID
@@ -89,4 +89,4 @@ select fa.sid,
 ;
 
 
--- sqlcl_snapshot {"hash":"9410c8da9e90eca242c48183778d35abf522f5ee","type":"VIEW","name":"BDE_V_GEN_BDE_FA_AUFTRAG_STL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c847a9cc305fe5c474522031d6898e0afbc15713","type":"VIEW","name":"BDE_V_GEN_BDE_FA_AUFTRAG_STL","schemaName":"DIRKSPZM32","sxml":""}

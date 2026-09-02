@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_PROD is
+package body LVS_PROD is
 
 
   -------------------------------------------------------------------------
@@ -138,4 +138,4 @@ end LVS_PROD;
 
 
 
--- sqlcl_snapshot {"hash":"b065a8acde43a838b13722a726a924fe5fce7cc3","type":"PACKAGE_BODY","name":"LVS_PROD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4923df9901e0130ceff8358ba463f1dfc85b7676","type":"PACKAGE_BODY","name":"LVS_PROD","schemaName":"DIRKSPZM32","sxml":""}

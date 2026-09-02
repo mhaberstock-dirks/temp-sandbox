@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_FA_AUF_BUID" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_ERP_RCV_FA_AUF_BUID" 
   before insert or update  or delete on S_ERP_RCV_FA_AUF
   for each row
 declare
@@ -391,8 +391,9 @@ begin
   end if;
 end TR_S_ERP_RCV_FA_AUF_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_ERP_RCV_FA_AUF_BUID" ENABLE;
+ALTER TRIGGER "TR_S_ERP_RCV_FA_AUF_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"5d4fcceb55fa82ede7a2a3f927eaf4f1c29c4b2d","type":"TRIGGER","name":"TR_S_ERP_RCV_FA_AUF_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a7572d1c5b646945cafe387f1f74ba9d15536e85","type":"TRIGGER","name":"TR_S_ERP_RCV_FA_AUF_BUID","schemaName":"DIRKSPZM32","sxml":""}

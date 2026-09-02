@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pzm_bde_utils is
+package pzm_bde_utils is
 
   -- Author  : hjgoedeke
   -- Created : 11.11.2024
@@ -92,4 +92,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"971a17f953bb24614d79acd5ce86b18c74589b4f","type":"PACKAGE_SPEC","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"219d86fa4d7679b456da4a68c113d3670612ca8e","type":"PACKAGE_SPEC","name":"PZM_BDE_UTILS","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_kopf_insert
+procedure bde_pd_kopf_insert
 /*
 In dieser Procedure wird ein neuer Eintrag in den Kopfdaten einer Produktionschicht für eine maschine erstellt.
 Damit wird der Verantwortliche für die Produktion ab diesen Zeitpunkt für die Maschine festgelegt
@@ -90,4 +90,4 @@ end bde_pd_kopf_insert;
 
 
 
--- sqlcl_snapshot {"hash":"07bdf6edcdb4534ee555af8a8c51c67b8ef89b02","type":"PROCEDURE","name":"BDE_PD_KOPF_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"613b6fae8e3be28b691d2c090d045fd3f8624c35","type":"PROCEDURE","name":"BDE_PD_KOPF_INSERT","schemaName":"DIRKSPZM32","sxml":""}

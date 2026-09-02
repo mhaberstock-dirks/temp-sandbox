@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.GLOBAL_P_SESSION_LOG is
+package body GLOBAL_P_SESSION_LOG is
   -----------------------------------------------------------------------------------------------
   -- Package Body: global_p_session_log
   -----------------------------------------------------------------------------------------------
@@ -179,4 +179,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"8acc5784c647c8a7ce69c7e159c9b51eb4249e67","type":"PACKAGE_BODY","name":"GLOBAL_P_SESSION_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b8eb7c512deae00e4ed7f5fe7223246996086ffb","type":"PACKAGE_BODY","name":"GLOBAL_P_SESSION_LOG","schemaName":"DIRKSPZM32","sxml":""}

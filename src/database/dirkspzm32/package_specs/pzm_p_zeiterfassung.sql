@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_P_ZEITERFASSUNG is
+package PZM_P_ZEITERFASSUNG is
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_zeiterfassung
   -- Zweck:   Zentrale Verarbeitung von Zeiterfassungsbuchungen
@@ -556,4 +556,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"6de510c95fdf0b6186db2b946252925f5fe67eea","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8b2f08709eae64e640b58f89459fbba992bffc85","type":"PACKAGE_SPEC","name":"PZM_P_ZEITERFASSUNG","schemaName":"DIRKSPZM32","sxml":""}

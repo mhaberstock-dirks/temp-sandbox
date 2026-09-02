@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_QS_STATUS_BIU" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_QS_STATUS_BIU" 
   before insert or update
-  on DIRKSPZM32.S_QS_STATUS
+  on S_QS_STATUS
   for each row
 declare
   v_lam         lvs_lam%rowtype;
@@ -42,8 +42,9 @@ begin
 
 end TR_S_QS_STATUS_BI;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_QS_STATUS_BIU" ENABLE;
+ALTER TRIGGER "TR_S_QS_STATUS_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"da1166d95568cf030f336d37e4cc4aaae7584104","type":"TRIGGER","name":"TR_S_QS_STATUS_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7cc53b804e43c8555a63e95ce714346d8cce5b7e","type":"TRIGGER","name":"TR_S_QS_STATUS_BIU","schemaName":"DIRKSPZM32","sxml":""}
