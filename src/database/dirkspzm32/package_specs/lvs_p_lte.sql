@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_p_lte is
+package lvs_p_lte is
 /*
   Sammlung von Funktionen und Prozeduren für das LVS
 
@@ -1040,4 +1040,4 @@ end lvs_p_lte;
 
 
 
--- sqlcl_snapshot {"hash":"b7dc4956e4cc3948d4c67002f77aa8fe8bc7eb92","type":"PACKAGE_SPEC","name":"LVS_P_LTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e82e66bff1164d6b0885c646caba67849c39fc00","type":"PACKAGE_SPEC","name":"LVS_P_LTE","schemaName":"DIRKSPZM32","sxml":""}

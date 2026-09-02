@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_P_ZEIT_BEWERTUNG is
+package PZM_P_ZEIT_BEWERTUNG is
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_zeit_bewertung
   -- Zweck:   Bewertung von Ist-Zeiten (Stempelzeiten) auf berechnete Zeiten
@@ -126,4 +126,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"331aa2df827dd06ef9b54f6c26d60d07102ac456","type":"PACKAGE_SPEC","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"016822b2923e2c8a25f72ea19289e795ffcfa88a","type":"PACKAGE_SPEC","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

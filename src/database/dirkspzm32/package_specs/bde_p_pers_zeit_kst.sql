@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.BDE_P_PERS_ZEIT_KST is
+package BDE_P_PERS_ZEIT_KST is
 
   -- Author  : HJGOEDEKE
   -- Created : 04.04.2011 13:55:40
@@ -16,4 +16,4 @@ end BDE_P_PERS_ZEIT_KST;
 
 
 
--- sqlcl_snapshot {"hash":"d07b6fe62027d8f7be47ab3fe3689df5a367d394","type":"PACKAGE_SPEC","name":"BDE_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2b92f3c508f1e1a8b9ce2d8570e1800d79c3f105","type":"PACKAGE_SPEC","name":"BDE_P_PERS_ZEIT_KST","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_TRANSPORT_AIUD" 
-  after insert or update or delete on DIRKSPZM32.isi_TRANSPORT
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_TRANSPORT_AIUD" 
+  after insert or update or delete on isi_TRANSPORT
   for each row
 declare
   -- local variables here
@@ -126,8 +126,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_TRANSPORT_AIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_TRANSPORT_AIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"04068c40e541268923c8855b54bfb9679bc02e76","type":"TRIGGER","name":"TR_ISI_TRANSPORT_AIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b59ab1690792dab4bcefe0bc26750009e7734e4e","type":"TRIGGER","name":"TR_ISI_TRANSPORT_AIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.res_status is
+package res_status is
 
   /*
   __________________________________________________
@@ -103,4 +103,4 @@ end res_status;
 
 
 
--- sqlcl_snapshot {"hash":"5406e6411b4a5a380f09cfe5a006700fcef5d1e5","type":"PACKAGE_SPEC","name":"RES_STATUS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e124b07a49f89cc1bb33a87bee8f8bda7067502c","type":"PACKAGE_SPEC","name":"RES_STATUS","schemaName":"DIRKSPZM32","sxml":""}

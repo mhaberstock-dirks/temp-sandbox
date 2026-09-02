@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.sls_terminal is
+package body sls_terminal is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -922,4 +922,4 @@ end sls_terminal;
 
 
 
--- sqlcl_snapshot {"hash":"28817ed761c09bb482e14f5371eda0097b1e5945","type":"PACKAGE_BODY","name":"SLS_TERMINAL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8e8a8e6ed379e45465d9e03f5d4a85ff5625bd3a","type":"PACKAGE_BODY","name":"SLS_TERMINAL","schemaName":"DIRKSPZM32","sxml":""}

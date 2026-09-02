@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_PD_PROD_BIU" 
-  before insert or update on DIRKSPZM32.BDE_PD_PROD
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_PD_PROD_BIU" 
+  before insert or update on BDE_PD_PROD
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -69,8 +69,9 @@ exception
       end if;
 end TR_BDE_PD_PROD_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_PD_PROD_BIU" ENABLE;
+ALTER TRIGGER "TR_BDE_PD_PROD_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1af3a30819d059f2f4c3815fdc86a954b064ae12","type":"TRIGGER","name":"TR_BDE_PD_PROD_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e66ce1b7b9a62665075e604de510f1734235eaee","type":"TRIGGER","name":"TR_BDE_PD_PROD_BIU","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_INVENTUR_JOB_KOPF_BIUD" 
-  before insert or update or delete on DIRKSPZM32.lvs_inventur_job_kopf
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_INVENTUR_JOB_KOPF_BIUD" 
+  before insert or update or delete on lvs_inventur_job_kopf
   for each row
 declare
 
@@ -701,8 +701,9 @@ exception
     end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_INVENTUR_JOB_KOPF_BIUD" ENABLE;
+ALTER TRIGGER "TR_LVS_INVENTUR_JOB_KOPF_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6af8e7a7ae79dcf14d2e83bd2f49d906d311face","type":"TRIGGER","name":"TR_LVS_INVENTUR_JOB_KOPF_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"11d2e25f7ab66ec44f2dd1cd8029a01b92ef9deb","type":"TRIGGER","name":"TR_LVS_INVENTUR_JOB_KOPF_BIUD","schemaName":"DIRKSPZM32","sxml":""}

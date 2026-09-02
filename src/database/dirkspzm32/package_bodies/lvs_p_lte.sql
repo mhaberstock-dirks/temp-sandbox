@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_p_lte is
+package body lvs_p_lte is
   /*
   __________________________________________________
   Author
@@ -9893,4 +9893,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"0c978fe3f478459ff74bfb10ff7c3d392c437ea2","type":"PACKAGE_BODY","name":"LVS_P_LTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"eb2ddcebb6f3f8fd3fc7df6bafd5e61f18f99b80","type":"PACKAGE_BODY","name":"LVS_P_LTE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_AUSL is
+package body LVS_AUSL is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -4963,4 +4963,4 @@ end LVS_AUSL;
 
 
 
--- sqlcl_snapshot {"hash":"7461d22499640d55d4c9557aa4c0f3b9c62e066a","type":"PACKAGE_BODY","name":"LVS_AUSL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d6694c210050b7d7de160a20141015a25ef52f43","type":"PACKAGE_BODY","name":"LVS_AUSL","schemaName":"DIRKSPZM32","sxml":""}

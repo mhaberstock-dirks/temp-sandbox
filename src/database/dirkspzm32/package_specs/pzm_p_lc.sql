@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_P_LC is
+package PZM_P_LC is
 
   -- Author  : WKROEKER
   -- Created : 26.01.2026 12:25:01
@@ -409,4 +409,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"2f447d1797ec57d018a26edba7a400d01604971b","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"df1d11f16b53d8232d608e200da9146c826ca4c3","type":"PACKAGE_SPEC","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}

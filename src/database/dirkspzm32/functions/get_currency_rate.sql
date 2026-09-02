@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_currency_rate(
+function get_currency_rate(
   in_source_currency in varchar2,               --# Source currency to lookup currency rates
   in_target_currency in varchar2,               --# Target currency to lookup currency rates
   in_exchange_base_date in date default sysdate --# (optional) base date to select valid currency rate
@@ -31,4 +31,4 @@ end ;
 
 
 
--- sqlcl_snapshot {"hash":"19074da5c8693b90d00300126ac9f9bdadcad72c","type":"FUNCTION","name":"GET_CURRENCY_RATE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cb721193fa540a23c8636a37c3940e129dc366ab","type":"FUNCTION","name":"GET_CURRENCY_RATE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_P_SCHICHT_TAG as
+package body PZM_P_SCHICHT_TAG as
   /* Pr?fen, ob eine Kollision mit dem gegebenen Zeitraum existiert:
                      p_calc_ist_start                                            p_calc_ist_ende
                             v                                                          v
@@ -528,7 +528,7 @@ package body DIRKSPZM32.PZM_P_SCHICHT_TAG as
 
     v_def_sa_kurzname := pzm_utils.get_standard_schicht_by_pers_nr(in_pers_nr);
     v_SaAnzTage := 0;
-    
+
     LOOP
       EXIT when v_schicht_datum > v_personal.pers_austrittdatum 
             -- or v_schicht_datum >=  trunc(sysdate)
@@ -1408,7 +1408,7 @@ package body DIRKSPZM32.PZM_P_SCHICHT_TAG as
       then
         v_pause_std := in_day_pause_std;  
       end if;
-      
+
       -- 2026-03-17: WKr, ABa - 7,9996666667 auf 3 Stellen gerundet ergibt 8 => keine Fehlzeit!
       -- Deswegen Rundung hier zwingend erforderlich!
       -- (Bugfix: es wurden Fehlzeiten mit 0 Std. generiert)
@@ -1460,4 +1460,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"cbf97a7292e767261aed750ce4ea4fc9e9718d6b","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b652738fa213bca6b33f075792eebcf2a7404f15","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}

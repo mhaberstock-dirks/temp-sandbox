@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.tms_p_loading is
+package body tms_p_loading is
 
   /*
   __________________________________________________
@@ -744,4 +744,4 @@ end tms_p_loading;
 
 
 
--- sqlcl_snapshot {"hash":"0adcf1a7fb650ea1fade8fbaa5c33d623a09d564","type":"PACKAGE_BODY","name":"TMS_P_LOADING","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d0f8ffd5fa127fd91afbb667b5cbda8c83c0f34d","type":"PACKAGE_BODY","name":"TMS_P_LOADING","schemaName":"DIRKSPZM32","sxml":""}

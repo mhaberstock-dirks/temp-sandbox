@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."DB_BDE_FA_AUFTRAG" 
-  after insert or update or delete on DIRKSPZM32.BDE_FA_AUFTRAG
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DB_BDE_FA_AUFTRAG" 
+  after insert or update or delete on BDE_FA_AUFTRAG
   for each row
 declare
   -- local variables here
@@ -54,8 +54,9 @@ begin
 
 end db_bde_fa_auftrag;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."DB_BDE_FA_AUFTRAG" ENABLE;
+ALTER TRIGGER "DB_BDE_FA_AUFTRAG" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f07982c37a710fdbfba2cc059d16455cbc1cf55a","type":"TRIGGER","name":"DB_BDE_FA_AUFTRAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fc7565ab805b55a258835e1ed81951a2f48ef0db","type":"TRIGGER","name":"DB_BDE_FA_AUFTRAG","schemaName":"DIRKSPZM32","sxml":""}

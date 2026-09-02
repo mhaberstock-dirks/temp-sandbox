@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.pzm_bde_schicht_abmelden(in_pers_nr in number) is
+procedure pzm_bde_schicht_abmelden(in_pers_nr in number) is
   v_user isi_user%rowtype;
   v_resource_zust_akt isi_resource_zust_akt%rowtype;
 
@@ -38,4 +38,4 @@ end pzm_bde_schicht_abmelden;
 
 
 
--- sqlcl_snapshot {"hash":"ca8c8f0a0592f4e47cc6bb2f4ea012f188fff7f1","type":"PROCEDURE","name":"PZM_BDE_SCHICHT_ABMELDEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8a78b7d603483399d7cd3210cb6c4fb76207ea11","type":"PROCEDURE","name":"PZM_BDE_SCHICHT_ABMELDEN","schemaName":"DIRKSPZM32","sxml":""}

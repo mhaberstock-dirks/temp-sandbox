@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_r_ag_e_p
+procedure bde_pd_prod_r_ag_e_p
 /*
 In dieser Procedure wird Produktion Auftrag Rüsten Ende gebucht -> Diese Procedur ist zur internen Verwendung und darf nur über bde_pd_prod_r_ag_e aufgerufen werden
 
@@ -439,4 +439,4 @@ end bde_pd_prod_r_ag_e_p;
 
 
 
--- sqlcl_snapshot {"hash":"35d400f94392f21be1fc94ef31a77b6dd104b4b6","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_E_P","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"dd0812e8157e944529811ff728bbdadcc2926fa5","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_E_P","schemaName":"DIRKSPZM32","sxml":""}

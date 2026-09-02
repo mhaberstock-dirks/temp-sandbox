@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_p_base is
+package isi_p_base is
 
   /*
   __________________________________________________
@@ -143,4 +143,4 @@ end isi_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"4865b506188df6c2275d6f9720829981c4168684","type":"PACKAGE_SPEC","name":"ISI_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"09c4a1827e9e19def26b1f768175a17b8871e3c3","type":"PACKAGE_SPEC","name":"ISI_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

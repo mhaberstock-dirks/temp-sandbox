@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_AUSW_POWERBI_BUD" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_LOA_AUSW_POWERBI_BUD" 
   before update or delete
-  on DIRKSPZM32.pzm_ze_loa_ausw
+  on pzm_ze_loa_ausw
   for each row
     
 declare  
@@ -36,8 +36,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_AUSW_POWERBI_BUD" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_LOA_AUSW_POWERBI_BUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"ba625e9cab43338002e7687ad2525f91df3831a5","type":"TRIGGER","name":"TR_PZM_ZE_LOA_AUSW_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5efb5cf19615d98e51948dc99df4b8f2640bb5d7","type":"TRIGGER","name":"TR_PZM_ZE_LOA_AUSW_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}

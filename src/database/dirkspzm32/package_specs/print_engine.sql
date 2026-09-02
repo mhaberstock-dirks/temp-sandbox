@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.print_engine is
+package print_engine is
 
   /*
   __________________________________________________
@@ -84,4 +84,4 @@ end print_engine;
 
 
 
--- sqlcl_snapshot {"hash":"2dab586450112df1d5e542d9f1f4fa964468a8c7","type":"PACKAGE_SPEC","name":"PRINT_ENGINE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"81c58f2a4d8ad135b2c0c28eb0b9574c09e1addf","type":"PACKAGE_SPEC","name":"PRINT_ENGINE","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_MFR_ELEMENT_CFG_BIUD" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_MFR_ELEMENT_CFG_BIUD" 
   before insert or update or delete on mfr_element_cfg
   for each row
 declare
@@ -61,8 +61,9 @@ begin
   end if;
 end tr_mfr_element_cfg_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_MFR_ELEMENT_CFG_BIUD" ENABLE;
+ALTER TRIGGER "TR_MFR_ELEMENT_CFG_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"9e6b2dc3728f02f445df27ef40166c6fd2576579","type":"TRIGGER","name":"TR_MFR_ELEMENT_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f036f5504a9640e2747abfa48c168c2bdc8e4b52","type":"TRIGGER","name":"TR_MFR_ELEMENT_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}

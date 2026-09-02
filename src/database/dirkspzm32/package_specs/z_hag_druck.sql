@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.Z_HAG_DRUCK is
+package Z_HAG_DRUCK is
 
   /*
   __________________________________________________
@@ -64,4 +64,4 @@ end Z_HAG_DRUCK;
 
 
 
--- sqlcl_snapshot {"hash":"cfb7e9a0d44e0e98aeca6e0f4ed1d8b5ba9b529a","type":"PACKAGE_SPEC","name":"Z_HAG_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"21f56c0ff9f06aad4d6f9980d6c3341b1e41f07a","type":"PACKAGE_SPEC","name":"Z_HAG_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

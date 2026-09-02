@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_ARTIKEL_RES_LEIST_BIUD" 
-  before insert or update on DIRKSPZM32.PPS_ARTIKEL_RES_LEISTUNG
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_ARTIKEL_RES_LEIST_BIUD" 
+  before insert or update on PPS_ARTIKEL_RES_LEISTUNG
   for each row
 declare
   -- local variables here
@@ -59,8 +59,9 @@ exception
       end if;
 end tr_PPS_ARTIKEL_RES_LEIST_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_ARTIKEL_RES_LEIST_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_ARTIKEL_RES_LEIST_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"eceaff9ea6d2feb34e15a4e00040f061370c92cb","type":"TRIGGER","name":"TR_PPS_ARTIKEL_RES_LEIST_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"34485133f38f3c6a45ac6ff5625b56657c1839ad","type":"TRIGGER","name":"TR_PPS_ARTIKEL_RES_LEIST_BIUD","schemaName":"DIRKSPZM32","sxml":""}

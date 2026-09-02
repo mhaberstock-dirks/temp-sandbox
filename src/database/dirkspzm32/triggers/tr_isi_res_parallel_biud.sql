@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_PARALLEL_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_RES_PARALLEL
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_PARALLEL_BIUD" 
+  before insert or update or delete on ISI_RES_PARALLEL
   for each row
 declare
 
@@ -46,8 +46,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_PARALLEL_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_PARALLEL_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"cd59b17a639522ecf6a5af6ce8064c5c922a1eba","type":"TRIGGER","name":"TR_ISI_RES_PARALLEL_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ef6366da2248d8bfb9a574543b1e78c9138854a5","type":"TRIGGER","name":"TR_ISI_RES_PARALLEL_BIUD","schemaName":"DIRKSPZM32","sxml":""}

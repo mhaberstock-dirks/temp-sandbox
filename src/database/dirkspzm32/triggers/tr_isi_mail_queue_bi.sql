@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_MAIL_QUEUE_BI" 
-  before insert on DIRKSPZM32."ISI_MAIL_QUEUE"
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_MAIL_QUEUE_BI" 
+  before insert on "ISI_MAIL_QUEUE"
   for each row
 declare
 begin
@@ -9,8 +9,9 @@ begin
   end if;
 end TR_ISI_mail_QUEUE_BI;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_MAIL_QUEUE_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_MAIL_QUEUE_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"830827b2ddee6d3b4991f6ac4c7e83449295f922","type":"TRIGGER","name":"TR_ISI_MAIL_QUEUE_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"39a5c3167162521030c3c4e145f1863df22ae06f","type":"TRIGGER","name":"TR_ISI_MAIL_QUEUE_BI","schemaName":"DIRKSPZM32","sxml":""}

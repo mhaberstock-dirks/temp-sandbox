@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_FHM_BUID" 
-  before insert or delete on DIRKSPZM32.S_RCV_FA_AUF_FHM
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_RCV_FA_AUF_FHM_BUID" 
+  before insert or delete on S_RCV_FA_AUF_FHM
   for each row
 declare
 
@@ -37,8 +37,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_FHM_BUID" ENABLE;
+ALTER TRIGGER "TR_S_RCV_FA_AUF_FHM_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"a0fb7b6b66b496aed8d26668fc64f42543adb85a","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0b6a857342c8c1d47d66e49edda881e4d62347eb","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_P_LC is
+package body PZM_P_LC is
 
   C_CP_TRENNER constant varchar2(1) := '@';
   C_PP_TRENNER constant varchar2(1) := '|';
@@ -363,4 +363,4 @@ end pzm_p_lc;
 
 
 
--- sqlcl_snapshot {"hash":"7d60d08eab77560988b98f87cb7899bfe1919386","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9249ba2fe73b46b98d9b6742a91cb27a57f621f4","type":"PACKAGE_BODY","name":"PZM_P_LC","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.current_unit_name return varchar2 is
+function current_unit_name return varchar2 is
   -----------------------------------------------------------------------------------------------
   -- Liefert den Namen der aufrufenden Prozedur/Funktion (ohne Package-Praefix), ermittelt zur
   -- Laufzeit ueber den Call-Stack. Gedacht fuer die Verwendung in der Deklarationssektion einer
@@ -22,4 +22,4 @@ end current_unit_name;
 
 
 
--- sqlcl_snapshot {"hash":"af0bb426c44cdf4ccca6efae62a5b278e7a8ea45","type":"FUNCTION","name":"CURRENT_UNIT_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"43e2e421a8f472d56cab845d80bf65ee1c1a10df","type":"FUNCTION","name":"CURRENT_UNIT_NAME","schemaName":"DIRKSPZM32","sxml":""}

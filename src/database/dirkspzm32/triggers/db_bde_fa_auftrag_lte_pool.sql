@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."DB_BDE_FA_AUFTRAG_LTE_POOL" 
-  after insert or update or delete on DIRKSPZM32.bde_fa_auftrag_lte_pool
+  CREATE OR REPLACE EDITIONABLE TRIGGER "DB_BDE_FA_AUFTRAG_LTE_POOL" 
+  after insert or update or delete on bde_fa_auftrag_lte_pool
   for each row
 declare
   -- local variables here
@@ -49,8 +49,9 @@ begin
 
 end db_bde_fa_auftrag_lte_pool;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."DB_BDE_FA_AUFTRAG_LTE_POOL" ENABLE;
+ALTER TRIGGER "DB_BDE_FA_AUFTRAG_LTE_POOL" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"333e41292fe28d0e1c4d53e3ef68fcb4dc0792a3","type":"TRIGGER","name":"DB_BDE_FA_AUFTRAG_LTE_POOL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"afd15c43b896572e0ae035721fa7260911e00cb7","type":"TRIGGER","name":"DB_BDE_FA_AUFTRAG_LTE_POOL","schemaName":"DIRKSPZM32","sxml":""}

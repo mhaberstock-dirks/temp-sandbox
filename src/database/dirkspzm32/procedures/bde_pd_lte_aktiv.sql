@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_lte_aktiv
+procedure bde_pd_lte_aktiv
 /*
 In dieser Procedure wird eine LTE eine Resource (Maschine) als aktuelle zum befüllen zugeordnet.
 Die Tabellen wie isi_resource_zust_akt werden aktuallisiert und in der LTE in der tabelle LVS_LTE wird der Staus aud 'B' = Befüllen gesetzt
@@ -88,4 +88,4 @@ end bde_pd_lte_aktiv;
 
 
 
--- sqlcl_snapshot {"hash":"72fa9d3f9137e8d7fbb3ec918859a7a677c43bfc","type":"PROCEDURE","name":"BDE_PD_LTE_AKTIV","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"48d2e040b201550aa7bdaa64c7f9a50f722fc7f1","type":"PROCEDURE","name":"BDE_PD_LTE_AKTIV","schemaName":"DIRKSPZM32","sxml":""}

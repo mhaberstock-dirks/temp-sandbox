@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.aps_c_sort_plan_ergebnis (in_aps_plan_status in aps_order_materialrelation.aps_plan_status%type
+procedure aps_c_sort_plan_ergebnis (in_aps_plan_status in aps_order_materialrelation.aps_plan_status%type
                                                      ) 
                                                      is
   v_found                                        boolean;
@@ -180,4 +180,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"0c73a465f583b6382cacdb081889a324d2a6b58a","type":"PROCEDURE","name":"APS_C_SORT_PLAN_ERGEBNIS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"da937df77302796777d27ba2d572de7911e169de","type":"PROCEDURE","name":"APS_C_SORT_PLAN_ERGEBNIS","schemaName":"DIRKSPZM32","sxml":""}

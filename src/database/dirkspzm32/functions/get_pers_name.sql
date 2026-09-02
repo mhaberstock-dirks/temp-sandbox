@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_NAME(p_pers_nr in number) return varchar2 is
+function GET_PERS_NAME(p_pers_nr in number) return varchar2 is
   Result varchar2(255);
 
   CURSOR c_PersName IS
@@ -23,4 +23,4 @@ end GET_PERS_NAME;
 
 
 
--- sqlcl_snapshot {"hash":"3ca956f3e532354229a741ba9ef3d3fe52d6cf75","type":"FUNCTION","name":"GET_PERS_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"60b9361bd5a51b1c58ed7b540ac3b7b978beb2ff","type":"FUNCTION","name":"GET_PERS_NAME","schemaName":"DIRKSPZM32","sxml":""}

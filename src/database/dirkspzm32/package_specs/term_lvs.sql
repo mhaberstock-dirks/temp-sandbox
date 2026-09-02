@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.term_lvs is
+package term_lvs is
 
   -- Author  : HJGOEDEKE
   -- Created : 12.02.2009 11:27:22
@@ -20,4 +20,4 @@ end term_lvs;
 
 
 
--- sqlcl_snapshot {"hash":"dd0e359e3e810a05100ce9dc52aaf8995beacc14","type":"PACKAGE_SPEC","name":"TERM_LVS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3e4c67b1fe356c6ff207801dfb4a7b2f98aebc9a","type":"PACKAGE_SPEC","name":"TERM_LVS","schemaName":"DIRKSPZM32","sxml":""}

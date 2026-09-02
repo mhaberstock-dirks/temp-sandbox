@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_FA_KOPF_BD" 
-  before delete on DIRKSPZM32.BDE_FA_KOPF
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_FA_KOPF_BD" 
+  before delete on BDE_FA_KOPF
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -39,8 +39,9 @@ exception
       end if;
 end TR_BDE_FA_AUFTRAG_BD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_FA_KOPF_BD" ENABLE;
+ALTER TRIGGER "TR_BDE_FA_KOPF_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"60c508773b35970ca460da95331a6f4d675fc75a","type":"TRIGGER","name":"TR_BDE_FA_KOPF_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a7210b5270575b19edb30f93866217411414d848","type":"TRIGGER","name":"TR_BDE_FA_KOPF_BD","schemaName":"DIRKSPZM32","sxml":""}

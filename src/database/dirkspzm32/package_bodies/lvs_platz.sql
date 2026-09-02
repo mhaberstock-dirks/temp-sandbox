@@ -1,5 +1,5 @@
 create or replace 
-PACKAGE BODY DIRKSPZM32.lvs_platz IS
+PACKAGE BODY lvs_platz IS
 
   v_g_err_nr number;
 
@@ -8394,4 +8394,4 @@ END lvs_platz;
 
 
 
--- sqlcl_snapshot {"hash":"952f33a30e1b681062d5348b068c01c4e9ea0b70","type":"PACKAGE_BODY","name":"LVS_PLATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3729fc4ded08eb132a01d8909d8483fa2c500574","type":"PACKAGE_BODY","name":"LVS_PLATZ","schemaName":"DIRKSPZM32","sxml":""}

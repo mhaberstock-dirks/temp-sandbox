@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.pzm_antr_urlaub_genehmigen(in_pers_nr in pzm_abwesenheits_antr.au_pers_nr%type,
+procedure pzm_antr_urlaub_genehmigen(in_pers_nr in pzm_abwesenheits_antr.au_pers_nr%type,
                                                        in_au_begin in pzm_abwesenheits_antr.au_beginn%type,
                                                        in_pruef_pers_nr in pzm_abwesenheits_antr.au_pruef_pers_nr%type,
                                                        in_pruef_au_datum in pzm_abwesenheits_antr.au_datum%type
@@ -66,4 +66,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"79e2a8e55be7a1e29f750583a53d2986d086415c","type":"PROCEDURE","name":"PZM_ANTR_URLAUB_GENEHMIGEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4e672d863951a10be3741a5b32babeb2bc1c8a2a","type":"PROCEDURE","name":"PZM_ANTR_URLAUB_GENEHMIGEN","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_ZV_PAYROLLDATA" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_ZV_PAYROLLDATA" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
   SELECT
   /**
    * View für PresentationLogic "PayrollDataAnalysisReport"
@@ -134,4 +134,4 @@
   ORDER BY persnr, datum;
 
 
--- sqlcl_snapshot {"hash":"14e23f9fa7f4171298161327a4447a642f262c35","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"789000422f2681d018482d873d91f2f098b742d0","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}

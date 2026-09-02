@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_SQD_SAP_SEND_BEW_BIUD" 
-  before insert or update or delete on DIRKSPZM32.s_sqd_sap_send_bew
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_SQD_SAP_SEND_BEW_BIUD" 
+  before insert or update or delete on s_sqd_sap_send_bew
   for each row
 begin
 
@@ -11,8 +11,9 @@ begin
   end if;
 end TR_S_SQD_SAP_SEND_BEW_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_SQD_SAP_SEND_BEW_BIUD" ENABLE;
+ALTER TRIGGER "TR_S_SQD_SAP_SEND_BEW_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"12bc04d393bcb21641aeb8d192e1711a85f6b1bf","type":"TRIGGER","name":"TR_S_SQD_SAP_SEND_BEW_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"17b54cace9e60ac61a8be06f5fa989e78eea883d","type":"TRIGGER","name":"TR_S_SQD_SAP_SEND_BEW_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.fls_p_bde is
+package fls_p_bde is
 
   /*
   __________________________________________________
@@ -407,4 +407,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"a70644eb1461867a3933bb5461234ca7e7573513","type":"PACKAGE_SPEC","name":"FLS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d33d870c3c9332a370677c76090f2228d8c409ab","type":"PACKAGE_SPEC","name":"FLS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}

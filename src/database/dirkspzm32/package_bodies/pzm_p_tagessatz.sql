@@ -1,5 +1,5 @@
-create or replace
-package body DIRKSPZM32.PZM_P_TAGESSATZ as
+create or replace 
+package body PZM_P_TAGESSATZ as
   -----------------------------------------------------------------------------------------------
   -- Package Body: pzm_p_tagessatz
   -- Refactoring von UPDATE_PERS_ZE_TAG
@@ -893,4 +893,4 @@ end PZM_P_TAGESSATZ;
 
 
 
--- sqlcl_snapshot {"hash":"","type":"PACKAGE_BODY","name":"PZM_P_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1ae4e6df88620ac0749d7ab430e470ddd61d20f9","type":"PACKAGE_BODY","name":"PZM_P_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ABWESENHEITS_ANTR_BIU" 
-  before insert or update on DIRKSPZM32."PZM_ABWESENHEITS_ANTR"
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ABWESENHEITS_ANTR_BIU" 
+  before insert or update on "PZM_ABWESENHEITS_ANTR"
   for each row
 declare
   -- local variables here
@@ -24,8 +24,9 @@ begin
   end if;
 end TR_ANTR_URLAUB_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ABWESENHEITS_ANTR_BIU" ENABLE;
+ALTER TRIGGER "TR_ABWESENHEITS_ANTR_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1ce6126629ec77c97cad2c6275536565a88adad7","type":"TRIGGER","name":"TR_ABWESENHEITS_ANTR_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4ca5fe60596ba3600c2b8651a6a389564bdb9634","type":"TRIGGER","name":"TR_ABWESENHEITS_ANTR_BIU","schemaName":"DIRKSPZM32","sxml":""}

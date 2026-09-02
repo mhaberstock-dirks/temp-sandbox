@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_TOR is
+package isi_TOR is
 
   /*
   __________________________________________________
@@ -38,4 +38,4 @@ end isi_tor;
 
 
 
--- sqlcl_snapshot {"hash":"e00d1bfad57a49c704dd429ebc06f7dd10954f53","type":"PACKAGE_SPEC","name":"ISI_TOR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6bd5f202aec788f9e5057330dba53751b6184cd0","type":"PACKAGE_SPEC","name":"ISI_TOR","schemaName":"DIRKSPZM32","sxml":""}

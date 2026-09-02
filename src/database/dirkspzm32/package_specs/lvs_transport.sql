@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_transport is
+package lvs_transport is
 
   -- Public type declarations
   function get_version return varchar2;
@@ -343,4 +343,4 @@ end lvs_transport;
 
 
 
--- sqlcl_snapshot {"hash":"a4c29484240234dfbcce1b8e480f7a380d49dab1","type":"PACKAGE_SPEC","name":"LVS_TRANSPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"83b064c23a9cad88f60ca90caa1b41937edaffda","type":"PACKAGE_SPEC","name":"LVS_TRANSPORT","schemaName":"DIRKSPZM32","sxml":""}

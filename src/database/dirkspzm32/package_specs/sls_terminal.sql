@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.sls_terminal is
+package sls_terminal is
 
   /*
   __________________________________________________
@@ -101,4 +101,4 @@ end sls_terminal;
 
 
 
--- sqlcl_snapshot {"hash":"90f4c9bd8b24a68e1ed27f40985f2f77b3123432","type":"PACKAGE_SPEC","name":"SLS_TERMINAL","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6518bb3eefe119529d1a936630b8c7af9b75c6bb","type":"PACKAGE_SPEC","name":"SLS_TERMINAL","schemaName":"DIRKSPZM32","sxml":""}

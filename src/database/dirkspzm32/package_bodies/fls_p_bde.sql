@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.fls_p_bde is
+package body fls_p_bde is
 
 	v_error exception;
 	v_err_nr   number;
@@ -1803,4 +1803,4 @@ end fls_p_bde;
 
 
 
--- sqlcl_snapshot {"hash":"2931f75ab11de28cdb9d448de3a2fbce91fee3a8","type":"PACKAGE_BODY","name":"FLS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"18e448ff716a1a0629b7106c2d976e596f4e53db","type":"PACKAGE_BODY","name":"FLS_P_BDE","schemaName":"DIRKSPZM32","sxml":""}

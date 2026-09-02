@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_p_order is
+package body isi_p_order is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -5608,4 +5608,4 @@ end isi_p_order;
 
 
 
--- sqlcl_snapshot {"hash":"fdf43f0ecdd307656f34ba509f87f5aa416fd6cf","type":"PACKAGE_BODY","name":"ISI_P_ORDER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cd56f821095b8a4d893aba643106d3d98acadfe0","type":"PACKAGE_BODY","name":"ISI_P_ORDER","schemaName":"DIRKSPZM32","sxml":""}

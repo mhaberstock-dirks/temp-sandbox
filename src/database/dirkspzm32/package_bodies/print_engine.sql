@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.print_engine is
+package body print_engine is
 
 	/*******************************************************************************
   * procedure C_INSERT_NEW_JOB(...)
@@ -369,4 +369,4 @@ end print_engine;
 
 
 
--- sqlcl_snapshot {"hash":"1f8222980083c287a9710d6db293d61f701f118e","type":"PACKAGE_BODY","name":"PRINT_ENGINE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8916e4bf2105f050fbeb301915f75130db0d8b95","type":"PACKAGE_BODY","name":"PRINT_ENGINE","schemaName":"DIRKSPZM32","sxml":""}

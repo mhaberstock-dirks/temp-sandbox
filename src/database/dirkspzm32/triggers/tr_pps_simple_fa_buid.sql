@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_SIMPLE_FA_BUID" 
-  before insert or update or delete on DIRKSPZM32.pps_simple_fa
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_SIMPLE_FA_BUID" 
+  before insert or update or delete on pps_simple_fa
   for each row
 declare
 
@@ -100,8 +100,9 @@ begin
   end if;
 end tr_pps_plan_auftrag_bd;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_SIMPLE_FA_BUID" ENABLE;
+ALTER TRIGGER "TR_PPS_SIMPLE_FA_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"be0f0cc552fa46b9122050530b3839a9626ac979","type":"TRIGGER","name":"TR_PPS_SIMPLE_FA_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d9043cc4a88953f649521d2050dc547cdfc5f9a5","type":"TRIGGER","name":"TR_PPS_SIMPLE_FA_BUID","schemaName":"DIRKSPZM32","sxml":""}

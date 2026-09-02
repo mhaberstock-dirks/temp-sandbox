@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_alert is
+package body isi_alert is
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler-Variablen für eine Exception
   -------------------------------------------------------------------------------------------------------
@@ -290,4 +290,4 @@ end isi_alert;
 
 
 
--- sqlcl_snapshot {"hash":"9bad3b93ab0f969d9d297fa4e52acc997cc46df7","type":"PACKAGE_BODY","name":"ISI_ALERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"23ed5b46e84509435b5e61fe7283df38a58a2d0f","type":"PACKAGE_BODY","name":"ISI_ALERT","schemaName":"DIRKSPZM32","sxml":""}

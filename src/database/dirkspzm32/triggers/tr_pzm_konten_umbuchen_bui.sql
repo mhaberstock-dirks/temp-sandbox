@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_UMBUCHEN_BUI" 
-  before insert or update on DIRKSPZM32.PZM_KONTEN_UMBUCHEN
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_KONTEN_UMBUCHEN_BUI" 
+  before insert or update on PZM_KONTEN_UMBUCHEN
   for each row
 
 declare  
@@ -114,9 +114,8 @@ begin
     );  
   end if;
 end;
-
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_KONTEN_UMBUCHEN_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_KONTEN_UMBUCHEN_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"186618404e208856aa5742fda175f172a4d6fe22","type":"TRIGGER","name":"TR_PZM_KONTEN_UMBUCHEN_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f95b306154a7b96a7ad520dc2fa4de13fe01e83e","type":"TRIGGER","name":"TR_PZM_KONTEN_UMBUCHEN_BUI","schemaName":"DIRKSPZM32","sxml":""}

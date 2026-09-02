@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_PROD is
+package LVS_PROD is
 
   /*
   __________________________________________________
@@ -49,4 +49,4 @@ end LVS_PROD;
 
 
 
--- sqlcl_snapshot {"hash":"611ff0cc4a3aee2728763e20d29d80dc91971b08","type":"PACKAGE_SPEC","name":"LVS_PROD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cab95fe52de21deff33a23dc3e2eaff1425aaa7a","type":"PACKAGE_SPEC","name":"LVS_PROD","schemaName":"DIRKSPZM32","sxml":""}

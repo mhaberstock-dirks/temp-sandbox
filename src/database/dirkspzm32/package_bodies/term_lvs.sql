@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.term_lvs is
+package body term_lvs is
 
   v_error exception;
   v_err_nr   number;
@@ -29,4 +29,4 @@ end term_lvs;
 
 
 
--- sqlcl_snapshot {"hash":"f75fae7d5c19f940cf80174d3549d4276d91f64d","type":"PACKAGE_BODY","name":"TERM_LVS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"73752d136441d2234b7bf7ddd842d526ac310da3","type":"PACKAGE_BODY","name":"TERM_LVS","schemaName":"DIRKSPZM32","sxml":""}

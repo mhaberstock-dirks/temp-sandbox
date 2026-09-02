@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.MULTILANG is
+package body MULTILANG is
   function get_lang_name(in_lang_id in isi_language.lang_id%type) return isi_language.lang_name%type is
     v_result isi_language.lang_name%type;
   begin
@@ -167,4 +167,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"950f917c322b68d6f02be77a68c78c96673f3f8e","type":"PACKAGE_BODY","name":"MULTILANG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"33ae13e1e4014706be1a1e41a052c3903a7bab29","type":"PACKAGE_BODY","name":"MULTILANG","schemaName":"DIRKSPZM32","sxml":""}

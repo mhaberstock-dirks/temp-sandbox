@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_PERS_SOLL_WOCHENTAG" ("PERS_NR", "ISO_WOCHENTAG") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_PERS_SOLL_WOCHENTAG" ("PERS_NR", "ISO_WOCHENTAG") AS 
   with soll as (
   -- Soll-Flags je Schichtmodell, Union ueber alle Perioden-Wochen
   select sp_sm_name,
@@ -29,8 +29,7 @@ select pm.pers_nr,
          when 5 then s.soll_fr
          when 6 then s.soll_sa
          else        s.soll_so
-       end = 1
-;
+       end = 1;
 
 
--- sqlcl_snapshot {"hash":"ba63c464f87e7cfcae674321dcac5b68ae907431","type":"VIEW","name":"PZM_V_PERS_SOLL_WOCHENTAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7b7b17021eca4ea6b835a3c0d87ce8593b14f14f","type":"VIEW","name":"PZM_V_PERS_SOLL_WOCHENTAG","schemaName":"DIRKSPZM32","sxml":""}

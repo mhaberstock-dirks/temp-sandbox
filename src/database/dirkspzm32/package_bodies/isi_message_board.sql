@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_message_board is
+package body isi_message_board is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -97,4 +97,4 @@ end isi_message_board;
 
 
 
--- sqlcl_snapshot {"hash":"764a7ce252c00dfd787b81884c568e01970f1778","type":"PACKAGE_BODY","name":"ISI_MESSAGE_BOARD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7f5183fe020330f5bb8b12727f8b244ab720cf6c","type":"PACKAGE_BODY","name":"ISI_MESSAGE_BOARD","schemaName":"DIRKSPZM32","sxml":""}

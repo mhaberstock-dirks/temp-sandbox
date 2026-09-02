@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.db_p_trace is
+package db_p_trace is
 
   -- Author  : DTSEKAS
   -- Created : 29.01.2019 10:53:57
@@ -107,4 +107,4 @@ end db_p_trace;
 
 
 
--- sqlcl_snapshot {"hash":"b14b167a69bfa8e0264f7a5d21ceb0a8ef17b982","type":"PACKAGE_SPEC","name":"DB_P_TRACE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9f950d859d6e1e87a2faff5e550ed8c4e7fbb85d","type":"PACKAGE_SPEC","name":"DB_P_TRACE","schemaName":"DIRKSPZM32","sxml":""}

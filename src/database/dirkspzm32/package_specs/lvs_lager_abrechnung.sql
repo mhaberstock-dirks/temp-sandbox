@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_lager_abrechnung is
+package lvs_lager_abrechnung is
 
   -- Author  : HJGOEDEKE
   -- Created : 16.03.2012 08:16:07
@@ -167,4 +167,4 @@ end lvs_lager_abrechnung;
 
 
 
--- sqlcl_snapshot {"hash":"f4d838f4701ddeaa393782dbad39e2764392b2ae","type":"PACKAGE_SPEC","name":"LVS_LAGER_ABRECHNUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ddeead37ae469a3d73c0ea0d37e7a281ddf119f0","type":"PACKAGE_SPEC","name":"LVS_LAGER_ABRECHNUNG","schemaName":"DIRKSPZM32","sxml":""}

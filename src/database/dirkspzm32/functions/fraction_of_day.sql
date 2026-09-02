@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.FRACTION_OF_DAY(p_value in date) return number is
+function FRACTION_OF_DAY(p_value in date) return number is
   Result number;
 begin
   -- gibt nur den BRuchteil des Tages zurück
@@ -11,4 +11,4 @@ end FRACTION_OF_DAY;
 
 
 
--- sqlcl_snapshot {"hash":"4c8b1de18b3e90c0e542b2e11d7f907a77d4963e","type":"FUNCTION","name":"FRACTION_OF_DAY","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ce6e2853d59695a9e4662744483019b4464289a2","type":"FUNCTION","name":"FRACTION_OF_DAY","schemaName":"DIRKSPZM32","sxml":""}

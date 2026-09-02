@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_PROJEKT_BI" 
-  before insert on DIRKSPZM32.isi_project
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_PROJEKT_BI" 
+  before insert on isi_project
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -20,8 +20,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_PROJEKT_BI" ENABLE;
+ALTER TRIGGER "TR_ISI_PROJEKT_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6ad29eab6a2b78913386f2c229ef047e0556aa15","type":"TRIGGER","name":"TR_ISI_PROJEKT_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"10109b714141c8e4fa3fc40820662711c1c85bae","type":"TRIGGER","name":"TR_ISI_PROJEKT_BI","schemaName":"DIRKSPZM32","sxml":""}

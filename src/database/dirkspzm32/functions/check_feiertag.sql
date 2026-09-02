@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.CHECK_FEIERTAG(in_pb_id in pzm_produktionsbereiche.pb_id%type,
+function CHECK_FEIERTAG(in_pb_id in pzm_produktionsbereiche.pb_id%type,
                                           in_abt_id           in pzm_abteilungen.abt_id%type,
                                           in_pers_nr          in pzm_personal.pers_nr%type,
                                           in_kst_id           in pzm_personal.pers_kst_id%type,
@@ -25,4 +25,4 @@ end CHECK_FEIERTAG;
 
 
 
--- sqlcl_snapshot {"hash":"69f65d5a30f992bf5640cbe68efb937538bb1991","type":"FUNCTION","name":"CHECK_FEIERTAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"25946020e00311a2ca8f3ebb1654c44a76fdd3da","type":"FUNCTION","name":"CHECK_FEIERTAG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.ist_feiertag(in_pers_nr in pzm_personal.pers_nr%type,
+function ist_feiertag(in_pers_nr in pzm_personal.pers_nr%type,
                                         in_pb_id            in pzm_produktionsbereiche.pb_id%type,
                                         in_abt_id           in pzm_abteilungen.abt_id%type,
                                         in_kst_id           in pzm_personal.pers_kst_id%type,
@@ -63,4 +63,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"238c22f28df88663eb0b3a2aeec4d9228148c3e0","type":"FUNCTION","name":"IST_FEIERTAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"be870d739a15fb4bf69c949a8692a0b1deebe16d","type":"FUNCTION","name":"IST_FEIERTAG","schemaName":"DIRKSPZM32","sxml":""}

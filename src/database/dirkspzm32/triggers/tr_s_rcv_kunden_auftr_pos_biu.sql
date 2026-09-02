@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_RCV_KUNDEN_AUFTR_POS_BIU" 
-  before insert or update on DIRKSPZM32.s_rcv_kunden_auftr_pos
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_RCV_KUNDEN_AUFTR_POS_BIU" 
+  before insert or update on s_rcv_kunden_auftr_pos
   for each row
 declare
   v_error     EXCEPTION;
@@ -259,8 +259,9 @@ exception
     end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_RCV_KUNDEN_AUFTR_POS_BIU" ENABLE;
+ALTER TRIGGER "TR_S_RCV_KUNDEN_AUFTR_POS_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"089a5597d7b5eed0ebe2096ea73618d1c0a77db9","type":"TRIGGER","name":"TR_S_RCV_KUNDEN_AUFTR_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"12fd3e2193069babbff7310a69f9b7b785b5bedd","type":"TRIGGER","name":"TR_S_RCV_KUNDEN_AUFTR_POS_BIU","schemaName":"DIRKSPZM32","sxml":""}

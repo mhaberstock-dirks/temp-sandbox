@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.isi_alert is
+package isi_alert is
 
   /*
   __________________________________________________
@@ -33,4 +33,4 @@ end isi_alert;
 
 
 
--- sqlcl_snapshot {"hash":"3e9d2e24a3a4f53072700afc414a22e662cb8444","type":"PACKAGE_SPEC","name":"ISI_ALERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"140271f52f688cb6cd414168ee6646d64cebba86","type":"PACKAGE_SPEC","name":"ISI_ALERT","schemaName":"DIRKSPZM32","sxml":""}

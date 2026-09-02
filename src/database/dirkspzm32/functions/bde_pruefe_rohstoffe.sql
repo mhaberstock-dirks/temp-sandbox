@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pruefe_rohstoffe
+function bde_pruefe_rohstoffe
 /*
 Es wird beim beschicken geprüft, ob die Materialien als Rohstoff im FA eingetragen sind.
 -- HISTORY
@@ -192,4 +192,4 @@ end bde_pruefe_rohstoffe;
 
 
 
--- sqlcl_snapshot {"hash":"b2673bcd0c6ce433c061b7538f1eb100e28694f7","type":"FUNCTION","name":"BDE_PRUEFE_ROHSTOFFE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b3ec6f500a330e56ad8aa8cfb1cc4d50fd87e84d","type":"FUNCTION","name":"BDE_PRUEFE_ROHSTOFFE","schemaName":"DIRKSPZM32","sxml":""}

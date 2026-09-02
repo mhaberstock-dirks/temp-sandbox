@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_AUF_BU" 
-  before update on DIRKSPZM32.bde_fa_auftrag
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_QS_BABTEC_AUF_BU" 
+  before update on bde_fa_auftrag
   for each row
 declare
   -------------------------------------------------------------------------------------------------------
@@ -72,8 +72,9 @@ exception
     end if;
 end TR_S_QS_BABTEC_AUF_BU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_QS_BABTEC_AUF_BU" ENABLE;
+ALTER TRIGGER "TR_S_QS_BABTEC_AUF_BU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"6220234d42cd4057a0dfe97f1ba4d4ab4afc94c6","type":"TRIGGER","name":"TR_S_QS_BABTEC_AUF_BU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"20ce0a58d0331c974d279a52f86bd6475ac198a3","type":"TRIGGER","name":"TR_S_QS_BABTEC_AUF_BU","schemaName":"DIRKSPZM32","sxml":""}

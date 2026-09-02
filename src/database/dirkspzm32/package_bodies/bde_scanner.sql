@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_scanner IS
+package body bde_scanner IS
 
 
 procedure bde_sc_barcode_fa_id_menge(in_barcode       in varchar2,
@@ -4894,4 +4894,4 @@ END bde_scanner;
 
 
 
--- sqlcl_snapshot {"hash":"7a8dbce99dbaf5ba159f7a45af0407315caaa920","type":"PACKAGE_BODY","name":"BDE_SCANNER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3456e85f0e64c5e38ae6cd3a053bb3e9211d5dfe","type":"PACKAGE_BODY","name":"BDE_SCANNER","schemaName":"DIRKSPZM32","sxml":""}

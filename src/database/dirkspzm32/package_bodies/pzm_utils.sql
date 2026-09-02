@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.PZM_UTILS is
+package body PZM_UTILS is
 
   v_build_number constant number := 1;
   /*
@@ -22,16 +22,16 @@ package body DIRKSPZM32.PZM_UTILS is
     , cached_at timestamp
   );
   type t_pers_kst_id_cache is table of t_pers_kst_id_cache_entry index by pls_integer;
-  
+
   g_pers_kst_id_cache t_pers_kst_id_cache;
   gc_pers_kst_id_ttl constant interval day to second := interval '1' Minute;
-   
+
   type t_pers_pb_multi_kst_cache_entry is record (
     multi_kst_true boolean
     , cached_at timestamp
   );
   type t_pers_pb_multi_kst_cache is table of t_pers_pb_multi_kst_cache_entry index by pls_integer;
-  
+
   g_pers_pb_multi_kst_cache t_pers_pb_multi_kst_cache;
   gc_pers_pb_multi_kst_ttl constant interval day to second := interval '1' Minute;
 
@@ -165,7 +165,7 @@ package body DIRKSPZM32.PZM_UTILS is
     close c_ZEAbwesenheiten;
     return(Result);
   end;
-  
+
   -------------------------------------------------------------------------------------------------------
   -- Die Funktion gibt eine semikolon Separierte Liste der Abteilung-IDs zurück, die die angefragte 
   -- PRES_NR sehen oder bearbeiten darf
@@ -177,7 +177,7 @@ package body DIRKSPZM32.PZM_UTILS is
     v_produktionsbereich     pzm_produktionsbereiche%rowtype;
     v_personal               pzm_personal%rowtype;
     v_abt_leitung            pzm_abt_leitung%rowtype;
-    
+
     CURSOR c_personal IS
       SELECT *
         FROM pzm_personal p
@@ -187,7 +187,7 @@ package body DIRKSPZM32.PZM_UTILS is
       SELECT *
         FROM pzm_abteilungen a
        WHERE a.abt_id = v_personal.pers_abt_id;
-       
+
     CURSOR c_produktionsbereich IS
       SELECT *
         FROM pzm_produktionsbereiche pb
@@ -199,7 +199,7 @@ package body DIRKSPZM32.PZM_UTILS is
        WHERE al.abt_l_pers_nr = in_pers_nr
          and al.abt_l_von_datum <= sysdate
          and al.abt_l_bis_datum >= sysdate;
-       
+
   begin
     OPEN c_personal;
     FETCH c_personal INTO v_personal;
@@ -234,10 +234,10 @@ package body DIRKSPZM32.PZM_UTILS is
           start with a.abt_id = v_abt_leitung.abt_l_abt_id
           connect by prior a.abt_id = a.abt_parent_abt_id
       ) res;
-    
+
     return(Result);
   end PZM_GET_ABT_ZU_PERS_NR;
-  
+
   -- Procedure  um die Werte für den Urlaubsanspruch etc zu bekommen
   -- Return varchr2 T=OK, F-Fehler
   procedure  PZM_GET_PERS_URLAUB_DATEN(in_pers_nr                in pzm_personal.pers_nr%type,
@@ -253,10 +253,10 @@ package body DIRKSPZM32.PZM_UTILS is
                                      out_flexiGenehmigt       out pzm_konten.saldo%type,
                                      out_vorgesetzter         out pzm_personal.pers_nr%type)
                                      is
-                                     
+
       v_result                       varchar2(1);  
       v_found                        boolean;
-    
+
       CURSOR c_get_pers_urlaub_daten is
         select pd.pers_nr,
                nvl(pd.pers_urlaub_anspr_wert, 0) Jahresanspruch,
@@ -407,7 +407,7 @@ package body DIRKSPZM32.PZM_UTILS is
                  nvl(pzm_utils.pzm_get_sm_durch_std_tag(sm.sm_name), nvl(sm.d_arb_std_pro_tag, 8)),
                  pd.pers_abt_id;
       v_get_pers_urlaub_daten         c_get_pers_urlaub_daten%rowtype;
-                 
+
     begin
       OPEN c_get_pers_urlaub_daten;
       FETCH c_get_pers_urlaub_daten into v_get_pers_urlaub_daten;
@@ -435,7 +435,7 @@ package body DIRKSPZM32.PZM_UTILS is
     v_found                          boolean;
     v_abt_id                         pzm_abt_leitung.abt_l_abt_id%type;
     v_abt_pers_nr                    pzm_abt_leitung.abt_l_pers_nr%type;
-    
+
     CURSOR c_get_vorgesetzen is
       select abtl.abt_l_pers_nr, abt.abt_parent_abt_id
         from pzm_abteilungen abt,
@@ -448,8 +448,8 @@ package body DIRKSPZM32.PZM_UTILS is
                       'V', 3,
                       4),
                abtl.abt_l_pers_nr;
-       
-    
+
+
   begin
     v_abt_id := in_abt_id;
     OPEN c_get_vorgesetzen;  
@@ -475,17 +475,17 @@ package body DIRKSPZM32.PZM_UTILS is
                                     return number is
 
     v_found                         boolean;
-    
-    
+
+
     v_pzm_schicht_perioden          pzm_schicht_perioden%ROWTYPE;
     v_pzm_schichtarten              pzm_schichtarten%rowtype;
-    
+
     v_sa_kurzname                   pzm_schichtarten.sa_kurzname%type;
     v_sa_std_pro_tag                pzm_schichtarten.sa_std_pro_tag%type;
     v_sa_std                        number;
     v_sa_tage                       number;
     v_sa_std_durch_tag              number;
-    
+
     CURSOR c_pzm_schicht_modell is
       select t.d_arb_std_pro_tag
         from pzm_schicht_modelle t
@@ -495,12 +495,12 @@ package body DIRKSPZM32.PZM_UTILS is
       select *
         from pzm_schicht_perioden sp
        where sp.sp_sm_name = in_sm_name;
-       
+
     CURSOR c_pzm_schichtarten is
       select sa.sa_std_pro_tag
         from pzm_schichtarten sa
        where sa.sa_kurzname = v_sa_kurzname;
- 
+
   begin
     v_sa_std  := 0;
     v_sa_tage := 0;
@@ -683,9 +683,9 @@ package body DIRKSPZM32.PZM_UTILS is
                                in_datum_ende    in date
                               )
                             return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select count(t.ts_day_arb_std)
       from pzm_ze_tagessatz t
@@ -695,7 +695,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_datum <= in_datum_ende
        and (t.ts_day_arb_std > 0 or t.ts_day_ueb_std > 0 or t.ts_day_flex_std > 0);
 
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -713,9 +713,9 @@ package body DIRKSPZM32.PZM_UTILS is
                               in_datum_ende    in date
                              )
                             return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select count(t.ts_day_arb_std)
       from pzm_ze_tagessatz t
@@ -733,14 +733,14 @@ package body DIRKSPZM32.PZM_UTILS is
                               and la.lz_konto_name_kurz in ('ZK', 'UK', 'UKS'))
             )
            );
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
     CLOSE c_tagessatz;
     return v_return;
   end;
-  
+
   ---------------------------------------------------------------------------------------------
   -- Diese Tage sind zur Ermittlung für den 13 Tage Std-Schnitt
   ---------------------------------------------------------------------------------------------
@@ -751,9 +751,9 @@ package body DIRKSPZM32.PZM_UTILS is
                                   in_datum_ende    in date
                                  )
                             return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select count(t.ts_day_arb_std)
       from pzm_ze_tagessatz t
@@ -771,7 +771,7 @@ package body DIRKSPZM32.PZM_UTILS is
                               and la.lz_konto_name_kurz = 'ZK')
             )
            );
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -793,11 +793,11 @@ package body DIRKSPZM32.PZM_UTILS is
                              in_mit_U         in boolean default false   -- Incl. Urlaub Stunden
                          )
                             return number is
-                            
+
   v_return                  number;
   v_U_stunden               number;
   v_K_stunden               number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_arb_std + 
                case when t.ts_ueb_ok_datum is not NULL and t.ts_ueb_storno_datum is NULL
@@ -849,7 +849,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and a.kennz_urlaub != 'T'           -- Urlaub
        and a.lz_id = l.lz_id(+)
        and l.lz_operator in ('K', 'KUG');
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -870,7 +870,7 @@ package body DIRKSPZM32.PZM_UTILS is
     end if;
     return v_return;
   end;
-  
+
   ---------------------------------------------------------------------------------------------
   -- Diese Stunden sind fir die ermittlung der Stunden für Stundenlohn wichtig (Z.B. Feiertage)
   ---------------------------------------------------------------------------------------------
@@ -880,9 +880,9 @@ package body DIRKSPZM32.PZM_UTILS is
                                in_datum_ende    in date
                               )
                               return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_abw_std)
       from pzm_ze_tagessatz t,
@@ -895,7 +895,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_aa_id = a.aa_id
        and a.lz_id = l.lz_id(+)
        and l.lz_operator in ('K');
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -912,9 +912,9 @@ package body DIRKSPZM32.PZM_UTILS is
                                in_datum_ende    in date
                               )
                               return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select count(t.ts_day_abw_std)
       from pzm_ze_tagessatz t,
@@ -927,7 +927,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_aa_id = a.aa_id
        and a.lz_id = l.lz_id(+)
        and l.lz_operator in ('K');
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -944,9 +944,9 @@ package body DIRKSPZM32.PZM_UTILS is
                                    in_datum_ende    in date
                                   )
                                   return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_arb_std + t.ts_day_ueb_std + t.ts_day_flex_std)
       from pzm_ze_tagessatz t
@@ -956,7 +956,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_datum <= in_datum_ende
        and ist_feiertag_sqlresult(in_pers_nr, get_pers_pb_id(in_pers_nr), get_pers_abt_id(in_pers_nr), get_pers_kst_id(in_pers_nr), t.ts_datum) = 1
        and t.ts_aa_id is NULL;            -- Hier kann es sich nur um Feiertage handeln
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -973,9 +973,9 @@ package body DIRKSPZM32.PZM_UTILS is
                              in_datum_ende    in date
                             )
                               return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_abw_std)
       from pzm_ze_tagessatz t,
@@ -988,7 +988,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_aa_id = a.aa_id
        and a.lz_id = l.lz_id(+)
        and l.lz_operator in ('KUG');
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -1005,9 +1005,9 @@ package body DIRKSPZM32.PZM_UTILS is
                               in_datum_ende    in date
                              )
                               return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_abw_std)
       from pzm_ze_tagessatz t,
@@ -1020,7 +1020,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and t.ts_aa_id = a.aa_id
        and a.lz_id = l.lz_id(+)
        and l.lz_operator in ('KUGF');
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -1038,9 +1038,9 @@ package body DIRKSPZM32.PZM_UTILS is
                             in_datum_ende    in date
                            )
                            return number is
-                            
+
   v_return                  number;
-  
+
   CURSOR c_tagessatz is
     select sum(t.ts_day_abw_std) - sum(t.ts_day_ueb_std + t.ts_day_flex_std)
       from pzm_ze_tagessatz t,
@@ -1054,7 +1054,7 @@ package body DIRKSPZM32.PZM_UTILS is
        and a.lz_id = l.lz_id(+)
        and ((t.ts_day_abw_std > 0 and l.lz_konto_name_kurz = 'ZK')             -- Eine Abwesebheit in Höhe der Differenz zur Schicht wurde gebucht
          or (t.ts_day_ueb_std + t.ts_day_flex_std) > 0);
-  
+
   begin
     OPEN c_tagessatz;
     FETCH c_tagessatz into v_return;
@@ -1065,19 +1065,19 @@ package body DIRKSPZM32.PZM_UTILS is
   function get_schicht_modell_name(in_pers_nr          in pzm_personal.pers_nr%type,
                               out_schicht_modell_name out pzm_personal.pers_sm_name%type
                              ) return boolean is
-                             
+
   v_return                   boolean;
   v_schicht_modelle          pzm_schicht_modelle%rowtype;
 
   begin
     out_schicht_modell_name := NULL;
     v_return := pzm_p_base.get_schicht_modell(in_pers_nr, v_schicht_modelle);
-    
+
     if v_return
     then
       out_schicht_modell_name := v_schicht_modelle.sm_name;
     end if;
-    
+
     return v_return;
   end;
 
@@ -1090,7 +1090,7 @@ package body DIRKSPZM32.PZM_UTILS is
     v_frauen               SIM_V_DATA_HELPER%rowtype;
     v_nachnamen            SIM_V_DATA_HELPER%rowtype;
     v_max_pers_nr          PZM_PERSONAL.PERS_NR%type;
-    
+
     CURSOR c_max_pers_nr is
       select max(pers_nr) from PZM_PERSONAL;
     CURSOR c_virt_nachnamen IS
@@ -1105,7 +1105,7 @@ package body DIRKSPZM32.PZM_UTILS is
       SELECT *
         FROM SIM_V_DATA_HELPER nn
        WHERE nn.data_type = 'MITARBEIER' and nn.data_field = 'VORNAME_MANN';
-    
+
   begin
     -- Lese grösste Pers_Nr
     open c_max_pers_nr;
@@ -1153,9 +1153,9 @@ package body DIRKSPZM32.PZM_UTILS is
   function get_standard_schicht_by_pers_nr (in_pers_nr                in pzm_personal.pers_nr%type)
            return pzm_schichtarten.sa_kurzname%type is
     v_result pzm_schichtarten.sa_kurzname%type;
-    
+
     v_schichtmodell    pzm_schicht_modelle%rowtype;
-    
+
     CURSOR c_Schichtarten IS
       SELECT sa.sa_kurzname
         FROM pzm_schichtarten sa
@@ -1183,11 +1183,11 @@ package body DIRKSPZM32.PZM_UTILS is
   -------------------------------------------------------------------------------------------------------------------------------
   --
   -------------------------------------------------------------------------------------------------------------------------------
-  
+
   function get_standard_schicht_by_calc_basis (in_calc_basis          in pzm_schichtarten.calc_basis%type) 
     return pzm_schichtarten.sa_kurzname%type is
     v_result pzm_schichtarten.sa_kurzname%type ;
-    
+
     CURSOR c_Schichtarten IS
       SELECT sa.sa_kurzname
         FROM pzm_schichtarten sa
@@ -1206,12 +1206,12 @@ package body DIRKSPZM32.PZM_UTILS is
 
     return(v_result);
   end;
-  
+
   function get_feiertag_aa_id  
            return number is
-           
+
   v_aa_id                  pzm_abwesenheitsarten.aa_id%type;
-  
+
   CURSOR c_aa_id is
     select a.aa_id
       from pzm_abwesenheitsarten a,
@@ -1231,9 +1231,9 @@ package body DIRKSPZM32.PZM_UTILS is
 
   function get_feiertag_lz_id  
            return number is
-           
+
   v_lz_id                  pzm_lohnarten.lz_id%type;
-  
+
   CURSOR c_lz_id is
     select l.lz_id
       from pzm_lohnarten l
@@ -1253,7 +1253,7 @@ package body DIRKSPZM32.PZM_UTILS is
                                   in_abt_id           in pzm_abteilungen.abt_id%type,
                                   in_kst_id           in pzm_personal.pers_kst_id%type,
                                   in_datum            in date) return integer is
-  
+
     v_sonder_feiertag         varchar2(10);
   begin
     return (ist_feiertag(in_pers_nr, in_pb_id, in_abt_id, in_kst_id, in_datum, v_sonder_feiertag));  
@@ -1285,12 +1285,12 @@ package body DIRKSPZM32.PZM_UTILS is
       v_result := 'T';
     end if;
     CLOSE c_personal;
-    
+
     -- Hier die Tabelle auf die neue Persnummer wechseln
     v_personal.pers_nr := in_to_pers_nr;
     insert into pzm_personal p
     values v_personal;
-    
+
     begin
       update bde_pd_kopf t
          set t.pers_nr = in_to_pers_nr
@@ -1443,7 +1443,7 @@ package body DIRKSPZM32.PZM_UTILS is
    * Result-Cached Version of GET_PERS_KST_ID()
    * If KST_ID for IN_PERS_NR has been queried 
    */ 
-  
+
   function pb_GET_PERS_KST_ID(in_pers_nr in  pzm_personal.pers_nr%type
                           ) return number is    
     Result number;  
@@ -1453,7 +1453,7 @@ package body DIRKSPZM32.PZM_UTILS is
         Result := g_pers_kst_id_cache(in_pers_nr).kst_id;
       end if;
     end if;
-    
+
     if Result is NULL then
       select nvl(nvl(p.pers_kst_id, a.abt_kst_id), pb.pb_kst_id) into Result
         from pzm_personal p,
@@ -1462,24 +1462,24 @@ package body DIRKSPZM32.PZM_UTILS is
        where p.pers_nr = in_pers_nr
          and p.pers_abt_id = a.abt_id(+)
          and pb.pb_id = nvl(p.pers_pb_id, a.abt_pb_id);
-         
+
       g_pers_kst_id_cache(in_pers_nr).kst_id := Result;
       g_pers_kst_id_cache(in_pers_nr).cached_at := systimestamp;
     end if;
-    
+
     return(Result);
   exception
     when others then
       return(NULL);
   end pb_GET_PERS_KST_ID;  
- 
+
   function is_pb_for_pers_multi_kst(in_pers_nr                        in  pzm_personal.pers_nr%type,
                                     in_persistieren_in_pzm_cfg      in varchar2
                           ) return boolean is
   v_result                boolean;
   v_personal              pzm_personal%rowtype;
   v_allg_pzm_p_value      pzm_allg_parameter.ap_value%type;
-  
+
   v_pzm_abteilungen       pzm_abteilungen%rowtype;
 
   CURSOR c_pers_abt is
@@ -1496,15 +1496,15 @@ package body DIRKSPZM32.PZM_UTILS is
       OPEN c_pers_abt;
       FETCH c_pers_abt into v_pzm_abteilungen;
       CLOSE c_pers_abt;
-      
+
       v_personal.pers_pb_id := nvl(v_pzm_abteilungen.abt_pb_id, v_personal.pers_pb_id);
-      
+
       if g_pers_pb_multi_kst_cache.exists (v_personal.pers_pb_id) then
         if systimestamp - g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).cached_at < gc_pers_pb_multi_kst_ttl then
           v_Result := g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).multi_kst_true;
         end if;
       end if;
-      
+
       if v_result is NULL
       then
         v_allg_pzm_p_value := pzm_p_base.get_allg_parameter_mandant(in_pb_id => v_personal.pers_pb_id,
@@ -1532,16 +1532,16 @@ package body DIRKSPZM32.PZM_UTILS is
         g_pers_pb_multi_kst_cache(v_personal.pers_pb_id).cached_at := systimestamp;
       end if;
     end if;
-    
+
     return v_result;
   exception
     when others then
       return(NULL);
   end;
-  
+
 end;
 /
 
 
 
--- sqlcl_snapshot {"hash":"7ddb101e2eacbc8cc4eb35b5cafc7cbe5cfa67ee","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"86bc192e48bd152c0d66b4826ffce20017163be6","type":"PACKAGE_BODY","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_RES_STATUS_BDE_AU" 
-  after update on DIRKSPZM32.isi_res_status
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_RES_STATUS_BDE_AU" 
+  after update on isi_res_status
   for each row
 declare
   -- local variables here
@@ -72,8 +72,9 @@ begin
   end if;
 end tr_res_status_bde_au;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_RES_STATUS_BDE_AU" ENABLE;
+ALTER TRIGGER "TR_RES_STATUS_BDE_AU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"52792e0dd68522ab23fe2dca2e54c727d494892f","type":"TRIGGER","name":"TR_RES_STATUS_BDE_AU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"472c14c49ed2463cd8e6136dcbc65d95468e4ce7","type":"TRIGGER","name":"TR_RES_STATUS_BDE_AU","schemaName":"DIRKSPZM32","sxml":""}

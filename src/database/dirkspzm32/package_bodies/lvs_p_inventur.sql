@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_P_INVENTUR is
+package body LVS_P_INVENTUR is
 
   function get_version return varchar2 is
   begin
@@ -191,4 +191,4 @@ end LVS_P_INVENTUR;
 
 
 
--- sqlcl_snapshot {"hash":"b3072d8a2d1bc716172c2cc154cd8fc6f558f53b","type":"PACKAGE_BODY","name":"LVS_P_INVENTUR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3fff280f4570ec61f5f3ce50c13d2e0d9077162c","type":"PACKAGE_BODY","name":"LVS_P_INVENTUR","schemaName":"DIRKSPZM32","sxml":""}

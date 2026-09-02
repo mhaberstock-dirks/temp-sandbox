@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.CHECK_TABLE_COLUMS (in_source_schema in varchar2,
+function CHECK_TABLE_COLUMS (in_source_schema in varchar2,
                                                in_destination_schema in varchar2,
                                                in_table_name in varchar2)
                                           return varchar2 is
@@ -48,4 +48,4 @@ end CHECK_TABLE_COLUMS;
 
 
 
--- sqlcl_snapshot {"hash":"54c677012bc0e1d3b40f45f85af65016c80aba02","type":"FUNCTION","name":"CHECK_TABLE_COLUMS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6b73743d48df4cd70b701ac0eb738d8890e56827","type":"FUNCTION","name":"CHECK_TABLE_COLUMS","schemaName":"DIRKSPZM32","sxml":""}

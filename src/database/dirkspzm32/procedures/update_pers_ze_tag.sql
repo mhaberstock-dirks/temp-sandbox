@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.UPDATE_PERS_ZE_TAG(p_pers_nr in number,
+procedure UPDATE_PERS_ZE_TAG(p_pers_nr in number,
                                                p_datum in date,
                                                p_result out number,
                                                p_res_info out varchar2,
@@ -202,6 +202,13 @@ begin
     then
       v_pb_id := v_ze_tagessatz.ts_day_pb_id;
     end if;
+  else  -- Ganz neu, ggf. hier die LOAS neu rechnen für alle abwesenheiten 
+    update pzm_zeiterfassung ze
+        set ze.ze_id = ze.ze_id
+      where ze.ze_schicht_tag = v_schicht_datum
+        and ze.ze_pers_nr = p_pers_nr
+        and ze.ze_aa_status is not NULL
+        and not exists (select x.zeaw_lz_lohnart from pzm_ze_loa_ausw x where x.zeaw_pers_nr = ze.ze_pers_nr and x.zeaw_datum = ze.ze_schicht_tag);
   end if;
 
 
@@ -835,4 +842,4 @@ end update_pers_ze_tag;
 
 
 
--- sqlcl_snapshot {"hash":"2e75c6bcf5aa0b039a9df10d6a80b8adcf9d48b5","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"47db8c8797e3e640248d0f44b166176698aac3d2","type":"PROCEDURE","name":"UPDATE_PERS_ZE_TAG","schemaName":"DIRKSPZM32","sxml":""}

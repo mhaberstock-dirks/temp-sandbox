@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_BDE_FA_AUFTRAG_BD" 
-  before delete on DIRKSPZM32.BDE_FA_AUFTRAG
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_BDE_FA_AUFTRAG_BD" 
+  before delete on BDE_FA_AUFTRAG
   for each row
 declare
   v_lte_id                      lvs_lte.lte_id%type;
@@ -231,8 +231,9 @@ begin
             );
 end TR_BDE_FA_AUFTRAG_BD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_BDE_FA_AUFTRAG_BD" ENABLE;
+ALTER TRIGGER "TR_BDE_FA_AUFTRAG_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"5c55769c43064b6c730627c7fda3aba3cd050e7f","type":"TRIGGER","name":"TR_BDE_FA_AUFTRAG_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2b8ac6c998423457e6be7f688bf915f02909b13e","type":"TRIGGER","name":"TR_BDE_FA_AUFTRAG_BD","schemaName":"DIRKSPZM32","sxml":""}

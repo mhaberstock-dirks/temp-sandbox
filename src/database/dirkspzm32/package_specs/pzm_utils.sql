@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_UTILS is
+package PZM_UTILS is
 
   -- Author  : WKROEKER
   -- Created : 16.12.2009 14:04:19
@@ -55,7 +55,7 @@ package DIRKSPZM32.PZM_UTILS is
                                     p_separator in varchar2 DEFAULT CHR(13)) return varchar2;
   function PZM_GET_ABT_ZU_PERS_NR(in_pers_nr in number) 
     return varchar2;
-        
+
   procedure PZM_GET_PERS_URLAUB_DATEN(in_pers_nr                in pzm_personal.pers_nr%type,
                                      in_jahr                   in number,
                                      out_jahresanspruch       out pzm_konten.saldo%type,
@@ -71,10 +71,10 @@ package DIRKSPZM32.PZM_UTILS is
   function PZM_GET_PERS_VORGESETZTER(in_abt_id                in  pzm_abt_leitung.abt_l_abt_id%type,
                                      out_Vorgesetzter         out pzm_personal.pers_nr%type)
     return varchar2;
-  
+
   function pzm_get_sm_durch_std_tag(in_sm_name               in  pzm_schicht_perioden.sp_sm_name%type)
     return number;
-  
+
   ---------------------------------------------------------------------------------------------
   -- Diese Tage sind zur Ermittlung der Soll-Arbeitstage
   ---------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ package DIRKSPZM32.PZM_UTILS is
                               in_datum_ende    in date
                              )
                             return number;
-  
+
   ---------------------------------------------------------------------------------------------
   -- Diese Tage sind zur Ermittlung für den 13 Tage Std-Schnitt
   ---------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ package DIRKSPZM32.PZM_UTILS is
                               in_datum_ende    in date
                              )
                             return number;
-                            
+
   ---------------------------------------------------------------------------------------------
   -- Diese Stunden sind für die Ermittlung der gearbeiteten Stunden
   --     Wenn in_mit_U_K = true, dann ist das die Grundlage für die Ermittlung der Überstunden 
@@ -143,7 +143,7 @@ package DIRKSPZM32.PZM_UTILS is
                                    in_datum_ende    in date
                          )
                             return number;
-                                                        
+
   ---------------------------------------------------------------------------------------------
   -- Diese Stunden sind fir die Ermittlung der Stunden für Kurzarbeit
   ---------------------------------------------------------------------------------------------
@@ -159,7 +159,7 @@ package DIRKSPZM32.PZM_UTILS is
                               in_datum_ende    in date
                              )
                               return number;
-                              
+
   ---------------------------------------------------------------------------------------------
   -- Diese Stunden sind fir die Ermittlung der Zeit-Konten Stundenabbuchung für  die 
   -- Stundenlohnermittlung wichtig
@@ -170,11 +170,11 @@ package DIRKSPZM32.PZM_UTILS is
                             in_datum_ende    in date
                            )
                            return number;
-                               
+
   function get_schicht_modell_name(in_pers_nr          in pzm_personal.pers_nr%type,
                               out_schicht_modell_name out pzm_personal.pers_sm_name%type
                              ) return boolean;
-                             
+
   procedure GENERATE_DUMMY_PZM_PERSONAL;
 
   function get_standard_schicht_by_pers_nr (in_pers_nr                in pzm_personal.pers_nr%type) 
@@ -188,13 +188,13 @@ package DIRKSPZM32.PZM_UTILS is
 
   function get_feiertag_lz_id  
     return number;
-    
+
   function ist_feiertag_sqlresult(in_pers_nr          in pzm_personal.pers_nr%type,
                                   in_pb_id            in pzm_produktionsbereiche.pb_id%type,
                                   in_abt_id           in pzm_abteilungen.abt_id%type,
                                   in_kst_id           in pzm_personal.pers_kst_id%type,
                                   in_datum            in date) return integer;
-                                 
+
  ---------------------------------------------------------------------------------------------
   -- Diese Funktion dient zur änderung eine Personalnummer und änder alle Konten und andere 
   -- bewegungsdaten 
@@ -203,7 +203,7 @@ package DIRKSPZM32.PZM_UTILS is
                         in_to_pers_nr    in pzm_personal.pers_nr%type
                         )
                         return varchar2;
-                        
+
   function pb_GET_PERS_KST_ID(in_pers_nr in  pzm_personal.pers_nr%type
                           ) return number;                      
 
@@ -217,4 +217,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"2d32c7eacd664bac06bb241a01d76bd1a1b9f3f2","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8fd6bf9117454eb712b814ad075200249bf52885","type":"PACKAGE_SPEC","name":"PZM_UTILS","schemaName":"DIRKSPZM32","sxml":""}

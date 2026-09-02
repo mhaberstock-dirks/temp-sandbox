@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.pzm_p_base is
+package body pzm_p_base is
 
   v_build_number constant number := 1;
   /*
@@ -281,4 +281,4 @@ end pzm_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"bbb1815737838004a0e4245da0994ec0c51c1a1e","type":"PACKAGE_BODY","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"cf424490c012331952a7329b861ad67aa1d53308","type":"PACKAGE_BODY","name":"PZM_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

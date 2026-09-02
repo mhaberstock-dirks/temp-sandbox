@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.pzm_p_zeit_bewertung is
+package body pzm_p_zeit_bewertung is
   -----------------------------------------------------------------------------------------------
   -- Package Body: pzm_p_zeit_bewertung
   --
@@ -666,4 +666,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"4725e4d93a322f175dd54fd8d57783d6af57df6c","type":"PACKAGE_BODY","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"94c163452e0a49ef84079b0b83e2f81853c14372","type":"PACKAGE_BODY","name":"PZM_P_ZEIT_BEWERTUNG","schemaName":"DIRKSPZM32","sxml":""}

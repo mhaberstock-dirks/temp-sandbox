@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_REL_BIU" 
-  before insert or update or delete on DIRKSPZM32.S_RCV_FA_AUF_REL
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_S_RCV_FA_AUF_REL_BIU" 
+  before insert or update or delete on S_RCV_FA_AUF_REL
   for each row
 declare
   v_fa_rel                s_rcv_fa_auf_rel%rowtype;
@@ -66,8 +66,9 @@ begin
   end if;
 end TR_S_RCV_FA_AUF_REL;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_S_RCV_FA_AUF_REL_BIU" ENABLE;
+ALTER TRIGGER "TR_S_RCV_FA_AUF_REL_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d0acc49f7a1b26c026e1b066dc8b7757b40b8c80","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_REL_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0b295e37ea46b995d4dad0381d1eb14acbf6845b","type":"TRIGGER","name":"TR_S_RCV_FA_AUF_REL_BIU","schemaName":"DIRKSPZM32","sxml":""}

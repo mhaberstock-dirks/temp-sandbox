@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_anz_arbeitstage_R32(p_pers_nr in integer,
+function get_anz_arbeitstage_R32(p_pers_nr in integer,
                                                    p_start_datum    in date,
                                                    p_ende_datum     in date) 
   return number is
@@ -16,7 +16,7 @@ function DIRKSPZM32.get_anz_arbeitstage_R32(p_pers_nr in integer,
   v_DayOfWeek      integer;
   v_SonderFeiertag varchar2(20);
   v_isFeiertag boolean;
-  
+
   v_pers_nr number;
   v_pb_id number;
   v_abt_id number;
@@ -43,7 +43,7 @@ function DIRKSPZM32.get_anz_arbeitstage_R32(p_pers_nr in integer,
                                  where x1.aa_id = t.ts_aa_id
                                    and x1.lz_id = x2.lz_id
                                    and x2.lz_operator in ('UNB'));
-  
+
   cursor c_pers is
     select t.pers_nr,
            t.pers_pb_id,
@@ -51,7 +51,7 @@ function DIRKSPZM32.get_anz_arbeitstage_R32(p_pers_nr in integer,
            t.pers_kst_id
       from pzm_personal t
      where t.pers_nr = p_pers_nr;
-  
+
 begin
   Result := 0;
 
@@ -67,7 +67,7 @@ begin
   then
     v_pb_id := get_pers_pb_id(v_pers_nr);
   end if;
-  
+
 
   tage := (trunc(p_ende_datum) - trunc(p_start_datum));
   for i in 0 .. tage loop
@@ -84,7 +84,7 @@ begin
     then
       v_isFeiertag := ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_Datum, v_SonderFeiertag) = 1;
       v_aa_id := NULL;
-      
+
       if v_isFeiertag
       then
         OPEN c_ts_krank_o_unb;
@@ -103,7 +103,7 @@ begin
           v_SAStdProTag := 0;
         end if;
       end if;
-      
+
       if not v_isFeiertag
          and v_SAKurzname <> pzm_utils.get_standard_schicht_by_pers_nr(v_pers_nr)
          and v_SAStdProTag > 0
@@ -120,7 +120,7 @@ begin
       -- wenn keine Schichtdaten vohanden sind, nehmen wir die 5 Werktage Woche
       --v_DayOfWeek := to_number(to_char(v_Datum, 'D')); -- INFO: 1 = Mo, 2 = Di, ...
       v_DayOfWeek := isi_utils.Iso_WeekDay(v_Datum);-- INFO: 1 = Mo, 2 = Di, ...
-      
+
       if (v_DayOfWeek >= 1) AND (v_DayOfWeek <= 5) then
         if ist_feiertag(v_pers_nr, v_pb_id, v_abt_id, v_kst_id, v_Datum, v_SonderFeiertag) = 0 then
           Result := Result + 1.0;
@@ -139,4 +139,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"c0b6ec17280fb4b0108b6cfb8331dc92dbc3a9d4","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE_R32","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"02367417df5ea092c80f4e4a2bf953a0462c1533","type":"FUNCTION","name":"GET_ANZ_ARBEITSTAGE_R32","schemaName":"DIRKSPZM32","sxml":""}

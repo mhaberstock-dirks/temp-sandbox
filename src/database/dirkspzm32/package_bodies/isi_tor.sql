@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_tor is
+package body isi_tor is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -193,4 +193,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"61c193d44dfcabb67515feb0256bccc696158718","type":"PACKAGE_BODY","name":"ISI_TOR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"af16021433bcd08d28e301031f9fafc53dc735a7","type":"PACKAGE_BODY","name":"ISI_TOR","schemaName":"DIRKSPZM32","sxml":""}

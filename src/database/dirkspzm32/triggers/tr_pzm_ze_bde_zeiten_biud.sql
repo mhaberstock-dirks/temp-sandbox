@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_BDE_ZEITEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.PZM_ZE_BDE_ZEITEN
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_BDE_ZEITEN_BIUD" 
+  before insert or update or delete on PZM_ZE_BDE_ZEITEN
   for each row
 
 declare    
@@ -72,8 +72,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_BDE_ZEITEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_BDE_ZEITEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"fca278ac91eb7803d611c295ff365bedd52d56e1","type":"TRIGGER","name":"TR_PZM_ZE_BDE_ZEITEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8dfb68b5a9dcb6e1ec4cd5ce876047b716d3d20f","type":"TRIGGER","name":"TR_PZM_ZE_BDE_ZEITEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

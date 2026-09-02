@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_UML is
+package LVS_UML is
 
   /*
   __________________________________________________
@@ -58,4 +58,4 @@ end LVS_UML;
 
 
 
--- sqlcl_snapshot {"hash":"0e7e1afa2a9927e0a729aa946d807642b728bc5c","type":"PACKAGE_SPEC","name":"LVS_UML","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"166741a3f7c70edd443213b10c9f83cf9ebcca9a","type":"PACKAGE_SPEC","name":"LVS_UML","schemaName":"DIRKSPZM32","sxml":""}

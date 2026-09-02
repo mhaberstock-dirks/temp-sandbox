@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_lager_abrechnung is
+package body lvs_lager_abrechnung is
 
   v_build_number constant number := 1;
   /*
@@ -1190,4 +1190,4 @@ end lvs_lager_abrechnung;
 
 
 
--- sqlcl_snapshot {"hash":"2d2e8abc812399a8d81914e14726592a3dac1a22","type":"PACKAGE_BODY","name":"LVS_LAGER_ABRECHNUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3bcedeb628e5fed3b3889b8e41221e694a25fd55","type":"PACKAGE_BODY","name":"LVS_LAGER_ABRECHNUNG","schemaName":"DIRKSPZM32","sxml":""}

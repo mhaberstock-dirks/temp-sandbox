@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_DW_LVS_BESTAND_BI" 
-  before insert or update on DIRKSPZM32.dw_lvs_bestand
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_DW_LVS_BESTAND_BI" 
+  before insert or update on dw_lvs_bestand
   for each row
 declare
   -- local variables here
@@ -18,8 +18,9 @@ begin
 
 end TR_Dw_LVS_BESTAND_BI;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_DW_LVS_BESTAND_BI" ENABLE;
+ALTER TRIGGER "TR_DW_LVS_BESTAND_BI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"68ff2571bf411f6f869156b469fd7bb761ef5064","type":"TRIGGER","name":"TR_DW_LVS_BESTAND_BI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"405115ca407c2bbc1dc7d99a48f48f24167f7d1a","type":"TRIGGER","name":"TR_DW_LVS_BESTAND_BI","schemaName":"DIRKSPZM32","sxml":""}

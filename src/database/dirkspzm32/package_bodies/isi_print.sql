@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_print is
+package body isi_print is
 
 
   -- Private type declarations
@@ -2452,4 +2452,4 @@ end isi_print;
 
 
 
--- sqlcl_snapshot {"hash":"17b641c060f4e20ac7db880ec50777e9f3c4f405","type":"PACKAGE_BODY","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e129dd15007dbc541f2fe715f2dde831b4f81c4c","type":"PACKAGE_BODY","name":"ISI_PRINT","schemaName":"DIRKSPZM32","sxml":""}

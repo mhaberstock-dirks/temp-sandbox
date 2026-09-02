@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."ISI_TABLES_AND_COLUMNS" ("MODUL", "TABLE_NAME", "TABLE_COMMENTS", "COLUMN_NAME", "NULLABLE", "DATA_TYPE", "DATA_LENGTH", "COLUMN_COMMENTS") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "ISI_TABLES_AND_COLUMNS" ("MODUL", "TABLE_NAME", "TABLE_COMMENTS", "COLUMN_NAME", "NULLABLE", "DATA_TYPE", "DATA_LENGTH", "COLUMN_COMMENTS") AS 
   select
   substr(ut.table_name, 1, instr(ut.TABLE_NAME, '_')- 1) as Modul,
   ut.TABLE_NAME,
@@ -24,4 +24,4 @@ order
 ;
 
 
--- sqlcl_snapshot {"hash":"ed3cca950d6af1d11fcf06fb03c96bf08427798d","type":"VIEW","name":"ISI_TABLES_AND_COLUMNS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"af43d741c859a5fb495839c2ceee0b6ab4d2c4cd","type":"VIEW","name":"ISI_TABLES_AND_COLUMNS","schemaName":"DIRKSPZM32","sxml":""}

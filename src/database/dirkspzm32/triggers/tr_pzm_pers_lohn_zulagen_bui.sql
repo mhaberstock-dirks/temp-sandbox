@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_PERS_LOHN_ZULAGEN_BUI" 
-  before insert or update on DIRKSPZM32.pzm_pers_lohn_zulagen
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_PERS_LOHN_ZULAGEN_BUI" 
+  before insert or update on pzm_pers_lohn_zulagen
   for each row
 declare
 begin
@@ -30,8 +30,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_PERS_LOHN_ZULAGEN_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_PERS_LOHN_ZULAGEN_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c1dc9b25db3863f1bfef35087d33209bb701f33a","type":"TRIGGER","name":"TR_PZM_PERS_LOHN_ZULAGEN_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a4a80066077136847687e4088e63b7a935c8b660","type":"TRIGGER","name":"TR_PZM_PERS_LOHN_ZULAGEN_BUI","schemaName":"DIRKSPZM32","sxml":""}

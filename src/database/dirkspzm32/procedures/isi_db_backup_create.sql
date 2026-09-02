@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_db_backup_create is
+procedure isi_db_backup_create is
   v_pk                varchar2(251);
   v_table             varchar2(251);
   v_column_name       varchar2(251);
@@ -86,4 +86,4 @@ end isi_db_backup_create;
 
 
 
--- sqlcl_snapshot {"hash":"fef53e47a1f3984002bec12c93f4e60581994000","type":"PROCEDURE","name":"ISI_DB_BACKUP_CREATE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"141d27153156858a11bbb70d7cf287ca6c44319f","type":"PROCEDURE","name":"ISI_DB_BACKUP_CREATE","schemaName":"DIRKSPZM32","sxml":""}

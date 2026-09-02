@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_WAGEEVALUATIONPEREMPLOYEE" ("UNION_ORDER", "DataSourceInfo", "EmployeeId", "ShiftDay", "CostCenterId", "ShiftShortName", "DayAbsenceTypeId", "ExpectedWorkingHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayOnSiteHours", "AbsenceHours", "DayWorkingHours", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayTotalWorkingHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "ExpectedWorkingHoursDiff") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_WAGEEVALUATIONPEREMPLOYEE" ("UNION_ORDER", "DataSourceInfo", "EmployeeId", "ShiftDay", "CostCenterId", "ShiftShortName", "DayAbsenceTypeId", "ExpectedWorkingHours", "TimeStart", "TimeEnd", "TimeStartCalculated", "TimeEndCalculated", "DayOnSiteHours", "AbsenceHours", "DayWorkingHours", "DayBreakHours", "OvertimeHours", "FlexiHours", "DayTotalWorkingHours", "DayRecordedTimes", "DayCalculatedTimes", "DayAbsenceNames", "DayAbsenceValues", "DayWageTypeValues", "ExpectedWorkingHoursDiff") AS 
   select 0 union_order,
        'ZE' "DataSourceInfo", -- data_src,  ZE = tägliche Zeiterfassung (time collection)
        vts."EmployeeId",
@@ -133,4 +133,4 @@ select 2 union_order,
  order by "ShiftDay", union_order;
 
 
--- sqlcl_snapshot {"hash":"e8f14bd72e032254b46d3ce2bddbe9f71c642256","type":"VIEW","name":"PZM_V_WAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"58b00b4716bce6a88930ac66e955235ac5a699b6","type":"VIEW","name":"PZM_V_WAGEEVALUATIONPEREMPLOYEE","schemaName":"DIRKSPZM32","sxml":""}

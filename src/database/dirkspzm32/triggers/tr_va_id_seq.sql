@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_VA_ID_SEQ" 
-  before insert on DIRKSPZM32.pzm_vertragsarten
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_VA_ID_SEQ" 
+  before insert on pzm_vertragsarten
   for each row
 declare
   -- local variables here
@@ -10,8 +10,9 @@ begin
   end if;
 end tr_va_id_seq;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_VA_ID_SEQ" ENABLE;
+ALTER TRIGGER "TR_VA_ID_SEQ" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d43fa08cdb00272bf37155b33209a20b3531420d","type":"TRIGGER","name":"TR_VA_ID_SEQ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5e056c98ed73f733cd918f252001a04d426fc910","type":"TRIGGER","name":"TR_VA_ID_SEQ","schemaName":"DIRKSPZM32","sxml":""}

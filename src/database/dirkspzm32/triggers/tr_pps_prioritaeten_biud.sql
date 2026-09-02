@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_PRIORITAETEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.PPS_PRIORITAETEN
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_PRIORITAETEN_BIUD" 
+  before insert or update or delete on PPS_PRIORITAETEN
   for each row
 declare
 
@@ -46,8 +46,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_PRIORITAETEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_PRIORITAETEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"bbcd3e3a1fff48cb0ae143f865d33050b197ee3a","type":"TRIGGER","name":"TR_PPS_PRIORITAETEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d54fcc8863a3a5fd575a678df5b8f6a9096b14ae","type":"TRIGGER","name":"TR_PPS_PRIORITAETEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

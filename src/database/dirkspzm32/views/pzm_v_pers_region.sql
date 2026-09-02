@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_PERS_REGION" ("PERS_NR", "PERS_LAND", "PERS_REGION_CODE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_PERS_REGION" ("PERS_NR", "PERS_LAND", "PERS_REGION_CODE") AS 
   select p.pers_nr,
        -- Rang 1 (Person): pers_land/pers_region_code direkt auf pzm_personal,
        --   nur wenn BEIDE gesetzt sind gilt dieser Rang als vollstaendig.
@@ -45,8 +45,7 @@
   left join isi_adressen aabt on aabt.adress_id = abt.abt_adress_id
   left join isi_adressen apb on apb.adress_id = pb.pb_adress_id
        -- Tenant-Fallback-Adresse (Rang 5); liefert NULL statt Crash, wenn sie fehlt
-  left join isi_adressen atn on atn.adr_art = 'E' and atn.adr_nr = 1 and atn.adr_liefer = 0
-;
+  left join isi_adressen atn on atn.adr_art = 'E' and atn.adr_nr = 1 and atn.adr_liefer = 0;
 
 
--- sqlcl_snapshot {"hash":"306e669a7bda41486ead151501d657629bd152cd","type":"VIEW","name":"PZM_V_PERS_REGION","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ecf56ff7ffb9c2d5a16b9e49fcdf3216436bdc0f","type":"VIEW","name":"PZM_V_PERS_REGION","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_huf_druck is
+package body z_huf_druck is
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
   -------------------------------------------------------------------------------------------------------
@@ -1050,4 +1050,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"97d50e3b91b7e3f2678203ae6356fef8796e04ea","type":"PACKAGE_BODY","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"be3171bb8432b0e43a455c4f4511e59d149c8f38","type":"PACKAGE_BODY","name":"Z_HUF_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

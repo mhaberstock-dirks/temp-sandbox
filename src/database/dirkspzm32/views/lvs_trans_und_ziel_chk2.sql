@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_TRANS_UND_ZIEL_CHK2" ("LI_NR", "LEITZAHL", "RES_NAME_LIST", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "ANZ_TRANSPORTE_FREI", "ANZ_LAM_ORDER_RES_TRANS_FREI", "ANZ_LAM_ORDER_RES_TRANS_NEU", "ANZ_LAM_ORDER_RES_TRANS_ST_T", "LGR_AKT_TE", "MAX_TRANSPORTE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_TRANS_UND_ZIEL_CHK2" ("LI_NR", "LEITZAHL", "RES_NAME_LIST", "LGR_PLATZ", "LGR_PLATZ_GRUPPE", "ANZ_TRANSPORTE_FREI", "ANZ_LAM_ORDER_RES_TRANS_FREI", "ANZ_LAM_ORDER_RES_TRANS_NEU", "ANZ_LAM_ORDER_RES_TRANS_ST_T", "LGR_AKT_TE", "MAX_TRANSPORTE") AS 
   select pos.li_nr, fa.leitzahl, t.res_name_list, t.lgr_platz, t.lgr_platz_gruppe, t.anz_transporte_frei, t.anz_lam_order_res_trans_frei, t.anz_lam_order_res_trans_neu, t.anz_lam_order_res_trans_st_t,
 t.lgr_akt_te, t.max_transporte
        from lvs_trans_und_ziel_mit_res_chk t
@@ -13,4 +13,4 @@ order by t.lgr_platz_gruppe, t.lgr_platz
 ;
 
 
--- sqlcl_snapshot {"hash":"f8c513fe1f6b26351e5ec0494e4c407e2aad1e15","type":"VIEW","name":"LVS_TRANS_UND_ZIEL_CHK2","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"848f0c8bbad559b786c803de2ecab311f8ba30d7","type":"VIEW","name":"LVS_TRANS_UND_ZIEL_CHK2","schemaName":"DIRKSPZM32","sxml":""}

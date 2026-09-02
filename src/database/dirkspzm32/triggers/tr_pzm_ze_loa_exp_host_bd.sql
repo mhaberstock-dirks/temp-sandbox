@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_HOST_BD" 
-  before delete on DIRKSPZM32.PZM_ZE_LOA_EXP_HOST
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ZE_LOA_EXP_HOST_BD" 
+  before delete on PZM_ZE_LOA_EXP_HOST
   for each row
 declare
   v_found                         boolean;
@@ -22,8 +22,9 @@ begin
   
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ZE_LOA_EXP_HOST_BD" ENABLE;
+ALTER TRIGGER "TR_PZM_ZE_LOA_EXP_HOST_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"9f5f84dc080cd80a98abc19bc671105ca9919169","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_HOST_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"55da4d42561c0e01791627b82cdae5c8bd03d4c2","type":"TRIGGER","name":"TR_PZM_ZE_LOA_EXP_HOST_BD","schemaName":"DIRKSPZM32","sxml":""}

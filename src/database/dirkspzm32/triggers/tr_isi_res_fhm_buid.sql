@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_BUID" 
-  before insert or delete on DIRKSPZM32.ISI_RES_FHM
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_FHM_BUID" 
+  before insert or delete on ISI_RES_FHM
   for each row
 declare
 
@@ -16,8 +16,9 @@ begin
   
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_FHM_BUID" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_FHM_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"ca9f92f89aa33bb7792b3770d7db9381531a4e09","type":"TRIGGER","name":"TR_ISI_RES_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4db03d12dafeeba815097a30d51efa6a8becadb2","type":"TRIGGER","name":"TR_ISI_RES_FHM_BUID","schemaName":"DIRKSPZM32","sxml":""}

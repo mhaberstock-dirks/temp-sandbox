@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.S_SCHNITTSTELLE is
+package S_SCHNITTSTELLE is
 
   -- Author  : HJGOEDEKE
   -- Created : 25.07.2004 10:59:06
@@ -108,4 +108,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"234e7c45f83f7e76c18e09053397cd7d6afd2452","type":"PACKAGE_SPEC","name":"S_SCHNITTSTELLE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b0ce320b5caf089c6c1c05c5dced813a4a82fbf8","type":"PACKAGE_SPEC","name":"S_SCHNITTSTELLE","schemaName":"DIRKSPZM32","sxml":""}

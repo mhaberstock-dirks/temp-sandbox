@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_c_barcode_buch
+function bde_c_barcode_buch
 /*
   Zu einem Barcode werden Arbeitsgaenge etc. gebucht.
   Die Funktion fuehrt ein Commit durch
@@ -63,4 +63,4 @@ end bde_c_barcode_buch;
 
 
 
--- sqlcl_snapshot {"hash":"4535a719e8e3e039bdca1ef62e8f8e37fd922ca3","type":"FUNCTION","name":"BDE_C_BARCODE_BUCH","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4d758bd1774eb19c5b2bbaa1cd436068707524bd","type":"FUNCTION","name":"BDE_C_BARCODE_BUCH","schemaName":"DIRKSPZM32","sxml":""}

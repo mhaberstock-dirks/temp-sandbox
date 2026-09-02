@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_ARTIKEL_RES_FHM_BIUD" 
-  before insert or update on DIRKSPZM32.PPS_ARTIKEL_RES_FHM
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_ARTIKEL_RES_FHM_BIUD" 
+  before insert or update on PPS_ARTIKEL_RES_FHM
   for each row
 declare
   -- local variables here
@@ -59,8 +59,9 @@ exception
       end if;
 end tr_PPS_ARTIKEL_RES_FHM_biud;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_ARTIKEL_RES_FHM_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_ARTIKEL_RES_FHM_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7b1a484a01f7e9439f25b7af0aba717281fe9b79","type":"TRIGGER","name":"TR_PPS_ARTIKEL_RES_FHM_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"36a0fa3b1bb647f89fa8101131a45149098fa1bc","type":"TRIGGER","name":"TR_PPS_ARTIKEL_RES_FHM_BIUD","schemaName":"DIRKSPZM32","sxml":""}

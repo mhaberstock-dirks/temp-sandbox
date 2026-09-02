@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PPS_RUESTMATRIX_BIUD" 
-  before insert or update or delete on DIRKSPZM32.PPS_RUESTMATRIX
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PPS_RUESTMATRIX_BIUD" 
+  before insert or update or delete on PPS_RUESTMATRIX
   for each row
 declare
 
@@ -46,8 +46,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PPS_RUESTMATRIX_BIUD" ENABLE;
+ALTER TRIGGER "TR_PPS_RUESTMATRIX_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"1bad62bc93f33a8778ab9adc41a9e3b5f21e966e","type":"TRIGGER","name":"TR_PPS_RUESTMATRIX_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ba024f511fddeedfc0e57e9052ca03518722015f","type":"TRIGGER","name":"TR_PPS_RUESTMATRIX_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_schicht_daten(
+function get_schicht_daten(
   p_pers_nr in integer,                                        --# Personalnummer des Mitarbeiters für den die Schichtdaten geladen werden sollen
   p_stempel_zeit in date,                                      --# Zeitpunkt, auf dessen Basis die Schichtart und der Schichttag ermittelt werden
   p_schicht_datum in out date,                                 --# [optional/out] Übegabe eines Schichtdatums oder Rückgabe des ermittelten Schichtdatums
@@ -295,4 +295,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"ace39d98d6de8fa5ecb68c4158c54545b51a96d1","type":"FUNCTION","name":"GET_SCHICHT_DATEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c06e948f35224635723071b47c299ea85e130c92","type":"FUNCTION","name":"GET_SCHICHT_DATEN","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."CHK_AUSL_ORDER_TEST2" ("OK_STATUS", "AUF_ID", "ARTIKEL", "MENGE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "CHK_AUSL_ORDER_TEST2" ("OK_STATUS", "AUF_ID", "ARTIKEL", "MENGE") AS 
   select l.OK_STATUS,
        l.auf_id,
        l.artikel,
@@ -42,4 +42,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"ed0910b18560bf2312ebe2820f0e9e70f39fb11f","type":"VIEW","name":"CHK_AUSL_ORDER_TEST2","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9e29c5828ea74d18addddf30c28f0b4c0ca9509b","type":"VIEW","name":"CHK_AUSL_ORDER_TEST2","schemaName":"DIRKSPZM32","sxml":""}

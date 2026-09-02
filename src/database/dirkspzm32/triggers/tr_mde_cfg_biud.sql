@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_MDE_CFG_BIUD" 
-  before Insert or Update or Delete on DIRKSPZM32.mde_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_MDE_CFG_BIUD" 
+  before Insert or Update or Delete on mde_cfg
   for each row
 declare
   -- local variables here
@@ -29,8 +29,9 @@ begin
   end if;
 end tr_mde_cfg_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_MDE_CFG_BIUD" ENABLE;
+ALTER TRIGGER "TR_MDE_CFG_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"d2cd420017a05cc9115fbb012e12e07575fb1a53","type":"TRIGGER","name":"TR_MDE_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5cc629f9be26a776befee5a6111bbfdcd5d8ca77","type":"TRIGGER","name":"TR_MDE_CFG_BIUD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.ISI_GET_SEQ_LAST_NUMBER
+function ISI_GET_SEQ_LAST_NUMBER
 /*
   Test ermitttle Sequence
 */
@@ -26,4 +26,4 @@ end ISI_GET_SEQ_LAST_NUMBER;
 
 
 
--- sqlcl_snapshot {"hash":"67bd8c842164fe08f1d92c4cb36ee354cfebceca","type":"FUNCTION","name":"ISI_GET_SEQ_LAST_NUMBER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1b75b632f62551ead4f00ece091ec80a7eb5d4de","type":"FUNCTION","name":"ISI_GET_SEQ_LAST_NUMBER","schemaName":"DIRKSPZM32","sxml":""}

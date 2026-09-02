@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_login_id_by_username(in_sid in isi_user.sid%type,
+function get_login_id_by_username(in_sid in isi_user.sid%type,
                                                     in_firma_nr in isi_user.firma_nr%type,
                                                     in_username in isi_user.username%type)
   return number is
@@ -22,4 +22,4 @@ end get_login_id_by_username;
 
 
 
--- sqlcl_snapshot {"hash":"9a826151f64c2d5aafce53ee6e19e7e95528c376","type":"FUNCTION","name":"GET_LOGIN_ID_BY_USERNAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"09ceef9644c3226309f8acfe13f816510ca255ec","type":"FUNCTION","name":"GET_LOGIN_ID_BY_USERNAME","schemaName":"DIRKSPZM32","sxml":""}

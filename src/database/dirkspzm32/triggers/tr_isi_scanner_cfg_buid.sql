@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_SCANNER_CFG_BUID" 
-  before insert or update or delete on DIRKSPZM32.isi_scanner_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_SCANNER_CFG_BUID" 
+  before insert or update or delete on isi_scanner_cfg
   for each row
 declare
   v_sc_funk               isi_scanner_funk_cfg%rowtype;
@@ -164,8 +164,9 @@ begin
   end if;
 end TR_SCANNER_TOR_CFG_BUID;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_SCANNER_CFG_BUID" ENABLE;
+ALTER TRIGGER "TR_ISI_SCANNER_CFG_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"55c22b64abc88532126f150de9dd642089e5d4b8","type":"TRIGGER","name":"TR_ISI_SCANNER_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"460dde957f70106266a7ea45fac089c89a6c747f","type":"TRIGGER","name":"TR_ISI_SCANNER_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}

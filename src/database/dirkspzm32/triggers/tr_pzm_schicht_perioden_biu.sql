@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_SCHICHT_PERIODEN_BIU" 
-  before insert or update on DIRKSPZM32.pzm_schicht_perioden
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_SCHICHT_PERIODEN_BIU" 
+  before insert or update on pzm_schicht_perioden
   for each row
 declare
   v_sa_name pzm_schichtarten.sa_name%type;
@@ -80,8 +80,9 @@ begin
   :new.sp_ges_std_pro_wo := v_ges_std;
 end tr_pzm_schicht_perioden_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_SCHICHT_PERIODEN_BIU" ENABLE;
+ALTER TRIGGER "TR_PZM_SCHICHT_PERIODEN_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"58787637c26e04fbcb92d05fa2de2d72ff7686e1","type":"TRIGGER","name":"TR_PZM_SCHICHT_PERIODEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"75a26dedf503d3a2bf711149ba024f035c635283","type":"TRIGGER","name":"TR_PZM_SCHICHT_PERIODEN_BIU","schemaName":"DIRKSPZM32","sxml":""}

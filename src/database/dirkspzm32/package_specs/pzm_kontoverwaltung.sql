@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.pzm_kontoverwaltung is
+package pzm_kontoverwaltung is
 
   -- Author  : wkroeker
   /*
@@ -278,7 +278,7 @@ package DIRKSPZM32.pzm_kontoverwaltung is
                                in_zk_aa_id in pzm_konten_bh.zk_aa_id%type,
                                in_zk_v_name_kurz in pzm_konten.name_kurz%type,
                                in_zk_n_name_kurz in pzm_konten.name_kurz%type);
-  
+
   /***********************************************************************************************
    * pzm_job_serien_umbuchung kann einfach zyclisch aufgerufen werden. in der Prozedure oder den 
    *                          Unterfunktionen wird geprüft, ob eine Serienbuchung noch durchgeführt 
@@ -292,4 +292,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"37c6723499f3c72b478c9362d04b156cba5974ce","type":"PACKAGE_SPEC","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9a4d181d8817e7445c13de51057b51a9c6380f08","type":"PACKAGE_SPEC","name":"PZM_KONTOVERWALTUNG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.INSERT_KRANKMELDUNG(p_pers_nr in number,
+procedure INSERT_KRANKMELDUNG(p_pers_nr in number,
                                                 p_beginn in date,
                                                 p_ende in date,
                                                 p_aa_id in number,
@@ -71,4 +71,4 @@ end INSERT_KRANKMELDUNG;
 
 
 
--- sqlcl_snapshot {"hash":"7a387ee8c7a2286ece5b2c1c2f1a7b5568e4522e","type":"PROCEDURE","name":"INSERT_KRANKMELDUNG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9e2a87d02ea03751a4959d83cebe400e06ebe5e6","type":"PROCEDURE","name":"INSERT_KRANKMELDUNG","schemaName":"DIRKSPZM32","sxml":""}

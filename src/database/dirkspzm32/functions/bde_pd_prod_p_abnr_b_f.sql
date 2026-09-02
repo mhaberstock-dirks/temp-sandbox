@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.bde_pd_prod_p_abnr_b_f
+function bde_pd_prod_p_abnr_b_f
 /*
 Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Produktionsgruppe zur Produktion an über die ABNR im FA. 
 
@@ -108,4 +108,4 @@ end bde_pd_prod_p_abnr_b_f;
 
 
 
--- sqlcl_snapshot {"hash":"51ff45e50421c4fc4fc9c65fcae60600cef0a237","type":"FUNCTION","name":"BDE_PD_PROD_P_ABNR_B_F","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"431d31db519fcc9b43fae041fcfc87f3dc32887b","type":"FUNCTION","name":"BDE_PD_PROD_P_ABNR_B_F","schemaName":"DIRKSPZM32","sxml":""}

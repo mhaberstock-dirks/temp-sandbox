@@ -1,5 +1,5 @@
 create or replace 
-FUNCTION DIRKSPZM32.mhk_data_default
+FUNCTION mhk_data_default
 (
   p_table_name  VARCHAR2
  ,p_column_name VARCHAR2
@@ -43,4 +43,4 @@ END mhk_data_default;
 
 
 
--- sqlcl_snapshot {"hash":"2762ab361070be170c1f3c3f5de3cb8ad42294aa","type":"FUNCTION","name":"MHK_DATA_DEFAULT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1edcc3fe736545af06cdbe1ecf2fc04f3f773da1","type":"FUNCTION","name":"MHK_DATA_DEFAULT","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_TAGESSATZ is
+package PZM_TAGESSATZ is
 
   /*
   __________________________________________________
@@ -44,4 +44,4 @@ end PZM_TAGESSATZ;
 
 
 
--- sqlcl_snapshot {"hash":"17f6e3bcd588479eb5a3d96e3e2c9c001f1c931c","type":"PACKAGE_SPEC","name":"PZM_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"de509d3293e8110cd733a04f6535f297c8e7b76f","type":"PACKAGE_SPEC","name":"PZM_TAGESSATZ","schemaName":"DIRKSPZM32","sxml":""}

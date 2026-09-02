@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."ISI_V_VDMA_RES" ("RES_EXT_NAME", "RES_NAME", "TEXT", "RES_ID", "PROD_STD", "HNZ", "BLZ", "BAZ", "PBZ", "TRZ", "PM", "GM", "AM", "PEZ", "XX") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "ISI_V_VDMA_RES" ("RES_EXT_NAME", "RES_NAME", "TEXT", "RES_ID", "PROD_STD", "HNZ", "BLZ", "BAZ", "PBZ", "TRZ", "PM", "GM", "AM", "PEZ", "XX") AS 
   select r.res_ext_name,
          r.res_name,
          r.text,
@@ -35,4 +35,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"bc5c724e07de871b73d45c5746fa75557530baf7","type":"VIEW","name":"ISI_V_VDMA_RES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"5d3d5d9571088b46e652c14f65b5c24795c45662","type":"VIEW","name":"ISI_V_VDMA_RES","schemaName":"DIRKSPZM32","sxml":""}

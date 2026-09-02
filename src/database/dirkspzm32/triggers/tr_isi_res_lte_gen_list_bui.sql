@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_LTE_GEN_LIST_BUI" 
-  before  Insert  or  Update  on DIRKSPZM32.ISI_RES_LTE_GEN_LIST
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_LTE_GEN_LIST_BUI" 
+  before  Insert  or  Update  on ISI_RES_LTE_GEN_LIST
   for each row
 declare
 
@@ -11,8 +11,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_LTE_GEN_LIST_BUI" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_LTE_GEN_LIST_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"b8f24d141f03467076e7d4c6aa7b712d2cf17747","type":"TRIGGER","name":"TR_ISI_RES_LTE_GEN_LIST_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"608968c1e73374de322cc9ba0646564cf86e715b","type":"TRIGGER","name":"TR_ISI_RES_LTE_GEN_LIST_BUI","schemaName":"DIRKSPZM32","sxml":""}

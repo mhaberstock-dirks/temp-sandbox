@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.REPORTS is
+package body REPORTS is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -412,4 +412,4 @@ end REPORTS;
 
 
 
--- sqlcl_snapshot {"hash":"448123b828883e16c1c481a7fb785ded5a3c1095","type":"PACKAGE_BODY","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ac1ae6810055e5d0c93d9a00d7d4f84196af2dea","type":"PACKAGE_BODY","name":"REPORTS","schemaName":"DIRKSPZM32","sxml":""}

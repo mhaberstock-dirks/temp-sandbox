@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.MAN_INSERT_PERS_ZE_R55_2(
+procedure MAN_INSERT_PERS_ZE_R55_2(
   in_pers_nr in number,
   in_schicht_tag in date,
   in_calc_ist_start in date,
@@ -93,4 +93,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"8b143b5987b6839eb61e8e910832b99e43a87acc","type":"PROCEDURE","name":"MAN_INSERT_PERS_ZE_R55_2","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9a549fdab8106cff8a4445bdf24f8b1d5ed7c591","type":"PROCEDURE","name":"MAN_INSERT_PERS_ZE_R55_2","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_TAGESSATZ_BD" 
-  before delete on DIRKSPZM32.pzm_ze_tagessatz
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_TAGESSATZ_BD" 
+  before delete on pzm_ze_tagessatz
   for each row
 declare
   -- local variables here
@@ -16,8 +16,9 @@ begin
      and t.zeaw_datum = :old.ts_datum;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_TAGESSATZ_BD" ENABLE;
+ALTER TRIGGER "TR_TAGESSATZ_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"107d044590335f56b231d0d4467b8e98157bed04","type":"TRIGGER","name":"TR_TAGESSATZ_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3b4ec79723e2a156f6fc9dc4a7ef91ab38da8183","type":"TRIGGER","name":"TR_TAGESSATZ_BD","schemaName":"DIRKSPZM32","sxml":""}

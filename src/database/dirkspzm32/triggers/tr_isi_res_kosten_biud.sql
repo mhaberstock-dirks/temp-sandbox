@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RES_KOSTEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_RES_KOSTEN
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RES_KOSTEN_BIUD" 
+  before insert or update or delete on ISI_RES_KOSTEN
   for each row
 declare
 
@@ -47,8 +47,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RES_KOSTEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_RES_KOSTEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"48f5ae8d077cb41853f104731489a7c9c943c78b","type":"TRIGGER","name":"TR_ISI_RES_KOSTEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a15cbb4c571f8966af4c0c6e4cd5ac3922e1369e","type":"TRIGGER","name":"TR_ISI_RES_KOSTEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

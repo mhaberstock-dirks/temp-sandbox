@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.fls_p_base is
+package body fls_p_base is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -27,4 +27,4 @@ end fls_p_base;
 
 
 
--- sqlcl_snapshot {"hash":"6b8ef86ae1c18825866510f49166e1209f6987ba","type":"PACKAGE_BODY","name":"FLS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"50b383f28778051ccfc7d380f9e26ea3b6318361","type":"PACKAGE_BODY","name":"FLS_P_BASE","schemaName":"DIRKSPZM32","sxml":""}

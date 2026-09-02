@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_USER_BD" 
-  before delete on DIRKSPZM32.isi_user
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_USER_BD" 
+  before delete on isi_user
   FOR each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
 
 end tr_isi_user_bd;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_USER_BD" ENABLE;
+ALTER TRIGGER "TR_ISI_USER_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e06ad38d2fc5b19505749131ddf08d4e9710fe36","type":"TRIGGER","name":"TR_ISI_USER_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e66301239657038e29dd37420e9e7074d7d5431d","type":"TRIGGER","name":"TR_ISI_USER_BD","schemaName":"DIRKSPZM32","sxml":""}

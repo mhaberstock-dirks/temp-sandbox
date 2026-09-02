@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_V_ARB_ZEIT_VERSTOESSE" ("LFDN", "VERSTOSS_ART", "TS_DATUM", "BU_ID", "BU_NAME", "PB_ID", "FIRMA", "MANDANT", "TS_PERS_NR", "TS_DAY_KST_ID", "TS_DAY_WERT_START", "TS_DAY_WERT_ENDE", "T2_TS_DAY_WERT_START", "DAY_ARB_UE_STD", "DAY_RUHE_STD", "LAST_CHANGE_DATE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_ARB_ZEIT_VERSTOESSE" ("LFDN", "VERSTOSS_ART", "TS_DATUM", "BU_ID", "BU_NAME", "PB_ID", "FIRMA", "MANDANT", "TS_PERS_NR", "TS_DAY_KST_ID", "TS_DAY_WERT_START", "TS_DAY_WERT_ENDE", "T2_TS_DAY_WERT_START", "DAY_ARB_UE_STD", "DAY_RUHE_STD", "LAST_CHANGE_DATE") AS 
   select to_char(t.ts_datum, 'yyyymmdd') || t.ts_pers_nr lfdn,
        case when t.ts_day_anw_std - t.ts_day_pause_std > 10
             then 'ARB_ZEIT'
@@ -54,4 +54,4 @@ order by t.ts_day_pb_id,
 ;
 
 
--- sqlcl_snapshot {"hash":"599b57af3ebd8d99017ac922c73b62a4326fe927","type":"VIEW","name":"PZM_V_ARB_ZEIT_VERSTOESSE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4a6c9a3df3de1169a3e230b1ef2ceabc3b538394","type":"VIEW","name":"PZM_V_ARB_ZEIT_VERSTOESSE","schemaName":"DIRKSPZM32","sxml":""}

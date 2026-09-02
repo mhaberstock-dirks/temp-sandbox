@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.isi_index_rebuild(p_Mb_Max in number,p_Mb_Min in number) is
+procedure isi_index_rebuild(p_Mb_Max in number,p_Mb_Min in number) is
 
 
 CURSOR c_Index IS
@@ -100,4 +100,4 @@ end isi_index_rebuild;
 
 
 
--- sqlcl_snapshot {"hash":"1ecc38a9e37abc00d995dcb6f8024781d5f28f81","type":"PROCEDURE","name":"ISI_INDEX_REBUILD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b18ab9d4597b010da9366ad4f477c8a35027d33b","type":"PROCEDURE","name":"ISI_INDEX_REBUILD","schemaName":"DIRKSPZM32","sxml":""}

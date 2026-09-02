@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.isi_adresse_insert(in_sid in isi_sid.sid%type,
+function isi_adresse_insert(in_sid in isi_sid.sid%type,
                                               in_firma_nr    in isi_firma.firma_nr%type,
                                               in_adresse_typ in isi_adressen.adr_art%type,
                                               in_adresse_nr  in isi_adressen.adr_nr%type,
@@ -76,4 +76,4 @@ end isi_adresse_insert;
 
 
 
--- sqlcl_snapshot {"hash":"10df06cd9eda595507a2b95f286d80f1a37e3e8a","type":"FUNCTION","name":"ISI_ADRESSE_INSERT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aca9896d9da77ee5306375c642888dcc15678c6c","type":"FUNCTION","name":"ISI_ADRESSE_INSERT","schemaName":"DIRKSPZM32","sxml":""}

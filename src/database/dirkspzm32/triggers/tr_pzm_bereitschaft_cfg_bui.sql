@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_BEREITSCHAFT_CFG_BUI" 
-  before insert or update on DIRKSPZM32.pzm_bereitschaft_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_BEREITSCHAFT_CFG_BUI" 
+  before insert or update on pzm_bereitschaft_cfg
   for each row
 declare
 begin
@@ -17,8 +17,9 @@ begin
 
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_BEREITSCHAFT_CFG_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_BEREITSCHAFT_CFG_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"ade9420820c4d65235a3effdc2fbe51ad3a79bf9","type":"TRIGGER","name":"TR_PZM_BEREITSCHAFT_CFG_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1618e3c81d35a30e6501aa6ad446feddfb4a4a84","type":"TRIGGER","name":"TR_PZM_BEREITSCHAFT_CFG_BUI","schemaName":"DIRKSPZM32","sxml":""}

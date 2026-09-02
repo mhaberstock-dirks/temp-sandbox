@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_pzm_startup_import is
+package body z_pzm_startup_import is
 
 
 
@@ -13,29 +13,29 @@ package body DIRKSPZM32.z_pzm_startup_import is
   procedure pzm_urlaub_flex_start_import(in_del_kontobuchungen   in varchar2,
                                          in_zk_start             in date) 
                                          is
-    
+
     v_found                          boolean;
-    
+
     v_schichtmodell_day_d_std        number;
     v_zk_std                         number;
     v_zk_std_laenge                  number;
-    
+
     v_konto_type                     pzm_konten.typ%type;
     v_konto_name_kurz                pzm_konten.name_kurz%type;
     v_konto_bh_id                    pzm_konten_bh.konten_bh_id%type;
-    
+
     v_konto                          pzm_konten%rowtype;
     v_pzm_u_f_imp                    z_pzm_pers_urlaub_flexkonto%rowtype;
-    
+
     v_schichtmodell                  pzm_schicht_modelle%rowtype;
-    
+
     CURSOR c_konto is
       select *
         from pzm_konten k
        where k.pers_nr = v_pzm_u_f_imp.pers_nr
          and k.name_kurz = v_konto_name_kurz
          and k.typ = v_konto_type;
-    
+
     CURSOR c_pzm_u_f_imp is
       select *
         from z_pzm_pers_urlaub_flexkonto t;
@@ -44,7 +44,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
     LOOP
       FETCH c_pzm_u_f_imp into v_pzm_u_f_imp;
       EXIT when c_pzm_u_f_imp%notfound;
-      
+
       if pzm_p_base.get_schicht_modell(v_pzm_u_f_imp.pers_nr, v_schichtmodell)
       then
         v_schichtmodell_day_d_std :=  pzm_utils.pzm_get_sm_durch_std_tag(v_schichtmodell.sm_name);
@@ -53,7 +53,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
       then
         v_schichtmodell_day_d_std := 8;
       end if;
-          
+
       if in_del_kontobuchungen = 'T'
       then
         -- Daten gefunden, alle Konten der Personalnummer initialisieren
@@ -74,13 +74,13 @@ package body DIRKSPZM32.z_pzm_startup_import is
       -- Urlaubsstunden eintragen
       v_konto_type := 'ZK';
       v_konto_name_kurz := 'UKS';
-        
+
       begin
         OPEN c_konto;
         FETCH c_konto into v_konto;
         v_found := c_konto%found; 
         CLOSE c_konto;
-          
+
         if v_found
         then
           pzm_kontoverwaltung.zugang_buchen(v_sid.sid,
@@ -103,20 +103,20 @@ package body DIRKSPZM32.z_pzm_startup_import is
         -- zeitkonto initial füllen
         v_konto_type := 'ZK';
         v_konto_name_kurz := 'ZK';
-        
-        
+
+
         OPEN c_konto;
         FETCH c_konto into v_konto;
         v_found := c_konto%found; 
         CLOSE c_konto;
-          
+
         if v_found
         then
           v_zk_std_laenge := length(v_pzm_u_f_imp.zk_flex_std);
           --v_zk_std := to_number(substr(v_pzm_u_f_imp.zk_flex_std, v_zk_std_laenge - 3)) / 100;
           --v_zk_std := v_zk_std + to_number(substr(v_pzm_u_f_imp.zk_flex_std, 1, v_zk_std_laenge -3));
           v_zk_std := to_number(v_pzm_u_f_imp.zk_flex_std);
-            
+
           pzm_kontoverwaltung.zugang_buchen(v_sid.sid,
                                             v_firma,
                                             v_konto.konto_nr,
@@ -140,33 +140,33 @@ package body DIRKSPZM32.z_pzm_startup_import is
                              ||  ' - ' || v_pzm_u_f_imp.pers_name);
       end;
     end LOOP;
-    
+
     CLOSE c_pzm_u_f_imp;
   end;
-  
+
   procedure pzm_sonst_konten_start_import(in_del_kontobuchungen   in varchar2,
                                          in_zk_start             in date) 
                                          is
-    
+
     v_found                          boolean;
-    
+
     v_schichtmodell_day_d_std        number;
     v_zk_std                         number;
     v_zk_std_laenge                  number;
-    
+
     v_konto_type                     pzm_konten.typ%type;
     v_konto_name_kurz                pzm_konten.name_kurz%type;
     v_konto_bh_id                    pzm_konten_bh.konten_bh_id%type;
-    
+
     v_konto                          pzm_konten%rowtype;
     v_pzm_s_k_imp                    z_pzm_pers_sonst_konto%rowtype;
-    
+
     CURSOR c_konto is
       select *
         from pzm_konten k
        where k.pers_nr = v_pzm_s_k_imp.pers_nr
          and k.name_kurz = v_pzm_s_k_imp.konto_kurz_name;
-    
+
     CURSOR c_pzm_s_k_imp is
       select *
         from z_pzm_pers_sonst_konto t;
@@ -175,12 +175,12 @@ package body DIRKSPZM32.z_pzm_startup_import is
     LOOP
       FETCH c_pzm_s_k_imp into v_pzm_s_k_imp;
       EXIT when c_pzm_s_k_imp%notfound;
-      
+
       OPEN c_konto;
       FETCH c_konto into v_konto;
       v_found := c_konto%found; 
       CLOSE c_konto;
-      
+
       if v_found
       then  
         if in_del_kontobuchungen = 'T'
@@ -197,10 +197,10 @@ package body DIRKSPZM32.z_pzm_startup_import is
              and k_bh.konto_nr = v_konto.konto_nr
              and k_bh.zk_start <= in_zk_start;
         end if;  
-        
+
         begin
           v_zk_std := to_number(v_pzm_s_k_imp.konto_saldo);
-              
+
           pzm_kontoverwaltung.zugang_buchen(v_sid.sid,
                                             v_firma,
                                             v_konto.konto_nr,
@@ -233,21 +233,21 @@ package body DIRKSPZM32.z_pzm_startup_import is
     v_stempel_zeiten                    z_pzm_pers_stempelzeiten%rowtype;
     v_pers_nr                           pzm_personal.pers_nr%type;
     v_personal                          pzm_personal%rowtype;
-    
+
     v_res_info                          varchar2(255);
     v_result                            number;
     v_start_date                        date;
     v_ende_date                         date;
     v_aa_id                             number;
     v_tage                              number;
-    
+
     CURSOR c_z_stempel_zeiten_abw is
       select * 
         from z_pzm_pers_stempelzeiten t
        where t.gt_ut is not NULL
          and t.gt_ut != '0'
        order by t.pers_nr, t.kommt;
-    
+
     CURSOR c_z_stempel_zeiten is
       select * 
         from z_pzm_pers_stempelzeiten t
@@ -278,7 +278,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
 
     dbms_output.put_line('gelöscht!');
     v_pers_nr := 0; -- INIT
-    
+
     OPEN c_z_stempel_zeiten_abw;
     LOOP
       FETCH c_z_stempel_zeiten_abw into v_stempel_zeiten;
@@ -338,13 +338,13 @@ package body DIRKSPZM32.z_pzm_startup_import is
         then
           v_aa_id := 2;
         end if;
-        
+
         v_tage := 1;
         if v_stempel_zeiten.gt_ut = 'UH'
         then
           v_tage := 0.5;
         end if; 
-        
+
         if v_aa_id > 0
         then  
           insert into pzm_abwesenheitsmeldungen
@@ -371,7 +371,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
     end LOOP;
     CLOSE c_z_stempel_zeiten_abw;
     dbms_output.put_line('Abwesenheit!');
-    
+
     v_pers_nr := 0; -- INIT
     v_ende_date := NULL;
     OPEN c_z_stempel_zeiten;
@@ -408,7 +408,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
               exit when v_start_date > v_ende_date;
             end loop;
           end if;
-          
+
           v_start_date := trunc(to_date(v_stempel_zeiten.kommt, 'dd.mm.yyyy hh24:mi'));
           --v_ende_date := NULL;
           v_pers_nr := v_stempel_zeiten.pers_nr;
@@ -479,23 +479,23 @@ package body DIRKSPZM32.z_pzm_startup_import is
     dbms_output.put_line('Fertig!');
 
   end;
-  
-  
+
+
   procedure pzm_update_pers_nr is
     --v_found                      Boolean;
     v_pzm_pers_nr                z_pzm_pers_nr_alt_neu%rowtype;
-    
+
     CURSOR c_pzm_pers_nr is
       select t.*
         from z_pzm_pers_nr_alt_neu t;
-        
+
   begin
     isi_disable;
     OPEN c_pzm_pers_nr;
     LOOP
       FETCH c_pzm_pers_nr into v_pzm_pers_nr;
       EXIT when c_pzm_pers_nr%NOTFOUND;
-      
+
       update pzm_personal t
          set t.pers_nr = v_pzm_pers_nr.pers_nr_neu
        where t.pers_nr = v_pzm_pers_nr.pers_nr;
@@ -592,17 +592,17 @@ package body DIRKSPZM32.z_pzm_startup_import is
             is
     --v_found                      Boolean;
     v_pzm_pers_nr_transpponder   z_pzm_pers_nr_transponder%rowtype;
-    
+
     CURSOR c_pzm_pers_nr_transponder is
       select t.*
         from z_pzm_pers_nr_transponder t;
-        
+
   begin
     OPEN c_pzm_pers_nr_transponder;
     LOOP
       FETCH c_pzm_pers_nr_transponder into v_pzm_pers_nr_transpponder;
       EXIT when c_pzm_pers_nr_transponder%NOTFOUND;
-      
+
       update isi_user t
          set t.transponder = lpad(v_pzm_pers_nr_transpponder.pers_transponder, 6, '00')
        where t.pers_nr = v_pzm_pers_nr_transpponder.pers_nr;
@@ -616,24 +616,24 @@ package body DIRKSPZM32.z_pzm_startup_import is
     v_z_pzm_pers_nr              z_pzm_personal_import%rowtype;
     v_personal                   pzm_personal%rowtype;
     v_kst                        isi_kostenstellen%rowtype;
-    
+
     CURSOR c_z_pzm_pers_nr is
       select t.*
         from z_pzm_personal_import t;
-     
+
     CURSOR c_kst is
       select * from isi_kostenstellen t
         where t.kst_nr = v_z_pzm_pers_nr.pers_kst_id;
-    
-        
+
+
   begin
     OPEN c_z_pzm_pers_nr;
     LOOP
       FETCH c_z_pzm_pers_nr into v_z_pzm_pers_nr;
       EXIT when c_z_pzm_pers_nr%NOTFOUND;
-      
+
       dbms_output.put_line(v_z_pzm_pers_nr.pers_nr || ' -> ' || v_z_pzm_pers_nr.pers_nname || ',' || v_z_pzm_pers_nr.pers_vname);
-      
+
       if v_z_pzm_pers_nr.pers_nr = 91784
       then
         v_z_pzm_pers_nr.pers_nr := 91784;
@@ -647,7 +647,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
            and p.pers_vname = v_z_pzm_pers_nr.pers_vname
            and p.pers_pb_id = v_z_pzm_pers_nr.pers_pb_id;
       end if;
-      
+
       if v_z_pzm_pers_nr.pers_nr > 0
       then
         update pzm_personal t
@@ -656,7 +656,7 @@ package body DIRKSPZM32.z_pzm_startup_import is
                t.pers_sm_name = nvl(v_z_pzm_pers_nr.pers_sm_name, t.pers_sm_name),
                t.pers_region_code = nvl(v_z_pzm_pers_nr.pers_region_code, t.pers_region_code)
          where t.pers_nr = v_z_pzm_pers_nr.pers_nr;
-        
+
         OPEN c_kst;
         FETCH c_kst into v_kst;
         if c_kst%notfound
@@ -698,4 +698,4 @@ end z_pzm_startup_import;
 
 
 
--- sqlcl_snapshot {"hash":"006fc394f4eab8976c0cb16992dca249a22b7c09","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c5e62faea80e047825ae8cd50d7e0e997c25d3ce","type":"PACKAGE_BODY","name":"Z_PZM_STARTUP_IMPORT","schemaName":"DIRKSPZM32","sxml":""}

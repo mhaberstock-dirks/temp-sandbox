@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.term_order is
+package term_order is
 
   -- Author  : HJGOEDEKE
   -- Created : 12.02.2009 11:27:22
@@ -20,4 +20,4 @@ end term_order;
 
 
 
--- sqlcl_snapshot {"hash":"83e8f619a27e612d850ee6dc85031d85db74e5c5","type":"PACKAGE_SPEC","name":"TERM_ORDER","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6764dc4c16788521462cd88f444f5428eff47728","type":"PACKAGE_SPEC","name":"TERM_ORDER","schemaName":"DIRKSPZM32","sxml":""}

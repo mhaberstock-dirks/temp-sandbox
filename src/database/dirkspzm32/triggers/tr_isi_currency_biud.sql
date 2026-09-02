@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_CURRENCY_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_CURRENCY
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_CURRENCY_BIUD" 
+  before insert or update or delete on ISI_CURRENCY
   for each row
 declare
 
@@ -64,8 +64,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_CURRENCY_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_CURRENCY_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"811940dabc36ca0a44b5581d071d2eb7469e6174","type":"TRIGGER","name":"TR_ISI_CURRENCY_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aa6ab53bf3a9c1d933a23d695cf27c5ade82cdcb","type":"TRIGGER","name":"TR_ISI_CURRENCY_BIUD","schemaName":"DIRKSPZM32","sxml":""}

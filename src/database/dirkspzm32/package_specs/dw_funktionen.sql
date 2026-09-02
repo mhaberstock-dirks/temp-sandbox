@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.dw_funktionen is
+package dw_funktionen is
 
   -- Author  : HJGOEDEKE
   -- Created : 14.12.2007 16:17:55
@@ -154,4 +154,4 @@ end dw_funktionen;
 
 
 
--- sqlcl_snapshot {"hash":"a01e51aa4d7795091deb8f80734e25cd5a52a780","type":"PACKAGE_SPEC","name":"DW_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a52ff08e156c89a7464e2df75c0e167a1f3479bd","type":"PACKAGE_SPEC","name":"DW_FUNKTIONEN","schemaName":"DIRKSPZM32","sxml":""}

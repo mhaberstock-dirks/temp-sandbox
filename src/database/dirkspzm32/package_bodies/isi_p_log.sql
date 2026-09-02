@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.isi_p_log is
+package body isi_p_log is
   -- Funktions und Prozedur-Deklaration
 
   function get_version return varchar2 is
@@ -273,4 +273,4 @@ end isi_p_log;
 
 
 
--- sqlcl_snapshot {"hash":"1dacf4a4b2937b6bacae72aba304d31d901d58cb","type":"PACKAGE_BODY","name":"ISI_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9386dfe812b98213a479eda2cabcb3a61f5cc4c3","type":"PACKAGE_BODY","name":"ISI_P_LOG","schemaName":"DIRKSPZM32","sxml":""}

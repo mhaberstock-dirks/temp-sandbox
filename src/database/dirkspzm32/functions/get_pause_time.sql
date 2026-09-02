@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_pause_time(p_sa_kurzname in varchar2,
+function get_pause_time(p_sa_kurzname in varchar2,
                                           p_beginn in date,
                                           p_ende in date,
                                           p_pb_id in pzm_produktionsbereiche.pb_id%type
@@ -118,4 +118,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"4b2cd1339c297f3cfef6e6538f1e5eaffb7043f3","type":"FUNCTION","name":"GET_PAUSE_TIME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b44b8f6c760374ba319ec006410f8f285c0b04aa","type":"FUNCTION","name":"GET_PAUSE_TIME","schemaName":"DIRKSPZM32","sxml":""}

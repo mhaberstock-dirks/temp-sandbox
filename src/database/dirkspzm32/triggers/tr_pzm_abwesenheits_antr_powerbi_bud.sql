@@ -1,7 +1,7 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD" 
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD" 
   before update or delete
-  on DIRKSPZM32.pzm_abwesenheits_antr
+  on pzm_abwesenheits_antr
   for each row
 begin
   begin
@@ -18,8 +18,9 @@ begin
   end;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD" ENABLE;
+ALTER TRIGGER "TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"e4882adebee23e5dd88068fcd5bbf795323ff7fc","type":"TRIGGER","name":"TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"b0ce3f0e301f3576b3e7d55f508bb009d3ba5690","type":"TRIGGER","name":"TR_PZM_ABWESENHEITS_ANTR_POWERBI_BUD","schemaName":"DIRKSPZM32","sxml":""}

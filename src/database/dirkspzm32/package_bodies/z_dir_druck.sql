@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_dir_druck is
+package body z_dir_druck is
 
 
   -- Private type declarations
@@ -2455,4 +2455,4 @@ end z_dir_druck;
 
 
 
--- sqlcl_snapshot {"hash":"94a39e58e8781dd9009839c68d7df95d8e531264","type":"PACKAGE_BODY","name":"Z_DIR_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4a73855eae680b80ee6ea63970f6375add3ca4e9","type":"PACKAGE_BODY","name":"Z_DIR_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

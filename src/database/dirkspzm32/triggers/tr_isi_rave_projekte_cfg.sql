@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RAVE_PROJEKTE_CFG" 
-  before insert on DIRKSPZM32.isi_rave_projekte_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RAVE_PROJEKTE_CFG" 
+  before insert on isi_rave_projekte_cfg
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end tr_isi_rave_projekte_cfg;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RAVE_PROJEKTE_CFG" ENABLE;
+ALTER TRIGGER "TR_ISI_RAVE_PROJEKTE_CFG" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"bcb89d0b47619f6a77d018ce68d4314d1892a93e","type":"TRIGGER","name":"TR_ISI_RAVE_PROJEKTE_CFG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1c8f405ac4608e7727e284e8f47b7232e1ed7602","type":"TRIGGER","name":"TR_ISI_RAVE_PROJEKTE_CFG","schemaName":"DIRKSPZM32","sxml":""}

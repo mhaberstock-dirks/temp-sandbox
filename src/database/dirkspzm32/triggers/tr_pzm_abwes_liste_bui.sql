@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PZM_ABWES_LISTE_BUI" 
-  before insert or update on DIRKSPZM32.PZM_ABWES_LISTE
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PZM_ABWES_LISTE_BUI" 
+  before insert or update on PZM_ABWES_LISTE
   for each row
 declare
 begin
@@ -24,8 +24,9 @@ begin
 end;
 
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PZM_ABWES_LISTE_BUI" ENABLE;
+ALTER TRIGGER "TR_PZM_ABWES_LISTE_BUI" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"ae23dd70da3f5ac09a278588ed0eec0c3ba845ca","type":"TRIGGER","name":"TR_PZM_ABWES_LISTE_BUI","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"226a482ae905f17e00433d36aad645b7f550fb4f","type":"TRIGGER","name":"TR_PZM_ABWES_LISTE_BUI","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."Z_V_PD_CHANGES" ("RES_PRUEF_PLAN_DATA_BEZ", "RES_TEILGEWERK", "RES_NAME", "TEXT", "RES_PRUEF_PLAN_DATA_VALUE", "DATEN_FAKTOR", "EINHEIT", "USER_FULL_NAME", "LAST_CHANGE_DATE") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "Z_V_PD_CHANGES" ("RES_PRUEF_PLAN_DATA_BEZ", "RES_TEILGEWERK", "RES_NAME", "TEXT", "RES_PRUEF_PLAN_DATA_VALUE", "DATEN_FAKTOR", "EINHEIT", "USER_FULL_NAME", "LAST_CHANGE_DATE") AS 
   select ppdc.res_pruef_plan_data_bez, ppdc.res_teilgewerk, res.res_name, res.text,/* art.artikel,*/
 /*art.bezeichnung1, */ppd.res_pruef_plan_data_value, ppdc.daten_faktor, ppdc.einheit,
 case
@@ -17,4 +17,4 @@ left join isi_user usr on ppd.last_change_login_id =usr.login_id
 ;
 
 
--- sqlcl_snapshot {"hash":"e471ca8e2706e25b9580ca4239db7714484192ba","type":"VIEW","name":"Z_V_PD_CHANGES","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6c39069e61bc24c8cb7fe748b881de541409f56b","type":"VIEW","name":"Z_V_PD_CHANGES","schemaName":"DIRKSPZM32","sxml":""}

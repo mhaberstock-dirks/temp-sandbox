@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.CHECK_FIELD_NAME (in_Table_Name in user_tables.TABLE_NAME%type,
+function CHECK_FIELD_NAME (in_Table_Name in user_tables.TABLE_NAME%type,
                                              in_Field_Name in varchar2)
                                           return varchar2 is
 
@@ -34,4 +34,4 @@ function DIRKSPZM32.CHECK_FIELD_NAME (in_Table_Name in user_tables.TABLE_NAME%ty
 
 
 
--- sqlcl_snapshot {"hash":"d8b101df3005bd4a596123c789eb99617de93794","type":"FUNCTION","name":"CHECK_FIELD_NAME","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9d7250d65fc77f7dc80497c9b9fb7a9202957630","type":"FUNCTION","name":"CHECK_FIELD_NAME","schemaName":"DIRKSPZM32","sxml":""}

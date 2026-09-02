@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."PZM_ZV_PAYROLLDATA_SU4" ("RFID", "PERSNR", "NAME", "ABTEILUNG", "KOSTENSTELLE", "DATUM", "GEBUCHTE_KOSTENSTELLE", "TYP", "KOMMT", "GEHT", "GEZAEHLT_VON", "GEZAEHLT_BIS", "PAUSE_DAUER_MIN", "IST_ZEIT", "GEBUCHTE_ZEIT", "ABWEICHUNG_MINUTEN", "RESPONSIBLE_NR", "PB_ID", "F_ABT_ID", "SA_KURZNAME", "F_ZE_TREFFER", "TREFFER") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_ZV_PAYROLLDATA_SU4" ("RFID", "PERSNR", "NAME", "ABTEILUNG", "KOSTENSTELLE", "DATUM", "GEBUCHTE_KOSTENSTELLE", "TYP", "KOMMT", "GEHT", "GEZAEHLT_VON", "GEZAEHLT_BIS", "PAUSE_DAUER_MIN", "IST_ZEIT", "GEBUCHTE_ZEIT", "ABWEICHUNG_MINUTEN", "RESPONSIBLE_NR", "PB_ID", "F_ABT_ID", "SA_KURZNAME", "F_ZE_TREFFER", "TREFFER") AS 
   with 
   /**
    * Sub-View nur zur Verwendung in für PZM_ZV_PAYROLLDATA vorgesehen:
@@ -15,7 +15,7 @@
    *       AND (pb_id = :prodbranchid OR :prodbranchid IS NULL)
    *       AND (f_abt_id = :departmentid OR :departmentid IS NULL)      
    */
-   
+
     qb_pa     /******************************************************************************
                * separater query_block für "pzm_v_get_assigned_personal";
                * nötig, damit Oracle-Optimizer den Filter auf Responsible_Nr per "PUSH_PRED"
@@ -107,4 +107,4 @@
          );
 
 
--- sqlcl_snapshot {"hash":"2af55e4e8421daf28ba661342f99eeb53f53bebb","type":"VIEW","name":"PZM_ZV_PAYROLLDATA_SU4","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"353f7fb8979e11eae1be681238e23a8aeb934895","type":"VIEW","name":"PZM_ZV_PAYROLLDATA_SU4","schemaName":"DIRKSPZM32","sxml":""}

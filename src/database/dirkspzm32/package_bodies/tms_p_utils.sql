@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.tms_p_utils is
+package body tms_p_utils is
 
   v_build_number constant number := 1;
   /*
@@ -79,4 +79,4 @@ end tms_p_utils;
 
 
 
--- sqlcl_snapshot {"hash":"61dceb260a1b8e2b73966256823144a4322c0216","type":"PACKAGE_BODY","name":"TMS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9b3b3eec4c24f6f16048e23dcad2629f07d689d9","type":"PACKAGE_BODY","name":"TMS_P_UTILS","schemaName":"DIRKSPZM32","sxml":""}

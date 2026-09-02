@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_MELDUNG_DATEN_BIU" 
-  before insert or update on DIRKSPZM32.meldung_daten
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_MELDUNG_DATEN_BIU" 
+  before insert or update on meldung_daten
   for each row
 declare
   -- local variables here
@@ -11,8 +11,9 @@ begin
   end if;
 end tr_meldung_daten_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_MELDUNG_DATEN_BIU" ENABLE;
+ALTER TRIGGER "TR_MELDUNG_DATEN_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"408b4a1e3dbec4414e8f0dc0f9bc141ca33182ef","type":"TRIGGER","name":"TR_MELDUNG_DATEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"fb3dd34c543aac353af69c1604657f55ca93a429","type":"TRIGGER","name":"TR_MELDUNG_DATEN_BIU","schemaName":"DIRKSPZM32","sxml":""}

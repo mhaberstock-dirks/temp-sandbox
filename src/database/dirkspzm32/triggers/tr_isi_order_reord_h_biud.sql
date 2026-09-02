@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_REORD_H_BIUD" 
-  before insert or update or delete on DIRKSPZM32.ISI_ORDER_REORD_H
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ORDER_REORD_H_BIUD" 
+  before insert or update or delete on ISI_ORDER_REORD_H
   for each row
 declare
 
@@ -46,8 +46,9 @@ exception
 
 end tr_LVS_INVENTUR_JOB_KOPF_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ORDER_REORD_H_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_ORDER_REORD_H_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"edb9ada832d1db9bcda8afa64f44faf8c8ecfa9e","type":"TRIGGER","name":"TR_ISI_ORDER_REORD_H_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4628706fd254be6b13e9722b23b302b1bacea682","type":"TRIGGER","name":"TR_ISI_ORDER_REORD_H_BIUD","schemaName":"DIRKSPZM32","sxml":""}

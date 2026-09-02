@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_PE_DRUCKER_CFG_BUID" 
-  before insert or update or delete on DIRKSPZM32.pe_drucker_cfg
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_PE_DRUCKER_CFG_BUID" 
+  before insert or update or delete on pe_drucker_cfg
   for each row
 declare
   v_res                   isi_resource%rowtype;
@@ -71,8 +71,9 @@ begin
   end if;
 end tr_pe_drucker_cfg_buid;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_PE_DRUCKER_CFG_BUID" ENABLE;
+ALTER TRIGGER "TR_PE_DRUCKER_CFG_BUID" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"4f478e73bab2549c8434391015ca477105b1ebb0","type":"TRIGGER","name":"TR_PE_DRUCKER_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"d923ea3f1371f9a686d9d04bcd7ea5fdac297c4c","type":"TRIGGER","name":"TR_PE_DRUCKER_CFG_BUID","schemaName":"DIRKSPZM32","sxml":""}

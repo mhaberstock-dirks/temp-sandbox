@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_ABT_ID(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_ABT_ID(in_pers_nr in pzm_personal.pers_nr%type
                                         ) return number is
 
   Result number;
@@ -15,4 +15,4 @@ end GET_PERS_ABT_ID;
 
 
 
--- sqlcl_snapshot {"hash":"3622c8220f99b109b2115932e4659da79a74d4ac","type":"FUNCTION","name":"GET_PERS_ABT_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"6931cdf1b3e9d8594f01035f7f6e56ae398ed94c","type":"FUNCTION","name":"GET_PERS_ABT_ID","schemaName":"DIRKSPZM32","sxml":""}

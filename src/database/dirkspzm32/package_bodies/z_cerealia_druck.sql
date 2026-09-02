@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_cerealia_druck is
+package body z_cerealia_druck is
   -- Private type declarations
   --type <TypeName> is <Datatype>;
 
@@ -203,4 +203,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"decf0872781af12a830c2aa1d92a4e85811e757b","type":"PACKAGE_BODY","name":"Z_CEREALIA_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e8fc6928888ade07f080d8d9a3aa234d8965960c","type":"PACKAGE_BODY","name":"Z_CEREALIA_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

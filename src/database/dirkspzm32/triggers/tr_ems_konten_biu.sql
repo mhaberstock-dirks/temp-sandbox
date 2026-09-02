@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_EMS_KONTEN_BIU" 
-  before insert on DIRKSPZM32.ems_konten
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_EMS_KONTEN_BIU" 
+  before insert on ems_konten
   for each row
 declare
   -- local variables here
@@ -14,8 +14,9 @@ begin
   end if;
 end TR_EMS_KONTEN_BIU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_EMS_KONTEN_BIU" ENABLE;
+ALTER TRIGGER "TR_EMS_KONTEN_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"7648b5e1ddb6e9d07c8dfc2310830318b7a60219","type":"TRIGGER","name":"TR_EMS_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9920c6cd554a102a3651f0edc89a4d2d792e829e","type":"TRIGGER","name":"TR_EMS_KONTEN_BIU","schemaName":"DIRKSPZM32","sxml":""}

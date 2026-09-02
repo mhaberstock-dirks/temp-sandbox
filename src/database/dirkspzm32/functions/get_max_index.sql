@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_max_index (in_Table_Name in user_tables.TABLE_NAME%type,
+function get_max_index (in_Table_Name in user_tables.TABLE_NAME%type,
                                           in_Field_Name in varchar2)
                                           return number is
 
@@ -33,4 +33,4 @@ end get_max_index;
 
 
 
--- sqlcl_snapshot {"hash":"13849f54aaca129127c6a8d9b47ec98da7e1140e","type":"FUNCTION","name":"GET_MAX_INDEX","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aab827ac0d189a9c77b11fca26a779ae76152e24","type":"FUNCTION","name":"GET_MAX_INDEX","schemaName":"DIRKSPZM32","sxml":""}

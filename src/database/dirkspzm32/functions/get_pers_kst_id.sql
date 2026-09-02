@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.GET_PERS_KST_ID(in_pers_nr in pzm_personal.pers_nr%type
+function GET_PERS_KST_ID(in_pers_nr in pzm_personal.pers_nr%type
                                         ) return number is
   Result number;
 begin
@@ -19,4 +19,4 @@ end GET_PERS_KST_ID;
 
 
 
--- sqlcl_snapshot {"hash":"89e141f4d9c2c48fa43cf4a9f462ba7b2966067f","type":"FUNCTION","name":"GET_PERS_KST_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e82dc5313f83f46728cc0a3b6d1fd7520712dfef","type":"FUNCTION","name":"GET_PERS_KST_ID","schemaName":"DIRKSPZM32","sxml":""}

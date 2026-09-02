@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.lvs_transport is
+package body lvs_transport is
 
   /*
   __________________________________________________
@@ -5973,4 +5973,4 @@ end lvs_transport;
 
 
 
--- sqlcl_snapshot {"hash":"4072764dec75b72888bbcb9cc32366f507fc8089","type":"PACKAGE_BODY","name":"LVS_TRANSPORT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"7d350eba56519cfc45164ad0bbf5ca004393142b","type":"PACKAGE_BODY","name":"LVS_TRANSPORT","schemaName":"DIRKSPZM32","sxml":""}

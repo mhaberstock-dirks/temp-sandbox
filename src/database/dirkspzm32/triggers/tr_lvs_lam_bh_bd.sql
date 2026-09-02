@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_LVS_LAM_BH_BD" 
-  before delete on DIRKSPZM32.lvs_lam_bh
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_LVS_LAM_BH_BD" 
+  before delete on lvs_lam_bh
   for each row
 begin
   insert into lvs_lam_bh_hist
@@ -40,8 +40,9 @@ begin
                :old.owner_address_id_new);
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_LVS_LAM_BH_BD" ENABLE;
+ALTER TRIGGER "TR_LVS_LAM_BH_BD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"af7fd06b068785b117d5321d9440f1dafd7deea7","type":"TRIGGER","name":"TR_LVS_LAM_BH_BD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1e5f3b6bfddda7dbecd79279a45597434bd2ec4c","type":"TRIGGER","name":"TR_LVS_LAM_BH_BD","schemaName":"DIRKSPZM32","sxml":""}

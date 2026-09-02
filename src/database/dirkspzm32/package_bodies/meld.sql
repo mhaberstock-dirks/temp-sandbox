@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.MELD is
+package body MELD is
 
   procedure c_alle_meldungen_gehen(in_sid in varchar2,
                                    in_firma_nr in number,
@@ -377,4 +377,4 @@ end MELD;
 
 
 
--- sqlcl_snapshot {"hash":"d061e8798d20a29aaf4d11d503a7a0adef98213f","type":"PACKAGE_BODY","name":"MELD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e23924046829f4267d641f4dde8bd7babe12419c","type":"PACKAGE_BODY","name":"MELD","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_LANGUAGE_BIU" 
-  before insert or update on DIRKSPZM32.ISI_LANGUAGE
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_LANGUAGE_BIU" 
+  before insert or update on ISI_LANGUAGE
   for each row
 declare
 
@@ -12,8 +12,9 @@ begin
   end if;
 end;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_LANGUAGE_BIU" ENABLE;
+ALTER TRIGGER "TR_ISI_LANGUAGE_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"f5d9c904e1afe067ac216b4dc06af1128c2ee7f3","type":"TRIGGER","name":"TR_ISI_LANGUAGE_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"09040b560c16a2e8631cbf0ffaf136df9019dbc6","type":"TRIGGER","name":"TR_ISI_LANGUAGE_BIU","schemaName":"DIRKSPZM32","sxml":""}

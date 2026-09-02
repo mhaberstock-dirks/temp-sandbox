@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.z_dir_druck is
+package z_dir_druck is
 
   /*
   __________________________________________________
@@ -59,4 +59,4 @@ end z_dir_druck;
 
 
 
--- sqlcl_snapshot {"hash":"5b1f6704ef131de25b5271d83fd3c6e3f65f7234","type":"PACKAGE_SPEC","name":"Z_DIR_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"0e8766686fe0608936b0e6910643fa0812c8e177","type":"PACKAGE_SPEC","name":"Z_DIR_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

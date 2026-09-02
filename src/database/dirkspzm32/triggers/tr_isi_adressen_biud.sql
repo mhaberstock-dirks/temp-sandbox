@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_ADRESSEN_BIUD" 
-  before insert or update or delete on DIRKSPZM32.isi_adressen
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_ADRESSEN_BIUD" 
+  before insert or update or delete on isi_adressen
   for each row
 declare
   -- local variables here
@@ -99,8 +99,9 @@ exception
 
 end TR_ISI_ADRESSEN_BIUD;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_ADRESSEN_BIUD" ENABLE;
+ALTER TRIGGER "TR_ISI_ADRESSEN_BIUD" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3667a5285f588437c6de8edd730f7299056680aa","type":"TRIGGER","name":"TR_ISI_ADRESSEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"eff385426b6feb961732d23057c35335c2f5c27b","type":"TRIGGER","name":"TR_ISI_ADRESSEN_BIUD","schemaName":"DIRKSPZM32","sxml":""}

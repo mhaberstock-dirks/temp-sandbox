@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.z_oetker_druck is
+package body z_oetker_druck is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -336,4 +336,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"283627950cf231d74b6ba9e846a220d3efad9289","type":"PACKAGE_BODY","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c9d891453c7c7c3e47848cfd3404db18061cb034","type":"PACKAGE_BODY","name":"Z_OETKER_DRUCK","schemaName":"DIRKSPZM32","sxml":""}

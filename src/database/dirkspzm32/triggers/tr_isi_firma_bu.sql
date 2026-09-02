@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_FIRMA_BU" 
-  before update on DIRKSPZM32.isi_firma
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_FIRMA_BU" 
+  before update on isi_firma
   for each row
 declare
   -- local variables here
@@ -12,8 +12,9 @@ begin
   where a.adress_id = :new.adress_id;
 end TR_ISI_FIRMA_BU;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_FIRMA_BU" ENABLE;
+ALTER TRIGGER "TR_ISI_FIRMA_BU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"c997aa05aed0e30c80bd67843fe1e30d6acd49a1","type":"TRIGGER","name":"TR_ISI_FIRMA_BU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"f48b01a49c89dc69c71a50699bd7103b2631c424","type":"TRIGGER","name":"TR_ISI_FIRMA_BU","schemaName":"DIRKSPZM32","sxml":""}

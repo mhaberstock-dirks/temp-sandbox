@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.lvs_p_lte_lhm is
+package lvs_p_lte_lhm is
 
   /*
   __________________________________________________
@@ -219,4 +219,4 @@ end lvs_p_lte_lhm;
 
 
 
--- sqlcl_snapshot {"hash":"5af177416e02f75f27de6ce88db007a7bac86914","type":"PACKAGE_SPEC","name":"LVS_P_LTE_LHM","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"ab8380148c9663510d13d9944b1481531f403879","type":"PACKAGE_SPEC","name":"LVS_P_LTE_LHM","schemaName":"DIRKSPZM32","sxml":""}

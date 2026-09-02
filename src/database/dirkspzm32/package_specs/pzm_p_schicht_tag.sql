@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.PZM_P_SCHICHT_TAG as
+package PZM_P_SCHICHT_TAG as
   -----------------------------------------------------------------------------------------------
   -- Package: pzm_p_schichttag
   -- Zweck:   Zentrale Validierung und Ermittlung von Schichttagsdaten fuer die Zeiterfassung.
@@ -143,4 +143,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"cf2e321e20267cb37afef243094c0454bc6fdfb5","type":"PACKAGE_SPEC","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c8a8c2e70d45b24aa330e32de07deb77b87e3c44","type":"PACKAGE_SPEC","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}

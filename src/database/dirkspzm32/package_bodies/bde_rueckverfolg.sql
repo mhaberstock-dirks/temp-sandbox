@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.bde_rueckverfolg is
+package body bde_rueckverfolg is
 
   -- Private type declarations
   --type <TypeName> is <Datatype>;
@@ -2267,4 +2267,4 @@ end bde_rueckverfolg;
 
 
 
--- sqlcl_snapshot {"hash":"aebafe7ea27441bbc53a62874063286ab0abf42d","type":"PACKAGE_BODY","name":"BDE_RUECKVERFOLG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"a697edffb6742faf8fe5f00a76a6d9f801b69f5f","type":"PACKAGE_BODY","name":"BDE_RUECKVERFOLG","schemaName":"DIRKSPZM32","sxml":""}

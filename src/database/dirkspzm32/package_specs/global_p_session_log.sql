@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.GLOBAL_P_SESSION_LOG is
+package GLOBAL_P_SESSION_LOG is
   -----------------------------------------------------------------------------------------------
   -- Package: global_p_session_log
   -- Zweck:   Generischer Session-basierter Log-Buffer fuer .NET Integration
@@ -96,4 +96,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"060bc5c1f6ff886ac2b0e4a4bc6aff9371f03876","type":"PACKAGE_SPEC","name":"GLOBAL_P_SESSION_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"1f9dfaafba1efec949665c49f4484107ab84b3f7","type":"PACKAGE_SPEC","name":"GLOBAL_P_SESSION_LOG","schemaName":"DIRKSPZM32","sxml":""}

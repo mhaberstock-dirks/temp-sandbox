@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.c is
+package body c is
 
   function get_isi_product_release return varchar2 is
   begin
@@ -261,4 +261,4 @@ end c;
 
 
 
--- sqlcl_snapshot {"hash":"f52945ebf8ac8b81ccf7b9878176891ae4feb133","type":"PACKAGE_BODY","name":"C","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"aa57434ded3f3cf15dc81a67cf822b2325cfeb50","type":"PACKAGE_BODY","name":"C","schemaName":"DIRKSPZM32","sxml":""}

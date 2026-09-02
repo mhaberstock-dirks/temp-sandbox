@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.pzm_c_pd_pers_zeit_gen(in_sid in pzm_ze_pers_kst_monat_ab.sid%type,
+function pzm_c_pd_pers_zeit_gen(in_sid in pzm_ze_pers_kst_monat_ab.sid%type,
                                                 in_firma_nr       in pzm_ze_pers_kst_monat_ab.firma_nr%type,
                                                 in_datum          in pzm_ze_pers_kst_monat_ab.datum%type,
                                                 in_loa            in pzm_ze_pers_kst_monat_ab.lohnart%type
@@ -35,4 +35,4 @@ end pzm_c_pd_pers_zeit_gen;
 
 
 
--- sqlcl_snapshot {"hash":"ef079400cf59e1c401730f507e9cab0c9c1dc08b","type":"FUNCTION","name":"PZM_C_PD_PERS_ZEIT_GEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"339eb0604a02fe562a3e08083ed189990fcc3e67","type":"FUNCTION","name":"PZM_C_PD_PERS_ZEIT_GEN","schemaName":"DIRKSPZM32","sxml":""}

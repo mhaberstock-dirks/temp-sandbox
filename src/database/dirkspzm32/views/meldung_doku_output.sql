@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."MELDUNG_DOKU_OUTPUT" ("NR", "LIEFERANT", "NAME", "DETAILS", "POS_NR") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "MELDUNG_DOKU_OUTPUT" ("NR", "LIEFERANT", "NAME", "DETAILS", "POS_NR") AS 
   select t.nr,
          t.lieferant,
          t.name,
@@ -16,4 +16,4 @@
 ;
 
 
--- sqlcl_snapshot {"hash":"eae38bc6331c42f649d435083ed23761977cfb7c","type":"VIEW","name":"MELDUNG_DOKU_OUTPUT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"8cc60f2847b0724277a68d8d5a0de7c4fa96331e","type":"VIEW","name":"MELDUNG_DOKU_OUTPUT","schemaName":"DIRKSPZM32","sxml":""}

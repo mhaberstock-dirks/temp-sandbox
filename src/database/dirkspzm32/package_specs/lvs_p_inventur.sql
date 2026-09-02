@@ -1,5 +1,5 @@
 create or replace 
-package DIRKSPZM32.LVS_P_INVENTUR is
+package LVS_P_INVENTUR is
 
   /*
   __________________________________________________
@@ -53,4 +53,4 @@ end LVS_P_INVENTUR;
 
 
 
--- sqlcl_snapshot {"hash":"64fce3b6694c224b60c91ffa3f3fba8cc12b8d29","type":"PACKAGE_SPEC","name":"LVS_P_INVENTUR","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"be48a06d11cb048d0de8006b8ccc29d49c43f2fd","type":"PACKAGE_SPEC","name":"LVS_P_INVENTUR","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_scanner_aktiv
+procedure bde_pd_scanner_aktiv
 /*
 Trägt den User mit der Login_ID in dieser Tabelle ein, und wird für die Scanneranmeldung über BDE-Terminal benötigt
 
@@ -60,4 +60,4 @@ end bde_pd_scanner_aktiv;
 
 
 
--- sqlcl_snapshot {"hash":"7f8922d6b621c169412f88920d22ae8df9761e2f","type":"PROCEDURE","name":"BDE_PD_SCANNER_AKTIV","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"9001019d7d8d54c7b6717fcad9e60c9345166cd2","type":"PROCEDURE","name":"BDE_PD_SCANNER_AKTIV","schemaName":"DIRKSPZM32","sxml":""}

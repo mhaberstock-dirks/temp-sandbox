@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.get_charge_next_id(in_sid in isi_sid.sid%type,
+function get_charge_next_id(in_sid in isi_sid.sid%type,
                                               in_lieferanten_id    in lvs_charge.lieferanten_id%type,
                                               in_charge            in lvs_charge.charge_bez%type,
                                               in_artikel_id        in isi_artikel.artikel_id%type,
@@ -93,4 +93,4 @@ end get_charge_next_id;
 
 
 
--- sqlcl_snapshot {"hash":"f0190a636fc1b276036647b7724d51b4b16f4c2f","type":"FUNCTION","name":"GET_CHARGE_NEXT_ID","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"3217e18e3e079d8be2724e07d3a54c0c1684804f","type":"FUNCTION","name":"GET_CHARGE_NEXT_ID","schemaName":"DIRKSPZM32","sxml":""}

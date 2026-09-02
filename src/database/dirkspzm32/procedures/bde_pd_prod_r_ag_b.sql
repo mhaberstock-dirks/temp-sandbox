@@ -1,5 +1,5 @@
 create or replace 
-procedure DIRKSPZM32.bde_pd_prod_r_ag_b
+procedure bde_pd_prod_r_ag_b
 /*
 Meldet eine Auftrag an der Maschine oder an allen Mschinen einer Linie oder Produktionsgruppe zum Rüsten an (Deckel für zur Abwärtskompatiblität). 
 --------------------------------------------------------------------------------------------------------------------
@@ -47,4 +47,4 @@ end bde_pd_prod_r_ag_b;
 
 
 
--- sqlcl_snapshot {"hash":"cdda5c532fc417e940ec44512d36a23b92b91bc8","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_B","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"43196d21c62e79ba76df84a89395bee819f30dd9","type":"PROCEDURE","name":"BDE_PD_PROD_R_AG_B","schemaName":"DIRKSPZM32","sxml":""}

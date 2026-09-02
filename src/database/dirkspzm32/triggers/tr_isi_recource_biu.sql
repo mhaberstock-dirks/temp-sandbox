@@ -1,6 +1,6 @@
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "DIRKSPZM32"."TR_ISI_RECOURCE_BIU" 
-  before insert or update on DIRKSPZM32.isi_resource
+  CREATE OR REPLACE EDITIONABLE TRIGGER "TR_ISI_RECOURCE_BIU" 
+  before insert or update on isi_resource
   for each row
 declare
   -- local variables here
@@ -318,8 +318,9 @@ exception
       end if;
 end tr_isi_recource_biu;
 
+
 /
-ALTER TRIGGER "DIRKSPZM32"."TR_ISI_RECOURCE_BIU" ENABLE;
+ALTER TRIGGER "TR_ISI_RECOURCE_BIU" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"af9f192b5c3a200f4e3f09eedc67b44ad2697736","type":"TRIGGER","name":"TR_ISI_RECOURCE_BIU","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"19d7bbfcd642699de24a3d2a109f87a9b27ba40b","type":"TRIGGER","name":"TR_ISI_RECOURCE_BIU","schemaName":"DIRKSPZM32","sxml":""}

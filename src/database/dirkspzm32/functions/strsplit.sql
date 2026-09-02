@@ -1,5 +1,5 @@
 create or replace 
-function DIRKSPZM32.strsplit(p_list varchar2,
+function strsplit(p_list varchar2,
                                     p_del varchar2 := ';'
                                    ) return split_tbl pipelined is
   l_idx    pls_integer;
@@ -25,4 +25,4 @@ end strsplit;
 
 
 
--- sqlcl_snapshot {"hash":"4c5a3fa8382767f2d699b650a70d7fbeafe91202","type":"FUNCTION","name":"STRSPLIT","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"e12163898af544eb2bb3109883f3949b87171023","type":"FUNCTION","name":"STRSPLIT","schemaName":"DIRKSPZM32","sxml":""}

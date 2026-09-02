@@ -1,5 +1,5 @@
 create or replace 
-package body DIRKSPZM32.LVS_UML is
+package body LVS_UML is
 
   -------------------------------------------------------------------------------------------------------
   -- Standard Fehler Felder für Exception
@@ -731,4 +731,4 @@ end LVS_UML;
 
 
 
--- sqlcl_snapshot {"hash":"a85c5ce9944f43cc905f6b6e5d7069e3662d4ef2","type":"PACKAGE_BODY","name":"LVS_UML","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"26a24ea517e318e24df20c2b3cef24e21b94322f","type":"PACKAGE_BODY","name":"LVS_UML","schemaName":"DIRKSPZM32","sxml":""}

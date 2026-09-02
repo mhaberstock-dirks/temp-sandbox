@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "DIRKSPZM32"."LVS_V_ZUG_VS_AVIS" ("ADR_LIEFER", "NAME_1", "ARTIKEL", "BEZEICHNUNG1", "LIEFERANTEN_NR", "LIEFERANT", "LI_NR", "LI_POS", "MENGE_ZUG", "LTE_ID", "MENGE_AVIS", "BUCH_DATUM", "EINTREFF_DATUM_SOLL", "BUCH_BENUTZER") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "LVS_V_ZUG_VS_AVIS" ("ADR_LIEFER", "NAME_1", "ARTIKEL", "BEZEICHNUNG1", "LIEFERANTEN_NR", "LIEFERANT", "LI_NR", "LI_POS", "MENGE_ZUG", "LTE_ID", "MENGE_AVIS", "BUCH_DATUM", "EINTREFF_DATUM_SOLL", "BUCH_BENUTZER") AS 
   select erg.adr_liefer,
        erg.name_1,
        erg.artikel,
@@ -142,4 +142,4 @@ select adr.adr_liefer,
 ;
 
 
--- sqlcl_snapshot {"hash":"f79d2867a6be36cae5b52392019eaed260e88422","type":"VIEW","name":"LVS_V_ZUG_VS_AVIS","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"02e324c03dc167b3947654f8cc66117f1fc025af","type":"VIEW","name":"LVS_V_ZUG_VS_AVIS","schemaName":"DIRKSPZM32","sxml":""}
