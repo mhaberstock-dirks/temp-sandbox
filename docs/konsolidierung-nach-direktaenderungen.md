@@ -111,17 +111,32 @@ git checkout <feature-branch>
 
 ## Warum so viel Rauschen entsteht
 
-Empirisch bestätigte Ursache: **unterschiedliche Oracle-Datenbank-Versionen** zwischen den Umgebungen (bestätigt z. B. zwischen `<INDIVIDUELLE-ENTWICKLUNGSDATENBANK>` und der Haupt-Entwicklungsdatenbank über `SELECT banner FROM v$version`). `DBMS_METADATA`, worauf `project export` aufbaut, serialisiert Objekte je nach DB-Version teils unterschiedlich – identischer Inhalt, anderer Text. Beobachtete Varianten:
+Zwei unterschiedliche, unabhängig voneinander wirkende Ursachen wurden identifiziert – wichtig, sie nicht zu vermischen, da sie unterschiedlich behebbar sind.
 
-- Groß-/Kleinschreibung und Quoting von Schlüsselwörtern/Bezeichnern (`type ... name` vs. `TYPE ... "NAME"`)
-- Implizite vs. explizite Darstellung von PK-/Unique-Indizes (`USING INDEX ENABLE` vs. eigene `CREATE UNIQUE INDEX`-Anweisung plus benannte `USING INDEX "..."`-Klausel)
-- Unterschiedliches Trailing-Whitespace-Verhalten auf sonst leeren Zeilen
+### Ursache A: `export.format.enable`-Inkonsistenz zwischen Export-Sessions (Konfiguration, behebbar)
+
+`.dbtools/project.sqlformat.xml` legt u. a. `removeDoubleQuotes: true`, `idCase: lower` und `kwCase: lower` fest – das würde Bezeichner unquoten und kleinschreiben. Diese Einstellungen greifen aber nur, wenn `export.format.enable = true` in `project.config.json` steht. Bei uns steht das bewusst auf `false` (siehe Commit *"Export mit Parameter export.format.enable -value false wiederholt"*), um die frühere, noch größere Reformatierungs-Problematik zu vermeiden. `DBMS_METADATA.GET_DDL` quotet Bezeichner ohne diese Formatierungs-Stufe **standardmäßig immer** – unabhängig davon, ob das jeweilige Objekt das nötig hätte. Wurde eine bereits committete Datei ursprünglich mit `format.enable=true` (oder einem anderen Mechanismus) erzeugt, und später mit `format.enable=false` neu exportiert, entsteht ein Diff wie:
+
+```diff
+-type DIRKSPZM32.pzm_gueltig_regel_t as object (
++TYPE DIRKSPZM32."PZM_GUELTIG_REGEL_T" as object (
+```
+
+Das ist also vermutlich **keine** Datenbank-Versionsfrage, sondern eine Frage, ob die Formatierungs-Einstellung zwischen den beteiligten Export-Sessions konsistent war. **Praktische Konsequenz:** Vor jedem Export prüfen, dass `export.format.enable` unverändert `false` ist (bzw. für alle Beteiligten identisch konfiguriert ist) – das ist eine reine Konfigurationsfrage, kein unveränderliches Umgebungsmerkmal.
+
+### Ursache B: unterschiedliche Oracle-Datenbank-Versionen (Umgebung, strukturell)
+
+Empirisch bestätigt (z. B. zwischen `<INDIVIDUELLE-ENTWICKLUNGSDATENBANK>` und der Haupt-Entwicklungsdatenbank über `SELECT banner FROM v$version`) für Fälle, die sich **nicht** über `format.enable` erklären lassen – insbesondere:
+
+- Implizite vs. explizite Darstellung von PK-/Unique-Indizes (`USING INDEX ENABLE` vs. eigene `CREATE UNIQUE INDEX`-Anweisung plus benannte `USING INDEX "..."`-Klausel) – das ist keine Casing-/Quoting-Frage, sondern eine unterschiedliche strukturelle Klassifizierung des Objekts durch `DBMS_METADATA`/SXML, die keiner der `sqlformat.xml`-Optionen zuzuordnen ist.
+
+Möglicherweise (nicht abschließend geklärt) gehört auch das beobachtete Trailing-Whitespace-Verhalten hierher, statt zu Ursache A – nicht sicher unterscheidbar, da eine volle Reformatierung (`format.enable=true`) Whitespace ebenfalls als Nebeneffekt bereinigen würde.
 
 **Ausdrücklich als Ursache ausgeschlossen** (durch gezielte Tests widerlegt, nicht nur vermutet):
 - SQLcl-**Client**-Version – in dem Fall, der zu diesem Befund führte, wurde durchgehend derselbe Extension-Build verwendet.
 - `SQLBLANKLINES`-Einstellung – A/B-Test mit ON/OFF bei identischem Client brachte keinen Unterschied.
 
-Praktische Konsequenz: Bevor man ein Diff-Muster einer bestimmten Ursache zuschreibt, lohnt sich ein kurzer Gegentest (z. B. `SELECT banner FROM v$version` auf beiden Datenbanken vergleichen), statt vorschnell auf Client-Tooling zu schließen.
+**Praktische Konsequenz:** Vor jeder Ursachen-Zuschreibung zuerst Ursache A prüfen (`format.enable`-Konsistenz) – sie ist die wahrscheinlichere und leichter behebbare Erklärung. Erst wenn das ausgeschlossen ist, lohnt sich ein Gegentest auf Datenbank-Version (`SELECT banner FROM v$version` auf beiden Datenbanken vergleichen).
 
 Zur strategischen Einordnung dieses Rauschens (betrifft nicht nur den Ausnahmefall, sondern jeden regulären Datenbank-Abgleich) siehe die [Grundsatzfrage im CI/CD-Vorgehensmodell](ci-cd-vorgehensmodell.md#grundsatzfrage-lohnen-sich-individuelle-entwicklungsdatenbanken-noch).
 
