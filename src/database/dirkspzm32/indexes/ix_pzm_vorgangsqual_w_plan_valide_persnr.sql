@@ -1,0 +1,6 @@
+
+  CREATE INDEX "IX_PZM_VORGANGSQUAL_W_PLAN_VALIDE_PERSNR" ON "PZM_VORGANGSQUAL_W_PLAN_VALIDE" ("W_PLAN_PERS_NR", "W_PLAN_DATUM") 
+  ;
+
+
+-- sqlcl_snapshot {"hash":"ffd8f45397356c8b17c6de1701e487c218bb0888","type":"INDEX","name":"IX_PZM_VORGANGSQUAL_W_PLAN_VALIDE_PERSNR","schemaName":"DIRKSPZM32","sxml":"\n  <INDEX xmlns=\"http://xmlns.oracle.com/ku\" version=\"1.0\">\n   <SCHEMA>DIRKSPZM32</SCHEMA>\n   <NAME>IX_PZM_VORGANGSQUAL_W_PLAN_VALIDE_PERSNR</NAME>\n   <TABLE_INDEX>\n      <ON_TABLE>\n         <SCHEMA>DIRKSPZM32</SCHEMA>\n         <NAME>PZM_VORGANGSQUAL_W_PLAN_VALIDE</NAME>\n      </ON_TABLE>\n      <COL_LIST>\n         <COL_LIST_ITEM>\n            <NAME>W_PLAN_PERS_NR</NAME>\n         </COL_LIST_ITEM>\n         <COL_LIST_ITEM>\n            <NAME>W_PLAN_DATUM</NAME>\n         </COL_LIST_ITEM>\n      </COL_LIST>\n   </TABLE_INDEX>\n</INDEX>"}

@@ -1,5 +1,5 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_ZV_PAYROLLDATA_BASE" ("RESPONSIBLE_NR", "PB_ID", "F_ABT_ID", "NAME", "RFID", "PERSNR", "ABT_ID", "ABT_NAME", "KOSTENSTELLE", "DATUM", "GEBUCHTE_KOSTENSTELLE", "TS_AA_ID", "AA_KURZNAME", "KENNZ_URLAUB", "TS_DAY_ABW_STD", "KOMMT", "GEHT", "GEZAEHLT_VON", "GEZAEHLT_BIS", "ANTEIL_ZEIT", "IST_ZEIT", "GEBUCHTE_ZEIT", "ABWEICHUNG_MINUTEN", "ZE_ANW_STD", "TS_DAY_PAUSE_STD", "ZE_GEZ_KST_STD", "KOMMT_DATUM", "GEHT_DATUM", "GEZ_VON_DATUM", "GEZ_BIS_DATUM", "SA_KURZNAME") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_ZV_PAYROLLDATA_BASE" ("RESPONSIBLE_NR", "PB_ID", "F_ABT_ID", "NAME", "RFID", "PERSNR", "ABT_ID", "ABT_NAME", "KOSTENSTELLE", "DATUM", "GEBUCHTE_KOSTENSTELLE", "TS_AA_ID", "AA_KURZNAME", "KENNZ_URLAUB", "TS_DAY_ABW_STD", "KOMMT", "GEHT", "GEZAEHLT_VON", "GEZAEHLT_BIS", "ANTEIL_ZEIT", "IST_ZEIT", "GEBUCHTE_ZEIT", "ABWEICHUNG_MINUTEN", "ZE_ANW_STD", "TS_DAY_PAUSE_STD", "BLK_IST_START", "BLK_IST_ENDE", "BLK_CALC_IST_START", "BLK_CALC_IST_ENDE", "GDIFF_GES", "SA_KURZNAME") AS 
   WITH
     qb_pa     /******************************************************************************
                * separater query_block für "pzm_v_get_assigned_personal";
@@ -23,39 +23,33 @@
               * sowie Kommt-/Geht-Zeiten pro Tag zur späteren Berechnung gebuchter Zeiten 
               */
     AS
-      (SELECT x.ze_pers_nr
-            , x.ze_schicht_tag
-            , x.ze_kst_id
-            , x.kommt_kst
-            , x.geht_kst
-            , x.gez_von_kst
-            , x.gez_bis_kst
-            , x.ze_std
-            , x.ze_anw_std
-            , x.ze_gez_kst_std
-            , ratio_to_report (x.ze_std) OVER (PARTITION BY x.ze_pers_nr, x.ze_schicht_tag)    AS anteil_zeit
-            , MIN (x.kommt_kst) OVER (PARTITION BY x.ze_pers_nr, x.ze_schicht_tag)             AS kommt_datum
-            , MAX (x.geht_kst) OVER (PARTITION BY x.ze_pers_nr, x.ze_schicht_tag)              AS geht_datum
-            , MIN (x.gez_von_kst) OVER (PARTITION BY x.ze_pers_nr, x.ze_schicht_tag)           AS gez_von_datum
-            , MAX (x.gez_bis_kst) OVER (PARTITION BY x.ze_pers_nr, x.ze_schicht_tag)           AS gez_bis_datum
-         FROM (  SELECT z.ze_pers_nr
-                      , z.ze_schicht_tag
-                      , z.ze_kst_id
-                      , MIN (NVL (z.ze_ist_start, z.ze_calc_ist_start))        AS kommt_kst
-                      , MAX (NVL (z.ze_ist_ende, z.ze_calc_ist_ende))          AS geht_kst
-                      , MIN (z.ze_calc_ist_start)                              AS gez_von_kst
-                      , MAX (z.ze_calc_ist_ende)                               AS gez_bis_kst
-                      , SUM (z.ze_std)                                         AS ze_std
-                      , SUM ((z.ze_calc_ist_ende - z.ze_calc_ist_start) * 24)  AS ze_anw_std
-                      , -- Anwesend je ZE_KST_ID
-                        SUM (
-                            (  (NVL (z.ze_ist_start, z.ze_calc_ist_start) - z.ze_calc_ist_start)
-                             + (z.ze_calc_ist_ende)
-                             - NVL (z.ze_ist_ende, z.ze_calc_ist_ende))
-                          * -24)                                               AS ze_gez_kst_std
-                   FROM pzm_zeiterfassung z
-                  WHERE z.ze_status = 2
-               GROUP BY z.ze_pers_nr, z.ze_schicht_tag, z.ze_kst_id) x),
+      (SELECT ze_pers_nr
+            , ze_schicht_tag
+            , ze_kst_id          
+            , nvl(blk_ist_start, blk_calc_ist_start) as blk_ist_start      
+            , nvl(blk_ist_ende, blk_calc_ist_ende) as blk_ist_ende      
+            , blk_calc_ist_start
+            , blk_calc_ist_ende 
+            , ze_anw_std
+            , ratio_to_report(ze_anw_std) over (partition by ze_pers_nr, ze_schicht_tag) as anteil_zeit
+            , round(((least(nvl(blk_ist_start, blk_calc_ist_start),blk_calc_ist_start)-blk_calc_ist_start)+(blk_calc_ist_ende-greatest(nvl(blk_ist_ende, blk_calc_ist_ende),blk_calc_ist_ende)))*24,3) as gdiff_ges  
+        FROM (select ze_pers_nr, ze_schicht_tag, ze_kst_id, ze_ist_start, ze_ist_ende, ze_calc_ist_start, ze_calc_ist_ende, ze_std, ze_status from pzm_zeiterfassung where ze_status=2)
+       MATCH_RECOGNIZE (
+           PARTITION BY ze_pers_nr, ze_schicht_tag
+           ORDER BY ze_calc_ist_start
+           MEASURES
+               FIRST(strt.ze_ist_start)          AS blk_ist_start,
+               MAX (anw.ze_ist_ende)             AS blk_ist_ende,
+               FIRST(strt.ze_calc_ist_start)     AS blk_calc_ist_start,
+               MAX(anw.ze_calc_ist_ende)        AS blk_calc_ist_ende,
+               FIRST(strt.ze_kst_id)             AS ze_kst_id,
+               SUM(anw.ze_std)                   AS ze_anw_std
+           ONE ROW PER MATCH
+           PATTERN ( strt folge* )
+           SUBSET anw = (strt, folge)
+           DEFINE
+               strt  AS ze_status = 2,
+               folge AS ze_status = 2 AND ze_kst_id = strt.ze_kst_id)),
     qb_ts    /******************************************************************************
               * Berechnung der Tagessatz-Datum je Kostenstelle
               */
@@ -68,42 +62,48 @@
             , NVL (qb_ze.ze_kst_id, t.ts_day_kst_id)                                                               AS gebuchte_kostenstelle
             , t.ts_aa_id    
             , aa.aa_kurzname
-            , aa.kennz_urlaub
+            , upper(aa.kennz_urlaub)                                                                               as kennz_urlaub
             , ts_day_abw_std
-            , TO_CHAR (qb_ze.kommt_kst, 'hh24:mi')                                                                  AS kommt
+            , TO_CHAR (qb_ze.blk_ist_start, 'hh24:mi')                                                             AS kommt
             , CASE
-                WHEN TRUNC (qb_ze.kommt_kst) < TRUNC (qb_ze.geht_kst)
+                WHEN TRUNC (qb_ze.blk_ist_start) < TRUNC (qb_ze.blk_ist_ende)
                 THEN
-                  TO_CHAR (TO_NUMBER (TO_CHAR (qb_ze.geht_kst, 'hh24')) + 24) || TO_CHAR (qb_ze.geht_kst, ':mi')
+                  TO_CHAR (TO_NUMBER (TO_CHAR (qb_ze.blk_ist_ende, 'hh24')) + 24) || TO_CHAR (qb_ze.blk_ist_ende, ':mi')
                 ELSE
-                  TO_CHAR (qb_ze.geht_kst, 'hh24:mi')
+                  TO_CHAR (qb_ze.blk_ist_ende, 'hh24:mi')
               END                                                                                                  AS geht
-            , TO_CHAR (qb_ze.gez_von_kst, 'hh24:mi')                                                                AS gezaehlt_von
+            , TO_CHAR ( NVL(qb_ze.blk_calc_ist_start, t.ts_day_wert_start), 'hh24:mi')                             AS gezaehlt_von
             , CASE
-                WHEN TRUNC (qb_ze.gez_von_kst) < TRUNC (qb_ze.gez_bis_kst)
+                WHEN TRUNC (qb_ze.blk_calc_ist_start) < TRUNC (qb_ze.blk_calc_ist_ende)
                 THEN
-                  TO_CHAR (TO_NUMBER (TO_CHAR (qb_ze.gez_bis_kst, 'hh24')) + 24) || TO_CHAR (qb_ze.gez_bis_kst, ':mi')
+                  TO_CHAR (TO_NUMBER (TO_CHAR (NVL(qb_ze.blk_calc_ist_ende, t.ts_day_wert_ende), 'hh24')) + 24) || 
+                                      TO_CHAR (NVL(qb_ze.blk_calc_ist_ende, t.ts_day_wert_ende), ':mi')
                 ELSE
-                  TO_CHAR (qb_ze.gez_bis_kst, 'hh24:mi')
+                  TO_CHAR (NVL(qb_ze.blk_calc_ist_ende, t.ts_day_wert_ende), 'hh24:mi')
               END                                                                                                  AS gezaehlt_bis
             , qb_ze.anteil_zeit
             , NVL (qb_ze.anteil_zeit, 1) * (t.ts_day_arb_std + t.ts_day_ueb_std + t.ts_day_flex_std)               AS ist_zeit
+            ,  NVL (qb_ze.anteil_zeit, 1)
+--              * qb_ze.gdiff_ges AS gebuchte_zeit
+--              * ((t.ts_day_anw_std - t.ts_day_pause_std) + ((qb_ze.blk_ist_start - qb_ze.blk_calc_ist_start) + (qb_ze.blk_calc_ist_ende -  qb_ze.blk_ist_ende)) * -24)  AS gebuchte_zeit
+              * ((t.ts_day_anw_std - t.ts_day_pause_std) + ((least(qb_ze.blk_ist_start, qb_ze.blk_calc_ist_start) - qb_ze.blk_calc_ist_start) + (qb_ze.blk_calc_ist_ende - greatest(qb_ze.blk_ist_ende, qb_ze.blk_calc_ist_ende))) * -24)  AS gebuchte_zeit
+--              * ((t.ts_day_anw_std - t.ts_day_pause_std) + ((nvl(qb_ze.blk_ist_start,blk_calc_ist_start) - qb_ze.blk_calc_ist_start) + (qb_ze.blk_calc_ist_ende - nvl(qb_ze.blk_ist_ende,blk_calc_ist_ende))) * -24)  AS gebuchte_zeit
             ,   NVL (qb_ze.anteil_zeit, 1)
-              * ((t.ts_day_anw_std - t.ts_day_pause_std) + ((qb_ze.kommt_datum - qb_ze.gez_von_datum) + (qb_ze.gez_bis_datum - qb_ze.geht_datum)) * -24)  AS gebuchte_zeit
-            ,   NVL (qb_ze.anteil_zeit, 1)
-              * (  (  (((qb_ze.kommt_datum - qb_ze.gez_von_datum) + (qb_ze.gez_bis_datum - qb_ze.geht_datum)) * -24) -- Abweichung roh/calc
-                    + ((t.ts_day_anw_std - t.ts_day_pause_std) -- gebucht pro Tag
-                                                               - (t.ts_day_arb_std + t.ts_day_ueb_std + t.ts_day_flex_std) -- Ist_Zeit pro Tag
-                                                                                                                          ) -- Minuten
-                                                                                                                           )
-                 * 60)                                                                                             AS abweichung_minuten
+--              * ( qb_ze.gdiff_ges
+--              * (  (  (((qb_ze.blk_ist_start - qb_ze.blk_calc_ist_start) + (qb_ze.blk_calc_ist_ende - qb_ze.blk_ist_ende)) * -24) -- Abweichung roh/calc
+              * (  (  (((least(qb_ze.blk_ist_start, qb_ze.blk_calc_ist_start) - qb_ze.blk_calc_ist_start) + (qb_ze.blk_calc_ist_ende - greatest(qb_ze.blk_ist_ende, qb_ze.blk_calc_ist_ende))) * -24) -- Abweichung roh/calc
+                + ( (t.ts_day_anw_std - t.ts_day_pause_std) -- gebucht pro Tag
+                  - (t.ts_day_arb_std + t.ts_day_ueb_std + t.ts_day_flex_std) -- Ist_Zeit pro Tag
+                  ) -- Minuten
+                ) * 60                                                                                            ) AS abweichung_minuten
             , qb_ze.ze_anw_std
             , t.ts_day_pause_std
-            , qb_ze.ze_gez_kst_std
-            , qb_ze.kommt_datum
-            , qb_ze.geht_datum
-            , qb_ze.gez_von_datum
-            , qb_ze.gez_bis_datum
+         --   , qb_ze.ze_gez_kst_std
+            , qb_ze.blk_ist_start
+            , qb_ze.blk_ist_ende
+            , qb_ze.blk_calc_ist_start
+            , qb_ze.blk_calc_ist_ende
+            , qb_ze.GDIFF_GES
             , t.ts_sa_kurzname as sa_kurzname
          FROM pzm_ze_tagessatz  t
               JOIN pzm_abteilungen abt ON abt.abt_id = t.ts_day_abt_id
@@ -137,13 +137,14 @@
        , q.ABWEICHUNG_MINUTEN
        , q.ZE_ANW_STD
        , q.TS_DAY_PAUSE_STD
-       , q.ZE_GEZ_KST_STD
-       , q.kommt_datum
-       , q.geht_datum
-       , q.gez_von_datum
-       , q.gez_bis_datum
+--       , q.ZE_GEZ_KST_STD
+       , q.blk_ist_start
+       , q.blk_ist_ende
+       , q.blk_calc_ist_start
+       , q.blk_calc_ist_ende
+       , q.gdiff_ges
        , q.sa_kurzname
     FROM qb_pa JOIN qb_ts q ON q.persnr = qb_pa.pers_nr;
 
 
--- sqlcl_snapshot {"hash":"8ee1a60b6e0233fcad81ef2103f509bfb9c77eec","type":"VIEW","name":"PZM_ZV_PAYROLLDATA_BASE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"818393a82a29c81b0d934c7037ba35c705dc9b04","type":"VIEW","name":"PZM_ZV_PAYROLLDATA_BASE","schemaName":"DIRKSPZM32","sxml":""}
