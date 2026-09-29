@@ -7,16 +7,16 @@ IS
                                        , i_action_type IN z_pzm_stammdaten_to_infor.action_type%TYPE)
   IS
   BEGIN
-    -- ggf. Validierung der Input-Felder: Nur Insert, Update, Delete zulässig
+    -- ggf. Validierung der Input-Felder
     IF i_action_type NOT IN ('I', 'U', 'D')
     THEN
       raise_application_error (err_unknown_action_type
                              , 'Unzulässiger Action_Type-Parameter :''' || i_action_type || '''; zuslässige Werte I, U oder D');
     END IF;
 
-    IF UPPER (trim(i_tabelle)) NOT MEMBER OF c_supported_tables
+    IF UPPER (i_tabelle) NOT IN ('PZM_SCHICHT_MODELLE', 'PZM_TARIFMODELLE')
     THEN
-      raise_application_error (err_unsupported_table, 'Tabelle ''' || i_tabelle || ''' nicht für INFOR vorgesehen');
+      raise_application_error (err_unsupported_table, 'Tabellendaten nicht für INFOR vorgesehen');
     END IF;
 
     -- Schnittstellensatz anlegen
@@ -38,4 +38,4 @@ END z_pzm_infor_sst;
 
 
 
--- sqlcl_snapshot {"hash":"896481fc36442c66fc8ec580c5ae06ddc4a40508","type":"PACKAGE_BODY","name":"Z_PZM_INFOR_SST","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"226d49e08067700f46307143a8135de56475002c","type":"PACKAGE_BODY","name":"Z_PZM_INFOR_SST","schemaName":"DIRKSPZM32","sxml":""}

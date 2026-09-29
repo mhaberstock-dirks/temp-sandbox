@@ -528,7 +528,7 @@ package body PZM_P_SCHICHT_TAG as
 
     v_def_sa_kurzname := pzm_utils.get_standard_schicht_by_pers_nr(in_pers_nr);
     v_SaAnzTage := 0;
-
+    
     LOOP
       EXIT when v_schicht_datum > v_personal.pers_austrittdatum 
             -- or v_schicht_datum >=  trunc(sysdate)
@@ -885,6 +885,10 @@ package body PZM_P_SCHICHT_TAG as
         v_SAEnde := v_SABeginn + v_schichtart.sa_std_pro_tag / 24;
       end if;
     end if;
+    if v_SABeginn = trunc(v_SABeginn) -- ganztagesschicht, dann die ganze Abwesenheit mit Beginn 8:00 Uhr beginnen, wegen nachtschichten etc.
+    then
+      v_SABeginn := v_SABeginn + 8 / 24;
+    end if;
     v_SAEnde := v_SABeginn + v_schichtart.sa_std_pro_tag / 24;
 
     -- 3. Anhand der Schichtmodelle pruefen, ob an diesem Tag gearbeitet werden sollte
@@ -1042,6 +1046,10 @@ package body PZM_P_SCHICHT_TAG as
                   v_SAEnde := v_SABeginn + v_schichtart.sa_std_pro_tag / 24;
                 end if;
               end if;
+              if v_SABeginn = trunc(v_SABeginn) -- ganztagesschicht, dann die ganze Abwesenheit mit Beginn 8:00 Uhr beginnen, wegen nachtschichten etc.
+              then
+                v_SABeginn := v_SABeginn + 8 / 24;
+              end if;
             end if;
           end if;
 
@@ -1112,6 +1120,10 @@ package body PZM_P_SCHICHT_TAG as
               if v_halber_tag_urlaub or v_feiertag.f_sonder_feiertag = 'H' then -- halber feiertag
                 v_SAStdProTag := v_SAStdProTag / 2;
               end if;
+              if v_SABeginn = trunc(v_SABeginn) -- ganztagesschicht, dann die ganze Abwesenheit mit Beginn 8:00 Uhr beginnen, wegen nachtschichten etc.
+              then
+                v_SABeginn := v_SABeginn + 8 / 24;
+              end if;
               v_SAEnde := v_SABeginn + v_SAStdProTag / 24;
             end if;
 
@@ -1137,7 +1149,7 @@ package body PZM_P_SCHICHT_TAG as
                 v_status := pzm_p_zeiterfassung.STATUS_ANWESEND;
                 if v_SABeginn = trunc(v_SABeginn) 
                 then
-                  v_SABeginn := v_SABeginn + 6/24; -- Auf 6 uhr stellen, damit keine Nachtschicht gerechnet wird.
+                  v_SABeginn := v_SABeginn + 8/24; -- Auf 8 uhr stellen, damit keine Nachtschicht gerechnet wird.
                   v_SAEnde := v_SABeginn + (v_SAStdProTag + 0.5) / 24;
                 end if;
                 v_SAStdProTag := v_Schichtmodell.d_arb_std_pro_tag + get_pause_time(v_DaySAKurzname, v_SABeginn, v_SAEnde, v_personal.pers_pb_id);
@@ -1161,7 +1173,8 @@ package body PZM_P_SCHICHT_TAG as
             end if;
           end if;
 
-          if v_status = pzm_p_zeiterfassung.STATUS_ABWESEND then
+          if v_status = pzm_p_zeiterfassung.STATUS_ABWESEND 
+          then
             if pzm_p_base.get_abwesenheitsart(v_abwesenheitsmeldungen.aa_id, v_abwes_art)
             -- -AG- 2026.06.01 - Fehler bei beantragten Abwesebheiten mit Lohnart (Stundenlohn), also eigendlich anwesend
             --                   Bsp Schulungen extern
@@ -1408,7 +1421,7 @@ package body PZM_P_SCHICHT_TAG as
       then
         v_pause_std := in_day_pause_std;  
       end if;
-
+      
       -- 2026-03-17: WKr, ABa - 7,9996666667 auf 3 Stellen gerundet ergibt 8 => keine Fehlzeit!
       -- Deswegen Rundung hier zwingend erforderlich!
       -- (Bugfix: es wurden Fehlzeiten mit 0 Std. generiert)
@@ -1460,4 +1473,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"b652738fa213bca6b33f075792eebcf2a7404f15","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4bcf87f2f276b6ef6c4cb8f3a0c40d28cb962d7a","type":"PACKAGE_BODY","name":"PZM_P_SCHICHT_TAG","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,31 +1,6 @@
 
   CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_ZV_PAYROLLDATA" ("Rfid", "EmployeeId", "Name", "Department", "CostCenter", "PayrollDate", "BilledCostCenter", "Type", "StartTime", "EndTime", "EvaluatedStartTime", "EvaluatedEndTime", "PauseTime", "ActualTime", "BilledTime", "DiffTime", "RESPONSIBLE_NR", "ProdBranchId", "ABT_ID", "ShiftTypeShortname") AS 
-  SELECT
-  /**
-   * View für PresentationLogic "PayrollDataAnalysisReport"
-   * Bei Abfrage ist mindestens ein Filter auf RESPONSIBLE_NR nötig, da andernfalls
-   * ein kartesisches Produkt gebildet wird, das zu gravierenden Ressourcen-Belastungen
-   * des Datenbank-Servers führt! 
-   * Der View benötigt 2 Sub-Views
-   *  - PZM_ZV_PAYROLLDATA_BASE: 
-   *    sammelt Daten aus PZM_ZE_TAGESSATZ und PZM_ZEITERFASSUNG
-   *    Die Ergebnisse werden in 3 verschiedenen Union-Zweigen 
-   *    gefiltert: 
-   *    Zweig 1: Alle Arbeitszeiten je Mitarbeiter und Tag, versehen mit Type='an'
-   *    Zweig 2: Alle Urlaubszeiten an Tagen mit Arbeitszei (halbe Urlaubstage markiert
-   *             mit Type='uh'
-   *    Zweig 3: Alle gebuchten Abwesenheitszeiten, markiert mit verschiedenen 
-   *             "Type"-Werten
-   *  - PZM_ZV_PAYROLLDATA_SU4:
-   *    listet sämtliche vermutlich unvollständig erfassten Arbeitszeiteinträge,
-   *    markiert mit Type='op'.
-   *    Das sind solche in PZM_ZEITERFASSUNG bei denen ze_calc_ist_start und 
-   *    ze_calc_ist_ende nicht gesetzt sind, sowie "Kommt" ohne "Geht"-Einträge
-   *    und "Geht" ohne Kommt"Einträge (soweit sie nicht durch die erste Bedingung 
-   *    schon gefunden werden. Das Ergebnis wird in UNION-Zweig 4 gefiltert.      
-   */
-       ------- Zweig 1 - Anwesenheits-Einträge -------  
-         b.rfid                                                          
+  SELECT b.rfid                                                          
        , b.persnr                                                      
        , b.name
        , b.abt_name                                                    AS abteilung
@@ -45,8 +20,10 @@
        , b.pb_id
        , b.f_abt_id
        , b.sa_kurzname
-    FROM PZM_ZV_PAYROLLDATA_BASE b
-   WHERE b.ist_zeit > 0
+    FROM pzm_zv_payrolldata_base b
+   WHERE b.ist_zeit > 0 
+     AND NOT (    kommt IS NULL                                       -- ausgenommen  bezahlte Abwesenheit
+              AND geht IS NULL) 
   UNION ALL
        ------- Zweig 2 - halbe Urlaubstage -------  
   SELECT b.rfid
@@ -69,14 +46,14 @@
        , b.pb_id
        , b.f_abt_id
        , b.sa_kurzname
-    FROM PZM_ZV_PAYROLLDATA_BASE b
+    FROM pzm_zv_payrolldata_base b
    WHERE b.ist_zeit > 0 AND b.kennz_urlaub = 'T'
   UNION ALL
        ------- Zweig 3 - verschiedene Abwesenheitseinträge  -------  
   SELECT b.rfid
        , b.persnr
        , b.name
-       , b.abt_name  AS abteilung
+       , b.abt_name                 AS abteilung
        , b.kostenstelle
        , b.datum
        , b.gebuchte_kostenstelle
@@ -92,25 +69,28 @@
            WHEN b.ts_aa_id = 5 THEN 'ko'
            WHEN b.ts_aa_id = 2 THEN 'km'
            ELSE '<' || NVL (b.aa_kurzname, TO_CHAR (b.ts_aa_id)) || '>'
-         END         AS typ
-       , NULL        AS kommt
-       , NULL        AS geht
-       , NULL        AS gezaehlt_von
-       , NULL        AS gezaehlt_bis
-       , NULL        AS pause_dauer_min
-       , NULL        AS ist_zeit
-       , NULL        AS gebuchte_zeit
-       , NULL        AS abweichung_minuten
+         END                        AS typ
+       , NULL                       AS kommt
+       , NULL                       AS geht
+       -- , case when nvl(b.ist_zeit,0) >0 then b.gezaehlt_von else null end as gezaehlt_von
+       -- , case when nvl(b.ist_zeit,0) >0 then b.gezaehlt_bis else null end as gezaehlt_bis
+       , NULL                       AS gezaehlt_von
+       , NULL                       AS gezaehlt_bis
+       , NULL                       AS pause_dauer_min
+       , ROUND (b.ist_zeit, 2)      AS ist_zeit
+       , NULL                       AS gebuchte_zeit
+       , NULL                       AS abweichung_minuten
        , b.responsible_nr
        , b.pb_id
        , b.f_abt_id
        , b.sa_kurzname
-    FROM PZM_ZV_PAYROLLDATA_BASE b
-   WHERE b.ist_zeit = 0
-     and b.gezaehlt_von is not null and b.gezaehlt_bis is not null -- die werden im nächsten UNION-Zweig erfasst
+    FROM pzm_zv_payrolldata_base b
+   WHERE (b.ist_zeit = 0
+      OR (b.ist_zeit >0 and b.ts_aa_id is not null and kommt is null and geht is null)) -- bezahlte Abwesenheit
+   --  and b.gezaehlt_von is not null and b.gezaehlt_bis is not null -- die werden im nächsten UNION-Zweig erfasst
   UNION ALL      
        ------- Zweig 4 - Unvollständig erfasste Zeiten  -------  
-  select u4.RFID
+  select u4.rfid
        , u4.persnr
        , u4.name
        , u4.abteilung
@@ -134,4 +114,4 @@
   ORDER BY persnr, datum;
 
 
--- sqlcl_snapshot {"hash":"789000422f2681d018482d873d91f2f098b742d0","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2b7ebcd33a1599404039aefdb8e47c5c36f045e5","type":"VIEW","name":"PZM_ZV_PAYROLLDATA","schemaName":"DIRKSPZM32","sxml":""}

@@ -1,9 +1,9 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_VORGANGSQUAL_PERS_SUCHE" ("DATUM", "ABT_L_PERS_NR", "VORGANGSQUALIFIKATION", "VORGANGSQUALIFIKATION_ABT_ID", "ABT_NAME", "WOCHENTAG", "SCHICHT_NR", "ZEITEN", "PERS_BEDARF", "PERSONAL_PLAN", "GEPL_PERSONAL", "PERS_NR_VORSCHL") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_VORGANGSQUAL_PERS_SUCHE" ("DATUM", "ABT_L_PERS_NR", "VQ_ID", "VQ_ABT_ID", "ABT_NAME", "WOCHENTAG", "SCHICHT_NR", "ZEITEN", "PERS_BEDARF", "PERSONAL_PLAN", "GEPL_PERSONAL", "PERS_NR_VORSCHL") AS 
   select d_list.datum,
        vqb.abt_l_pers_nr,
-       vqb.vorgangsqualifikation,
-       vqb.vorgangsqualifikation_abt_id,
+       vqb.vq_id,
+       vqb.vq_abt_id,
        vqb.abt_name,
        isi_utils.Iso_WeekDay(d_list.datum) wochentag,
        vqb.schicht_nr,
@@ -50,14 +50,14 @@
 
 where 1=1
   and vqb.abt_l_pers_nr = 10211
-  and vqb.vorgangsqualifikation = vqp.plan_vorgangsqualifikation(+)
+  and vqb.vq_id = vqp.plan_vq_id(+)
   and d_list.datum = vqp.plan_datum(+)
   and vqb.schicht_nr = vqp.plan_schicht(+)
   and vqp.pers_nr = p.pers_nr(+)
 group by d_list.datum,
        vqb.abt_l_pers_nr,
-       vqb.vorgangsqualifikation,
-       vqb.vorgangsqualifikation_abt_id,
+       vqb.vq_id,
+       vqb.vq_abt_id,
        vqb.abt_name,
        d_list.datum,
        vqb.schicht_nr,
@@ -69,8 +69,7 @@ group by d_list.datum,
        vqb.pers_bedarf_fr,
        vqb.pers_bedarf_sa,
        vqb.pers_bedarf_so,
-       vqb.pers_nr_vorschl
-;
+       vqb.pers_nr_vorschl;
 
 
--- sqlcl_snapshot {"hash":"113d742e33fd51504525b1618bee3cfb76cb013c","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_SUCHE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"caddb91551a61c5b9572e76cf12646f60bc3062d","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_SUCHE","schemaName":"DIRKSPZM32","sxml":""}

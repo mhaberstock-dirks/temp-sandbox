@@ -304,6 +304,18 @@ package lc is
   
   O_TXT_TRANSP_LTE_CHANGED       constant varchar2(30) := 'O_TXT_TRANSP_LTE_CHANGED';      -- 'Die Transport LTE wurde ersetzt. Bitte Auftrag erneut starten'
   
+  -- PZM Texte fuer ISIPlus 5 -- Diese Referenz ist aktuell nur zum Nachlesen und wird aktiv nicht verwendet.
+  -- Hier sind die Texte in der Tabelle PZM_VORGANGSQUAL_W_PLAN_VAL_REF mit dem Default, falls der key nicht gefunden wird
+  -- Der default jedoch nur ohne Parameter
+  O_TXT_NO_PRES_NR_IN_PLAN       constant varchar2(30) := 'O_TXT_NO_PRES_NR_IN_PLAN';      -- 'Kein Personal geplant'
+  O_TP2_QUAL_ID_ERR              constant varchar2(30) := 'O_TP2_QUAL_ID_ERR';             -- 'PersNr: <%1>, hat die Qualfikation <%2> nicht.'
+  O_TP3_QUAL_ABGELAUFEN          constant varchar2(30) := 'O_TP3_QUAL_ABGELAUFEN';         -- 'PersNr: <%1>, die Qualfikation <%2> ist am <%3> abgelaufen.'
+  O_TP2_ZERT_FEHLT               constant varchar2(30) := 'O_TP2_ZERT_FEHLT';              -- 'PersNr: <%1>, hat die Qualfikation <%2> nicht.'
+  O_TP1_ABW_U                    constant varchar2(30) := 'O_TP1_ABW_U';                   -- 'PersNr: <%1>, ist abwesend (Urlaub) ' 
+  O_TP1_NO_SHIFT                 constant varchar2(30) := 'O_TP1_NO_SHIFT';                -- 'PersNr: <%1>, hat zu diesem Zeitpunkt keine Schicht' 
+  O_TP1_FEIERTAG                 constant varchar2(30) := 'O_TP1_FEIERTAG';                -- 'PersNr: <%1>, hat an diesem Tag einen Feiertag' 
+  O_TP1_IO                       constant varchar2(30) := 'O_TP1_IO';                      -- 'PersNr: <%1>, ist korrekt eingeplant' 
+  
   -- Public function and procedure declarations
   function ec(in_const_name in varchar2) return varchar2;
   function ec_p1(in_const_name in varchar2,
@@ -332,4 +344,4 @@ end lc;
 
 
 
--- sqlcl_snapshot {"hash":"be419d69e1166c6c3ea9a44377ec36b4c62f9ded","type":"PACKAGE_SPEC","name":"LC","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"2dbbb3125915da65367f7c95238ba84c2209824a","type":"PACKAGE_SPEC","name":"LC","schemaName":"DIRKSPZM32","sxml":""}

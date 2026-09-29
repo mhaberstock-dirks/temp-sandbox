@@ -6,19 +6,21 @@
 declare
   -- local variables here
 begin
-  if :new.pers_land != :old.pers_land
-    or :new.pers_region_code != :old.pers_region_code
-    or :new.pers_pb_id != :old.pers_pb_id
-    or :new.pers_abt_id != :old.pers_abt_id
-    or :new.pers_kst_id != :old.pers_kst_id
-    or :new.pers_eintrittsdatum != :old.pers_eintrittsdatum
-    or :new.pers_austrittdatum != :old.pers_austrittdatum
-    or :new.pers_sm_name != :old.pers_sm_name
-    or :new.pers_befristet_bis != :old.pers_befristet_bis
-    or (:new.pers_urlaub_anspr_wert != :old.pers_urlaub_anspr_wert and :new.pers_urlaub_anspr_aa_id = :old.pers_urlaub_anspr_aa_id)
-    or :new.pers_urlaub_anspr_aa_id != :old.pers_urlaub_anspr_aa_id
-    or :new.pers_startdatum != :old.pers_startdatum
-    or :new.tarif_name != :old.tarif_name
+  if   nvl(:new.pers_land              ,'#null#')  != nvl(:old.pers_land, '#null#')
+    or nvl(:new.pers_region_code       , '#null#') != nvl(:old.pers_region_code, '#null#')
+    or nvl(:new.pers_sm_name           , '#null#') != nvl(:old.pers_sm_name, '#null#')
+    or nvl(:new.tarif_name             , '#null#') != nvl(:old.tarif_name, '#null#')
+    or nvl(:new.pers_pb_id             , -1)!= nvl(:old.pers_pb_id  , -1)
+    or nvl(:new.pers_abt_id            , -1)!= nvl(:old.pers_abt_id , -1)
+    or nvl(:new.pers_kst_id            , -1)!= nvl(:old.pers_kst_id , -1)
+    or nvl(:new.pers_urlaub_anspr_aa_id, -1)!= nvl(:old.pers_urlaub_anspr_aa_id, -1)
+    or nvl(:new.pers_eintrittsdatum    , date '0001-01-02')!= nvl(:old.pers_eintrittsdatum, date '0001-01-02')
+    or nvl(:new.pers_austrittdatum     , date '0001-01-02')!= nvl(:old.pers_austrittdatum , date '0001-01-02')
+    or nvl(:new.pers_befristet_bis     , date '0001-01-02')!= nvl(:old.pers_befristet_bis , date '0001-01-02')
+    or nvl(:new.pers_startdatum        , date '0001-01-02')!= nvl(:old.pers_startdatum    , date '0001-01-02')
+    or (   nvl(:new.pers_urlaub_anspr_wert , -1) != nvl(:old.pers_urlaub_anspr_wert,-1) 
+       and nvl(:new.pers_urlaub_anspr_aa_id, -1) = nvl(:old.pers_urlaub_anspr_aa_id, -1)
+       )
     then
       insert into pzm_personal_hist
         (pers_nr, 
@@ -82,10 +84,8 @@ begin
          :new.last_change_login_id);
     end if;
 end TR_PZM_PERSONAL_HIST_TRACK;
-
-
 /
 ALTER TRIGGER "TR_PZM_PERSONAL_HIST_TRACK" ENABLE;
 
 
--- sqlcl_snapshot {"hash":"3cd2325dea62bfe5824ad4d395f89a6f10884455","type":"TRIGGER","name":"TR_PZM_PERSONAL_HIST_TRACK","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"70eda6414638e2f73758a9fc45cb9164e226ce8d","type":"TRIGGER","name":"TR_PZM_PERSONAL_HIST_TRACK","schemaName":"DIRKSPZM32","sxml":""}

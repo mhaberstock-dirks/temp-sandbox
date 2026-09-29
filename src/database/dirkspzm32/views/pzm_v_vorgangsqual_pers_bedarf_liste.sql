@@ -1,11 +1,13 @@
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE" ("ABT_L_PERS_NR", "VQ_ID", "VQ_BEZEICHNUNG", "VQ_ABT_ID", "ABT_NAME", "SCHICHT_NR", "ZEITEN", "PERS_BEDARF_MO", "PERS_BEDARF_DI", "PERS_BEDARF_MI", "PERS_BEDARF_DO", "PERS_BEDARF_FR", "PERS_BEDARF_SA", "PERS_BEDARF_SO", "PERS_NR_VORSCHL") AS 
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE" ("ABT_L_PERS_NR", "VQ_ID", "VQ_BEZEICHNUNG", "VQ_ABT_ID", "ABT_NAME", "SCHICHT_NR", "SCHICHT_VON", "SCHICHT_BIS", "ZEITEN", "PERS_BEDARF_MO", "PERS_BEDARF_DI", "PERS_BEDARF_MI", "PERS_BEDARF_DO", "PERS_BEDARF_FR", "PERS_BEDARF_SA", "PERS_BEDARF_SO", "PERS_NR_VORSCHL") AS 
   select abt_l.abt_l_pers_nr,
        vq.vq_id,
        vq.vq_bezeichnung,
        vq.vq_abt_id,
        abt.abt_name,
        vqb.schicht_nr,
+       vqb.schicht_von,
+       vqb.schicht_bis,
        to_char(vqb.schicht_von, 'hh24:mi') || ' - ' || to_char(vqb.schicht_bis, 'hh24:mi') Zeiten,
        max(vqb.pers_bedarf_mo) pers_bedarf_mo,
        max(vqb.pers_bedarf_di) pers_bedarf_di,
@@ -36,4 +38,4 @@
           vqb.schicht_von;
 
 
--- sqlcl_snapshot {"hash":"b438e14d246d56e9cf5ae212418a3930b5ce8099","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"435349c054c23d2ec8ce8e367516721809fd86c5","type":"VIEW","name":"PZM_V_VORGANGSQUAL_PERS_BEDARF_LISTE","schemaName":"DIRKSPZM32","sxml":""}

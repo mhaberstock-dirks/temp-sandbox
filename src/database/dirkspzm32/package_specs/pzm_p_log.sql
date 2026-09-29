@@ -35,6 +35,7 @@ package PZM_P_LOG is
   CAT_TAGESSATZ     constant varchar2(50 char) := 'Tagessatz';
   CAT_LOHNAUSWERT   constant varchar2(50 char) := 'Lohnauswertung';
   CAT_SYSTEM        constant varchar2(50 char) := 'System';
+  CAT_SCHICHTPLAN   constant varchar2(50 char) := 'Schicht Planung';
 
   -----------------------------------------------------------------------------------------------
   -- Konfiguration
@@ -146,4 +147,4 @@ end;
 
 
 
--- sqlcl_snapshot {"hash":"ccf62ccf7cdc3cc300926e23be1abce25a9f3045","type":"PACKAGE_SPEC","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"4f4d47f89a7b0cb34432da39f0ab3604eb58a104","type":"PACKAGE_SPEC","name":"PZM_P_LOG","schemaName":"DIRKSPZM32","sxml":""}
