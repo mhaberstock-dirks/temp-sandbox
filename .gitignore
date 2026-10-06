@@ -376,3 +376,6 @@ var/*
 
 # Ignore Comments
 *.txt
+
+# tools/anonymize/trigger_aus.sql: Protokoll und Trigger-Zustand je Lauf
+trigger_status_*.sql

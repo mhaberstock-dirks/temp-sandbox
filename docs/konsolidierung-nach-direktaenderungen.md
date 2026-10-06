@@ -194,7 +194,7 @@ Zur strategischen Einordnung dieses Rauschens (betrifft nicht nur den Ausnahmefa
 ### 4. Encoding-Check laufen lassen
 
 ```sql
-@dist/utils/check-encoding.sql DIRKSPZM32
+@tools/check-encoding.sql DIRKSPZM32
 ```
 
 Damit stellst du sicher, dass der Export selbst keine Umlaute verstümmelt hat (unabhängig vom eigentlichen Konsolidierungs-Thema, aber ein guter Zeitpunkt für die Prüfung, da du gerade frisch exportierten Text vor dir hast).

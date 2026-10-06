@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk '{print $1}')",
+      "Bash(awk '{print $2}')",
+      "Bash(awk -F/ '{print $4}')"
+    ],
+    "deny": [
+      "Bash(sql *)",
+      "Bash(sqlcl *)",
+      "Bash(sqlplus *)",
+      "Bash(/mnt/c/*sql*)"
+    ]
+  }
+}
