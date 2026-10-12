@@ -29,14 +29,13 @@
        NULL sap_zuordnung,
        to_char(nvl(ze.ze_ist_start, ze.ze_calc_ist_start), 'HH24:mi') start_zeit,
        to_char(nvl(ze.ze_ist_ende, ze.ze_calc_ist_ende), 'HH24:mi') ende_zeit,
-       case when nvl(ze.last_change_date, ze.created_date)
-               > nvl(ts.last_change_date, ts.created_date)
-             then
-               nvl(ze.last_change_date, ze.created_date)
-             else
-               nvl(ts.last_change_date, ts.created_date)
-             end last_change_date
-
+         case when nvl(ze.last_change_date, ze.created_date)
+                 > nvl(ts.last_change_date, ts.created_date)
+               then
+                 nvl(ze.last_change_date, ze.created_date)
+               else
+                 nvl(ts.last_change_date, ts.created_date)
+               end last_change_date
    from pzm_personal p,
         pzm_zeiterfassung ze,
         pzm_ze_tagessatz ts,
@@ -54,7 +53,7 @@
     and ze.ze_schicht_tag < trunc(sysdate)
     and pb.pb_id(+) = ze.ze_pb_id
     and (ts.ts_day_arb_std + ts.ts_day_ueb_std + ts.ts_day_flex_std) > 0
-    and ze.ze_calc_ist_ende > ze.ze_calc_ist_start
+    and to_date(to_char(ze.ze_calc_ist_ende, 'dd.mm.yyyy hh24:mi'), 'dd.mm.yyyy hh24:mi') > ze.ze_calc_ist_start
     and nvl(ze.ze_aa_status, 0) = 0
 union
 select b.bu_id,
@@ -305,4 +304,4 @@ select b.bu_id,
        aan.au_status;
 
 
--- sqlcl_snapshot {"hash":"9737f1087ee98ddfe79e2793ed5c00ae84402cd7","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}
+-- sqlcl_snapshot {"hash":"c9babbec8229d2949dcdcf71260866b977c352b1","type":"VIEW","name":"Z_PZM_PBI_BUCHUNGSDATEN","schemaName":"DIRKSPZM32","sxml":""}
